@@ -1,25 +1,25 @@
 <h2><strong>Add spot:</strong></h2>
-<table style="height: 123px;" width="190">
+<table style="height: 151px;" width="371">
 <tbody>
 <tr>
-<td style="width: 87px;">Pokemon</td>
-<td style="width: 87px;"><input type="text" /></td>
+<td style="width: 118px;">Pokemon</td>
+<td style="width: 237px;"><input type="text" /></td>
 </tr>
 <tr>
-<td style="width: 87px;">CP</td>
-<td style="width: 87px;"><input type="text" /></td>
+<td style="width: 118px;">CP</td>
+<td style="width: 237px;"><input type="text" /></td>
 </tr>
 <tr>
-<td style="width: 87px;">Time</td>
-<td style="width: 87px;"><input type="text" /></td>
+<td style="width: 118px;">Time</td>
+<td style="width: 237px;"><input maxlength="2" size="2" type="text" />:<input maxlength="2" size="2" type="text" />&nbsp; (HH:MM)</td>
 </tr>
 <tr>
-<td style="width: 87px;">Adress</td>
-<td style="width: 87px;"><input type="text" /></td>
+<td style="width: 118px;">Adress</td>
+<td style="width: 237px;"><input type="text" /></td>
 </tr>
 <tr>
-<td style="width: 87px;">Submit</td>
-<td style="width: 87px;"><input type="submit" value="Add spot" /></td>
+<td style="width: 118px;">Submit</td>
+<td style="width: 237px;"><input type="submit" value="Add spot" /></td>
 </tr>
 </tbody>
 </table>

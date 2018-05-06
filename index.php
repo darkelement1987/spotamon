@@ -1,5 +1,5 @@
 <h2><strong>Add spot:</strong></h2>
-<table style="height: 151px;" width="371">
+<table cellspacing="5" cellpadding="5">
 <tbody>
 <tr>
 <td style="width: 118px;">Pokemon</td>
@@ -24,7 +24,7 @@
 </tbody>
 </table>
 <h2><strong>Spotted Pokemon:</strong></h2>
-<table style="height: 238px;" width="703">
+<table border="0" cellspacing="5" cellpadding="5">
 <tbody>
 <tr>
 <td style="width: 168px;"><strong>Pokemon</strong></td>

@@ -1,3 +1,5 @@
+<?php require 'config.php'; ?>
+
 <h2><strong>Add spot:</strong></h2>
 <table style="width: 430px;" cellspacing="5" cellpadding="5">
 <tbody>

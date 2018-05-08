@@ -1,4 +1,4 @@
-## Spot-a-Mon
+## SPOT-A-MON
 Work in progress!
 
 More to come soon!

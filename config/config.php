@@ -24,6 +24,7 @@ if ($conn->connect_error) {
 $spot = "CREATE TABLE IF NOT EXISTS `spots` (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 pokemon VARCHAR(30) NOT NULL,
+monid INT(3) NOT NULL,
 cp INT(6) NOT NULL,
 hour INT(2) NOT NULL,
 min INT(2) NOT NULL,

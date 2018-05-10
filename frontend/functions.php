@@ -18,7 +18,7 @@ echo "<select name='pokemon'>";
         unset($id, $pokemon);
             $dexentry = $row['dexentry'];
                 $monster= $row['monster']; 
-					echo '<option value="#'.$dexentry.' - '.$monster.'"><img src="../icons/'.$dexentry.'.png" alt="'.$pokemon.'" height="80" width="80"> '.$dexentry.' - '.$monster.'</option>';
+					echo '<option value="#'.$dexentry.' - '.$monster.'">'.$dexentry.' - '.$monster.'</option>';
 						
 }					
 	echo "</select>";
@@ -159,23 +159,23 @@ while($row = mysqli_fetch_array($result)) {
 	if ($clock=="false"){ 
 	
     echo "
-	<tr>
-	<td>".$pokemon."</td>
-	<td>".$cp."</td>
-	<td>".$hour.":".$minutes." ".$ampm."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"> <?php echo "".$address."" ?></a><?php "</td>
-	</tr>
-	";
-	
-	} else {
-		
-	echo "
-	<tr>
-	<td>".$pokemon."</td>
-	<td>".$cp."</td>
-	<td>".$hour."".$minutes."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"> <?php echo "".$address."" ?></a><?php "</td>
-	</tr>";
+    <td><img src="../icons/<? php echo "".$dexentry.""?>".png alt="<?php echo "".$pokemon.""?>" height="80" width="80">"<?php echo "".$pokemon.""?>"</td>.$pokemon."</td>
+    <tr>
+    <td>".$cp."</td>
+    <td>".$hour.":".$minutes." ".$ampm."</td>
+    <td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"> <?php echo "".$address."" ?></a><?php "</td>
+    </tr>
+    ";
+    
+    } else {
+        
+    echo "
+    <tr>
+    <td><img src="../icons/<? php echo "".$dexentry.""?>".png alt="<? php echo "".$pokemon.""?>" height="80" width="80">"<? php echo "".$pokemon.""?>"</td>.$pokemon."</td>
+    <td>".$cp."</td>
+    <td>".$hour."".$minutes."</td>
+    <td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"> <?php echo "".$address."" ?></a><?php "</td>
+    </tr>";
 } }
 
 echo "</table>";

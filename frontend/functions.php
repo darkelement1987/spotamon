@@ -18,7 +18,7 @@ echo "<select name='pokemon'>";
         unset($id, $pokemon);
             $dexentry = $row['dexentry'];
                 $monster= $row['monster']; 
-					echo '<option value="#'.$dexentry.' - '.$monster.'"><img src="../icons/'.monid.'.png" alt="'.$pokemon.'" height="80" width="80"> '.$dexentry.' - '.$monster.'</option>';
+					echo '<option value="#'.$dexentry.' - '.$monster.'"><img src="../icons/'.$monid.'.png" alt="'.$pokemon.'" height="80" width="80"> '.$dexentry.' - '.$monster.'</option>';
 						
 }					
 	echo "</select>";

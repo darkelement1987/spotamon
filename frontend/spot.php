@@ -11,7 +11,7 @@ $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 $address = $_POST['address'];
 
-$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, address) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude','$address')";
+$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, address) VALUES ((SELECT dexentry FROM pokedex WHERE pokemon='$pokemon'),'$cp','$hour','$min','$ampm','$latitude','$longitude','$address')";
 
 if(!mysqli_query($conn,$sql))
 {

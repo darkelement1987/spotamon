@@ -1,6 +1,6 @@
 <?php
 function formsubmission(){
-$pokemon = $cp = $hour = $min = $ampm = $monster = $dexentry = $latitude = $longitude = $address ="";?>
+$pokemon = $monid = $cp = $hour = $min = $ampm = $monster = $dexentry = $latitude = $longitude = $address ="";?>
 <h2 style="text-align:center;"><strong>Add spot:</strong></h2>
 <form id="usersubmit" method="post" action="spot.php">
 <center><table style="width: 20%; height: auto;" cellspacing="5" cellpadding="5">

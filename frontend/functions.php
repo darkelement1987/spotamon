@@ -113,9 +113,9 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "'></input><input name='longitude' value='" + position.coords.longitude + "'></input>";
-	
-	
+    x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "' readonly></input><input name='longitude' value='" + position.coords.longitude + "' readonly></input>";
+
+
 }
 </script>
 

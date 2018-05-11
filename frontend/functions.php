@@ -184,7 +184,7 @@ while($row = mysqli_fetch_array($result)) {
 	echo "
 	<tr>
 	<td style ='width:3%;'>".$pokemon."</td>
-	<td>"?><img style="float:left;" src="icons/<?php echo $pokemon?>.png" height="42" width="42"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="icons/<?php echo $pokemon?>.png" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php "</td>
@@ -217,7 +217,7 @@ while($row = mysqli_fetch_array($result)) {
 	echo "
 	<tr>
 	<td style ='width:3%;'>".$pokemon."</td>
-	<td>"?><img style="float:left;" src="icons/<?php echo $pokemon?>.png" height="42" width="42"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="icons/<?php echo $pokemon?>.png" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php "</td>

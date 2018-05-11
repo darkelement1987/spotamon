@@ -12,6 +12,9 @@ Demo <a href="https://www.tjielup.nl/spotamon/index.php">click here</a>
 - After first load go into your PHPMYADMIN or any mysql tool and import pokemon.csv to table pokedex. (separator , comma only)
 - 12/24 Hour format selection in config
 
+#### Notes
+
+- Scan location is intended for mobile use. Location on PC might be wrong!
 
 #### Todo
 - Add map/custom markers

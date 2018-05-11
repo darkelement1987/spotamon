@@ -1,5 +1,5 @@
 ### SPOTAMON
-Demo <a href="https://www.tjielup.nl/spotamon/index.php">click here</a>
+Demo <a href="http://www.spotamon.com">click here</a>
 
 - Prototype
 - No style yet

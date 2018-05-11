@@ -17,3 +17,5 @@
 - Auto load CSV
 - Store address to db instead of table using cache
 - Make reverse geocoding pull correct address instead of ip-based based locations
+
+![Spotamon](https://github.com/darkelement1987/spotamon/raw/main/spotamon.png)

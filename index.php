@@ -14,5 +14,5 @@ spottedpokemon();
 </body>
 
 <footer>
-<center><p>Page <a href="#"></a> of <a href="#">#</a></p></center>
+
 </footer>

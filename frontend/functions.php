@@ -1,34 +1,39 @@
 <?php
+///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function formsubmission(){
 require('config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude ="";
 ?>
 
+
+
+<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add spot:</strong></h2>
 <form id="usersubmit" method="post" action="spot.php">
 <center><table style="width: 20%; height: auto;" cellspacing="5" cellpadding="5">
 <tbody>
 
+
+<!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;">Pokemon</td>
 <td style="width: 10%;">
-
 <?php
 echo "<select name='pokemon'>";
-    while ($row = $result->fetch_assoc()) {
-        unset($id, $monster);
-            $id = $row['id'];
-                $monster= $row['monster'];
-					echo '<option value="'.$id.'">'.$id.' - '.$monster.'</option>';
-						}					
-							echo "</select>";
-								mysqli_close($conn);
-								
+while ($row = $result->fetch_assoc()) {
+    unset($id, $monster);
+        $id = $row['id'];
+            $monster= $row['monster'];
+				echo '<option value="'.$id.'">'.$id.' - '.$monster.'</option>';
+					}					
+						echo "</select>";
+							mysqli_close($conn);
 ?>
 </td>
 </tr>
 
+<!--///////////////////// Cp enter \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;;">CP</td>
 <td style="width: 10%;">
@@ -36,6 +41,7 @@ echo "<select name='pokemon'>";
 </td>
 </tr>
 
+<!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;;">Time Found</td>
 <td style="width: 10%;">
@@ -87,6 +93,7 @@ echo "<select name='pokemon'>";
 </td>
 </tr>
 
+<!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;">Address or Park</td>
 <td style="width: 10%;">
@@ -106,9 +113,9 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "' readonly></input><input name='longitude' value='" + position.coords.longitude + "' readonly></input>";
-
-
+    x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "'></input><input name='longitude' value='" + position.coords.longitude + "'></input>";
+	
+	
 }
 </script>
 
@@ -116,29 +123,40 @@ function showPosition(position) {
 
 </td>
 </tr>
-
+<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
 <center><td style="width:100%;"><input type="submit" value="SPOT!"/></td></center>
 
 </tbody>
 </table></center>
 </form>
 
-
-
-
-
 <?php } 
+
+///////////////////// SPOTTED MONSTER TABLE \\\\\\\\\\\\\\\\\\\\\
 function spottedpokemon(){
 require('config/config.php');
-$sql = "SELECT * FROM spots,pokedex WHERE spots.pokemon = pokedex.id ORDER BY date DESC";
+$results_per_page = 6;
+
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$start_from = ($page-1) * $results_per_page;
+$sql = "SELECT * FROM spots,pokedex WHERE spots.pokemon = pokedex.id ORDER BY date DESC LIMIT $start_from,".$results_per_page;
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
+
+
+$sqlcnt = "SELECT COUNT(ID) AS total FROM spots"; 
+$resultcnt = $conn->query($sqlcnt);
+$row = $resultcnt->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page);
 ?>
+
 
 <h2 style="text-align:center;"><strong>Spotted Pokemon:</strong></h2>
 <div class="table">
 <center>
 
+<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
+
 echo "<table>";
 echo "<tr><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
@@ -153,19 +171,26 @@ while($row = mysqli_fetch_array($result)) {
 	$minutes = $min;
 	$hr = $hour;
 	
+	
+	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($min < 10) {
     $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);	
 	}
 	
-	if ($clock=="false"){ 
+	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+	if ($clock=="false"){
+		
+	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
 	<td style ='width:3%;'>".$pokemon."</td>
-	<td>"?><img style="float:left;" src="icons/<?php echo $pokemon?>.png" height="42" width="42"><?php echo" ".$id."</td>
+	<td>"?><img style="float:left;" src="icons/<?php echo $pokemon?>.png" height="42" width="42"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php "</td>
 	</tr>";
+	
+	///////////////////// GOOGLE DECODER \\\\\\\\\\\\\\\\\\\\\
 	$url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
 	$json = @file_get_contents($url);
 	$data = json_decode($json);
@@ -179,20 +204,26 @@ while($row = mysqli_fetch_array($result)) {
 		{
 			echo "No Data Found Try Again";
 		}
-	} else {
 		
+	} else {
+	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+
+	///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($hour < 10) {
     $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);	
 	}
-		
+	
+	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
 	<td style ='width:3%;'>".$pokemon."</td>
-	<td>"?><img style="float:left;" src="icons/<?php echo $pokemon?>.png" height="42" width="42"><?php echo" ".$id."</td>
+	<td>"?><img style="float:left;" src="icons/<?php echo $pokemon?>.png" height="42" width="42"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php "</td>
 	</tr>";
+	
+	///////////////////// GOOGLE DECODER \\\\\\\\\\\\\\\\\\\\\
 	$url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
 	$json = @file_get_contents($url);
 	$data = json_decode($json);
@@ -209,5 +240,12 @@ while($row = mysqli_fetch_array($result)) {
 	
 }}
 echo "</table></center></div>";
+?><center><?php
+
+///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
+for ($i=1; $i<=$total_pages; $i++) { 
+    echo "<a href='index.php?page=".$i."'>".$i."</a> "; 
+}; 
+?></center><?php
 }
 ?>

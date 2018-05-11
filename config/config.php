@@ -7,7 +7,7 @@ $password = "";
 $database = "";
 
 //24HR-Clock (default = false = 12HR) 
-$clock = "true";
+$clock = "false";
 
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
 // Create connection

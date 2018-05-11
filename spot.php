@@ -9,8 +9,8 @@ $min = $_POST['min'];
 $ampm = $_POST['ampm'];
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
-$address = $_POST['address'];
-$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, address) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude','$address')";
+
+$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude')";
 if(!mysqli_query($conn,$sql))
 {
 	echo 'Not Inserted';

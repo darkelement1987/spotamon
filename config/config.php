@@ -1,10 +1,10 @@
 <?php
 
 // Connect to Database
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$database = "database";
+$servername = "";
+$username = "";
+$password = "";
+$database = "";
 
 //24HR-Clock (default = false = 12HR) 
 $clock = "false";
@@ -28,7 +28,6 @@ min INT(2) NOT NULL,
 ampm VARCHAR(5) NOT NULL,
 latitude DECIMAL(10,6) NOT NULL,
 longitude DECIMAL(10,6) NOT NULL,
-address VARCHAR(60) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 

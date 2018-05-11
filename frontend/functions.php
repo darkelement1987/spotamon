@@ -2,7 +2,7 @@
 function formsubmission(){
 require('config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
-$id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $address = "";
+$id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude ="";
 ?>
 
 <h2 style="text-align:center;"><strong>Add spot:</strong></h2>
@@ -114,7 +114,6 @@ function showPosition(position) {
 
 <button type="button" onclick="getLocation()">Get Location</button>
 
-<p><input type="text" name="address" value="Enter Address or Park"></p>
 </td>
 </tr>
 
@@ -151,13 +150,11 @@ while($row = mysqli_fetch_array($result)) {
 	$ampm = $row['ampm'];
 	$latitude = $row['latitude'];
 	$longitude = $row['longitude'];
-	$address = $row['address'];
 	$minutes = $min;
 	
 	if ($min < 10) {
     $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);	
 	}
-	
 	
 	if ($clock=="false"){ 
 	echo "
@@ -166,9 +163,21 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left;" src="icons/<?php echo $pokemon?>.png" height="42" width="42"><?php echo" ".$id."</td>
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"> <?php echo "".$address."" ?></a><?php "</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php "</td>
 	</tr>";
-	
+	$url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
+	$json = @file_get_contents($url);
+	$data = json_decode($json);
+	$status = $data->status;
+	$address = '';
+		if($status == "OK")
+		{
+			echo $address = $data->results[0]->formatted_address;?></a><?php
+		}
+		else
+		{
+			echo "No Data Found Try Again";
+		}
 	} else {
 		
 	echo "
@@ -179,4 +188,5 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"> <?php echo "".$address."" ?></a><?php "</td>
 	</tr>";
 }}
-echo "</table></center></div>";}?>
+echo "</table></center></div>";}
+?>

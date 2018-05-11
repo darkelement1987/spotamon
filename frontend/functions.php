@@ -202,7 +202,7 @@ while($row = mysqli_fetch_array($result)) {
 		}
 		else
 		{
-			echo "No Data Found Try Again";
+			echo "Cannot retrieve address";
 		}
 		
 	} else {

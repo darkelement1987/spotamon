@@ -151,6 +151,7 @@ while($row = mysqli_fetch_array($result)) {
 	$latitude = $row['latitude'];
 	$longitude = $row['longitude'];
 	$minutes = $min;
+	$hr = $hour;
 	
 	if ($min < 10) {
     $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);	
@@ -180,13 +181,33 @@ while($row = mysqli_fetch_array($result)) {
 		}
 	} else {
 		
+	if ($hour < 10) {
+    $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);	
+	}
+		
 	echo "
 	<tr>
+	<td style ='width:3%;'>".$pokemon."</td>
 	<td>"?><img style="float:left;" src="icons/<?php echo $pokemon?>.png" height="42" width="42"><?php echo" ".$id."</td>
 	<td>".$cp."</td>
-	<td>".$hour."".$minutes."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"> <?php echo "".$address."" ?></a><?php "</td>
+	<td>".$hr.":".$minutes."</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php "</td>
 	</tr>";
+	$url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
+	$json = @file_get_contents($url);
+	$data = json_decode($json);
+	$status = $data->status;
+	$address = '';
+		if($status == "OK")
+		{
+			echo $address = $data->results[0]->formatted_address;?></a><?php
+		}
+		else
+		{
+			echo "No Data Found Try Again";
+		}
+	
 }}
-echo "</table></center></div>";}
+echo "</table></center></div>";
+}
 ?>

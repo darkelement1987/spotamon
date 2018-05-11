@@ -1,17 +1,16 @@
-<header>
-<link rel="stylesheet" type="text/css" href="style.css">
 <?php
 include 'frontend/functions.php';
 ?>
-</header>
 
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 
 <body>
 <?php 
 formsubmission();
 spottedpokemon();
 ?>
-
 </body>
 
 <footer>

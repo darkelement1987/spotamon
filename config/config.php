@@ -1,13 +1,16 @@
 <?php
 
 // Connect to Database
-$servername = "";
-$username = "";
-$password = "";
-$database = "";
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$database = "database";
 
 //24HR-Clock (default = false = 12HR) 
 $clock = "false";
+
+//Google Maps key
+$gmaps= "key goes here";
 
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
 // Create connection

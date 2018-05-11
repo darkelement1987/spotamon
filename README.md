@@ -21,7 +21,6 @@ Demo <a href="http://www.spotamon.com">click here</a>
 - Add map/custom markers
 - Auto load CSV
 - Store address to db instead of table using cache
-- Make reverse geocoding pull correct address instead of ip-based based locations
 - Make all table content sortable
 - Add feedback/score system to spots. (2+ thumbsdown = remove from table/map)
 - Add locales for frontend

@@ -95,7 +95,7 @@ while ($row = $result->fetch_assoc()) {
 
 <!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;">Address or Park</td>
+<td style="width: 5%;">Location</td>
 <td style="width: 10%;">
 
 <p>Click the button to get your coordinates.</p>

@@ -11,7 +11,7 @@ $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add spot:</strong></h2>
 <form id="usersubmit" method="post" action="spot.php">
-<center><table style="width: 20%; height: auto;" cellspacing="5" cellpadding="5">
+<center><table style="width: 25%; height: auto;" id="t01">
 <tbody>
 
 
@@ -157,7 +157,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table>";
+echo "<table id=\"t02\">";
 echo "<tr><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$id = $row['monster'];

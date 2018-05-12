@@ -138,7 +138,7 @@ function showPosition(position) {
 ///////////////////// SPOTTED MONSTER TABLE \\\\\\\\\\\\\\\\\\\\\
 function spottedpokemon(){
 require('config/config.php');
-$results_per_page = 6;
+$results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $results_per_page;

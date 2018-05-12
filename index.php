@@ -1,5 +1,6 @@
 <?php
 include 'frontend/functions.php';
+include 'config/dbbuilding.php';
 ?>
 
 <head>

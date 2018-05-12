@@ -247,7 +247,7 @@ echo "</table></center></div>";
 
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
 for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<a href='index.php?page=".$i."'>".$i."</a> "; 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
 }; 
 ?></center><?php
 }

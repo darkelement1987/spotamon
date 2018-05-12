@@ -277,7 +277,7 @@ var customLabel = {
 
   function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(43.894363, -78.863201),
+    center: new google.maps.LatLng(<?php echo $mapcenter;?>),
     zoom: 15
   });
   var infoWindow = new google.maps.InfoWindow;

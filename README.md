@@ -22,7 +22,10 @@ Demo <a href="http://www.spotamon.com">click here</a>
 - Add feedback/score system to spots. (2+ thumbsdown = remove from table/map)
 - Add locales for frontend
 - Add raids
+- Add gyms
+- Add quests
 - Auto remove spots from db after 15 mins
+- Add better GUI
 
 
 ![Spotamon](https://github.com/darkelement1987/spotamon/raw/main/spotamon.png)

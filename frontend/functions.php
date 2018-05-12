@@ -292,12 +292,12 @@ var customLabel = {
 
         var infowincontent = document.createElement('div');
         var strong = document.createElement('strong');
-        strong.textContent = pokemon
+        strong.textContent = pokemon + ' (#' + id + ')'
         infowincontent.appendChild(strong);
         infowincontent.appendChild(document.createElement('br'));
 
         var text = document.createElement('text');
-        text.textContent = cp
+        text.textContent = cp + ' CP'
         infowincontent.appendChild(text);
         var icon = customLabel[type] || {};
         var image = {

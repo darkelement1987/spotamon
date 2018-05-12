@@ -1,6 +1,6 @@
 <?php
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
-function formsubmission(){
+function pokesubmission(){
 require('config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude ="";

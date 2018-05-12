@@ -11,6 +11,7 @@ include 'config/dbbuilding.php';
 </head>
 <body>
 <div class="topnav" id="myTopnav">
+<div class="logo"><img src="header.png"></div>
   <div class="dropdown">
     <button class="dropbtn">Add spots 
       <i class="fa fa-caret-down"></i>

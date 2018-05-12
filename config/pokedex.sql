@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Dumping data for table `pokedex`
 --
 
-INSERT IF NOT EXISTS INTO `pokedex` (`id`, `monster`) VALUES
+INSERT IGNORE INTO `pokedex` (`id`, `monster`) VALUES
 (1, 'Bulbasaur'),
 (2, 'Ivysaur'),
 (3, 'Venusaur'),

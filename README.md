@@ -17,6 +17,7 @@ Demo <a href="http://www.spotamon.com">click here</a>
 
 
 #### Todo
+- Add login/registration
 - Store address to db instead of table using cache
 - Make all table content sortable on frontend
 - Add feedback/score system to spots. (2+ thumbsdown = remove from table/map)

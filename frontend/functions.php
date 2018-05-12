@@ -305,10 +305,16 @@ var customLabel = {
         text.textContent = cp
         infowincontent.appendChild(text);
         var icon = customLabel[type] || {};
+        var image = {
+            url: 'icons/' + id + '.png',
+            scaledSize: new google.maps.Size(32, 32)
+        };
+		
         var marker = new google.maps.Marker({
           map: map,
           position: point,
-          label: icon.label
+          label: icon.label,
+          icon: image
         });
         marker.addListener('click', function() {
           infoWindow.setContent(infowincontent);

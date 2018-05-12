@@ -247,7 +247,7 @@ echo "</table></center></div>";
 
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
 for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<a href='index.php?page=".$i."'>".$i."</a> "; 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
 }; 
 ?></center><?php
 }
@@ -255,16 +255,6 @@ for ($i=1; $i<=$total_pages; $i++) {
 function maps(){
 	require('config/config.php');
 ?>
-<style>
-#map {
-    height: 100%;
-    }
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    }
-</style>
 
 <div id="map"></div>
 
@@ -279,7 +269,11 @@ var customLabel = {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: new google.maps.LatLng(<?php echo $mapcenter;?>),
     zoom: 15,
-    gestureHandling: 'greedy'
+    gestureHandling: 'greedy',
+    fullscreenControl: true,
+    streetViewControl: false,
+    mapTypeControl: false,
+    clickableIcons: false
   });
   var infoWindow = new google.maps.InfoWindow;
 
@@ -298,12 +292,12 @@ var customLabel = {
 
         var infowincontent = document.createElement('div');
         var strong = document.createElement('strong');
-        strong.textContent = pokemon
+        strong.textContent = pokemon + ' (#' + id + ')'
         infowincontent.appendChild(strong);
         infowincontent.appendChild(document.createElement('br'));
 
         var text = document.createElement('text');
-        text.textContent = cp
+        text.textContent = cp + ' CP'
         infowincontent.appendChild(text);
         var icon = customLabel[type] || {};
         var image = {

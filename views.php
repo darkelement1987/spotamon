@@ -17,7 +17,7 @@ include 'config/dbbuilding.php';
 </div>
 <div>
 <?php 
-formsubmission();
+spottedpokemon();
 ?>
 </div>
 </body>

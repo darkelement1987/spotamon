@@ -6,6 +6,12 @@ $username = "username";
 $password = "password";
 $database = "database";
 
+// Set maps default location example: 
+// Example:
+// $mapcenter = "51.9720526, 6.7202572";
+
+$mapcenter = "";
+
 //24HR-Clock (default = false = 12HR) 
 $clock = "false";
 

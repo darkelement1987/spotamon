@@ -6,10 +6,6 @@ $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude ="";
 ?>
 
-<!--///////////////////// SHOW LOGO \\\\\\\\\\\\\\\\\\\\\-->
-<center>
-<img src="logo.png" style="max-width: 75%"><br>
-</center>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>

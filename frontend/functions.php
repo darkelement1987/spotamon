@@ -255,16 +255,6 @@ for ($i=1; $i<=$total_pages; $i++) {
 function maps(){
 	require('config/config.php');
 ?>
-<style>
-#map {
-    height: 100%;
-    }
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    }
-</style>
 
 <div id="map"></div>
 
@@ -279,7 +269,11 @@ var customLabel = {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: new google.maps.LatLng(<?php echo $mapcenter;?>),
     zoom: 15,
-    gestureHandling: 'greedy'
+    gestureHandling: 'greedy',
+    fullscreenControl: true,
+    streetViewControl: false,
+    mapTypeControl: false,
+    clickableIcons: false
   });
   var infoWindow = new google.maps.InfoWindow;
 

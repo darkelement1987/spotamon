@@ -8,13 +8,6 @@ include 'config/dbbuilding.php';
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-<style>
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    }
-</style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">

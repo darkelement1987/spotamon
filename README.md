@@ -1,23 +1,37 @@
-### SPOTAMON
+### SPOTAMON - Crowdsourced Pokemon Go map.
 
-Crowdsourced Pokemon Go map.
-
-Demo <a href="http://www.spotamon.com">click here</a>
-
-- Prototype
-- No style yet
-- Help wanted
-
+#### Demo
+Demo map <a href="http://www.spotamon.com">here</a>
 
 #### Install
 - Create Database,
 - Connect to DB in config and load site, on first load it will auto create tables. 
-- 12/24 Hour format selection in config
 
+#### Configuration
+
+`config.php`
+```php
+// Connect to Database
+$servername = "";
+$username = "";
+$password = "";
+$database = "";
+
+// Set maps default location example: 
+// Example:
+// $mapcenter = "51.9720526, 6.7202572";
+
+$mapcenter = "";
+
+//24HR-Clock (default = false = 12HR) 
+$clock = "";
+
+//Google Maps key
+$gmaps= "";
+```
 
 #### Notes
 - Scan location is intended for mobile use. Location on PC might be wrong!
-
 
 #### Todo
 - Add login/registration
@@ -30,6 +44,3 @@ Demo <a href="http://www.spotamon.com">click here</a>
 - Add quests
 - Auto remove spots from db after 15 mins
 - Add better GUI / responsive (mobile) design
-
-
-![Spotamon](https://github.com/darkelement1987/spotamon/raw/main/spotamon.png)

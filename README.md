@@ -26,7 +26,7 @@ Demo <a href="http://www.spotamon.com">click here</a>
 - Add gyms
 - Add quests
 - Auto remove spots from db after 15 mins
-- Add better GUI
+- Add better GUI / responsive (mobile) design
 
 
 ![Spotamon](https://github.com/darkelement1987/spotamon/raw/main/spotamon.png)

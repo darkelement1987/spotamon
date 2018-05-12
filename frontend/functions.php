@@ -307,7 +307,7 @@ var customLabel = {
         var icon = customLabel[type] || {};
         var image = {
             url: 'icons/' + id + '.png',
-            scaledSize: new google.maps.Size(25, 25)
+            scaledSize: new google.maps.Size(32, 32)
         };
 		
         var marker = new google.maps.Marker({

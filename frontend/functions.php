@@ -1,6 +1,6 @@
 <?php
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
-function formsubmission(){
+function pokesubmission(){
 require('config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude ="";
@@ -12,7 +12,7 @@ $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude 
 </center>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Add spot:</strong></h2>
+<h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
 <form id="usersubmit" method="post" action="spot.php">
 <center><table style="width: 25%; height: auto;" id="t01">
 <tbody>

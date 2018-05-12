@@ -39,7 +39,7 @@ include 'config/dbbuilding.php';
 </div>
 <div>
 <?php 
-pokesubmission();
+spottedpokemon();
 ?>
 </div>
 </body>

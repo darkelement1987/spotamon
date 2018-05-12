@@ -11,8 +11,30 @@ include 'config/dbbuilding.php';
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-  <a href="index.php">Add Spot</a>
-  <a href="views.php">View Spots</a>
+  <div class="dropdown">
+    <button class="dropbtn">Add spots 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+    <a href="index.php">Pokemon</a>
+    <a href="#">Raid</a>
+    <a href="#">Gym</a>
+    <a href="#">Stop</a>
+    <a href="#">Quest</a>
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn">Spots 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+    <a href="pokemon.php">Pokemon</a>
+    <a href="#">Raid</a>
+    <a href="#">Gym</a>
+    <a href="#">Stop</a>
+    <a href="#">Quest</a>
+    </div>
+  </div> 
   <a href="map.php">Map</a>
 </div>
 <div>

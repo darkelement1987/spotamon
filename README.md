@@ -1,4 +1,7 @@
 ### SPOTAMON
+
+Crowdsourced Pokemon Go map.
+
 Demo <a href="http://www.spotamon.com">click here</a>
 
 - Prototype

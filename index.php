@@ -20,7 +20,7 @@ include 'config/dbbuilding.php';
     <a href="#">Raid</a>
     <a href="#">Gym</a>
     <a href="#">Stop</a>
-    <a href="#">Raid</a>
+    <a href="#">Quest</a>
     </div>
   </div> 
   <div class="dropdown">
@@ -32,7 +32,7 @@ include 'config/dbbuilding.php';
     <a href="#">Raid</a>
     <a href="#">Gym</a>
     <a href="#">Stop</a>
-    <a href="#">Raid</a>
+    <a href="#">Quest</a>
     </div>
   </div> 
   <a href="map.php">Map</a>

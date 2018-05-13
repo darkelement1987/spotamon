@@ -19,7 +19,7 @@ $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude 
 <td style="width: 5%;">Pokemon</td>
 <td style="width: 10%;">
 <?php
-echo "<select name='pokemon'>";
+echo "<select id='pokesearch' name='pokemon'>";
 while ($row = $result->fetch_assoc()) {
     unset($id, $monster);
         $id = $row['id'];
@@ -642,19 +642,3 @@ for ($i=1; $i<=$total_pages; $i++) {
 ?></center><?php
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

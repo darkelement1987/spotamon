@@ -19,7 +19,7 @@ h2 {
 }
 
 td {
-    text-align: center;
+    text-align: left;
     vertical-align: middle;
     font-family: tahoma;
 	font-size:14px;
@@ -29,7 +29,7 @@ table {
     table-layout: auto;
     
     margin-left:0%;
-    text-align:center;
+    text-align:left;
     width:50%;
     vertical-align:middle
 }
@@ -37,7 +37,7 @@ table, th, td {
     font-family: tahoma;
     border: 1px solid black;
     border-collapse: collapse;
-    text-align:center;
+    text-align:left;
     vertical-align:middle
 }
 th, td {
@@ -100,7 +100,7 @@ table#t02 th
 	}
 	table#t02, td{
 		padding: 1px 5px 1px 5px;
-		text-align: center; 
+		text-align: left; 
 		vertical-align: middle;
 		width:auto;
 	}
@@ -109,7 +109,7 @@ table#t02 th
 	}
 	table#t02 th, td {
     padding: 3px;
-    text-align: center;
+    text-align: left;
     font-family: tahoma;
 	font-size:12px;
 	}

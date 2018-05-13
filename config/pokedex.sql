@@ -415,26 +415,26 @@ INSERT IGNORE INTO `pokedex` (`id`, `monster`) VALUES
 (386, 'Deoxys');
 COMMIT;
 
-INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rboss`) VALUES
-(129, 1165, 'Magikarp'),
-(320, 3369, 'Wailmer	'),
-(333, 2766, 'Swablu	'),
-(361, 2825, 'Snorunt'),
-(103, 12633, 'Exeggutor'),
-(302, 8266, 'Sableye	'),
-(303, 9403, 'Mawile'),
-(256, 8610, 'Combusken	'),
-(57, 11876, 'Primeape'),
-(68, 18144, 'Machamp		'),
-(286, 18174, 'Breloom	'),
-(107, 17164, 'Hitmonchan	'),
-(106, 19679, 'Hitmonlee	'),
-(248, 34707, 'Tyranitar	'),
-(62, 24247, 'Poliwrath	'),
-(359, 26262, 'Absol	'),
-(306, 33458, 'Aggron	'),
-(380, 45704, 'Latias'),
-(381, 45704, 'Latios');
+INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rlvl`, `rboss`) VALUES
+(129, 1165, 1, 'Magikarp'),
+(320, 3369, 1, 'Wailmer	'),
+(333, 2766, 1, 'Swablu	'),
+(361, 2825, 1, 'Snorunt'),
+(103, 12633, 2, 'Exeggutor'),
+(302, 8266, 2, 'Sableye	'),
+(303, 9403, 2, 'Mawile'),
+(256, 8610, 2, 'Combusken	'),
+(57, 11876, 2, 'Primeape'),
+(68, 18144, 3, 'Machamp		'),
+(286, 18174, 4, 'Breloom	'),
+(107, 17164, 4, 'Hitmonchan	'),
+(106, 19679, 4, 'Hitmonlee	'),
+(248, 34707, 4, 'Tyranitar	'),
+(62, 24247, 4, 'Poliwrath	'),
+(359, 26262, 4, 'Absol	'),
+(306, 33458, 4, 'Aggron	'),
+(380, 45704, 5, 'Latias'),
+(381, 45704, 5, 'Latios');
 COMMIT;
 
 

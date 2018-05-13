@@ -9,7 +9,7 @@ $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
-$query = "SELECT * FROM spots,pokedex WHERE 1 AND spots.pokemon = pokedex.id";
+$query = "SELECT * FROM spotraid,raidbosses WHERE 1 AND spotraid.rboss = raidbosses.rid";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
 
@@ -23,15 +23,16 @@ $ind=0;
 while ($row = @mysqli_fetch_assoc($result)){
   // Add to XML document node
   echo '<marker ';
-  echo 'id="' . $row['pokemon'] . '" ';
-  echo 'pokemon="' . parseToXML($row['monster']) . '" ';
-  echo 'cp="' . parseToXML($row['cp']) . '" ';
-  echo 'hour="' . parseToXML($row['hour']) . '" ';
-  echo 'min="' . parseToXML($row['min']) . '" ';
-  echo 'ampm="' . parseToXML($row['ampm']) . '" ';
-  echo 'latitude="' . $row['latitude'] . '" ';
-  echo 'longitude="' . $row['longitude'] . '" ';
-  echo 'type="' . $row['pokemon'] . '" ';
+  echo 'rid="' . $row['rid'] . '" ';
+  echo 'rboss="' . parseToXML($row['rboss']) . '" ';
+  echo 'rlvl="' . parseToXML($row['rlvl']) . '" ';
+  echo 'rcp="' . parseToXML($row['rcp']) . '" ';
+  echo 'rhour="' . parseToXML($row['rhour']) . '" ';
+  echo 'rmin="' . parseToXML($row['rmin']) . '" ';
+  echo 'rampm="' . parseToXML($row['rampm']) . '" ';
+  echo 'rlatitude="' . $row['rlatitude'] . '" ';
+  echo 'rlongitude="' . $row['rlongitude'] . '" ';
+  echo 'type="' . $row['rlvl'] . '" ';
   echo '/>';
   $ind = $ind + 1;
 }

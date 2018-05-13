@@ -281,6 +281,9 @@ var customLabel = {
         var id = markerElem.getAttribute('id');
         var pokemon = markerElem.getAttribute('pokemon');
         var cp = markerElem.getAttribute('cp');
+		var hour = markerElem.getAttribute('hour');
+		var min = markerElem.getAttribute('min');
+		var ampm = markerElem.getAttribute('ampm');
         var type = markerElem.getAttribute('id');
         var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('latitude')),
@@ -291,13 +294,67 @@ var customLabel = {
         strong.textContent = pokemon + ' (#' + id + ')'
         infowincontent.appendChild(strong);
         infowincontent.appendChild(document.createElement('br'));
-
+		var text = document.createElement('text');
+        text.textContent = 'Expires: ' + hour + ':' + min + ' ' + ampm  
+        infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
         var text = document.createElement('text');
         text.textContent = cp + ' CP'
         infowincontent.appendChild(text);
         var icon = customLabel[type] || {};
         var image = {
             url: 'static/icons/' + id + '.png',
+            scaledSize: new google.maps.Size(32, 32)
+        };
+		
+        var marker = new google.maps.Marker({
+          map: map,
+          position: point,
+          label: icon.label,
+          icon: image
+        });
+        marker.addListener('click', function() {
+          infoWindow.setContent(infowincontent);
+          infoWindow.open(map, marker);
+        });
+      });
+    });
+	
+	    downloadUrl('frontend/rxml.php', function(data) {
+      var xml = data.responseXML;
+      var markers = xml.documentElement.getElementsByTagName('marker');
+      Array.prototype.forEach.call(markers, function(markerElem) {
+        var rid = markerElem.getAttribute('rid');
+        var rboss = markerElem.getAttribute('rboss');
+		var rlvl = markerElem.getAttribute('rlvl');
+        var rcp = markerElem.getAttribute('rcp');
+		var rhour = markerElem.getAttribute('rhour');
+		var rmin = markerElem.getAttribute('rmin');
+		var rampm = markerElem.getAttribute('rampm');
+        var type = markerElem.getAttribute('rlvl');
+        var point = new google.maps.LatLng(
+            parseFloat(markerElem.getAttribute('rlatitude')),
+            parseFloat(markerElem.getAttribute('rlongitude')));
+		
+		var infowincontent = document.createElement('div');
+        var strong = document.createElement('strong');
+        strong.textContent = 'RAID VS ' + rboss + ' (#' + rid + ')'
+        infowincontent.appendChild(strong);
+        infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('text');
+        text.textContent = 'LVL: ' +rlvl
+        infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('text');
+        text.textContent = 'CP: ' + rcp 
+        infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
+        var text = document.createElement('text');
+        text.textContent = 'Expires: ' + rhour + ':' + rmin + ' ' + rampm
+        infowincontent.appendChild(text);
+        var icon = customLabel[type] || {};
+        var image = {
+            url: 'static/icons/' + rid + '.png',
             scaledSize: new google.maps.Size(32, 32)
         };
 		
@@ -358,7 +415,7 @@ $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $rlatitude = $rlongitude ="";
 
 <!--///////////////////// GENERATE BOSS LIST \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;">Pokemon</td>
+<td style="width: 5%;">Raid Boss</td>
 <td style="width: 10%;">
 <?php
 echo "<select name='rboss'>";
@@ -374,23 +431,9 @@ while ($row = $result->fetch_assoc()) {
 </td>
 </tr>
 
-<!--///////////////////// LVL ENTER \\\\\\\\\\\\\\\\\\\\\-->
-<tr>
-<td style="width: 5%;;">LVL</td>
-<td style="width: 10%;">
-	<select name="rlvl">
-		<?php
-			for($i=1; $i<=5; $i++){
-			echo "<option value=".$i.">".$i."</option>";}
-		?>
-		<option name="rlvl"> </option>   
-	</select> 
-</td>
-</tr>
-
 <!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;;">Time Found</td>
+<td style="width: 5%;;">Time of Expire</td>
 <td style="width: 10%;">
 
 <?php 
@@ -413,8 +456,7 @@ while ($row = $result->fetch_assoc()) {
 	</select> 
 	
 	<select name="rampm">
-		<option value="AM/PM" selected>AM/PM</option>
-		<option value="AM">AM</option>
+		<option value="AM" selected>AM</option>
 		<option value="PM">PM</option>
 	</select>
 	
@@ -508,11 +550,12 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>ID</th><th>BOSS</th><th>LVL</th><th>TIME FOUND</th><th>LOCATION</th></tr>";
+echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$rid = $row['rid'];
     $rboss = $row['rboss'];
     $rlvl = $row['rlvl'];
+	$rcp = $row['rcp'];
 	$rhour = $row['rhour'];
 	$rmin = $row['rmin'];
 	$rampm = $row['rampm'];
@@ -535,7 +578,7 @@ while($row = mysqli_fetch_array($result)) {
 	<tr>
 	<td>".$rid."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
-	<td>".$rlvl."</td>
+	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$rhour.":".$minutes." ".$rampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$rlatitude,",".$rlongitude.""?>"><?php "</td>
 	</tr>";
@@ -568,7 +611,7 @@ while($row = mysqli_fetch_array($result)) {
 	<tr>
 	<td>".$rid."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
-	<td>".$rlvl."</td>
+	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$rlatitude,",".$rlongitude.""?>"><?php "</td>
 	</tr>";

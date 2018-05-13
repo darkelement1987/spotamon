@@ -1,48 +1,23 @@
 <?php
 include 'frontend/functions.php';
+include 'frontend/menu.php';
 include 'config/dbbuilding.php';
 ?>
 
-<html>
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
-<div class="topnav" id="myTopnav">
-<div class="logo"><img src="header.png"></div>
-  <div class="dropdown">
-    <button class="dropbtn">Add spots 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-    <a href="index.php">Pokemon</a>
-    <a href="#">Raid</a>
-    <a href="#">Gym</a>
-    <a href="#">Stop</a>
-    <a href="#">Quest</a>
-    </div>
-  </div> 
-  <div class="dropdown">
-    <button class="dropbtn">Spots 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-    <a href="pokemon.php">Pokemon</a>
-    <a href="#">Raid</a>
-    <a href="#">Gym</a>
-    <a href="#">Stop</a>
-    <a href="#">Quest</a>
-    </div>
-  </div> 
-  <a href="map.php">Map</a>
-</div>
-<div>
-<?php 
+
+<?php
+menu();
+
 maps();
 ?>
-</div>
+
 </body>
+
 <footer></footer>
-</html>
+

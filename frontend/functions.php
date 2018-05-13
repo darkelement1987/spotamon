@@ -150,13 +150,13 @@ $total_pages = ceil($row["total"] / $results_per_page);
 
 
 <h2 style="text-align:center;"><strong>Spotted Pokemon:</strong></h2>
-<div class="table">
+
 <center>
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\">";
+echo "<table id=\"t02\" class=\"spotted\">";
 echo "<tr><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$id = $row['monster'];
@@ -182,7 +182,7 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
-	<td style ='width:3%;'>".$pokemon."</td>
+	<td>".$pokemon."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
@@ -215,7 +215,7 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
-	<td style ='width:3%;'>".$pokemon."</td>
+	<td>".$pokemon."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
@@ -238,7 +238,7 @@ while($row = mysqli_fetch_array($result)) {
 		}
 	
 }}
-echo "</table></center></div>";
+echo "</table></center>";
 ?><center><?php
 
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\

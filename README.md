@@ -43,3 +43,4 @@ $gmaps= "";
 - Add quests
 - Auto remove spots from db after 15 mins
 - Add better GUI / responsive (mobile) design
+- Add pokemon icons to <a href="http://makitweb.com/insert-image-in-dropdown-lists-with-jquery/">select2 dropdown</a>

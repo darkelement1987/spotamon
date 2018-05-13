@@ -415,6 +415,29 @@ INSERT IGNORE INTO `pokedex` (`id`, `monster`) VALUES
 (386, 'Deoxys');
 COMMIT;
 
+INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rboss`) VALUES
+(129, 1165, 'Magikarp'),
+(320, 3369, 'Wailmer	'),
+(333, 2766, 'Swablu	'),
+(361, 2825, 'Snorunt'),
+(103, 12633, 'Exeggutor'),
+(302, 8266, 'Sableye	'),
+(303, 9403, 'Mawile'),
+(256, 8610, 'Combusken	'),
+(57, 11876, 'Primeape'),
+(68, 18144, 'Machamp		'),
+(286, 18174, 'Breloom	'),
+(107, 17164, 'Hitmonchan	'),
+(106, 19679, 'Hitmonlee	'),
+(248, 34707, 'Tyranitar	'),
+(62, 24247, 'Poliwrath	'),
+(359, 26262, 'Absol	'),
+(306, 33458, 'Aggron	'),
+(380, 45704, 'Latias'),
+(381, 45704, 'Latios');
+COMMIT;
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -339,4 +339,279 @@ function doNothing() {}
 
 <?php
 }
+
+///////////////// SUBMIT RAIDS \\\\\\\\\\\\\\\\\
+
+function raidsubmission(){
+require('config/config.php');
+$result = $conn->query("SELECT * FROM raidbosses");
+$rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $rlatitude = $rlongitude ="";
 ?>
+
+
+<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+<h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
+<form id="usersubmit" method="post" action="spotraid.php">
+<center><table style="width: 25%; height: auto;" id="t01">
+<tbody>
+
+
+<!--///////////////////// GENERATE BOSS LIST \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">Pokemon</td>
+<td style="width: 10%;">
+<?php
+echo "<select name='rboss'>";
+while ($row = $result->fetch_assoc()) {
+    unset($rid, $rboss);
+        $rid = $row['rid'];
+            $rboss= $row['rboss'];
+				echo '<option value="'.$rid.'">'.$rid.' - '.$rboss.'</option>';
+					}					
+						echo "</select>";
+							mysqli_close($conn);
+?>
+</td>
+</tr>
+
+<!--///////////////////// LVL ENTER \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;;">LVL</td>
+<td style="width: 10%;">
+	<select name="rlvl">
+		<?php
+			for($i=1; $i<=5; $i++){
+			echo "<option value=".$i.">".$i."</option>";}
+		?>
+		<option name="rlvl"> </option>   
+	</select> 
+</td>
+</tr>
+
+<!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;;">Time Found</td>
+<td style="width: 10%;">
+
+<?php 
+	if ($clock=="false"){ ?>
+	<select name="rhour">
+		<?php
+			for($i=1; $i<=12; $i++){
+			echo "<option value=".$i.">".$i."</option>";}
+		?>
+		<option name="hour"> </option>   
+	</select> 
+	
+	<select name="rmin">
+		<?php
+			for($i=0; $i<=60; $i++){
+				$value = str_pad($i,2,"0",STR_PAD_LEFT);
+			echo "<option value=".$value.">".$value."</option>";}
+		?>
+		<option name="rmin"> </option>   
+	</select> 
+	
+	<select name="rampm">
+		<option value="AM/PM" selected>AM/PM</option>
+		<option value="AM">AM</option>
+		<option value="PM">PM</option>
+	</select>
+	
+	<?php } else { ?>
+	
+	<select name="rhour">
+		<?php
+			for($i=0; $i<=24; $i++){
+			echo "<option value=".$i.">".$i."</option>";}
+		?>
+		<option name="rhour"> </option>   
+	</select> 
+	
+	<select name="rmin">
+		<?php
+			for($i=0; $i<=60; $i++){
+				$value = str_pad($i,2,"0",STR_PAD_LEFT);
+			echo "<option value=".$value.">".$value."</option>";}
+		?>
+		<option name="rmin"> </option>   
+	</select> 
+	<?php } ?>
+</td>
+</tr>
+
+<!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">Location</td>
+<td style="width: 10%;">
+
+<p>Click the button to get your coordinates.</p>
+<p id="ScanLocation"></p>
+
+<script>
+var x = document.getElementById("ScanLocation");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "<input name='rlatitude' value='" + position.coords.latitude + "' readonly></input><input name='rlongitude' value='" + position.coords.longitude + "' readonly></input>";
+
+
+}
+</script>
+
+<button type="button" onclick="getLocation()">Get Location</button>
+
+</td>
+</tr>
+<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+<center><td style="width:100%;"><input type="submit" value="SPOT!"/></td></center>
+
+</tbody>
+</table></center>
+</form>
+
+<?php }
+
+
+////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+function spottedraids(){
+require('config/config.php');
+$results_per_page = 10;
+
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$start_from = ($page-1) * $results_per_page;
+$sql = "SELECT * FROM spotraid,raidbosses WHERE spotraid.rboss = raidbosses.rid ORDER BY rdate DESC LIMIT $start_from,".$results_per_page;
+$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
+
+
+$sqlcnt = "SELECT COUNT(RID) AS total FROM spotraid"; 
+$resultcnt = $conn->query($sqlcnt);
+$row = $resultcnt->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page);
+?>
+
+
+<h2 style="text-align:center;"><strong>Spotted Raids:</strong></h2>
+
+<center>
+
+<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
+<?php
+
+echo "<table id=\"t02\" class=\"spotted\">";
+echo "<tr><th>ID</th><th>BOSS</th><th>LVL</th><th>TIME FOUND</th><th>LOCATION</th></tr>";
+while($row = mysqli_fetch_array($result)) {
+	$rid = $row['rid'];
+    $rboss = $row['rboss'];
+    $rlvl = $row['rlvl'];
+	$rhour = $row['rhour'];
+	$rmin = $row['rmin'];
+	$rampm = $row['rampm'];
+	$rlatitude = $row['rlatitude'];
+	$rlongitude = $row['rlongitude'];
+	$minutes = $rmin;
+	$hr = $rhour;
+	
+	
+	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
+	if ($rmin < 10) {
+    $minutes = str_pad($rmin, 2, "0", STR_PAD_LEFT);	
+	}
+	
+	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+	if ($clock=="false"){
+		
+	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>".$rid."</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
+	<td>".$rlvl."</td>
+	<td>".$rhour.":".$minutes." ".$rampm."</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$rlatitude,",".$rlongitude.""?>"><?php "</td>
+	</tr>";
+	
+	///////////////////// GOOGLE DECODER \\\\\\\\\\\\\\\\\\\\\
+	$url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$rlatitude.",".$rlongitude."&sensor=false";
+	$json = @file_get_contents($url);
+	$data = json_decode($json);
+	$status = $data->status;
+	$address = '';
+		if($status == "OK")
+		{
+			echo $address = $data->results[0]->formatted_address;?></a><?php
+		}
+		else
+		{
+			echo "Cannot retrieve address";
+		}
+		
+	} else {
+	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+
+	///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
+	if ($rhour < 10) {
+    $hr = str_pad($rhour, 2, "0", STR_PAD_LEFT);	
+	}
+	
+	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>".$rid."</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
+	<td>".$rlvl."</td>
+	<td>".$hr.":".$minutes."</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$rlatitude,",".$rlongitude.""?>"><?php "</td>
+	</tr>";
+	
+	///////////////////// GOOGLE DECODER \\\\\\\\\\\\\\\\\\\\\
+	$url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$rlatitude.",".$rlongitude."&sensor=false";
+	$json = @file_get_contents($url);
+	$data = json_decode($json);
+	$status = $data->status;
+	$address = '';
+		if($status == "OK")
+		{
+			echo $address = $data->results[0]->formatted_address;?></a><?php
+		}
+		else
+		{
+			echo "No Data Found Try Again";
+		}
+	
+}}
+echo "</table></center>";
+?><center><?php
+
+///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
+for ($i=1; $i<=$total_pages; $i++) { 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+}; 
+?></center><?php
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

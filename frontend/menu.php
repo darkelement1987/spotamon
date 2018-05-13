@@ -122,7 +122,7 @@ body {
     <button class="dropbtn">ADD SPOT <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
       <a href="index.php" class="active">POKEMON</a>
-      <a href="#">Link 2</a>
+      <a href="submit-raid.php">RAID</a>
       <a href="#">Link 3</a>
     </div>
   </div>
@@ -130,7 +130,7 @@ body {
     <button class="dropbtn">SPOTS <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
       <a href="pokemon.php">POKEMON</a>
-      <a href="#">Link 2</a>
+      <a href="raids.php">RAIDS</a>
       <a href="#">Link 3</a>
     </div>
   </div>

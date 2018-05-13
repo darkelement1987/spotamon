@@ -14,7 +14,7 @@ include 'config/dbbuilding.php';
 <?php
 menu();
 
-pokesubmission();
+spottedraids();
 ?>
 
 </body>

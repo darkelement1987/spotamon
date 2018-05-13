@@ -34,7 +34,7 @@ while ($row = $result->fetch_assoc()) {
 
 <!--///////////////////// Cp enter \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;;">CP</td>
+<td style="width: 5%">CP</td>
 <td style="width: 10%;">
 	<input type="text" name="cp" value="2500">
 </td>
@@ -42,7 +42,7 @@ while ($row = $result->fetch_assoc()) {
 
 <!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;;">Time Found</td>
+<td style="width: 5%;">Time Found</td>
 <td style="width: 10%;">
 
 <?php 
@@ -433,7 +433,7 @@ while ($row = $result->fetch_assoc()) {
 
 <!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;;">Time of Expire</td>
+<td style="width: 5%;">Time of Expire</td>
 <td style="width: 10%;">
 
 <?php 

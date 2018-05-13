@@ -29,7 +29,6 @@ Demo <a href="http://www.spotamon.com">click here</a>
 - Add quests
 - Auto remove spots from db after 15 mins
 - Add better GUI / responsive (mobile) design
-- Add raids to map
 
 
 ![Spotamon](https://github.com/darkelement1987/spotamon/raw/main/spotamon.png)

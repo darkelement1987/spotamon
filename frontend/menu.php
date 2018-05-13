@@ -25,7 +25,7 @@ body {
 }
 
 .active {
-  background-color: #4CAF50;
+  background-color: inherit;
   color: white;
 }
 
@@ -68,7 +68,7 @@ body {
 }
 
 .topnav a:hover, .dropdown:hover .dropbtn {
-  background-color: #555;
+  background-color: inherit;
   color: white;
 }
 
@@ -86,7 +86,7 @@ body {
     display: none;
   }
   .topnav a.icon {
-    float: right;
+    float: left;
     display: block;
   }
 }
@@ -95,20 +95,20 @@ body {
   .topnav.responsive {position: relative; padding-top:3em;}
   .topnav.responsive .icon {
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
   }
   .topnav.responsive a {
     float: none;
     display: block;
-    text-align: right;
+    text-align: left;
   }
   .topnav.responsive .dropdown {float: none;}
   .topnav.responsive .dropdown-content {position: relative;}
   .topnav.responsive .dropdown .dropbtn {
     display: block;
     width: 100%;
-    text-align: right;
+    text-align: left;
   }
 }
 </style>

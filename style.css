@@ -108,7 +108,7 @@ table#t02 th
 		font-size:10px;
 	}
 	table#t02 th, td {
-    padding: 3px;
+    padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
 	font-size:12px;

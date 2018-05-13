@@ -456,7 +456,8 @@ while ($row = $result->fetch_assoc()) {
 	</select> 
 	
 	<select name="rampm">
-		<option value="AM" selected>AM</option>
+		<option value="AM/PM" selected>AM/PM</option>
+		<option value="AM">AM</option>
 		<option value="PM">PM</option>
 	</select>
 	

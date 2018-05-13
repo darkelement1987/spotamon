@@ -418,7 +418,7 @@ $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $rlatitude = $rlongitude ="";
 <td style="width: 5%;">Raid Boss</td>
 <td style="width: 10%;">
 <?php
-echo "<select name='rboss'>";
+echo "<select id='raidsearch' name='rboss'>";
 while ($row = $result->fetch_assoc()) {
     unset($rid, $rboss);
         $rid = $row['rid'];

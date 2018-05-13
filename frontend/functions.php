@@ -34,7 +34,7 @@ while ($row = $result->fetch_assoc()) {
 
 <!--///////////////////// Cp enter \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%">CP</td>
+<td style="width: 5%;">CP</td>
 <td style="width: 10%;">
 	<input type="text" name="cp" value="2500">
 </td>

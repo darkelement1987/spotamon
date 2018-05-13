@@ -115,7 +115,7 @@ body {
 
 </head>
 <body>
-<a href=""><img src="header.png" alt="logo" style="padding-top:7px; float:left; background-color:#333; position:absolute; z-index:100;"></a>
+<a href="/"><img src="header.png" alt="logo" style="padding-top:7px; float:left; background-color:#333; position:absolute; z-index:100;"></a>
 <div class="topnav" id="myTopnav">
 
    <div class="dropdown">

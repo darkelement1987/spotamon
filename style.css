@@ -22,17 +22,18 @@ td {
     text-align: left;
     vertical-align: middle;
     font-family: tahoma;
-	font-size:14px;
+    font-size:14px;
 }
 
 table {
-    table-layout: auto;
+table-layout: auto;
     
     margin-left:0%;
     text-align:left;
     width:50%;
     vertical-align:middle
 }
+
 table, th, td {
     font-family: tahoma;
     border: 1px solid black;
@@ -40,212 +41,222 @@ table, th, td {
     text-align:left;
     vertical-align:middle
 }
+
 th, td {
     padding: 15px;
     text-align: left;
     font-family: tahoma;
 }
 
-table#t01 tr:nth-child(even)
-
-{
+table#t01 tr:nth-child(even) {
     background-color: #eee;
 }
 
-table#t01 tr:nth-child(odd) 
-
-{
+table#t01 tr:nth-child(odd) {
     background-color: #fff;
 }
 
-table#t01 th 
-
-{
+table#t01 th {
     color: white;
     background-color: black;
 }
 
-table#t02 tr:nth-child(even)
-
-{
+table#t02 tr:nth-child(even) {
     background-color: #eee;
 }
 
-table#t02 tr:nth-child(odd) 
-
-{
+table#t02 tr:nth-child(odd) {
     background-color: #fff;
 }
 
-table#t02 th 
-
-{
+table#t02 th {
     color: white;
     background-color: black;
 }
 
-    table#t01 {
+table#t01 {
     width:25%;
     height: auto;
-    }
+}
 
-    table#t03 {
+table#t03 {
     width:25%;
     height: auto;
-    }
+}
 
-    table#t04 {
+table#t04 {
     width:25%;
     height: auto;
-    }
+}
 
 @media only screen and (max-width: 480px) {
 
-    table#t01 {
+table#t01 {
     width:85%;
     height: auto;
-	font-size: 10px;
-    }
+    font-size: 10px;
+}
 
-	table#t01, tr{
-		padding: 1px 5px 1px 5px;
-		font-size: 10px;
-	}
-	table#t01, td{
-		padding: 1px 5px 1px 5px;
-		text-align: left; 
-		vertical-align: middle;
-	}
-	table#t01, th{
-		font-size:10px;
-	}
-	table#t01 th, td {
+table#t01, tr{
+    padding: 1px 5px 1px 5px;
+    font-size: 10px;
+}
+
+table#t01, td{
+    padding: 1px 5px 1px 5px;
+    text-align: left; 
+    vertical-align: middle;
+}
+
+table#t01, th{
+    font-size:10px;
+}
+
+table#t01 th, td {
     padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
-	font-size: 10px;
-	}
-	table#t01 p {
-		padding-top:0% !important;
-		margin-top:2px;
-	}
-	table#t01 td img{
+    font-size: 10px;
+}
+
+table#t01 p {
+    padding-top:0% !important;
+    margin-top:2px;
+}
+
+table#t01 td img{
     display: block;
     margin-left: auto;
     margin-right: auto;
-	float: none !important;
-	}
+    float: none !important;
+}
 
-    table#t02 {
-		width:80%;
-		margin: 0% 5% 0% 5%;
-		height:auto;
-		font-size: 10px;
-        background-color: #000;
-		table-layout:auto;
-		padding: 0px 0px 0px 0px;
-    }
-	table#t02, tr{
-		padding: 1px 5px 1px 5px;
-		font-size: 10px;
-	}
-	table#t02, td{
-		padding: 1px 5px 1px 5px;
-		text-align: left; 
-		vertical-align: middle;
-		width:auto;
-	}
-	table#t02, th{
-		font-size:10px;
-	}
-	table#t02 th, td {
+table#t02 {
+    width:80%;
+    margin: 0% 5% 0% 5%;
+    height:auto;
+    font-size: 10px;
+    background-color: #000;
+table-layout:auto;
+    padding: 0px 0px 0px 0px;
+}
+
+table#t02, tr{
+    padding: 1px 5px 1px 5px;
+    font-size: 10px;
+}
+
+table#t02, td{
+    padding: 1px 5px 1px 5px;
+    text-align: left; 
+    vertical-align: middle;
+    width:auto;
+}
+
+table#t02, th{
+    font-size:10px;
+}
+
+table#t02 th, td {
     padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
-	font-size: 10px;
-	}
-	table#t02 p {
-		padding-top:0% !important;
-		margin-top:2px;
-	}
-	table#t02 td img{
+    font-size: 10px;
+}
+
+table#t02 p {
+    padding-top:0% !important;
+    margin-top:2px;
+}
+
+table#t02 td img{
     display: block;
     margin-left: auto;
     margin-right: auto;
-	float: none !important;
-	}
+    float: none !important;
+}
 
-    table#t03 {
+table#t03 {
     width:85%;
     height: auto;
-	font-size: 10px;
-    }
+    font-size: 10px;
+}
 
-	table#t03, tr{
-		padding: 1px 5px 1px 5px;
-		font-size: 10px;
-	}
-	table#t03, td{
-		padding: 1px 5px 1px 5px;
-		text-align: left; 
-		vertical-align: middle;
-	}
-	table#t03, th{
-		font-size:10px;
-	}
-	table#t03 th, td {
+table#t03, tr{
+    padding: 1px 5px 1px 5px;
+    font-size: 10px;
+}
+
+table#t03, td{
+    padding: 1px 5px 1px 5px;
+    text-align: left; 
+    vertical-align: middle;
+}
+
+table#t03, th{
+    font-size:10px;
+}
+table#t03 th, td {
     padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
-	font-size: 10px;
-	}
-	table#t03 p {
-		padding-top:0% !important;
-		margin-top:2px;
-	}
-	table#t03 td img{
+    font-size: 10px;
+}
+
+table#t03 p {
+    padding-top:0% !important;
+    margin-top:2px;
+}
+
+table#t03 td img{
     display: block;
     margin-left: auto;
     margin-right: auto;
-	float: none !important;
-	}
+    float: none !important;
+}
 
-    table#t04 {
+table#t04 {
     width:85%;
     height: auto;
-	font-size: 10px;
-    }
+    font-size: 10px;
+}
 
-	table#t04, tr{
-		padding: 1px 5px 1px 5px;
-		font-size:10px;
-	}
-	table#t04, td{
-		padding: 1px 5px 1px 5px;
-		text-align: left; 
-		vertical-align: middle;
-	}
-	table#t04, th{
-		font-size:10px;
-	}
-	table#t04 th, td {
+table#t04, tr{
+    padding: 1px 5px 1px 5px;
+    font-size:10px;
+}
+
+table#t04, td{
+    padding: 1px 5px 1px 5px;
+    text-align: left; 
+    vertical-align: middle;
+}
+
+table#t04, th{
+    font-size:10px;
+}
+
+table#t04 th, td {
     padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
-	font-size:10px;
-	}
-	table#t04 p {
-		padding-top:0% !important;
-		margin-top:2px;
-	}
-	table#t04 td img{
+    font-size:10px;
+}
+
+table#t04 p {
+    padding-top:0% !important;
+    margin-top:2px;
+}
+
+table#t04 td img{
     display: block;
     margin-left: auto;
     margin-right: auto;
-	float: none !important;
-	}
+    float: none !important;
+}
 
-	#map {
+#map {
     height: 93%;
-	}
+}
+
 }

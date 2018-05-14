@@ -169,8 +169,7 @@ while($row = mysqli_fetch_array($result)) {
 	$longitude = $row['longitude'];
 	$minutes = $min;
 	$hr = $hour;
-	
-	
+
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($min < 10) {
     $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);	
@@ -354,15 +353,17 @@ var customLabel = {
         infowincontent.appendChild(text);
         var icon = customLabel[type] || {};
         var image = {
-            url: 'static/icons/' + rid + '.png',
-            scaledSize: new google.maps.Size(32, 32)
+            url: 'static/raids/' + rid + '.png',
+            scaledSize: new google.maps.Size(75, 75)
+			
         };
 		
         var marker = new google.maps.Marker({
           map: map,
           position: point,
           label: icon.label,
-          icon: image
+          icon: image,
+		  title: rhour + rmin + rampm
         });
         marker.addListener('click', function() {
           infoWindow.setContent(infowincontent);
@@ -370,6 +371,87 @@ var customLabel = {
         });
       });
     });
+	
+	downloadUrl('frontend/gxml.php', function(data) {
+      var xml = data.responseXML;
+      var markers = xml.documentElement.getElementsByTagName('marker');
+      Array.prototype.forEach.call(markers, function(markerElem) {
+        var gid = markerElem.getAttribute('gid');
+        var gname = markerElem.getAttribute('gname');
+		var gteam = markerElem.getAttribute('gteam');
+        var type = markerElem.getAttribute('type');
+        var tid = markerElem.getAttribute('tid');
+		var point = new google.maps.LatLng(
+            parseFloat(markerElem.getAttribute('glatitude')),
+            parseFloat(markerElem.getAttribute('glongitude')));
+		
+		var infowincontent = document.createElement('div');
+        var strong = document.createElement('strong');
+        strong.textContent = gname
+        infowincontent.appendChild(strong);
+        infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('text');
+        text.textContent = 'Team: ' + tid
+        infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
+        var icon = customLabel[type] || {};
+        var image = {
+            url: 'static/gyms/' + gteam + '.png',
+            scaledSize: new google.maps.Size(40, 40)
+        };
+        var marker = new google.maps.Marker({
+          map: map,
+          position: point,
+          label: icon.label,
+          icon: image,
+		  title: gname + ' Held By' + gteam
+        });
+        marker.addListener('click', function() {
+          infoWindow.setContent(infowincontent);
+          infoWindow.open(map, marker);
+        });
+      });
+    });
+	
+	downloadUrl('frontend/sxml.php', function(data) {
+      var xml = data.responseXML;
+      var markers = xml.documentElement.getElementsByTagName('marker');
+      Array.prototype.forEach.call(markers, function(markerElem) {
+        var sid = markerElem.getAttribute('sid');
+		var quest = markerElem.getAttribute('quest');
+        var reward = markerElem.getAttribute('reward');
+		var type = markerElem.getAttribute('type');
+		var point = new google.maps.LatLng(
+            parseFloat(markerElem.getAttribute('slatitude')),
+            parseFloat(markerElem.getAttribute('slongitude')));
+		
+		var infowincontent = document.createElement('div');
+        var strong = document.createElement('strong');
+        strong.textContent = quest
+        infowincontent.appendChild(strong);
+        infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('text');
+        text.textContent = 'Reward: ' + reward
+        infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
+        var icon = customLabel[type] || {};
+        var image = {
+            url: 'static/stops/stops.png',
+            scaledSize: new google.maps.Size(30, 30)
+        };
+        var marker = new google.maps.Marker({
+          map: map,
+          position: point,
+          label: icon.label,
+          icon: image,
+        });
+        marker.addListener('click', function() {
+          infoWindow.setContent(infowincontent);
+          infoWindow.open(map, marker);
+        });
+      });
+    });
+	
   }
 
 
@@ -409,7 +491,7 @@ $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $rlatitude = $rlongitude ="";
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
 <form id="usersubmit" method="post" action="spotraid.php">
-<center><table style="width: 25%; height: auto;" id="t01">
+<center><table style="width: 50%; height: auto;" id="t03">
 <tbody>
 
 
@@ -434,7 +516,7 @@ while ($row = $result->fetch_assoc()) {
 <!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;">Time of Expire</td>
-<td style="width: 10%;">
+<td style="width: 20%;">
 
 <?php 
 	if ($clock=="false"){ ?>
@@ -642,4 +724,62 @@ for ($i=1; $i<=$total_pages; $i++) {
 }; 
 ?></center><?php
 }
+
+///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
+function gymsubmission(){
+require('config/config.php');
+$result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
+$gid = $gname = $gteam = "";
+
 ?>
+
+<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+<h2 style="text-align:center;"><strong>Gym team :</strong></h2>
+<form id="usersubmit" method="post" action="gymteam.php">
+<center><table style="width: 25%; height: auto;" id="t04">
+<tbody>
+
+<!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">Gym</td>
+<td style="width: 10%;">
+<?php
+echo "<select id='gymsearch' name='gname'>";
+while ($row = $result->fetch_assoc()) {
+    unset($gid, $gname);
+        $gid = $row['gid'];
+		$tid = $row['tname'];
+            $gname= $row['gname'];
+				$gteam= $row['gteam'];
+					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
+						}					
+							echo "</select>";
+						
+?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%;">Team</td>
+<td style="width: 10%;">
+<select id='teamsearch' name='tname'>
+<option value="2">Instinct</option>
+<option value="3">Mystic</option>
+<option value="4">Valor</option>
+</select>
+</td>
+</tr>
+
+<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+<center><td style="width:100%;"><input type="submit" value="SPOT!"/></td></center>
+
+</tbody>
+</table></center>
+</form>
+
+<?php }
+
+?>
+
+
+

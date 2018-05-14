@@ -10,7 +10,7 @@ $database = "database";
 // Example:
 // $mapcenter = "51.9720526, 6.7202572";
 
-$mapcenter = "43.894386, -78.863105";
+$mapcenter = "51.9720526, 6.7202572";
 
 //24HR-Clock (default = false = 12HR) 
 $clock = "false";
@@ -62,8 +62,29 @@ rcp INT(6) NOT NULL,
 rlvl INT(1) NOT NULL,
 rboss VARCHAR(25) NOT NULL)";
 
+$gyms = "CREATE TABLE IF NOT EXISTS `gyms` (
+gid INT(6) PRIMARY KEY NOT NULL,
+gname VARCHAR(255) NOT NULL,
+glatitude DECIMAL(10,6) NOT NULL,
+glongitude DECIMAL(10,6) NOT NULL,
+gteam INT(2) NOT NULL,
+actraid VARCHAR(255) NOT NULL,
+actboss VARCHAR(25) NULL,
+type VARCHAR(25) NOT NULL)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses];
+$teams = "CREATE TABLE IF NOT EXISTS `teams` (
+tid INT(6) PRIMARY KEY NOT NULL,
+tname VARCHAR(15) NOT NULL)";
+
+$stops = "CREATE TABLE IF NOT EXISTS `stops` (
+sid INT(6) PRIMARY KEY NOT NULL,
+slatitude DECIMAL(10,6) NOT NULL,
+slongitude DECIMAL(10,6) NOT NULL,
+quest VARCHAR(255) NULL,
+reward VARCHAR(25) NULL,
+type VARCHAR(25) NULL)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

@@ -109,7 +109,7 @@ INSERT IGNORE INTO `pokedex` (`id`, `monster`) VALUES
 (80, 'Slowbro'),
 (81, 'Magnemite'),
 (82, 'Magneton'),
-(83, 'Farfetchâ€™d'),
+(83, 'Farfetchd'),
 (84, 'Doduo'),
 (85, 'Dodrio'),
 (86, 'Seel'),
@@ -437,6 +437,12 @@ INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rlvl`, `rboss`) VALUES
 (381, 45704, 5, 'Latios');
 COMMIT;
 
+INSERT IGNORE INTO `teams` (`tid`, `tname`) VALUES
+(1, 'Team No Team'),
+(2, 'Instinct'),
+(3, 'Valor'),
+(4, 'Mystic');
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

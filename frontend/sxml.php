@@ -9,7 +9,7 @@ $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
-$query = "SELECT * FROM spots,pokedex WHERE 1 AND spots.pokemon = pokedex.id";
+$query = "SELECT * FROM stops WHERE 1";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));
 
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
@@ -26,15 +26,12 @@ $ind=0;
 while ($row = @mysqli_fetch_assoc($result)){
   // Add to XML document node
   echo '<marker ';
-  echo 'id="' . $row['pokemon'] . '" ';
-  echo 'pokemon="' . parseToXML($row['monster']) . '" ';
-  echo 'cp="' . parseToXML($row['cp']) . '" ';
-  echo 'hour="' . parseToXML($row['hour']) . '" ';
-  echo 'min="' . parseToXML($row['min']) . '" ';
-  echo 'ampm="' . parseToXML($row['ampm']) . '" ';
-  echo 'latitude="' . $row['latitude'] . '" ';
-  echo 'longitude="' . $row['longitude'] . '" ';
-  echo 'type="' . $row['pokemon'] . '" ';
+  echo 'sid="' . $row['sid'] . '" ';
+  echo 'slatitude="' . $row['slatitude'] . '" ';
+  echo 'slongitude="' . $row['slongitude'] . '" ';
+  echo 'quest="' . $row['quest'] . '" ';
+  echo 'reward="' . $row['reward'] . '" ';
+  echo 'type="' . $row['type'] . '" ';
   echo '/>';
   $ind = $ind + 1;
 }

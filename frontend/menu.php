@@ -123,7 +123,7 @@ body {
     <div class="dropdown-content">
       <a href="index.php" class="active">POKEMON</a>
       <a href="submit-raid.php">RAID</a>
-      <a href="#">Link 3</a>
+      <a href="submit-team.php">GYM TEAM</a>
     </div>
   </div>
   <div class="dropdown">
@@ -131,7 +131,6 @@ body {
     <div class="dropdown-content">
       <a href="pokemon.php">POKEMON</a>
       <a href="raids.php">RAIDS</a>
-      <a href="#">Link 3</a>
     </div>
   </div>
   <a href="map.php">MAP</a>

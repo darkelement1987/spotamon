@@ -84,7 +84,18 @@ table#t02 th
     background-color: black;
 }
 
+    table#t03 {
+    width:35%;
+    height: auto;
+    }
+
 @media only screen and (max-width: 480px) {
+
+    table#t03 {
+    width:75%;
+    height: auto;
+    }
+    
     table#t02 {
 		width:80%;
 		margin: 0% 5% 0% 5%;

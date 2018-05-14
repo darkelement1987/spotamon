@@ -491,7 +491,7 @@ $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $rlatitude = $rlongitude ="";
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
 <form id="usersubmit" method="post" action="spotraid.php">
-<center><table style="width: 50%; height: auto;" id="t03">
+<center><table id="t03">
 <tbody>
 
 
@@ -516,7 +516,7 @@ while ($row = $result->fetch_assoc()) {
 <!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;">Time of Expire</td>
-<td style="width: 20%;">
+<td style="width: 10%;">
 
 <?php 
 	if ($clock=="false"){ ?>
@@ -596,7 +596,7 @@ function showPosition(position) {
 </td>
 </tr>
 <!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
-<center><td style="width:100%;"><input type="submit" value="SPOT!"/></td></center>
+<center><td style="width:10%;"><input type="submit" value="SPOT!"/></td></center>
 
 </tbody>
 </table></center>

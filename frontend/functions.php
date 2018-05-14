@@ -3,14 +3,14 @@
 function pokesubmission(){
 require('config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
-$id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude ="";
+$id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress="";
 ?>
 
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
 <form id="usersubmit" method="post" action="spot.php">
-<center><table style="width: 25%; height: auto;" id="t01">
+<center><table id="t01">
 <tbody>
 
 
@@ -123,7 +123,7 @@ function showPosition(position) {
 </td>
 </tr>
 <!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
-<center><td style="width:100%;"><input type="submit" value="SPOT!"/></td></center>
+<center><td style="width:10%;"><input type="submit" value="SPOT!"/></td></center>
 
 </tbody>
 </table></center>
@@ -169,6 +169,7 @@ while($row = mysqli_fetch_array($result)) {
 	$longitude = $row['longitude'];
 	$minutes = $min;
 	$hr = $hour;
+	$fulladdress = $row['fulladdress'];
 
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($min < 10) {
@@ -185,23 +186,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php "</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?><?php "</td>
 	</tr>";
-	
-	///////////////////// GOOGLE DECODER \\\\\\\\\\\\\\\\\\\\\
-	$url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
-	$json = @file_get_contents($url);
-	$data = json_decode($json);
-	$status = $data->status;
-	$address = '';
-		if($status == "OK")
-		{
-			echo $address = $data->results[0]->formatted_address;?></a><?php
-		}
-		else
-		{
-			echo "Cannot retrieve address";
-		}
 		
 	} else {
 	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
@@ -218,23 +204,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php "</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?><?php "</td>
 	</tr>";
-	
-	///////////////////// GOOGLE DECODER \\\\\\\\\\\\\\\\\\\\\
-	$url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
-	$json = @file_get_contents($url);
-	$data = json_decode($json);
-	$status = $data->status;
-	$address = '';
-		if($status == "OK")
-		{
-			echo $address = $data->results[0]->formatted_address;?></a><?php
-		}
-		else
-		{
-			echo "No Data Found Try Again";
-		}
 	
 }}
 echo "</table></center>";
@@ -736,7 +707,7 @@ $gid = $gname = $gteam = "";
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Gym team:</strong></h2>
 <form id="usersubmit" method="post" action="gymteam.php">
-<center><table style="width: 25%; height: auto;" id="t04">
+<center><table id="t04">
 <tbody>
 
 <!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
@@ -771,7 +742,7 @@ while ($row = $result->fetch_assoc()) {
 </tr>
 
 <!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
-<center><td style="width:100%;"><input type="submit" value="SPOT!"/></td></center>
+<center><td style="width:10%;"><input type="submit" value="SPOT!"/></td></center>
 
 </tbody>
 </table></center>
@@ -780,6 +751,3 @@ while ($row = $result->fetch_assoc()) {
 <?php }
 
 ?>
-
-
-

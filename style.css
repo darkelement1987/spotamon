@@ -84,30 +84,70 @@ table#t02 th
     background-color: black;
 }
 
+    table#t01 {
+    width:25%;
+    height: auto;
+    }
+
     table#t03 {
+    width:25%;
+    height: auto;
+    }
+
+    table#t04 {
     width:25%;
     height: auto;
     }
 
 @media only screen and (max-width: 480px) {
 
-    table#t03 {
+    table#t01 {
     width:85%;
     height: auto;
+	font-size: 10px;
     }
-    
+
+	table#t01, tr{
+		padding: 1px 5px 1px 5px;
+		font-size: 10px;
+	}
+	table#t01, td{
+		padding: 1px 5px 1px 5px;
+		text-align: left; 
+		vertical-align: middle;
+	}
+	table#t01, th{
+		font-size:10px;
+	}
+	table#t01 th, td {
+    padding: 10px 10px 10px 10px;
+    text-align: left;
+    font-family: tahoma;
+	font-size: 10px;
+	}
+	table#t01 p {
+		padding-top:0% !important;
+		margin-top:2px;
+	}
+	table#t01 td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+	float: none !important;
+	}
+
     table#t02 {
 		width:80%;
 		margin: 0% 5% 0% 5%;
 		height:auto;
-		font-size:12px;
+		font-size: 10px;
         background-color: #000;
 		table-layout:auto;
 		padding: 0px 0px 0px 0px;
     }
 	table#t02, tr{
 		padding: 1px 5px 1px 5px;
-		font-size:12px;
+		font-size: 10px;
 	}
 	table#t02, td{
 		padding: 1px 5px 1px 5px;
@@ -122,7 +162,7 @@ table#t02 th
     padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
-	font-size:12px;
+	font-size: 10px;
 	}
 	table#t02 p {
 		padding-top:0% !important;
@@ -134,6 +174,77 @@ table#t02 th
     margin-right: auto;
 	float: none !important;
 	}
+
+    table#t03 {
+    width:85%;
+    height: auto;
+	font-size: 10px;
+    }
+
+	table#t03, tr{
+		padding: 1px 5px 1px 5px;
+		font-size: 10px;
+	}
+	table#t03, td{
+		padding: 1px 5px 1px 5px;
+		text-align: left; 
+		vertical-align: middle;
+	}
+	table#t03, th{
+		font-size:10px;
+	}
+	table#t03 th, td {
+    padding: 10px 10px 10px 10px;
+    text-align: left;
+    font-family: tahoma;
+	font-size: 10px;
+	}
+	table#t03 p {
+		padding-top:0% !important;
+		margin-top:2px;
+	}
+	table#t03 td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+	float: none !important;
+	}
+
+    table#t04 {
+    width:75%;
+    height: auto;
+	font-size: 10px;
+    }
+
+	table#t04, tr{
+		padding: 1px 5px 1px 5px;
+		font-size:10px;
+	}
+	table#t04, td{
+		padding: 1px 5px 1px 5px;
+		text-align: left; 
+		vertical-align: middle;
+	}
+	table#t04, th{
+		font-size:10px;
+	}
+	table#t04 th, td {
+    padding: 10px 10px 10px 10px;
+    text-align: left;
+    font-family: tahoma;
+	font-size:10px;
+	}
+	table#t04 p {
+		padding-top:0% !important;
+		margin-top:2px;
+	}
+	table#t04 td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+	float: none !important;
+	}
+
 	#map {
     height: 93%;
 	}

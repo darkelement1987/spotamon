@@ -7,10 +7,9 @@ $rboss = $_POST['rboss'];
 $rhour = $_POST['rhour'];
 $rmin = $_POST['rmin'];
 $rampm = $_POST['rampm'];
-$rlatitude = $_POST['rlatitude'];
-$rlongitude = $_POST['rlongitude'];
+$gname = $_POST['gname'];
 
-$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, rlatitude, rlongitude) VALUES ('$rboss','$rhour','$rmin','$rampm','$rlatitude','$rlongitude')";
+$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm) VALUES ('$rboss','$rhour','$rmin','$rampm')";
 	if(!mysqli_query($conn,$sql))
 		{
 			echo 'Not Inserted';
@@ -18,7 +17,16 @@ $sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, rlatitude, rlongitude) 
 			else
 			{
 				echo 'Inserted';
-			}	
+			}
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss' WHERE gid='$gname'";
+	if(!mysqli_query($conn,$sql1))
+		{
+			echo 'Not Inserted';
+		}
+			else
+			{
+				echo 'Inserted';
+			}				
 
 	header('Location:submit-raid.php');
 	

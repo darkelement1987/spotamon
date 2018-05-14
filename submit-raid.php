@@ -27,6 +27,20 @@ include 'config/dbbuilding.php';
   );
   return $state;
  }
+  $(document).ready(function(){
+  $("#gymsearch").select2({
+   templateResult: formatState,
+   width:'100%'
+  });
+ });
+ 
+ function formatState (state) {
+  if (!state.id) { return state.text; }
+  var $state = $(
+   '<span > ' + state.text + ' </span>'
+  );
+  return $state;
+ }
 </script>
 </head>
 

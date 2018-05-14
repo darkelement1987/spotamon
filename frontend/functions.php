@@ -381,6 +381,8 @@ var customLabel = {
 		var gteam = markerElem.getAttribute('gteam');
         var type = markerElem.getAttribute('type');
         var tid = markerElem.getAttribute('tid');
+		var actraid = markerElem.getAttribute('actraid');
+		var actboss = markerElem.getAttribute('actboss');
 		var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('glatitude')),
             parseFloat(markerElem.getAttribute('glongitude')));
@@ -395,10 +397,20 @@ var customLabel = {
         infowincontent.appendChild(text);
 		infowincontent.appendChild(document.createElement('br'));
         var icon = customLabel[type] || {};
-        var image = {
+		if (actraid === "0"){
+			var image = {
             url: 'static/gyms/' + gteam + '.png',
             scaledSize: new google.maps.Size(40, 40)
-        };
+			};
+		} else {
+			var image = {
+            url: 'static/raids/' + actboss + '.png',
+            scaledSize: new google.maps.Size(75, 75)
+			};		
+		}
+		
+		
+		
         var marker = new google.maps.Marker({
           map: map,
           position: point,
@@ -567,31 +579,24 @@ while ($row = $result->fetch_assoc()) {
 
 <!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;">Location</td>
+<td style="width: 5%;">At Gym</td>
 <td style="width: 10%;">
-
-<p>Click the button to get your coordinates.</p>
-<p id="ScanLocation"></p>
-
-<script>
-var x = document.getElementById("ScanLocation");
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-
-function showPosition(position) {
-    x.innerHTML = "<input name='rlatitude' value='" + position.coords.latitude + "' readonly></input><input name='rlongitude' value='" + position.coords.longitude + "' readonly></input>";
-
-
-}
-</script>
-
-<button type="button" onclick="getLocation()">Get Location</button>
+<?php
+require('config/config.php');
+$result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
+$gid = $gname = $gteam = "";
+echo "<select id='gymsearch' name='gname'>";
+while ($row = $result->fetch_assoc()) {
+    unset($gid, $gname);
+        $gid = $row['gid'];
+		$tid = $row['tname'];
+            $gname= $row['gname'];
+				$gteam= $row['gteam'];
+					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
+						}					
+							echo "</select>";
+						
+?>
 
 </td>
 </tr>
@@ -603,6 +608,12 @@ function showPosition(position) {
 </form>
 
 <?php }
+
+
+
+
+
+
 
 
 ////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
@@ -764,8 +775,8 @@ while ($row = $result->fetch_assoc()) {
 <td style="width: 10%;">
 <select id='teamsearch' name='tname'>
 <option value="2">Instinct</option>
-<option value="3">Mystic</option>
-<option value="4">Valor</option>
+<option value="4">Mystic</option>
+<option value="3">Valor</option>
 </select>
 </td>
 </tr>

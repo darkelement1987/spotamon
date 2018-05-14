@@ -30,6 +30,8 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'gteam="' . $row['gteam'] . '" ';
   echo 'type="' . $row['type'] . '" ';
   echo 'tid="' . $row['tname'] . '" ';
+  echo 'actraid="' . $row['actraid'] . '" ';
+  echo 'actboss="' . $row['actboss'] . '" ';
   echo '/>';
   $ind = $ind + 1;
 }

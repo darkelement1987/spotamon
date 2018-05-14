@@ -18,7 +18,7 @@ $status = $data->status;
 $address = '';
 if($status == "OK")
 {
-    $address = $data->results[0]->formatted_address;
+    $address = $conn->real_escape_string($data->results[0]->formatted_address);
 }
 else
 {
@@ -34,6 +34,6 @@ else
 {
     echo 'Inserted';
 }    
-header('Location:index.php');
+//header('Location:index.php');
     
 ?>

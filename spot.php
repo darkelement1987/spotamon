@@ -2,13 +2,13 @@
 ob_start();
 require 'config/config.php';
 include'functions.php';
-$pokemon = $_POST['pokemon'];
-$cp = $_POST['cp'];
-$hour = $_POST['hour'];
-$min = $_POST['min'];
-$ampm = $_POST['ampm'];
-$latitude = $_POST['latitude'];
-$longitude = $_POST['longitude'];
+$pokemon = $conn->real_escape_string($_POST['pokemon']);
+$cp = $conn->real_escape_string($_POST['cp']);
+$hour = $conn->real_escape_string($_POST['hour']);
+$min = $conn->real_escape_string($_POST['min']);
+$ampm = $conn->real_escape_string($_POST['ampm']);
+$latitude = $conn->real_escape_string($_POST['latitude']);
+$longitude = $conn->real_escape_string($_POST['longitude']);
 
 
 $url  = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false&key=".$gmaps;

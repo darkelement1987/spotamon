@@ -734,7 +734,7 @@ $gid = $gname = $gteam = "";
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Gym team :</strong></h2>
+<h2 style="text-align:center;"><strong>Gym team:</strong></h2>
 <form id="usersubmit" method="post" action="gymteam.php">
 <center><table style="width: 25%; height: auto;" id="t04">
 <tbody>

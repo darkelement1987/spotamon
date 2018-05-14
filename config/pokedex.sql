@@ -438,7 +438,7 @@ INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rlvl`, `rboss`) VALUES
 COMMIT;
 
 INSERT IGNORE INTO `teams` (`tid`, `tname`) VALUES
-(1, 'Team No Team'),
+(1, 'Uncontested'),
 (2, 'Instinct'),
 (3, 'Valor'),
 (4, 'Mystic');

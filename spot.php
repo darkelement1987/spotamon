@@ -9,8 +9,6 @@ $min = $conn->real_escape_string($_POST['min']);
 $ampm = $conn->real_escape_string($_POST['ampm']);
 $latitude = $conn->real_escape_string($_POST['latitude']);
 $longitude = $conn->real_escape_string($_POST['longitude']);
-
-
 $url  = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false&key=".$gmaps;
 $json = @file_get_contents($url);
 $data = json_decode($json);

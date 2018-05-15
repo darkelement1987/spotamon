@@ -35,12 +35,9 @@ $gmaps= "";
 
 #### Todo
 - Add login/registration
-- Store address to db instead of table using cache
 - Make all table content sortable on frontend
 - Add feedback/score system to spots. (2+ thumbsdown = remove from table/map)
 - Add locales for frontend
-- Add gyms
 - Add quests
 - Auto remove spots from db after 15 mins
 - Add better GUI / responsive (mobile) design
-- Add pokemon icons to <a href="http://makitweb.com/insert-image-in-dropdown-lists-with-jquery/">select2 dropdown</a>

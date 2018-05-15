@@ -38,6 +38,7 @@ ampm VARCHAR(5) NOT NULL,
 latitude DECIMAL(10,6) NOT NULL,
 longitude DECIMAL(10,6) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+fulladdress VARCHAR(128) NOT NULL,
 )";
 
 // sql to create the pokedex table

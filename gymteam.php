@@ -3,8 +3,8 @@
 ob_start();
 require 'config/config.php';
 include'functions.php';
-$gname = $_POST['gname'];
-$tname = $_POST['tname'];
+$gname = $conn->real_escape_string($_POST['gname']);
+$tname = $conn->real_escape_string($_POST['tname']);
 
 
 $sql = "UPDATE gyms SET gteam='$tname' WHERE gid='$gname'";

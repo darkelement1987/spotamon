@@ -15,12 +15,12 @@ include 'config/dbbuilding.php';
 <script>
  $(document).ready(function(){
   $("#raidsearch").select2({
-   templateResult: formatState,
+   templateResult: formatState1,
    width:'100%'
   });
  });
  
- function formatState (state) {
+ function formatState1 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
    '<span ><img style="display: inline-block;" src="static/icons/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
@@ -29,12 +29,12 @@ include 'config/dbbuilding.php';
  }
   $(document).ready(function(){
   $("#gymsearch").select2({
-   templateResult: formatState,
+   templateResult: formatState2,
    width:'100%'
   });
  });
  
- function formatState (state) {
+ function formatState2 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
    '<span > ' + state.text + ' </span>'

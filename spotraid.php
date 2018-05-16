@@ -3,11 +3,11 @@
 ob_start();
 require 'config/config.php';
 include'functions.php';
-$rboss = $_POST['rboss'];
-$rhour = $_POST['rhour'];
-$rmin = $_POST['rmin'];
-$rampm = $_POST['rampm'];
-$gname = $_POST['gname'];
+$rboss = $conn->real_escape_string($_POST['rboss']);
+$rhour = $conn->real_escape_string($_POST['rhour']);
+$rmin = $conn->real_escape_string($_POST['rmin']);
+$rampm = $conn->real_escape_string($_POST['rampm']);
+$gname = $conn->real_escape_string($_POST['gname']);
 
 $query = "SELECT glatitude, glongitude FROM gyms WHERE gid='$gname'";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));

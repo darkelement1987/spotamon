@@ -387,7 +387,7 @@ var customLabel = {
           position: point,
           label: icon.label,
           icon: image,
-		  title: gname + ' Held By' + gteam
+		  title: gname + ' held by ' + tid
         });
         marker.addListener('click', function() {
           infoWindow.setContent(infowincontent);
@@ -563,7 +563,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
+					echo '<option value="'.$gteam.'">'.$gid.' - '.$gname.'</option>';
 						}					
 							echo "</select>";
 						
@@ -704,7 +704,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
+					echo '<option value="'.$gteam.'">'.$gid.' - '.$gname.'</option>';
 						}					
 							echo "</select>";
 						
@@ -733,6 +733,5 @@ while ($row = $result->fetch_assoc()) {
 <?php }
 
 ?>
-
 
 

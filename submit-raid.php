@@ -30,9 +30,22 @@ include 'config/dbbuilding.php';
   $(document).ready(function(){
   $("#gymsearch").select2({
    templateResult: formatState2,
+   sorter: sortresults,
    width:'100%'
   });
  });
+ 
+   function sortresults (state) {
+    return state.sort(function (a, b) {
+        if (a.text > b.text) {
+            return 1;
+        }
+        if (a.text < b.text) {
+            return -1;
+        }
+        return 0;
+    });
+}
  
  function formatState2 (state) {
   if (!state.id) { return state.text; }

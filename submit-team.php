@@ -16,9 +16,22 @@ include 'config/dbbuilding.php';
  $(document).ready(function(){
   $("#gymsearch").select2({
    templateResult: formatState,
+   sorter: sortresults,
    width:'100%'
   });
  });
+ 
+ function sortresults (state) {
+    return state.sort(function (a, b) {
+        if (a.text > b.text) {
+            return 1;
+        }
+        if (a.text < b.text) {
+            return -1;
+        }
+        return 0;
+    });
+}
  
  function formatState (state) {
   if (!state.id) { return state.text; }
@@ -31,6 +44,7 @@ include 'config/dbbuilding.php';
   $(document).ready(function(){
   $("#teamsearch").select2({
    templateResult: formatState2,
+   sorter: sortresults,
    width:'100%'
   });
  });

@@ -9,7 +9,7 @@ $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
-$query = "SELECT * FROM gyms,teams WHERE 1 AND gyms.gteam = teams.tid";
+$query = "SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
 
@@ -32,6 +32,9 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'tid="' . $row['tname'] . '" ';
   echo 'actraid="' . $row['actraid'] . '" ';
   echo 'actboss="' . $row['actboss'] . '" ';
+  echo 'hour="' . $row['hour'] . '" ';
+  echo 'min="' . $row['min'] . '" ';
+  echo 'ampm="' . $row['ampm'] . '" ';
   echo '/>';
   $ind = $ind + 1;
 }

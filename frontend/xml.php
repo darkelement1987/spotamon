@@ -21,9 +21,9 @@ echo "<?xml version='1.0' ?>";
 echo '<markers>';
 $ind=0;
 
-
 // Iterate through the rows, printing XML nodes for each
 while ($row = @mysqli_fetch_assoc($result)){
+	
   // Add to XML document node
   echo '<marker ';
   echo 'id="' . $row['pokemon'] . '" ';

@@ -264,10 +264,17 @@ var customLabel = {
         strong.textContent = pokemon + ' (#' + id + ')'
         infowincontent.appendChild(strong);
         infowincontent.appendChild(document.createElement('br'));
+		if (min < 10){
+		var text = document.createElement('text');
+        text.textContent = 'Expires: ' + hour + ':' + '0' + min + ' ' + ampm  
+        infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
+		} else {
 		var text = document.createElement('text');
         text.textContent = 'Expires: ' + hour + ':' + min + ' ' + ampm  
         infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
+		infowincontent.appendChild(document.createElement('br'));	
+		}
         var text = document.createElement('text');
         text.textContent = cp + ' CP'
         infowincontent.appendChild(text);
@@ -290,59 +297,6 @@ var customLabel = {
       });
     });
 	
-	    downloadUrl('frontend/rxml.php', function(data) {
-      var xml = data.responseXML;
-      var markers = xml.documentElement.getElementsByTagName('marker');
-      Array.prototype.forEach.call(markers, function(markerElem) {
-        var rid = markerElem.getAttribute('rid');
-        var rboss = markerElem.getAttribute('rboss');
-		var rlvl = markerElem.getAttribute('rlvl');
-        var rcp = markerElem.getAttribute('rcp');
-		var rhour = markerElem.getAttribute('rhour');
-		var rmin = markerElem.getAttribute('rmin');
-		var rampm = markerElem.getAttribute('rampm');
-        var type = markerElem.getAttribute('rlvl');
-        var point = new google.maps.LatLng(
-            parseFloat(markerElem.getAttribute('rlatitude')),
-            parseFloat(markerElem.getAttribute('rlongitude')));
-		
-		var infowincontent = document.createElement('div');
-        var strong = document.createElement('strong');
-        strong.textContent = 'RAID VS ' + rboss + ' (#' + rid + ')'
-        infowincontent.appendChild(strong);
-        infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('text');
-        text.textContent = 'LVL: ' +rlvl
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('text');
-        text.textContent = 'CP: ' + rcp 
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-        var text = document.createElement('text');
-        text.textContent = 'Expires: ' + rhour + ':' + rmin + ' ' + rampm
-        infowincontent.appendChild(text);
-        var icon = customLabel[type] || {};
-        var image = {
-            url: 'static/raids/' + rid + '.png',
-            scaledSize: new google.maps.Size(75, 75)
-			
-        };
-		
-        var marker = new google.maps.Marker({
-          map: map,
-          position: point,
-          label: icon.label,
-          icon: image,
-		  title: rhour + rmin + rampm
-        });
-        marker.addListener('click', function() {
-          infoWindow.setContent(infowincontent);
-          infoWindow.open(map, marker);
-        });
-      });
-    });
-	
 	downloadUrl('frontend/gxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
@@ -354,10 +308,13 @@ var customLabel = {
         var tid = markerElem.getAttribute('tid');
 		var actraid = markerElem.getAttribute('actraid');
 		var actboss = markerElem.getAttribute('actboss');
+		var hour = markerElem.getAttribute('hour');
+		var min = markerElem.getAttribute('min');
+		var ampm = markerElem.getAttribute('ampm');
 		var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('glatitude')),
             parseFloat(markerElem.getAttribute('glongitude')));
-		
+		if (actraid === "0"){
 		var infowincontent = document.createElement('div');
         var strong = document.createElement('strong');
         strong.textContent = gname
@@ -368,19 +325,37 @@ var customLabel = {
         infowincontent.appendChild(text);
 		infowincontent.appendChild(document.createElement('br'));
         var icon = customLabel[type] || {};
-		if (actraid === "0"){
 			var image = {
             url: 'static/gyms/' + gteam + '.png',
-            scaledSize: new google.maps.Size(40, 40)
+            scaledSize: new google.maps.Size(50, 50)
 			};
 		} else {
+			var infowincontent = document.createElement('div');
+			var strong = document.createElement('strong');
+			strong.textContent = 'Raid At: ' +gname
+			infowincontent.appendChild(strong);
+			infowincontent.appendChild(document.createElement('br'));
+			var text = document.createElement('text');
+			text.textContent = 'Team: ' + tid
+			infowincontent.appendChild(text);
+			infowincontent.appendChild(document.createElement('br'));
+			if (min < 10){
+			var text = document.createElement('text');
+			text.textContent = 'Expires: ' + hour + ':' + '0' + min + ' ' + ampm  
+			infowincontent.appendChild(text);
+			infowincontent.appendChild(document.createElement('br'));
+			} else {
+			var text = document.createElement('text');
+			text.textContent = 'Expires: ' + hour + ':' + min + ' ' + ampm  
+			infowincontent.appendChild(text);
+			infowincontent.appendChild(document.createElement('br'));	
+			}
+			var icon = customLabel[type] || {};
 			var image = {
             url: 'static/raids/' + actboss + '.png',
             scaledSize: new google.maps.Size(75, 75)
 			};		
 		}
-		
-		
 		
         var marker = new google.maps.Marker({
           map: map,
@@ -437,8 +412,6 @@ var customLabel = {
 	
   }
 
-
-
 function downloadUrl(url, callback) {
   var request = window.ActiveXObject ?
       new ActiveXObject('Microsoft.XMLHTTP') :
@@ -467,7 +440,7 @@ function doNothing() {}
 function raidsubmission(){
 require('config/config.php');
 $result = $conn->query("SELECT * FROM raidbosses");
-$rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $rlatitude = $rlongitude ="";
+$rid = $rboss = $rlvl = $rhour = $rmin = $rampm = "";
 ?>
 
 
@@ -563,7 +536,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-					echo '<option value="'.$gteam.'">'.$gid.' - '.$gname.'</option>';
+					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
 						}					
 							echo "</select>";
 						
@@ -581,12 +554,6 @@ while ($row = $result->fetch_assoc()) {
 <?php }
 
 
-
-
-
-
-
-
 ////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
 
 
@@ -596,7 +563,7 @@ $results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM spotraid,raidbosses,gyms WHERE spotraid.rboss = raidbosses.rid  AND gyms.glatitude = spotraid.rlatitude AND gyms.glongitude = spotraid.rlongitude AND gyms.actboss = spotraid.rboss ORDER BY rdate DESC LIMIT $start_from,".$results_per_page;
+$sql = "SELECT * FROM spotraid,raidbosses,gyms WHERE spotraid.rboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude AND gyms.actboss = spotraid.rboss ORDER BY rdate DESC LIMIT $start_from,".$results_per_page;
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 
 
@@ -624,8 +591,8 @@ while($row = mysqli_fetch_array($result)) {
 	$rhour = $row['rhour'];
 	$rmin = $row['rmin'];
 	$rampm = $row['rampm'];
-	$rlatitude = $row['rlatitude'];
-	$rlongitude = $row['rlongitude'];
+	$glatitude = $row['glatitude'];
+	$glongitude = $row['glongitude'];
 	$minutes = $rmin;
 	$hr = $rhour;
 	$gname = $row['gname'];
@@ -646,7 +613,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$rhour.":".$minutes." ".$rampm."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$rlatitude,",".$rlongitude.""?>"><?php echo $gname;?><?php "</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?><?php "</td>
 	</tr>";
 		
 	} else {
@@ -664,7 +631,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hr.":".$minutes."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$rlatitude,",".$rlongitude.""?>"><?php echo $gname;?><?php "</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?><?php "</td>
 	</tr>";
 	
 }}
@@ -704,7 +671,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-					echo '<option value="'.$gteam.'">'.$gid.' - '.$gname.'</option>';
+					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
 						}					
 							echo "</select>";
 						

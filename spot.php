@@ -32,6 +32,6 @@ else
 {
     echo 'Inserted';
 }    
-header('Location:index.php');
+header('Location:map.php');
     
 ?>

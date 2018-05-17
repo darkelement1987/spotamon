@@ -11,8 +11,11 @@ Demo map <a href="http://www.spotamon.com">here</a>
 #### Cronjob Documentation
 
 https://code.tutsplus.com/tutorials/scheduling-tasks-with-cron-jobs--net-8800
+
 https://docs.plesk.com/en-US/onyx/customer-guide/scheduling-tasks.65207/
+
 https://www.plothost.com/kb/working-cron-jobs-directadmin/
+
 https://documentation.cpanel.net/display/68Docs/Cron+Jobs
 
 #### Configuration

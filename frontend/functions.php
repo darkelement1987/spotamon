@@ -563,7 +563,7 @@ $results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM spotraid,raidbosses,gyms WHERE spotraid.rboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude AND gyms.actboss = spotraid.rboss ORDER BY rdate DESC LIMIT $start_from,".$results_per_page;
+$sql = "SELECT * FROM raidbosses,gyms WHERE gyms.actraid = '1' AND gyms.actboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude ORDER BY date DESC LIMIT $start_from,".$results_per_page;
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 
 
@@ -588,19 +588,19 @@ while($row = mysqli_fetch_array($result)) {
     $rboss = $row['rboss'];
     $rlvl = $row['rlvl'];
 	$rcp = $row['rcp'];
-	$rhour = $row['rhour'];
-	$rmin = $row['rmin'];
-	$rampm = $row['rampm'];
+	$hour = $row['hour'];
+	$min = $row['min'];
+	$ampm = $row['ampm'];
 	$glatitude = $row['glatitude'];
 	$glongitude = $row['glongitude'];
-	$minutes = $rmin;
-	$hr = $rhour;
+	$minutes = $min;
+	$hr = $hour;
 	$gname = $row['gname'];
 	
 	
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
-	if ($rmin < 10) {
-    $minutes = str_pad($rmin, 2, "0", STR_PAD_LEFT);	
+	if ($min < 10) {
+    $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);	
 	}
 	
 	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
@@ -612,7 +612,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$rid."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
-	<td>".$rhour.":".$minutes." ".$rampm."</td>
+	<td>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?><?php "</td>
 	</tr>";
 		
@@ -620,8 +620,8 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
 
 	///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
-	if ($rhour < 10) {
-    $hr = str_pad($rhour, 2, "0", STR_PAD_LEFT);	
+	if ($hour < 10) {
+    $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);	
 	}
 	
 	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\

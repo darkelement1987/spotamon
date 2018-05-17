@@ -494,8 +494,7 @@ while ($row = $result->fetch_assoc()) {
 	</select> 
 	
 	<select name="rampm">
-		<option value="AM/PM" selected>AM/PM</option>
-		<option value="AM">AM</option>
+		<option value="AM" selected>AM</option>
 		<option value="PM">PM</option>
 	</select>
 	
@@ -536,7 +535,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
+					echo '<option value="'.$gid.'" label="'.$gteam.'">'.$gid.' - '.$gname.'</option>';
 						}					
 							echo "</select>";
 						
@@ -671,7 +670,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
+					echo '<option value="'.$gid.'" label="'.$gteam.'">'.$gid.' - '.$gname.'</option>';
 						}					
 							echo "</select>";
 						

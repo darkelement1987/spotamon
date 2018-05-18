@@ -16,6 +16,7 @@ include 'config/dbbuilding.php';
  $(document).ready(function(){
   $("#gymsearch").select2({
    templateResult: formatState,
+   sorter: sortresults,
    width:'100%'
   });
  });
@@ -23,7 +24,7 @@ include 'config/dbbuilding.php';
  function formatState (state) {
   if (!state.id) { return state.text; }
   var $state = $(
-   '<span ><img style="display: inline-block;" src="static/gyms/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+   '<span ><img style="display: inline-block;" src="static/gyms/' + state.element.label + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
   );
   return $state;
  }
@@ -34,6 +35,18 @@ include 'config/dbbuilding.php';
    width:'100%'
   });
  });
+ 
+    function sortresults (state) {
+    return state.sort(function (a, b) {
+        if (a.text > b.text) {
+            return 1;
+        }
+        if (a.text < b.text) {
+            return -1;
+        }
+        return 0;
+    });
+}
  
  function formatState2 (state) {
   if (!state.id) { return state.text; }

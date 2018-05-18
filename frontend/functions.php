@@ -233,8 +233,18 @@ var customLabel = {
 
   function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(<?php echo $mapcenter;?>),
-    zoom: 15,
+    center: new google.maps.LatLng(<?php
+if (isset($_GET['loc'])) {
+    echo $_GET['loc'];
+} else {
+echo $mapcenter;
+}?>),
+    zoom: <?php
+if (isset($_GET['zoom'])) {
+    echo $_GET['zoom'];
+} else {
+echo 15;
+}?>,
     gestureHandling: 'greedy',
     fullscreenControl: true,
     streetViewControl: false,

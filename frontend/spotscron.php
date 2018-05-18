@@ -1,6 +1,6 @@
 <?php
 require '../config/config.php';
-$sql = "DELETE FROM spots WHERE date < (NOW() - INTERVAL 20 MINUTE)";
+$sql = "DELETE FROM spots WHERE date < (NOW() - INTERVAL 15 MINUTE)";
 if(!mysqli_query($conn,$sql))
 {
     echo 'Not Deleted';

@@ -789,7 +789,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-					echo '<option value="'.$gid.'">'.$gid.' - '.$gname.'</option>';
+					echo '<option value="'.$gid.'" label="'.$gteam.'">'.$gname.'</option>';
 						}					
 							echo "</select>";
 						

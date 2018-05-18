@@ -10,17 +10,14 @@ Demo map <a href="http://www.spotamon.com">here</a>
 
 #### Cronjob Documentation
 
-https://code.tutsplus.com/tutorials/scheduling-tasks-with-cron-jobs--net-8800
-
-https://docs.plesk.com/en-US/onyx/customer-guide/scheduling-tasks.65207/
-
-https://www.plothost.com/kb/working-cron-jobs-directadmin/
-
+https://code.tutsplus.com/tutorials/scheduling-tasks-with-cron-jobs--net-8800<br>
+https://docs.plesk.com/en-US/onyx/customer-guide/scheduling-tasks.65207/<br>
+https://www.plothost.com/kb/working-cron-jobs-directadmin/<br>
 https://documentation.cpanel.net/display/68Docs/Cron+Jobs
 
 #### Make Cronjob online
 
-https://www.setcronjob.com
+https://www.setcronjob.com<br>
 https://cron-job.org/en/
 
 #### Configuration

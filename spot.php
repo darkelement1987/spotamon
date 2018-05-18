@@ -32,6 +32,6 @@ else
 {
     echo 'Inserted';
 }    
-header('Location:map.php');
+header('Location:map.php?loc='.$latitude.','.$longitude.'&zoom=19');
     
 ?>

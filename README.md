@@ -6,7 +6,7 @@ Demo map <a href="http://www.spotamon.com">here</a>
 #### Install
 - Create Database,
 - Connect to DB in config and load site, on first load it will auto create tables. 
-- Add 20 min interval cronjob for /frontend/spotscron.php
+- Add 15 min interval cronjob for /frontend/spotscron.php to automatically remove spots from db.
 
 #### Cronjob Documentation
 
@@ -17,6 +17,10 @@ https://docs.plesk.com/en-US/onyx/customer-guide/scheduling-tasks.65207/
 https://www.plothost.com/kb/working-cron-jobs-directadmin/
 
 https://documentation.cpanel.net/display/68Docs/Cron+Jobs
+
+#### Make Cronjob online
+
+https://cron-job.org/en/
 
 #### Configuration
 

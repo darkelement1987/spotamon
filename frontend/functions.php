@@ -266,7 +266,7 @@ var customLabel = {
         infowincontent.appendChild(document.createElement('br'));
 		if (min < 10){
 		var text = document.createElement('text');
-        text.textContent = 'Expires: ' + hour + ':' + '0' + min + ' ' + ampm  
+        text.textContent = 'Found: ' + hour + ':' + '0' + min + ' ' + ampm  
         infowincontent.appendChild(text);
 		infowincontent.appendChild(document.createElement('br'));
 		} else {

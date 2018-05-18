@@ -187,7 +187,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="map.php?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=15">Map</a><?php echo "</td>
+	<td>"?><a href="map.php?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 		
 	} else {
@@ -206,7 +206,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="map.php?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=15">Map</a><?php echo "</td>
+	<td>"?><a href="map.php?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 
 }}
@@ -659,7 +659,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
+echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th><th>MAP</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$rid = $row['rid'];
     $rboss = $row['rboss'];
@@ -690,7 +690,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?><?php "</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
+	<td>"?><a href="map.php?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 		
 	} else {
@@ -708,7 +709,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hr.":".$minutes."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?><?php "</td>
+	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
+	<td>"?><a href="map.php?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 	
 }}

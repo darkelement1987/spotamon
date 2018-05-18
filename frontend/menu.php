@@ -124,6 +124,7 @@ body {
       <a href="index.php" class="active">POKEMON</a>
       <a href="submit-raid.php">RAID</a>
       <a href="submit-team.php">GYM TEAM</a>
+	  <a href="submit-egg.php">EGG</a>
     </div>
   </div>
   <div class="dropdown">

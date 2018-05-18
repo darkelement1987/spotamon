@@ -17,6 +17,6 @@ $sql = "UPDATE gyms SET gteam='$tname' WHERE gid='$gname'";
 				echo 'Inserted';
 			}	
 
-	header('Location:map.php');
+	header('Location:submit-team.php');
 	
 ?>

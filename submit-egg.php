@@ -29,7 +29,7 @@ include 'config/dbbuilding.php';
  }
  
   $(document).ready(function(){
-  $("#teamsearch").select2({
+  $("#eggsearch").select2({
    templateResult: formatState2,
    width:'100%'
   });
@@ -38,7 +38,7 @@ include 'config/dbbuilding.php';
  function formatState2 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
-   '<span ><img style="display: inline-block;" src="static/gyms/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+   '<span ><img style="display: inline-block;" src="static/eggs/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
   );
   return $state;
  }
@@ -48,7 +48,7 @@ include 'config/dbbuilding.php';
 <?php
 menu();
 
-gymsubmission();
+eggsubmission();
 ?>
 
 </body>

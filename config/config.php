@@ -71,7 +71,8 @@ actraid VARCHAR(255) NOT NULL,
 actboss VARCHAR(25) NULL,
 hour INT(2) NOT NULL,
 min INT(2) NOT NULL,
-ampm VARCHAR(5) NOT NULL,
+ampm VARCHAR(2) NOT NULL,
+egg INT(1) NOT NULL,
 type VARCHAR(25) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
 
@@ -83,11 +84,24 @@ $stops = "CREATE TABLE IF NOT EXISTS `stops` (
 sid INT(6) PRIMARY KEY NOT NULL,
 slatitude DECIMAL(10,6) NOT NULL,
 slongitude DECIMAL(10,6) NOT NULL,
+quested INT(1) NULL,
 quest VARCHAR(255) NULL,
-reward VARCHAR(25) NULL,
-type VARCHAR(25) NULL)";
+reward VARCHAR(255) NULL,
+lured INT(1) NULL,
+type VARCHAR(25) NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops];
+$quests = "CREATE TABLE IF NOT EXISTS `quests` (
+qid INT(6) PRIMARY KEY NOT NULL,
+quest VARCHAR(255) NOT NULL,
+type VARCHAR(5) NULL)";
+
+$rewards = "CREATE TABLE IF NOT EXISTS `rewards` (
+reid INT(4) PRIMARY KEY NOT NULL,
+reward VARCHAR(255) NOT NULL,
+type VARCHAR(6) NULL)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops, $quests, $rewards];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

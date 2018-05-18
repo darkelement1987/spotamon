@@ -28,6 +28,6 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
                 echo 'Inserted';
             }                
 
-    header('Location:map.php');
+    header('Location:submit-raid.php');
     
 ?>

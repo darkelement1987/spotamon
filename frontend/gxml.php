@@ -35,6 +35,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'hour="' . $row['hour'] . '" ';
   echo 'min="' . $row['min'] . '" ';
   echo 'ampm="' . $row['ampm'] . '" ';
+  echo 'egg="' . $row['egg'] . '" ';
   echo '/>';
   $ind = $ind + 1;
 }

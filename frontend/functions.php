@@ -9,7 +9,7 @@ $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude 
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
-<form id="usersubmit" method="post" action="spot.php">
+<form id="usersubmit" method="post" action="spotpokemon.php">
 <center><table id="t01">
 <tbody>
 
@@ -187,7 +187,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="map.php?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="/?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 		
 	} else {
@@ -206,7 +206,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="map.php?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="/?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 
 }}
@@ -691,7 +691,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
-	<td>"?><a href="map.php?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="/?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 		
 	} else {
@@ -710,7 +710,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
-	<td>"?><a href="map.php?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="/?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 	
 }}

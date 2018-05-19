@@ -20,6 +20,6 @@ $sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm' WHERE
 				echo 'Inserted';
 			}	
 
-	header('Location:map.php');
+	header('Location:/');
 	
 ?>

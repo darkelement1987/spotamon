@@ -8,6 +8,15 @@ Demo map <a href="http://www.spotamon.com">here</a>
 - Connect to DB in config and load site, on first load it will auto create tables. 
 - Add 15 min interval cronjob for /frontend/spotscron.php to automatically remove spots from db.
 
+#### Importing Gym/Stop CSV's
+
+1. First download the browser-extension '<a href="https://tampermonkey.net/">Tampermonkey</a>'.
+2. In Tampermonkey load <a href="https://www.spotamon.com/gymscript.js">this</a> script
+3. Go to gymhuntr.com and from the menu on the left side choose the last option, this will open a popup.
+4. In this menu click 'Save stops as CSV' or 'Save gyms as CSV'.
+5. Run yoururl.com/config/gymcsv.php / yoururl.com/config/stopcsv.php and import the files.
+6. Delete the .php files to prevent people from uploading fake stuff.
+
 #### Cronjob Documentation
 
 https://code.tutsplus.com/tutorials/scheduling-tasks-with-cron-jobs--net-8800<br>

@@ -121,7 +121,7 @@ body {
    <div class="dropdown">
     <button class="dropbtn">ADD SPOT <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
-      <a href="index.php" class="active">POKEMON</a>
+      <a href="submit-pokemon.php" class="active">POKEMON</a>
       <a href="submit-raid.php">RAID</a>
       <a href="submit-team.php">GYM TEAM</a>
 	  <a href="submit-egg.php">EGG</a>
@@ -134,7 +134,7 @@ body {
       <a href="raids.php">RAIDS</a>
     </div>
   </div>
-  <a href="map.php">MAP</a>
+  <a href="/">MAP</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 

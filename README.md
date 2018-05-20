@@ -61,3 +61,4 @@ $gmaps= "";
 - Add feedback/score system to spots. (2+ thumbsdown = remove from table/map)
 - Add locales for frontend
 - Add quests
+- Integrate webhooks

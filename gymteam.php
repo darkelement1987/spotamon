@@ -79,6 +79,6 @@ if ($err) {
   echo $response;
 }	
 
-	header('Location:/');
+	header('Location:./?loc='.$gymlat.','.$gymlon.'&zoom=19');
 	
 ?>

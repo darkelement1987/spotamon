@@ -1,8 +1,8 @@
 <?php
 
 ob_start();
-require 'config/config.php';
-include'functions.php';
+require './config/config.php';
+include'./frontend/functions.php';
 $gname = $conn->real_escape_string($_POST['gname']);
 $tname = $conn->real_escape_string($_POST['tname']);
 
@@ -17,6 +17,6 @@ $sql = "UPDATE gyms SET gteam='$tname' WHERE gid='$gname'";
 				echo 'Inserted';
 			}	
 
-	header('Location:/');
+	header('Location:./');
 	
 ?>

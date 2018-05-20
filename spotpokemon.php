@@ -1,7 +1,7 @@
 <?php
 ob_start();
-require 'config/config.php';
-include'functions.php';
+require './config/config.php';
+include'./frontend/functions.php';
 $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);
 $hour = $conn->real_escape_string($_POST['hour']);
@@ -32,6 +32,6 @@ else
 {
     echo 'Inserted';
 }    
-header('Location:/?loc='.$latitude.','.$longitude.'&zoom=19');
+header('Location:./?loc='.$latitude.','.$longitude.'&zoom=19');
     
 ?>

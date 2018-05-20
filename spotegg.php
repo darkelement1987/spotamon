@@ -1,8 +1,8 @@
 <?php
 
 ob_start();
-require 'config/config.php';
-include'functions.php';
+require './config/config.php';
+include'./frontend/functions.php';
 $gname = $conn->real_escape_string($_POST['gname']);
 $egg = $conn->real_escape_string($_POST['egg']);
 $rhour = $conn->real_escape_string($_POST['rhour']);
@@ -20,6 +20,6 @@ $sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm' WHERE
 				echo 'Inserted';
 			}	
 
-	header('Location:/');
+	header('Location:./');
 	
 ?>

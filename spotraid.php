@@ -1,8 +1,8 @@
 <?php
 
 ob_start();
-require 'config/config.php';
-include'functions.php';
+require './config/config.php';
+include'./frontend/functions.php';
 $rboss = $conn->real_escape_string($_POST['rboss']);
 $rhour = $conn->real_escape_string($_POST['rhour']);
 $rmin = $conn->real_escape_string($_POST['rmin']);
@@ -28,6 +28,6 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
                 echo 'Inserted';
             }                
 
-    header('Location:/');
+    header('Location:./');
     
 ?>

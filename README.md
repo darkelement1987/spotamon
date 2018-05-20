@@ -10,8 +10,7 @@ Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
 - Connect to DB in config and load site, on first load it will auto create tables. 
 
 #### Crornjob Commands
-Add 15 min interval cronjob for /frontend/spotscron.php to automatically remove spots from db.
-
+Set your Crob to check each minute:
 Pokemon spots: `/usr/bin/wget 'https://www.siteurl/frontend/spotscron.php'`<br>
 Raid spots: `/usr/bin/wget 'https://www.siteurl/frontend/raidcron.php'`<br>
 Egg spots: `/usr/bin/wget 'https://www.siteurl/frontend/eggcron.php'`

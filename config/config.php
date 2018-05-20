@@ -1,10 +1,15 @@
 <?php
 
 // Connect to Database
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$database = "database";
+$servername = "";
+$username = "";
+$password = "";
+$database = "";
+
+// CSV Import username/password
+
+$csvuser = "";
+$csvpass = "";
 
 // Set maps default location example: 
 // Example:
@@ -13,10 +18,15 @@ $database = "database";
 $mapcenter = "";
 
 //24HR-Clock (default = false = 12HR) 
-$clock = "false";
+$clock = "";
 
 //Google Maps key
-$gmaps= "key goes here";
+$gmaps= "";
+
+//Webhook Setup
+$webhook_url = ""; // <-- Webhook URL of your Discord channel
+$viewurl = ""; // <-- Enter your FULL Spotamon url here including http:// or https:// example: https://www.mysite.com < NO BACKSLASH AT THE END!
+$viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
 
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
 // Create connection

@@ -1,7 +1,7 @@
 <?php
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function pokesubmission(){
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress="";
 ?>
@@ -133,7 +133,7 @@ function showPosition(position) {
 
 ///////////////////// SPOTTED MONSTER TABLE \\\\\\\\\\\\\\\\\\\\\
 function spottedpokemon(){
-require('config/config.php');
+require('./config/config.php');
 $results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
@@ -221,7 +221,7 @@ for ($i=1; $i<=$total_pages; $i++) {
 }
 
 function maps(){
-	require('config/config.php');
+	require('./config/config.php');
 ?>
 
 <div id="map"></div>
@@ -256,7 +256,7 @@ echo 15;
   var infoWindow = new google.maps.InfoWindow;
 
     // Change this depending on the name of your PHP or XML file
-    downloadUrl('frontend/xml.php', function(data) {
+    downloadUrl('./frontend/xml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -309,7 +309,7 @@ echo 15;
       });
     });
 	
-	downloadUrl('frontend/gxml.php', function(data) {
+	downloadUrl('./frontend/gxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -444,7 +444,7 @@ echo 15;
       });
     });
 	
-	downloadUrl('frontend/sxml.php', function(data) {
+	downloadUrl('./frontend/sxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -515,7 +515,7 @@ function doNothing() {}
 ///////////////// SUBMIT RAIDS \\\\\\\\\\\\\\\\\
 
 function raidsubmission(){
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM raidbosses");
 $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = "";
 ?>
@@ -603,7 +603,7 @@ while ($row = $result->fetch_assoc()) {
 <td style="width: 5%;">At Gym</td>
 <td style="width: 10%;">
 <?php
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
 echo "<select id='gymsearch' name='gname'>";
@@ -635,7 +635,7 @@ while ($row = $result->fetch_assoc()) {
 
 
 function spottedraids(){
-require('config/config.php');
+require('./config/config.php');
 $results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
@@ -726,7 +726,7 @@ for ($i=1; $i<=$total_pages; $i++) {
 
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function gymsubmission(){
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
 
@@ -779,7 +779,7 @@ while ($row = $result->fetch_assoc()) {
 <?php }
 
 function eggsubmission(){
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
 

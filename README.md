@@ -46,18 +46,21 @@ $servername = "";
 $username = "";
 $password = "";
 $database = "";
-
+// CSV Import username/password
+$csvuser = "";
+$csvpass = "";
 // Set maps default location example: 
 // Example:
 // $mapcenter = "51.9720526, 6.7202572";
-
 $mapcenter = "";
-
 //24HR-Clock (default = false = 12HR) 
 $clock = "";
-
 //Google Maps key
 $gmaps= "";
+//Webhook Setup
+$webhook_url = ""; // <-- Webhook URL of your Discord channel
+$viewurl = ""; // <-- Enter your FULL Spotamon url here including http:// or https:// example: https://www.mysite.com < NO BACKSLASH AT THE END!
+$viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
 ```
 
 #### Notes

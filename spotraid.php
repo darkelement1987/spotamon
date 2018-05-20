@@ -1,8 +1,8 @@
 <?php
 $curl = curl_init();
 ob_start();
-require 'config/config.php';
-include'functions.php';
+require './config/config.php';
+include'./functions.php';
 $rboss = $conn->real_escape_string($_POST['rboss']);
 $rhour = $conn->real_escape_string($_POST['rhour']);
 $rmin = $conn->real_escape_string($_POST['rmin']);
@@ -118,6 +118,6 @@ if ($err) {
   echo $response;
 }		
 			
-    header('Location:./?loc='.$gymlat.','.$gymlon.'&zoom=19');
+    header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
     
 ?>

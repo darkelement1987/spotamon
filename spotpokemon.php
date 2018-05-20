@@ -1,8 +1,8 @@
 <?php
 $curl = curl_init();
 ob_start();
-require 'config/config.php';
-include'functions.php';
+require './config/config.php';
+include'./functions.php';
 $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);
 $hour = $conn->real_escape_string($_POST['hour']);
@@ -79,6 +79,6 @@ if ($err) {
   echo $response;
 }			
 
-header('Location:./?loc='.$latitude.','.$longitude.'&zoom=19');
+header('Location:index.php?loc='.$latitude.','.$longitude.'&zoom=19');
     
 ?>

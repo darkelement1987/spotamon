@@ -1,7 +1,7 @@
 <?php
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function pokesubmission(){
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress="";
 ?>
@@ -9,7 +9,7 @@ $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude 
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
-<form id="usersubmit" method="post" action="spotpokemon.php">
+<form id="usersubmit" method="post" action="./spotpokemon.php">
 <center><table id="t01">
 <tbody>
 
@@ -133,7 +133,7 @@ function showPosition(position) {
 
 ///////////////////// SPOTTED MONSTER TABLE \\\\\\\\\\\\\\\\\\\\\
 function spottedpokemon(){
-require('config/config.php');
+require('./config/config.php');
 $results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
@@ -183,11 +183,11 @@ while($row = mysqli_fetch_array($result)) {
 	echo "
 	<tr>
 	<td>".$pokemon."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="/?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 		
 	} else {
@@ -202,11 +202,11 @@ while($row = mysqli_fetch_array($result)) {
 	echo "
 	<tr>
 	<td>".$pokemon."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="/?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 
 }}
@@ -221,7 +221,7 @@ for ($i=1; $i<=$total_pages; $i++) {
 }
 
 function maps(){
-	require('config/config.php');
+	require('./config/config.php');
 ?>
 
 <div id="map"></div>
@@ -256,7 +256,7 @@ echo 15;
   var infoWindow = new google.maps.InfoWindow;
 
     // Change this depending on the name of your PHP or XML file
-    downloadUrl('frontend/xml.php', function(data) {
+    downloadUrl('./frontend/xml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -292,7 +292,7 @@ echo 15;
         infowincontent.appendChild(text);
         var icon = customLabel[type] || {};
         var image = {
-            url: 'static/icons/' + id + '.png',
+            url: './static/icons/' + id + '.png',
             scaledSize: new google.maps.Size(32, 32)
         };
 		
@@ -309,7 +309,7 @@ echo 15;
       });
     });
 	
-	downloadUrl('frontend/gxml.php', function(data) {
+	downloadUrl('./frontend/gxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -339,7 +339,7 @@ echo 15;
 		infowincontent.appendChild(document.createElement('br'));
         var icon = customLabel[type] || {};
 			var image = {
-            url: 'static/gyms/' + gteam + '.png',
+            url: './static/gyms/' + gteam + '.png',
             scaledSize: new google.maps.Size(50, 50)
 			};
 		} else if (actraid !== "0" && egg === "0"){
@@ -365,7 +365,7 @@ echo 15;
 			}
 			var icon = customLabel[type] || {};
 			var image = {
-            url: 'static/raids/' + actboss + '.png',
+            url: './static/raids/' + actboss + '.png',
             scaledSize: new google.maps.Size(75, 75)
 			};		
 		} else if (actraid !== "0" && egg !== "0"){
@@ -395,7 +395,7 @@ echo 15;
 			}
 			var icon = customLabel[type] || {};
 			var image = {
-            url: 'static/raids/' + actboss + '.png',
+            url: './static/raids/' + actboss + '.png',
             scaledSize: new google.maps.Size(75, 75)
 			};		
 		} else if (actraid === "0" && egg !== "0"){
@@ -425,7 +425,7 @@ echo 15;
 			}
 			var icon = customLabel[type] || {};
 			var image = {
-            url: 'static/eggs/' + egg + '.png',
+            url: './static/eggs/' + egg + '.png',
             scaledSize: new google.maps.Size(55, 55)
 			};		
 		} 
@@ -444,7 +444,7 @@ echo 15;
       });
     });
 	
-	downloadUrl('frontend/sxml.php', function(data) {
+	downloadUrl('./frontend/sxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -471,7 +471,7 @@ echo 15;
 		infowincontent.appendChild(document.createElement('br'));
         var icon = customLabel[type] || {};
         var image = {
-            url: 'static/stops/stops.png',
+            url: './static/stops/stops.png',
             scaledSize: new google.maps.Size(30, 30)
         };
         var marker = new google.maps.Marker({
@@ -515,7 +515,7 @@ function doNothing() {}
 ///////////////// SUBMIT RAIDS \\\\\\\\\\\\\\\\\
 
 function raidsubmission(){
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM raidbosses");
 $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = "";
 ?>
@@ -523,7 +523,7 @@ $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = "";
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
-<form id="usersubmit" method="post" action="spotraid.php">
+<form id="usersubmit" method="post" action="./spotraid.php">
 <center><table id="t03">
 <tbody>
 
@@ -603,7 +603,7 @@ while ($row = $result->fetch_assoc()) {
 <td style="width: 5%;">At Gym</td>
 <td style="width: 10%;">
 <?php
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
 echo "<select id='gymsearch' name='gname'>";
@@ -635,7 +635,7 @@ while ($row = $result->fetch_assoc()) {
 
 
 function spottedraids(){
-require('config/config.php');
+require('./config/config.php');
 $results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
@@ -687,11 +687,11 @@ while($row = mysqli_fetch_array($result)) {
 	echo "
 	<tr>
 	<td>".$rid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
-	<td>"?><a href="/?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 		
 	} else {
@@ -706,11 +706,11 @@ while($row = mysqli_fetch_array($result)) {
 	echo "
 	<tr>
 	<td>".$rid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
-	<td>"?><a href="/?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
 	
 }}
@@ -726,7 +726,7 @@ for ($i=1; $i<=$total_pages; $i++) {
 
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function gymsubmission(){
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
 
@@ -734,7 +734,7 @@ $gid = $gname = $gteam = "";
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Gym team:</strong></h2>
-<form id="usersubmit" method="post" action="gymteam.php">
+<form id="usersubmit" method="post" action="./gymteam.php">
 <center><table id="t04">
 <tbody>
 
@@ -779,7 +779,7 @@ while ($row = $result->fetch_assoc()) {
 <?php }
 
 function eggsubmission(){
-require('config/config.php');
+require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
 
@@ -787,7 +787,7 @@ $gid = $gname = $gteam = "";
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Spot Egg:</strong></h2>
-<form id="usersubmit" method="post" action="spotegg.php">
+<form id="usersubmit" method="post" action="./spotegg.php">
 <center><table id="t04">
 <tbody>
 

@@ -11,7 +11,7 @@ Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
 - Add 15 min interval cronjob for /frontend/spotscron.php to automatically remove spots from db.
 #### Crornjob Commands
 
-Pokemon spots: `/usr/bin/wget 'https://www.siteurl/frontend/spotscron.php'`
+Pokemon spots: `/usr/bin/wget 'https://www.siteurl/frontend/spotscron.php'`<br>
 Raid spots: `/usr/bin/wget 'https://www.siteurl/frontend/raidcron.php'`
 
 #### Importing Gym/Stop CSV's

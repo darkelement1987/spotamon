@@ -17,7 +17,7 @@ Raid spots: `/usr/bin/wget 'https://www.siteurl/frontend/raidcron.php'`
 #### Importing Gym/Stop CSV's
 
 1. First download the browser-extension '<a href="https://tampermonkey.net/">Tampermonkey</a>'.
-2. In Tampermonkey go to the "Utilities"-tab and in the URL-field enter this url: `https://www.spotamon.com/gymscript.js` and click install.
+2. In Tampermonkey go to the "Utilities"-tab and in the URL-field enter this url: `https://www.spotamon.com/gymscript.js` and click `Import -> Install`
 3. Go to gymhuntr.com and from the menu on the left side choose the last option, this will open a popup.
 4. In this menu click 'Save stops as CSV' or 'Save gyms as CSV'.
 5. Run yoururl.com/config/gymcsv.php / yoururl.com/config/stopcsv.php and import the files.

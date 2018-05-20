@@ -1,5 +1,5 @@
 <?php
-require 'config/config.php';
+require './config/config.php';
 ?>
 <?php
 // PRINTS DATE IN SQL FORMAT \\

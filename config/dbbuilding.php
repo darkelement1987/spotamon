@@ -1,8 +1,8 @@
 <?php
-require('config.php');
+require('./config/config.php');
 
 $query = '';
-$sqlScript = file('config/pokedex.sql');
+$sqlScript = file('./config/pokedex.sql');
 foreach ($sqlScript as $line)    {
     
     $startWith = substr(trim($line), 0 ,2);

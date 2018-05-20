@@ -115,26 +115,26 @@ body {
 
 </head>
 <body>
-<a href="/"><img src="header.png" alt="logo" style="padding-top:7px; float:left; background-color:#333; position:absolute; z-index:100;"></a>
+<a href="./"><img src="header.png" alt="logo" style="padding-top:7px; float:left; background-color:#333; position:absolute; z-index:100;"></a>
 <div class="topnav" id="myTopnav">
 
    <div class="dropdown">
     <button class="dropbtn">ADD SPOT <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
-      <a href="submit-pokemon.php" class="active">POKEMON</a>
-      <a href="submit-raid.php">RAID</a>
-      <a href="submit-team.php">GYM TEAM</a>
-	  <a href="submit-egg.php">EGG</a>
+      <a href="./submit-pokemon.php" class="active">POKEMON</a>
+      <a href="./submit-raid.php">RAID</a>
+      <a href="./submit-team.php">GYM TEAM</a>
+	  <a href="./submit-egg.php">EGG</a>
     </div>
   </div>
   <div class="dropdown">
     <button class="dropbtn">SPOTS <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
-      <a href="pokemon.php">POKEMON</a>
-      <a href="raids.php">RAIDS</a>
+      <a href="./pokemon.php">POKEMON</a>
+      <a href="./raids.php">RAIDS</a>
     </div>
   </div>
-  <a href="/">MAP</a>
+  <a href="./">MAP</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
@@ -147,5 +147,5 @@ function myFunction() {
         x.className = "topnav";
     }
 }
-</script>
+</script></body>
 <?php } ?>

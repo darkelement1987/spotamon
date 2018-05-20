@@ -119,22 +119,21 @@ body {
 <div class="topnav" id="myTopnav">
 
    <div class="dropdown">
-    <button class="dropbtn">ADD SPOT <i class="fa fa-caret-down"></i></button>
+    <button class="dropbtn">Add spot <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
-      <a href="./submit-pokemon.php" class="active">POKEMON</a>
-      <a href="./submit-raid.php">RAID</a>
-      <a href="./submit-team.php">GYM TEAM</a>
-	  <a href="./submit-egg.php">EGG</a>
+      <a href="./submit-pokemon.php" class="active">Pokémon</a>
+      <a href="./submit-raid.php">Raid</a>
+      <a href="./submit-team.php">Team</a>
+	  <a href="./submit-egg.php">Egg</a>
     </div>
   </div>
   <div class="dropdown">
-    <button class="dropbtn">SPOTS <i class="fa fa-caret-down"></i></button>
+    <button class="dropbtn">View spots <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
-      <a href="./pokemon.php">POKEMON</a>
-      <a href="./raids.php">RAIDS</a>
+      <a href="./pokemon.php">Pokémon</a>
+      <a href="./raids.php">Raids</a>
     </div>
   </div>
-  <a href="./">MAP</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 

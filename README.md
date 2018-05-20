@@ -11,6 +11,7 @@ Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
 
 #### Crornjob Commands
 Set your Crob to check each minute:
+
 Pokemon spots: `/usr/bin/wget 'https://www.siteurl/frontend/spotscron.php'`<br>
 Raid spots: `/usr/bin/wget 'https://www.siteurl/frontend/raidcron.php'`<br>
 Egg spots: `/usr/bin/wget 'https://www.siteurl/frontend/eggcron.php'`

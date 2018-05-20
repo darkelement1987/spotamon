@@ -1,7 +1,9 @@
 ### SPOTAMON - Crowdsourced Pokemon Go map.
+Demo map 
 
-#### Demo
-Demo map <a href="http://www.spotamon.com">here</a>
+#### Discord
+
+Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
 
 #### Install
 - Create Database,

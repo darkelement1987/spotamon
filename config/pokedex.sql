@@ -434,6 +434,7 @@ INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rlvl`, `rboss`) VALUES
 (359, 26262, 4, 'Absol'),
 (306, 33458, 4, 'Aggron'),
 (380, 45704, 5, 'Latias'),
+(250, 48276, 5, 'Ho-oh'),
 (381, 45704, 5, 'Latios');
 COMMIT;
 

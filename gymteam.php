@@ -84,17 +84,17 @@ $hookObject = json_encode([
                 [
                     "name" => "Gym:",
                     "value" => "$gymname",
-                    "inline" => true
+                    "inline" => false
                 ],
 				[
 					"name" => "Taken at:",
 					"value" => "$date",
-					"inline" => true
+					"inline" => false
 				],
                 [
                     "name" => "Now controlled by:",
                     "value" => "$teamname",
-                    "inline" => true
+                    "inline" => false
                 ]
             ]
         ]

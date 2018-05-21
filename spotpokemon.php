@@ -69,7 +69,7 @@ $hookObject = json_encode([
             ],
             
             "image" => [
-				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&markers=$latidude,$longitude&zoom=17&size=400x400",
+				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&markers=$latitude,$longitude&zoom=17&size=400x400",
             ],
             
             "thumbnail" => [

@@ -89,7 +89,7 @@ $resultbosscp = $conn->query($bosscpquery);
 
 $row = $resultbosscp->fetch_array(MYSQLI_NUM);
 $bosscp = $row[0]."CP";
-$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon%26zoom=19)";
+$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
 $date = date('h:i:s');
 
 $hookObject = json_encode([
@@ -125,7 +125,7 @@ $hookObject = json_encode([
                     "inline" => true
                 ],
 				[
-					"name" => "Found:",
+					"name" => "Expires:",
 					"value" => "$rhour:$rmin",
 					"inline" => true
 				],

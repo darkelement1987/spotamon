@@ -51,7 +51,7 @@ $gymname = $row[0];
 $gymlat = $row[1];
 $gymlon = $row[2];
 
-$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon%26zoom=19)";
+$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
 $date = date('h:i:s');
 
 $hookObject = json_encode([

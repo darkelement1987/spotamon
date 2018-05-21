@@ -51,7 +51,7 @@ $result = $conn->query($monnamequery);
 $row = $result->fetch_array(MYSQLI_NUM);
 $monname = $row[0];
 $moncp = $cp."CP";
-$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$latitude,$longitude%26zoom=19)";
+$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$latitude,$longitude&zoom=19)";
 $date = date('h:i:s');
 
 $hookObject = json_encode([
@@ -69,7 +69,7 @@ $hookObject = json_encode([
             ],
             
             "image" => [
-				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$gymlat,$gymlon&markers=$gymlat,$gymlon&zoom=17&size=400x400",
+				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&markers=$latidude,$longitude&zoom=17&size=400x400",
             ],
             
             "thumbnail" => [

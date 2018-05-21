@@ -118,12 +118,12 @@ function showPosition(position) {
 }
 </script>
 
-<button type="button" onclick="getLocation()">Get Location</button>
+<button type="button" onclick="getLocation();enablespotbutton();">Get Location</button>
 
 </td>
 </tr>
 <!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
-<center><td style="width:10%;"><input type="submit" value="SPOT!"/></td></center>
+<center><td style="width:10%;"><input type="submit" id="spotbutton" value="SPOT!" disabled/></td></center>
 
 </tbody>
 </table></center>

@@ -88,35 +88,77 @@ $bosscpquery = "SELECT rcp FROM raidbosses where rid='$rboss'";
 $resultbosscp = $conn->query($bosscpquery);
 
 $row = $resultbosscp->fetch_array(MYSQLI_NUM);
-$bosscp = "(".$row[0]."CP)";
-
+$bosscp = $row[0]."CP";
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon%26zoom=19)";
-			
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "$webhook_url",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "content=**Raid level $bosslevel spotted:**\nPokemon: *$bossname $bosscp*\nGym:*$gymname*\nRaid will start at: *$rhour:$rmin $rampm*\nView on $siteurl",
-  CURLOPT_HTTPHEADER => array(
-    "cache-control: no-cache",
-    "content-type: application/x-www-form-urlencoded",
-  ),
-));
+$date = date('h:i:s');
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+$hookObject = json_encode([
+    "username" => "Raid Spotted!",
+    "tts" => false,
+	"avatar_url" => "https://www.spotamon.com/static/raids/$rboss.png",
+    "embeds" => [
+        [
+            "type" => "rich",
+            "description" => "$siteurl",
+            "color" => hexdec( "FFFFFF" ),
+            "footer" => [
+                "text" => "Spotted at $date",
+				"icon_url" => "https://www.spotamon.com/static/raids/$rboss.png"
+            ],
+            
+            "image" => [
+				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$gymlat,$gymlon&markers=$gymlat,$gymlon&zoom=17&size=400x400",
+            ],
+            
+            "thumbnail" => [
+				"url" => "https://www.spotamon.com/static/raids/$rboss.png",
+            ],
+            
+            "author" => [
+                "name" => "Raid Spotted",
+            ],
+            
+            "fields" => [
+                [
+                    "name" => "Boss:",
+                    "value" => "$bossname",
+                    "inline" => true
+                ],
+				[
+					"name" => "Found:",
+					"value" => "$rhour:$rmin",
+					"inline" => true
+				],
+                [
+                    "name" => "Strength:",
+                    "value" => "Level $bosslevel / $bosscp",
+                    "inline" => true
+                ],
+                [
+                    "name" => "Gym",
+                    "value" => "$gymname",
+                    "inline" => true
+                ]
+            ]
+        ]
+    ]
+    
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
-curl_close($curl);
+$ch = curl_init();
 
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
-}		
+curl_setopt_array( $ch, [
+    CURLOPT_URL => $webhook_url,
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $hookObject,
+    CURLOPT_HTTPHEADER => [
+        "Length" => strlen( $hookObject ),
+        "Content-Type" => "application/json"
+    ]
+]);
+
+$response = curl_exec( $ch );
+curl_close( $ch );
 			
     header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
     

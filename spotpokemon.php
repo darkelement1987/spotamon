@@ -52,32 +52,75 @@ $row = $result->fetch_array(MYSQLI_NUM);
 $monname = $row[0];
 $moncp = $cp."CP";
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$latitude,$longitude%26zoom=19)";
-			
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "$webhook_url",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "content=**$monname #$pokemon ($moncp) spotted.**\nLocation: *$address*\nFound: *$hour:$min $ampm*\nView on $siteurl",
-  CURLOPT_HTTPHEADER => array(
-    "cache-control: no-cache",
-    "content-type: application/x-www-form-urlencoded",
-  ),
-));
+$date = date('h:i:s');
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+$hookObject = json_encode([
+    "username" => "$monname spotted!",
+    "tts" => false,
+	"avatar_url" => "https://www.spotamon.com/static/icons/$pokemon.png",
+    "embeds" => [
+        [
+            "type" => "rich",
+            "description" => "$siteurl",
+            "color" => hexdec( "FFFFFF" ),
+            "footer" => [
+                "text" => "Spotted at $date",
+				"icon_url" => "https://www.spotamon.com/static/icons/$pokemon.png"
+            ],
+            
+            "image" => [
+				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$gymlat,$gymlon&markers=$gymlat,$gymlon&zoom=17&size=400x400",
+            ],
+            
+            "thumbnail" => [
+				"url" => "https://www.spotamon.com/static/icons/$pokemon.png",
+            ],
+            
+            "author" => [
+                "name" => "Pokemon Spotted",
+            ],
+            
+            "fields" => [
+                [
+                    "name" => "Pokemon:",
+                    "value" => "$monname",
+                    "inline" => true
+                ],
+				[
+					"name" => "Found:",
+					"value" => "$hour:$min",
+					"inline" => true
+				],
+                [
+                    "name" => "CP:",
+                    "value" => "$cp",
+                    "inline" => true
+                ],
+                [
+                    "name" => "Location",
+                    "value" => "$address",
+                    "inline" => true
+                ]
+            ]
+        ]
+    ]
+    
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
-curl_close($curl);
+$ch = curl_init();
 
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
-}			
+curl_setopt_array( $ch, [
+    CURLOPT_URL => $webhook_url,
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $hookObject,
+    CURLOPT_HTTPHEADER => [
+        "Length" => strlen( $hookObject ),
+        "Content-Type" => "application/json"
+    ]
+]);
+
+$response = curl_exec( $ch );
+curl_close( $ch );	
 
 header('Location:index.php?loc='.$latitude.','.$longitude.'&zoom=19');
     

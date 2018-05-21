@@ -51,33 +51,71 @@ $gymname = $row[0];
 $gymlat = $row[1];
 $gymlon = $row[2];
 
-$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon%26zoom=19)";
-			
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "$webhook_url",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "content=**Gym taken:**\n$gymname is now controlled by $teamname\nView on $siteurl",
-  CURLOPT_HTTPHEADER => array(
-    "cache-control: no-cache",
-    "content-type: application/x-www-form-urlencoded",
-  ),
-));
+$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
+$date = date('h:i:s');
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+$hookObject = json_encode([
+    "username" => "Gym taken!",
+    "tts" => false,
+	"avatar_url" => "https://www.spotamon.com/static/teams/$tname.png",
+    "embeds" => [
+        [
+            "type" => "rich",
+            "description" => "$siteurl",
+            "color" => hexdec( "FFFFFF" ),
+            "footer" => [
+                "text" => "Spotted at $date",
+				"icon_url" => "https://www.spotamon.com/static/teams/$tname.png"
+            ],
+            
+            "image" => [
+				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$gymlat,$gymlon&markers=$gymlat,$gymlon&zoom=17&size=400x400",
+            ],
+            
+            "thumbnail" => [
+				"url" => "https://www.spotamon.com/static/teams/$tname.png",
+            ],
+            
+            "author" => [
+                "name" => "Gym Taken",
+            ],
+            
+            "fields" => [
+                [
+                    "name" => "Gym:",
+                    "value" => "$gymname",
+                    "inline" => false
+                ],
+				[
+					"name" => "Taken at:",
+					"value" => "$date",
+					"inline" => false
+				],
+                [
+                    "name" => "Now controlled by:",
+                    "value" => "$teamname",
+                    "inline" => false
+                ]
+            ]
+        ]
+    ]
+    
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
-curl_close($curl);
+$ch = curl_init();
 
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
-}	
+curl_setopt_array( $ch, [
+    CURLOPT_URL => $webhook_url,
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $hookObject,
+    CURLOPT_HTTPHEADER => [
+        "Length" => strlen( $hookObject ),
+        "Content-Type" => "application/json"
+    ]
+]);
+
+$response = curl_exec( $ch );
+curl_close( $ch );
 
 	header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
 	

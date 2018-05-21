@@ -1,5 +1,5 @@
 ### SPOTAMON - Crowdsourced Pokemon Go map.
-Demo map: <a href="https://www.spotamon.com">here</a>
+Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com">here</a>
 
 #### Discord
 

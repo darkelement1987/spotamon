@@ -4,9 +4,8 @@ function pokesubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress="";
-?>
 
-
+if(isset($_SESSION["username"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
 <form id="usersubmit" method="post" action="./spotpokemon.php">
@@ -140,7 +139,14 @@ function showPosition(position) {
 </table></center>
 </form>
 
-<?php } 
+<?php } else {
+	
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to spot a pokemon";
+		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+	echo "</div></center>";
+	}
+} 
 
 ///////////////////// SPOTTED MONSTER TABLE \\\\\\\\\\\\\\\\\\\\\
 function spottedpokemon(){
@@ -529,8 +535,8 @@ function raidsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM raidbosses");
 $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = "";
+if(isset($_SESSION["username"])){ 
 ?>
-
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
@@ -608,7 +614,6 @@ while ($row = $result->fetch_assoc()) {
 	<?php } ?>
 </td>
 </tr>
-
 <!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;">At Gym</td>
@@ -639,7 +644,14 @@ while ($row = $result->fetch_assoc()) {
 </table></center>
 </form>
 
-<?php }
+<?php } else{
+	
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to spot a Raid";
+		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+	echo "</div></center>";
+	
+} }
 
 
 ////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
@@ -740,7 +752,7 @@ function gymsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
-
+if(isset($_SESSION["username"])){ 
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
@@ -787,13 +799,20 @@ while ($row = $result->fetch_assoc()) {
 </table></center>
 </form>
 
-<?php }
+<?php } else{
+	
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to spot a team";
+		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+	echo "</div></center>";
+}}
+
 
 function eggsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
-
+if(isset($_SESSION["username"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
@@ -894,7 +913,12 @@ while ($row = $result->fetch_assoc()) {
 </table></center>
 </form>
 
-<?php }
-?>
+<?php } else{
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to spot an Egg";
+		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+	echo "</div></center>";
+	
+} }?>
 
 

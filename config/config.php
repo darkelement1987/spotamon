@@ -1,10 +1,10 @@
 <?php
 
 // Connect to Database
-$servername = "";
-$username = "";
-$password = "";
-$database = "";
+$servername = "servername";
+$username = "username";
+$password = "password";
+$database = "database";
 
 // Set maps default location example: 
 // Example:
@@ -106,7 +106,14 @@ reid INT(4) PRIMARY KEY NOT NULL,
 reward VARCHAR(255) NOT NULL,
 type VARCHAR(6) NULL)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops, $quests, $rewards];
+$users = "CREATE TABLE IF NOT EXISTS `users` (
+id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+email VARCHAR(100) NOT NULL,
+username VARCHAR(100) NOT NULL,
+password VARCHAR(100) NOT NULL,
+trn_date datetime NOT NULL)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops, $quests, $rewards, $users];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

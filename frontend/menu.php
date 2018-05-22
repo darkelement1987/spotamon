@@ -1,4 +1,6 @@
-<?php function menu(){ ?>
+<?php function menu(){ 
+include("login/auth.php");
+?>
 
 <style>
 body {
@@ -134,6 +136,22 @@ body {
       <a href="./raids.php">Raids</a>
     </div>
   </div>
+  
+	<?php
+	if(isset($_SESSION["username"])){
+	?>
+	<div class="dropdown">
+    <button class="dropbtn">Welcome <?php echo $_SESSION['username']; ?> <i class="fa fa-caret-down"></i></button>
+	 <div class="dropdown-content">
+		<a href="login/logout.php">Logout</a>
+	</div>
+	</div>
+	<?php } 
+	else{?>
+	<a href="login/login.php">Login</a>
+	<?php }?>
+  
+  
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 

@@ -9,7 +9,7 @@ Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
 - Create Database,
 - Connect to DB in config and load site, on first load it will auto create tables. 
 
-#### Webhooks
+#### Webhooks (DISCORD ONLY)
 - Enable cURL in your webhosting backend / WAMP / etcetera to  use webhooks.
 - Edit the following lines in your config:
 

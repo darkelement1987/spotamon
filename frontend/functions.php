@@ -112,7 +112,18 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "' readonly></input><input name='longitude' value='" + position.coords.longitude + "' readonly></input>";
+	            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            var latlng = new google.maps.LatLng(lat, lng);
+            var geocoder = geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        document.getElementById("addressinput").value = "" + results[0].formatted_address + "";
+                    }
+                }
+            });
+    x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "' style='width:100%' readonly></input><input name='longitude' value='" + position.coords.longitude + "' style='width:100%' readonly></input><input id='addressinput' value='' style='width:100%'></input> ";
 
 
 }

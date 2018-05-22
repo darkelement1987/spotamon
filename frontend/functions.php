@@ -99,7 +99,7 @@ while ($row = $result->fetch_assoc()) {
 
 <p>Click the button to get your coordinates.</p>
 <p id="ScanLocation"></p>
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=<?php echo $gmaps;?>"></script>
 <script>
 var x = document.getElementById("ScanLocation");
 
@@ -129,7 +129,7 @@ function showPosition(position) {
 }
 </script>
 
-<button type="button" onclick="getLocation();enablespotbutton();">Get Location</button>
+<button type="button" onclick="getLocation();enablespotbutton()">Get Location</button>
 
 </td>
 </tr>

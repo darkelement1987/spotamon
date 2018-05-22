@@ -9,6 +9,17 @@ Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
 - Create Database,
 - Connect to DB in config and load site, on first load it will auto create tables. 
 
+#### Webhooks
+- Enable cURL in your webhosting backend / WAMP / etcetera to  use webhooks.
+- Edit the following lines in your config:
+
+```ini
+//Webhook Setup
+$webhook_url = "https://www.yourwebhookurlgoeshere"; // <-- Webhook URL of your Discord channel
+$viewurl = "https://www.spotamon.com"; // <-- Enter your FULL Spotamon url here including http:// or https:// example: https://www.mysite.com < NO BACKSLASH AT THE END!
+$viewtitle = "View on Spotamon"; // <-- Text showing for the MAP-link @ Discord
+```
+
 #### Crornjob Commands
 Set your Cronjob to check each minute:
 

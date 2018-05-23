@@ -10,7 +10,7 @@ Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
 - Connect to DB in config and load site, on first load it will auto create tables. 
 
 #### Default Login
-Username: admin
+Username: admin<br>
 Password: admin
 
 #### Webhooks (DISCORD ONLY)

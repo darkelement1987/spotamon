@@ -941,6 +941,7 @@ $id = $usergroup = "";?>
 	<td><?php echo $usergroup; ?></td>
 	<?php echo "</tr>";
 	echo "</table></center>";
+		echo "<br /><center><a href='/edit-profile'>Edit Profile</a></center>";
 	if ("$usergroup" == 'admin'){
 		?>
 		<h2 style="text-align:center;"><strong>Admin Panel:</strong></h2>

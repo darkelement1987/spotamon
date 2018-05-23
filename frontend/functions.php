@@ -189,7 +189,7 @@ while($row = mysqli_fetch_array($result)) {
 	$minutes = $min;
 	$hr = $hour;
     $fulladdress = $row['fulladdress'];
-	$uname = $row['spotby'];
+	$uname = $row['spotter'];
 
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($min < 10) {
@@ -664,11 +664,12 @@ while ($row = $result->fetch_assoc()) {
 
 function spottedraids(){
 require('./config/config.php');
+include("login/auth.php");
 $results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM raidbosses,gyms WHERE gyms.actraid = '1' AND gyms.actboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude ORDER BY date DESC LIMIT $start_from,".$results_per_page;
+$sql = "SELECT * FROM raidbosses,gyms, spotraid WHERE gyms.actraid = '1' AND gyms.actboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude ORDER BY date DESC LIMIT $start_from,".$results_per_page;
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 
 
@@ -687,7 +688,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th><th>MAP</th></tr>";
+echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>SPOTTED BY:</th><th>LOCATION</th><th>MAP</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$rid = $row['rid'];
     $rboss = $row['rboss'];
@@ -701,6 +702,7 @@ while($row = mysqli_fetch_array($result)) {
 	$minutes = $min;
 	$hr = $hour;
 	$gname = $row['gname'];
+	$uname = $row['spotter'];
 	
 	
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
@@ -718,6 +720,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
+	<td>".$uname."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
 	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
@@ -737,6 +740,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hr.":".$minutes."</td>
+	<td>".$uname."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
 	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";

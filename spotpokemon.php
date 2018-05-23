@@ -3,6 +3,8 @@ $curl = curl_init();
 ob_start();
 require './config/config.php';
 include'./functions.php';
+include("login/auth.php");
+
 $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);
 $hour = $conn->real_escape_string($_POST['hour']);
@@ -15,6 +17,8 @@ $json = @file_get_contents($url);
 $data = json_decode($json);
 $status = $data->status;
 $address = '';
+$uname = $conn->real_escape_string($_SESSION['uname']);
+
 if($status == "OK")
 {
     $address = $conn->real_escape_string($data->results[0]->formatted_address);
@@ -26,7 +30,7 @@ else
 echo $address;
 
 // Start queries
-$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, fulladdress) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude', '$address')";
+$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, fulladdress, spotby) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude', '$address', '$uname')";
 if(!mysqli_query($conn,$sql))
 {
     echo 'Not Inserted';
@@ -64,7 +68,7 @@ $hookObject = json_encode([
             "description" => "$siteurl",
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
-                "text" => "Spotted at $date",
+                "text" => "Spotted by $uname at $date",
 				"icon_url" => "https://www.spotamon.com/static/icons/$pokemon.png"
             ],
             
@@ -77,7 +81,7 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Pokemon Spotted",
+                "name" => "Pokemon Spotted by $uname",
             ],
             
             "fields" => [

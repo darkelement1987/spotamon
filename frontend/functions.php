@@ -151,6 +151,8 @@ function showPosition(position) {
 ///////////////////// SPOTTED MONSTER TABLE \\\\\\\\\\\\\\\\\\\\\
 function spottedpokemon(){
 require('./config/config.php');
+include("login/auth.php");
+
 $results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
@@ -174,7 +176,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th><th>MAP</th></tr>";
+echo "<tr><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>FOUND BY:</th><th>LOCATION</th><th>MAP</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$id = $row['monster'];
     $pokemon = $row['pokemon'];
@@ -186,7 +188,8 @@ while($row = mysqli_fetch_array($result)) {
 	$longitude = $row['longitude'];
 	$minutes = $min;
 	$hr = $hour;
-        $fulladdress = $row['fulladdress'];
+    $fulladdress = $row['fulladdress'];
+	$uname = $row['spotby'];
 
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($min < 10) {
@@ -203,6 +206,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
+	<td>".$uname."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
 	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
@@ -222,6 +226,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
+	<td>".$uname."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
 	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
 	</tr>";
@@ -961,4 +966,5 @@ $id = $usergroup = "";?>
 
 
 ?>
+
 

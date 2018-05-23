@@ -5,7 +5,7 @@ require('./config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress="";
 
-if(isset($_SESSION["username"])){ ?>
+if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
 <form id="usersubmit" method="post" action="./spotpokemon.php">
@@ -535,7 +535,7 @@ function raidsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM raidbosses");
 $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = "";
-if(isset($_SESSION["username"])){ 
+if(isset($_SESSION["uname"])){ 
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
@@ -752,7 +752,7 @@ function gymsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
-if(isset($_SESSION["username"])){ 
+if(isset($_SESSION["uname"])){ 
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
@@ -812,7 +812,7 @@ function eggsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = "";
-if(isset($_SESSION["username"])){
+if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
@@ -919,6 +919,47 @@ while ($row = $result->fetch_assoc()) {
 		?><br /><br /><a href="/login/login.php">Login Here</a><?php
 	echo "</div></center>";
 	
-} }?>
+} }
+
+function profile(){ 
+if(isset($_SESSION["uname"])){
+require('./config/config.php');
+$result = $conn->query("SELECT * FROM users,usergroup WHERE uname='".$_SESSION['uname']."' AND users.usergroup = usergroup.id LIMIT 1  "); 
+$id = $usergroup = "";?>
+<h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
+<?php
+	echo "<center><table id=\"t02\" class=\"spotted\">";
+	echo "<tr><th>user</th><th>Email</th><th>LVL</th></tr>";
+	while ($row = $result->fetch_assoc()) {
+	$id = $row['id'];
+    $uname = $row['uname'];
+    $email = $row['email'];
+	$usergroup = $row['groupname'];
+	echo "<tr>"; ?>
+	<td><?php echo $uname; ?></td>
+	<td><?php echo $email; ?></td>
+	<td><?php echo $usergroup; ?></td>
+	<?php echo "</tr>";
+	echo "</table></center>";
+	if ("$usergroup" == 'admin'){
+		?>
+		<h2 style="text-align:center;"><strong>Admin Panel:</strong></h2>
+		<center>
+		<a href="gymcsv.php">Upload Gym .CSV</a><br />
+		<a href="stopcsv.php">Upload Stop .CSV</a>
+		<?php
+	}
+	
+	}
+} else{
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to view your profile";
+		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+	echo "</div></center></table></center>";
+} }
+
+
+
+?>
 
 

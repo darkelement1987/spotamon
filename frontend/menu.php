@@ -138,11 +138,12 @@ body {
   </div>
   
 	<?php
-	if(isset($_SESSION["username"])){
+	if(isset($_SESSION["uname"])){
 	?>
 	<div class="dropdown">
-    <button class="dropbtn">Welcome <?php echo $_SESSION['username']; ?> <i class="fa fa-caret-down"></i></button>
+    <button class="dropbtn">Welcome <?php echo $_SESSION['uname']; ?> <i class="fa fa-caret-down"></i></button>
 	 <div class="dropdown-content">
+	 <a href="profile.php">Profile</a>
 		<a href="login/logout.php">Logout</a>
 	</div>
 	</div>

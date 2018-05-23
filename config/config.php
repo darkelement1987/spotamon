@@ -109,11 +109,16 @@ type VARCHAR(6) NULL)";
 $users = "CREATE TABLE IF NOT EXISTS `users` (
 id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 email VARCHAR(100) NOT NULL,
-username VARCHAR(100) NOT NULL,
-password VARCHAR(100) NOT NULL,
+uname VARCHAR(100) NOT NULL,
+upass VARCHAR(100) NOT NULL,
+usergroup VARCHAR(1) NOT NULL,
 trn_date datetime NOT NULL)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops, $quests, $rewards, $users];
+$usergroup = "CREATE TABLE IF NOT EXISTS `usergroup` (
+id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+groupname VARCHAR(20) NOT NULL)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops, $quests, $rewards, $users, $usergroup];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

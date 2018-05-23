@@ -9,7 +9,7 @@ include("auth.php"); //include auth.php file on all secure pages ?>
 </head>
 <body>
 <div class="form">
-<p>Welcome <?php echo $_SESSION['username']; ?>!</p>
+<p>Welcome <?php echo $_SESSION['uname']; ?>!</p>
 <p>Secure Login.</p>
 <meta http-equiv="refresh" content="1; url=/">
 </div>

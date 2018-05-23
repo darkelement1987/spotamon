@@ -24,7 +24,7 @@
         if($rows==1){
 			$_SESSION['uname'] = $uname;
 			$_SESSION['email'] = $email;
-			 echo "<meta http-equiv=\"refresh\" content=\"0;URL=/index.php\">";
+			 echo "<meta http-equiv=\"refresh\" content=\"0;URL=/login/index.php\">";
             }else{
 				echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
 				}

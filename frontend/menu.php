@@ -144,6 +144,7 @@ body {
     <button class="dropbtn">Welcome <?php echo $_SESSION['uname']; ?> <i class="fa fa-caret-down"></i></button>
 	 <div class="dropdown-content">
 	 <a href="profile.php">Profile</a>
+		 <a href="profile.php">Edit Profile</a>
 		<a href="login/logout.php">Logout</a>
 	</div>
 	</div>

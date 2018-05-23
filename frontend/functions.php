@@ -143,7 +143,7 @@ function showPosition(position) {
 	
 	echo "<center><div style='margin-top:5%;'>";
 	echo "Login to spot a pokemon";
-		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
 	}
 } 
@@ -648,7 +648,7 @@ while ($row = $result->fetch_assoc()) {
 	
 	echo "<center><div style='margin-top:5%;'>";
 	echo "Login to spot a Raid";
-		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
 	
 } }
@@ -803,7 +803,7 @@ while ($row = $result->fetch_assoc()) {
 	
 	echo "<center><div style='margin-top:5%;'>";
 	echo "Login to spot a team";
-		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
 }}
 
@@ -916,7 +916,7 @@ while ($row = $result->fetch_assoc()) {
 <?php } else{
 	echo "<center><div style='margin-top:5%;'>";
 	echo "Login to spot an Egg";
-		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
 	
 } }
@@ -954,7 +954,7 @@ $id = $usergroup = "";?>
 } else{
 	echo "<center><div style='margin-top:5%;'>";
 	echo "Login to view your profile";
-		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center></table></center>";
 } }
 

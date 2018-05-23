@@ -958,7 +958,48 @@ $id = $usergroup = "";?>
 	echo "</div></center></table></center>";
 } }
 
+function editprofile(){ 
+if(isset($_SESSION["uname"])){
+require('config/config.php');
+$result = $conn->query("SELECT * FROM users,usergroup WHERE uname='".$_SESSION['uname']."' AND users.usergroup = usergroup.id LIMIT 1  "); 
+$id = $usergroup = "";?>
+<h2 style="text-align:center;"><strong>Edit Your Profile:</strong></h2>
+<?php
+	echo "<center><table style='width:20%;' id=\"t05\" class=\"profile\">";
+	
+	while ($row = $result->fetch_assoc()) {
+	$id = $row['id'];
+    $uname = $row['uname'];
+    $email = $row['email'];
+	$usergroup = $row['groupname'];?>
+	
+	<tr>
+	<form action="editusername.php" method="post">
+	<?php echo "<th style='background-color:#fff;color:#000;width:10%;'><center>Username: </center></th>";?>
+	<?php echo "<td><center><input type='text' name='uname' id='uname'><input type='submit' value='Submit'></center></td></form>";?>	
+	</tr>
+	
+	<tr>
+	<form action="editemail.php" method="post">
+	<?php echo "<th style='background-color:#f9f9f9;color:#000;'><center>Email: </center></th>";?>
+	<?php echo "<td><center><input type='text' name='email' id='email'><input type='submit' value='Submit'></center></td></form>";?>
+	</tr>
+	
+	<tr>
+	<form action="editpassword.php" method="post">
+	<?php echo "<th style='background-color:#fff;color:#000;'><center>Password: </center></th>";?>
+	<?php echo "<td><center><input type='password' name='upass' id='upass'><input type='submit' value='Submit'></center></td></form>";?>
+	</tr>
+	<?php echo "</table></center>";?>
+	<?php
+	}
 
+	} else{
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to view your profile";
+		?><br /><br /><a href="/login/login.php">Login Here</a><?php
+	echo "</div></center></table></center>";
+} }
 
 ?>
 

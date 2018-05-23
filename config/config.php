@@ -5,19 +5,14 @@ $servername = "servername";
 $username = "username";
 $password = "password";
 $database = "database";
-
 // Set maps default location example: 
 // Example:
 // $mapcenter = "51.9720526, 6.7202572";
-
 $mapcenter = "";
-
 //24HR-Clock (default = false = 12HR) 
 $clock = "";
-
 //Google Maps key
 $gmaps= "";
-
 //Webhook Setup
 $webhook_url = ""; // <-- Webhook URL of your Discord channel
 $viewurl = ""; // <-- Enter your FULL Spotamon url here including http:// or https:// example: https://www.mysite.com < NO BACKSLASH AT THE END!
@@ -43,7 +38,8 @@ ampm VARCHAR(5) NOT NULL,
 latitude DECIMAL(10,6) NOT NULL,
 longitude DECIMAL(10,6) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-fulladdress VARCHAR(128) NOT NULL
+fulladdress VARCHAR(128) NOT NULL,
+spotter VARCHAR(100) NOT NULL
 )";
 
 // sql to create the pokedex table
@@ -57,7 +53,8 @@ rboss VARCHAR(30) NOT NULL,
 rhour INT(2) NOT NULL,
 rmin INT(2) NOT NULL,
 rampm VARCHAR(5) NOT NULL,
-rdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+rdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+spotter VARCHAR(100) NOT NULL
 )";
 
 $raidbosses = "CREATE TABLE IF NOT EXISTS `raidbosses` (

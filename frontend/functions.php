@@ -173,7 +173,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>SPOT ID</th><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th><th>MAP</th><th>Up Votes</th><th>Down votes</th></tr>";
+echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th><th>MAP</th><th>Up Votes</th><th>Down votes</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$spotid = $row['spotid'];
 	$id = $row['monster'];
@@ -291,6 +291,8 @@ echo 15;
 		var min = markerElem.getAttribute('min');
 		var ampm = markerElem.getAttribute('ampm');
         var type = markerElem.getAttribute('id');
+		var good = markerElem.getAttribute('good');
+		var bad = markerElem.getAttribute('bad');
         var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('latitude')),
             parseFloat(markerElem.getAttribute('longitude')));
@@ -314,6 +316,15 @@ echo 15;
         var text = document.createElement('text');
         text.textContent = cp + ' CP'
         infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('text');
+        text.textContent = good + ' Verified Find'
+        infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('text');
+        text.textContent = bad + ' Not found'
+        infowincontent.appendChild(text);
+		infowincontent.appendChild(document.createElement('br'));
         var icon = customLabel[type] || {};
         var image = {
             url: './static/icons/' + id + '.png',

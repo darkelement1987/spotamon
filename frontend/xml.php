@@ -35,6 +35,8 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'latitude="' . $row['latitude'] . '" ';
   echo 'longitude="' . $row['longitude'] . '" ';
   echo 'type="' . $row['pokemon'] . '" ';
+  echo 'good="' . $row['good'] . '" ';
+  echo 'bad="' . $row['bad'] . '" ';
   echo '/>';
   $ind = $ind + 1;
 }

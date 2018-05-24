@@ -37,8 +37,7 @@ Egg spots: `/usr/bin/wget 'https://www.siteurl/frontend/eggcron.php'`
 2. In Tampermonkey go to the "Utilities"-tab and in the URL-field enter this url: `https://www.spotamon.com/gymscript.js` and click `Import -> Install`
 3. Go to gymhuntr.com and from the menu on the left side choose the last option, this will open a popup.
 4. In this menu click 'Save stops as CSV' or 'Save gyms as CSV'.
-5. Run yoururl.com/config/gymcsv.php / yoururl.com/config/stopcsv.php and import the files.
-6. Delete the .php files to prevent people from uploading fake stuff.
+5. Login as `admin` with password `admin` and upload the CSV's on your profile-page.
 
 #### Cronjob Documentation
 

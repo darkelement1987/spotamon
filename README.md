@@ -83,6 +83,5 @@ $viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
 
 #### Todo
 - Make all table content sortable on frontend
-- Add feedback/score system to spots. (2+ thumbsdown = remove from table/map)
 - Add locales for frontend
 - Add quests

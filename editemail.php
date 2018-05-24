@@ -13,5 +13,5 @@ if(mysqli_query($conn, $sql)){
  
 // close connection
 mysqli_close($conn);
-header('Location:/profile.php');
+echo "<meta http-equiv=\"refresh\" content=\"0;URL=./profile.php\">";
 ?>

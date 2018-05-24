@@ -60,9 +60,6 @@ $servername = "";
 $username = "";
 $password = "";
 $database = "";
-// CSV Import username/password
-$csvuser = "";
-$csvpass = "";
 // Set maps default location example: 
 // Example:
 // $mapcenter = "51.9720526, 6.7202572";

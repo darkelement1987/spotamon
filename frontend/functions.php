@@ -4,7 +4,6 @@ function pokesubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress="";
-
 if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
@@ -159,7 +158,7 @@ $sql = "SELECT * FROM spots,pokedex WHERE spots.pokemon = pokedex.id ORDER BY da
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 
 
-$sqlcnt = "SELECT COUNT(ID) AS total FROM spots"; 
+$sqlcnt = "SELECT COUNT(SPOTID) AS total FROM spots"; 
 $resultcnt = $conn->query($sqlcnt);
 $row = $resultcnt->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page);
@@ -174,8 +173,9 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th><th>MAP</th></tr>";
+echo "<tr><th>SPOT ID</th><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th><th>MAP</th><th>Up Votes</th><th>Down votes</th></tr>";
 while($row = mysqli_fetch_array($result)) {
+	$spotid = $row['spotid'];
 	$id = $row['monster'];
     $pokemon = $row['pokemon'];
     $cp = $row['cp'];
@@ -186,8 +186,10 @@ while($row = mysqli_fetch_array($result)) {
 	$longitude = $row['longitude'];
 	$minutes = $min;
 	$hr = $hour;
-        $fulladdress = $row['fulladdress'];
-
+    $fulladdress = $row['fulladdress'];
+	$good = $row['good'];
+	$bad = $row['bad'];
+	
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($min < 10) {
     $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);	
@@ -199,12 +201,15 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
-	<td>".$pokemon."</td>
+	<td style='text-align:center;'>".$spotid."</td>
+	<td style='text-align:center;'>".$pokemon."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
-	<td>".$hour.":".$minutes." ".$ampm."</td>
+	<td style='text-align:center;'>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td style='text-align:center;'>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td style='text-align:center;'>".$good." <span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span></td>
+	<td style='text-align:center;'>".$bad." <span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span></td>
 	</tr>";
 		
 	} else {
@@ -923,7 +928,7 @@ while ($row = $result->fetch_assoc()) {
 
 function profile(){ 
 if(isset($_SESSION["uname"])){
-require('./config/config.php');
+require('config/config.php');
 $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='".$_SESSION['uname']."' AND users.usergroup = usergroup.id LIMIT 1  "); 
 $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
@@ -941,7 +946,7 @@ $id = $usergroup = "";?>
 	<td><?php echo $usergroup; ?></td>
 	<?php echo "</tr>";
 	echo "</table></center>";
-		echo "<br /><center><a href='/edit-profile'>Edit Profile</a></center>";
+	echo "<br /><center><a href='/edit-profile'>Edit Profile</a></center>";
 	if ("$usergroup" == 'admin'){
 		?>
 		<h2 style="text-align:center;"><strong>Admin Panel:</strong></h2>
@@ -958,6 +963,7 @@ $id = $usergroup = "";?>
 		?><br /><br /><a href="/login/login.php">Login Here</a><?php
 	echo "</div></center></table></center>";
 } }
+
 
 function editprofile(){ 
 if(isset($_SESSION["uname"])){
@@ -1002,5 +1008,9 @@ $id = $usergroup = "";?>
 	echo "</div></center></table></center>";
 } }
 
+
+
+
 ?>
+
 

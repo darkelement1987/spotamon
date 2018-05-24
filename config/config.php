@@ -34,7 +34,7 @@ if ($conn->connect_error) {
 
 // sql to create spoting table
 $spot = "CREATE TABLE IF NOT EXISTS `spots` (
-id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+spotid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 pokemon VARCHAR(30) NOT NULL,
 cp INT(6) NOT NULL,
 hour INT(2) NOT NULL,
@@ -43,7 +43,9 @@ ampm VARCHAR(5) NOT NULL,
 latitude DECIMAL(10,6) NOT NULL,
 longitude DECIMAL(10,6) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-fulladdress VARCHAR(128) NOT NULL
+fulladdress VARCHAR(128) NOT NULL,
+good INT(3) NOT NULL,
+bad int(1) NOT NULL
 )";
 
 // sql to create the pokedex table

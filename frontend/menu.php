@@ -120,10 +120,10 @@ body {
 <a href="./"><img src="header.png" alt="logo" style="padding-top:7px; float:left; background-color:#333; position:absolute; z-index:100;"></a>
 <div class="topnav" id="myTopnav">
 
-   <div class="dropdown">
+	<div class="dropdown">
     <button class="dropbtn"><a href="/" style="padding:0px !important;">Home</a></button>
 	</div>
-	
+
    <div class="dropdown">
     <button class="dropbtn">Add spot <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
@@ -148,7 +148,6 @@ body {
     <button class="dropbtn">Welcome <?php echo $_SESSION['uname']; ?> <i class="fa fa-caret-down"></i></button>
 	 <div class="dropdown-content">
 	 <a href="profile.php">Profile</a>
-		 <a href="edit-profile.php">Edit Profile</a>
 		<a href="login/logout.php">Logout</a>
 	</div>
 	</div>

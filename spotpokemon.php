@@ -15,6 +15,8 @@ $json = @file_get_contents($url);
 $data = json_decode($json);
 $status = $data->status;
 $address = '';
+$good = 0;
+$bad = 0;
 if($status == "OK")
 {
     $address = $conn->real_escape_string($data->results[0]->formatted_address);
@@ -26,7 +28,7 @@ else
 echo $address;
 
 // Start queries
-$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, fulladdress) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude', '$address')";
+$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, fulladdress, good, bad) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude','$address','$good','$bad')";
 if(!mysqli_query($conn,$sql))
 {
     echo 'Not Inserted';

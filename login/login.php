@@ -41,7 +41,7 @@
 <br />
 <p>Not registered yet? <a href='registration.php'>Register Here</a></p>
 <br />
-<p>Back to Home <a href='/'>Home</a></p>
+<p>Back to <a href='/'>home</a></p>
 </div>
 <?php } ?>
 

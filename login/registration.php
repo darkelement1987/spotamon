@@ -36,7 +36,7 @@
 <br />
 <p>Already registered? <a href='login.php'>Login Here</a></p>
 <br />
-<p>Back to Home <a href='/'>Home</a></p>
+<p>Back to <a href='/'>home</a></p>
 </div>
 <?php } ?>
 </body>

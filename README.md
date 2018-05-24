@@ -82,7 +82,6 @@ $viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
 - Scan location is intended for mobile use. Location on PC might be wrong!
 
 #### Todo
-- Add login/registration
 - Make all table content sortable on frontend
 - Add feedback/score system to spots. (2+ thumbsdown = remove from table/map)
 - Add locales for frontend

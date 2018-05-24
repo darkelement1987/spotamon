@@ -2,7 +2,6 @@
 require 'config/config.php';
 include 'frontend/functions.php';
 include 'frontend/menu.php';
-include 'config/dbbuilding.php';
 
 menu();
 

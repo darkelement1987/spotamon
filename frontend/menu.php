@@ -121,6 +121,10 @@ body {
 <div class="topnav" id="myTopnav">
 
    <div class="dropdown">
+    <button class="dropbtn"><a href="/" style="padding:0px !important;">Home</a></button>
+	</div>
+	
+   <div class="dropdown">
     <button class="dropbtn">Add spot <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-content">
       <a href="./submit-pokemon.php" class="active">Pokémon</a>

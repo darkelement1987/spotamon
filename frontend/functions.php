@@ -223,6 +223,7 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
+	<td style='text-align:center;'>".$spotid."</td>
 	<td>".$pokemon."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>

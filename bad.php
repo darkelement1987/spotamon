@@ -21,7 +21,7 @@ $sql1 = "UPDATE spots SET bad='$bad' WHERE spotid='$spotid'";
         }
             else
             {
-               header('Location:/pokemon.php');				
+               echo "<meta http-equiv=\"refresh\" content=\"0;URL=./pokemon.php\">";				
             }
 
 

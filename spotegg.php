@@ -3,14 +3,16 @@ $curl = curl_init();
 ob_start();
 require './config/config.php';
 include'./functions.php';
+include("login/auth.php");
 $gname = $conn->real_escape_string($_POST['gname']);
 $egg = $conn->real_escape_string($_POST['egg']);
 $rhour = $conn->real_escape_string($_POST['rhour']);
 $rmin = $conn->real_escape_string($_POST['rmin']);
 $rampm = $conn->real_escape_string($_POST['rampm']);
+$eggby = $conn->real_escape_string($_SESSION['uname']);
 
 // Start queries
-$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm' WHERE gid='$gname'";
+$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby='$eggby' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
 		{
 			echo 'Not Inserted';
@@ -50,7 +52,7 @@ $hookObject = json_encode([
             "description" => "$siteurl",
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
-                "text" => "Spotted at $date",
+                "text" => "Spotted at by $eggby at $date",
 				"icon_url" => "https://www.spotamon.com/static/eggs/$egg.png"
             ],
             
@@ -63,7 +65,7 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Egg Spotted",
+                "name" => "Egg Spotted by $eggby",
             ],
             
             "fields" => [

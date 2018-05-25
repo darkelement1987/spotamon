@@ -3,11 +3,13 @@ $curl = curl_init();
 ob_start();
 require './config/config.php';
 include'./functions.php';
+include("login/auth.php");
 $gname = $conn->real_escape_string($_POST['gname']);
 $tname = $conn->real_escape_string($_POST['tname']);
+$teamby = $conn->real_escape_string($_SESSION['uname']);
 
 
-$sql = "UPDATE gyms SET gteam='$tname' WHERE gid='$gname'";
+$sql = "UPDATE gyms SET gteam='$tname', teamby='$teamby' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
 		{
 			echo 'Not Inserted';
@@ -64,7 +66,7 @@ $hookObject = json_encode([
             "description" => "$siteurl",
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
-                "text" => "Spotted at $date",
+                "text" => "Spotted by $teamby at $date",
 				"icon_url" => "https://www.spotamon.com/static/teams/$tname.png"
             ],
             
@@ -77,7 +79,7 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Gym Taken",
+                "name" => "Gym Taken (spotted by $spotter)",
             ],
             
             "fields" => [

@@ -18,7 +18,7 @@ echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
 } else {
 echo "<br /><center><img src='./static/img/oops2.png'></center>";
 echo "<br /><center>Can not insert a blank email</center>";
-echo "<br /><center>You will be redirected back to <a href='/edit-profile.php'>Edit Profile</a></center>";
+echo "<br /><center>You will be redirected back to <a href='edit-profile.php'>Edit Profile</a></center>";
 	echo "<meta http-equiv='refresh' content='3;url=edit-profile.php'>";	
 }
 ?>

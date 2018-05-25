@@ -4,7 +4,7 @@ include'frontend/functions.php';
 include'login/auth.php';
 $email = $conn->real_escape_string($_POST['email']);
 // attempt insert query execution
-if(!empty($uname)){
+if(!empty($email)){
 $sql = "UPDATE users SET email='$email' WHERE uname='".$_SESSION['uname']."'";
 if(mysqli_query($conn, $sql)){
     echo "Records added successfully.";

@@ -3,7 +3,7 @@
 function pokesubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
-$id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress="";
+$id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter ="";
 if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
@@ -22,6 +22,7 @@ while ($row = $result->fetch_assoc()) {
     unset($id, $monster);
         $id = $row['id'];
             $monster= $row['monster'];
+			    $spotter=$row['spotter'];
 				echo '<option value="'.$id.'">'.$id.' - '.$monster.'</option>';
 					}					
 						echo "</select>";
@@ -553,7 +554,7 @@ function doNothing() {}
 function raidsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM raidbosses");
-$rid = $rboss = $rlvl = $rhour = $rmin = $rampm = "";
+$rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $spotter="";
 if(isset($_SESSION["uname"])){ 
 ?>
 
@@ -574,6 +575,7 @@ while ($row = $result->fetch_assoc()) {
     unset($rid, $rboss);
         $rid = $row['rid'];
             $rboss= $row['rboss'];
+			    $spotter = $row['spotter'];
 				echo '<option value="'.$rid.'">'.$rid.' - '.$rboss.'</option>';
 					}					
 						echo "</select>";
@@ -770,7 +772,7 @@ for ($i=1; $i<=$total_pages; $i++) {
 function gymsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
-$gid = $gname = $gteam = "";
+$gid = $gname = $gteam = $teamby="";
 if(isset($_SESSION["uname"])){ 
 ?>
 
@@ -792,6 +794,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
+				    $teamby= $row['teamby'];
 					echo '<option value="'.$gid.'" label="'.$gteam.'">'.$gname.'</option>';
 						}					
 							echo "</select>";
@@ -830,7 +833,7 @@ while ($row = $result->fetch_assoc()) {
 function eggsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
-$gid = $gname = $gteam = "";
+$gid = $gname = $gteam = $eggby="";
 if(isset($_SESSION["uname"])){
 ?>
 
@@ -852,6 +855,7 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
+				    $eggby= $row['eggby'];
 					echo '<option value="'.$gid.'" label="'.$gteam.'">'.$gname.'</option>';
 						}					
 							echo "</select>";

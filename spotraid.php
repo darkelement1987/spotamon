@@ -3,13 +3,15 @@ $curl = curl_init();
 ob_start();
 require './config/config.php';
 include'./functions.php';
+include("login/auth.php");
 $rboss = $conn->real_escape_string($_POST['rboss']);
 $rhour = $conn->real_escape_string($_POST['rhour']);
 $rmin = $conn->real_escape_string($_POST['rmin']);
 $rampm = $conn->real_escape_string($_POST['rampm']);
 $gname = $conn->real_escape_string($_POST['gname']);
+$spotter = $conn->real_escape_string($_SESSION['uname']);
 
-$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm) VALUES ('$rboss','$rhour','$rmin','$rampm')";
+$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rboss','$rhour','$rmin','$rampm','$spotter')";
     if(!mysqli_query($conn,$sql))
         {
             echo 'Not Inserted';
@@ -102,7 +104,7 @@ $hookObject = json_encode([
             "description" => "$siteurl",
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
-                "text" => "Spotted at $date",
+                "text" => "Spotted by $spotter at $date",
 				"icon_url" => "https://www.spotamon.com/static/raids/$rboss.png"
             ],
             
@@ -115,7 +117,7 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Raid Spotted",
+                "name" => "Raid Spotted by $spotter",
             ],
             
             "fields" => [

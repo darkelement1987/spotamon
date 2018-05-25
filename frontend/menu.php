@@ -121,7 +121,7 @@ body {
 <div class="topnav" id="myTopnav">
 
 	<div class="dropdown">
-    <button class="dropbtn"><a href="/" style="padding:0px !important;">Home</a></button>
+    <button class="dropbtn"><a href="./" style="padding:0px !important;">Home</a></button>
 	</div>
 
    <div class="dropdown">

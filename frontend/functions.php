@@ -1003,7 +1003,7 @@ $id = $usergroup = "";?>
 	<tr>
 	<form action="editemail.php" method="post">
 	<?php echo "<th style='background-color:#f9f9f9;color:#000;'><center>Email: </center></th>";?>
-	<?php echo "<td><center><input type='text' name='email' id='email'><input type='submit' value='Submit'></center></td></form>";?>
+	<?php echo "<td><center><input type='text' name='email' id='email' pattern=\"[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\"><input type='submit' value='Submit'></center></td></form>";?>
 	</tr>
 	
 	<tr>

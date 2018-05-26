@@ -33,7 +33,7 @@ $viewurl = "https://www.spotamon.com"; // <-- Enter your FULL Spotamon url here 
 $viewtitle = "View on Spotamon"; // <-- Text showing for the MAP-link @ Discord
 ```
 
-#### Crornjob Commands
+#### Cronjob Commands
 Set your Cronjob to check each minute:
 
 Pokemon spots: `/usr/bin/wget 'https://www.siteurl/frontend/spotscron.php'`<br>

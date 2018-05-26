@@ -59,7 +59,7 @@ $date = date('h:i:s');
 $hookObject = json_encode([
     "username" => "Gym taken!",
     "tts" => false,
-	"avatar_url" => "https://www.spotamon.com/static/teams/$tname.png",
+	"avatar_url" => "$viewurl/static/teams/$tname.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -67,7 +67,7 @@ $hookObject = json_encode([
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $teamby at $date",
-				"icon_url" => "https://www.spotamon.com/static/teams/$tname.png"
+				"icon_url" => "$viewurl/static/teams/$tname.png"
             ],
             
             "image" => [
@@ -75,7 +75,7 @@ $hookObject = json_encode([
             ],
             
             "thumbnail" => [
-				"url" => "https://www.spotamon.com/static/teams/$tname.png",
+				"url" => "$viewurl/static/teams/$tname.png",
             ],
             
             "author" => [

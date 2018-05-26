@@ -97,7 +97,7 @@ $date = date('h:i:s');
 $hookObject = json_encode([
     "username" => "Raid Spotted!",
     "tts" => false,
-	"avatar_url" => "https://www.spotamon.com/static/raids/$rboss.png",
+	"avatar_url" => "$viewurl/static/raids/$rboss.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -105,7 +105,7 @@ $hookObject = json_encode([
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $spotter at $date",
-				"icon_url" => "https://www.spotamon.com/static/raids/$rboss.png"
+				"icon_url" => "$viewurl/static/raids/$rboss.png"
             ],
             
             "image" => [
@@ -113,7 +113,7 @@ $hookObject = json_encode([
             ],
             
             "thumbnail" => [
-				"url" => "https://www.spotamon.com/static/raids/$rboss.png",
+				"url" => "$viewurl/static/raids/$rboss.png",
             ],
             
             "author" => [

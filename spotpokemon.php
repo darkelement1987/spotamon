@@ -61,7 +61,7 @@ $date = date('h:i:s');
 $hookObject = json_encode([
     "username" => "$monname spotted!",
     "tts" => false,
-	"avatar_url" => "https://www.spotamon.com/static/icons/$pokemon.png",
+	"avatar_url" => "$viewurl/static/icons/$pokemon.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -69,7 +69,7 @@ $hookObject = json_encode([
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $spotter at $date",
-				"icon_url" => "https://www.spotamon.com/static/icons/$pokemon.png"
+				"icon_url" => "$viewurl/static/icons/$pokemon.png"
             ],
             
             "image" => [
@@ -77,7 +77,7 @@ $hookObject = json_encode([
             ],
             
             "thumbnail" => [
-				"url" => "https://www.spotamon.com/static/icons/$pokemon.png",
+				"url" => "$viewurl/static/icons/$pokemon.png",
             ],
             
             "author" => [

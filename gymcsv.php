@@ -42,14 +42,14 @@ $date = date("Y-m-d H:i:s");
 					
                 } // <<-- END LOOP THROUGH CSV \\
                 fclose($handle);
-                print "<script>function myFunction(){var x=document.getElementById(\"result\").innerHTML = \"<h1><b>CSV Loaded!</b></h1>\"}</script>";
+                print "<center><h1><b>CSV Loaded!</b></h1></center>";
             }
         }
     }
 ?>
        <center><h2><strong>Upload Gym CSV:</strong></h2><form method='POST' enctype='multipart/form-data'>
-            Upload GYM CSV: <input type='file' name='csv_data' /> <input type='submit' name='submit' onclick='myFunction()' value='Upload CSV' />
-        </form><br><p id="result"></p></center>
+            Upload GYM CSV: <input type='file' name='csv_data' /> <input type='submit' name='submit' value='Upload CSV' />
+        </form><br></center>
 		</body>
 
 <footer></footer>

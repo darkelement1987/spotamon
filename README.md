@@ -3,7 +3,8 @@ Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/
 
 #### Discord
 
-Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
+- Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>
+- <a href="https://github.com/darkelement1987/spotbot">Spotamon Discord Bot</a> 
 
 #### Install
 - Create Database,

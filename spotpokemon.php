@@ -2,7 +2,7 @@
 $curl = curl_init();
 ob_start();
 require './config/config.php';
-include'./functions.php';
+include'frontend/functions.php';
 include("login/auth.php");
 $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);

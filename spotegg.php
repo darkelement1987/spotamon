@@ -45,7 +45,7 @@ $date = date('h:i:s');
 $hookObject = json_encode([
     "username" => "Egg spotted!",
     "tts" => false,
-	"avatar_url" => "https://www.spotamon.com/static/eggs/$egg.png",
+	"avatar_url" => "$viewurl/static/eggs/$egg.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -53,7 +53,7 @@ $hookObject = json_encode([
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted at by $eggby at $date",
-				"icon_url" => "https://www.spotamon.com/static/eggs/$egg.png"
+				"icon_url" => "$viewurl/static/eggs/$egg.png"
             ],
             
             "image" => [
@@ -61,7 +61,7 @@ $hookObject = json_encode([
             ],
             
             "thumbnail" => [
-				"url" => "https://www.spotamon.com/static/eggs/$egg.png",
+				"url" => "$viewurl/static/eggs/$egg.png",
             ],
             
             "author" => [

@@ -23,7 +23,7 @@ include 'config/dbbuilding.php';
  function formatState (state) {
   if (!state.id) { return state.text; }
   var $state = $(
-   '<span ><img style="display: inline-block;" src="../static/icons/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+   '<span ><img style="display: inline-block;" src="./static/icons/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
   );
   return $state;
  }

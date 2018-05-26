@@ -19,7 +19,7 @@ height: 24px;
 }
 
 #map {
-    height: 93%;
+    height: 100%;
 }
 
 html, body {
@@ -286,7 +286,7 @@ table#t04 td img{
 }
 
 #map {
-    height: 93%;
+    height: 100%;
 }
 
 }

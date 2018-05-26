@@ -2,7 +2,14 @@
 require 'config/config.php';
 include 'frontend/functions.php';
 include 'frontend/menu.php';
-
+?>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<?php
 menu();
 
 if(isset($_SESSION["uname"])){
@@ -12,7 +19,7 @@ while ($row = $result->fetch_assoc()) {
 $usergroup = $row['groupname'];
 if ("$usergroup" == 'admin'){
 // PRINTS DATE IN SQL FORMAT \\
-$date = date("Y-m-d H:i:s");  
+$date = date("Y-m-d H:i:s");  	
 
     // START CHECK FOR CSV \\
 	if(isset($_POST['submit'])){
@@ -35,22 +42,17 @@ $date = date("Y-m-d H:i:s");
 					
                 } // <<-- END LOOP THROUGH CSV \\
                 fclose($handle);
-                print "Import GYM CSV done!";
+                print "<script>function myFunction(){var x=document.getElementById(\"result\").innerHTML = \"<h1><b>CSV Loaded!</b></h1>\"}</script>";
             }
         }
     }
 ?>
-<html>
-    <head>
-        <title> Upload GYM CSV</title>
-    <head>
-    <body>
-	<h2 style="text-align:center;"><strong>Upload Gym Csv:</strong></h2>
-       <center style="margin-top:5%;"> <form method='POST' enctype='multipart/form-data'>
-            Upload GYM CSV: <input type='file' name='csv_data' /> <input type='submit' name='submit' value='Upload CSV' />
-        </form></center>
-    </body>
-</html>
+       <center><h2><strong>Upload Gym CSV:</strong></h2><form method='POST' enctype='multipart/form-data'>
+            Upload GYM CSV: <input type='file' name='csv_data' /> <input type='submit' name='submit' onclick='myFunction()' value='Upload CSV' />
+        </form><br><p id="result"></p></center>
+		</body>
+
+<footer></footer>
 
 <?php } else{ echo "Sorry you must be an ADMIN to upload this";}} } else {
 	echo "<center><div style='margin-top:5%;'>";

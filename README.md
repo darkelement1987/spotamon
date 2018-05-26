@@ -1,6 +1,14 @@
 ### SPOTAMON - Crowdsourced Pokemon Go map.
 Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/">here</a>
 
+#### Requirements
+
+- Hosting with SSL / HTTPS
+- PHP 5.x or above
+- MySQL database
+- cURL extension
+- Google Maps API key (for reverse geocoding and Javascript API)
+
 #### Discord
 
 - Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>

@@ -8,7 +8,7 @@ $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);
 $hour = intval(date('h'));
 $min = intval(date('i'));
-$ampm = $conn->real_escape_string($_POST['ampm']);
+$ampm = date('A');
 $latitude = $conn->real_escape_string($_POST['latitude']);
 $longitude = $conn->real_escape_string($_POST['longitude']);
 $url  = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false&key=".$gmaps;

@@ -12,7 +12,7 @@ $timeuntilegg = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilegg);
 $rhour = intval(date('h', $timeuntilegg));
 $rmin = intval(date('i', $timeuntilegg));
-$rampm = $conn->real_escape_string($_POST['rampm']);
+$rampm = date('A');
 $eggby = $conn->real_escape_string($_SESSION['uname']);
 
 // Start queries

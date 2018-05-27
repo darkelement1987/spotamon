@@ -11,7 +11,7 @@ $timeuntilraid = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilraid);
 $rhour = intval(date('h', $timeuntilraid));
 $rmin = intval(date('i', $timeuntilraid));
-$rampm = $conn->real_escape_string($_POST['rampm']);
+$rampm = date('A');
 $gname = $conn->real_escape_string($_POST['gname']);
 $spotter = $conn->real_escape_string($_SESSION['uname']);
 

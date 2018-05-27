@@ -11,11 +11,11 @@ $pulltime = date('H:i:s');
 $timeuntilegg = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilegg);
 if ($clock=="false"){
-	$rhour = intval(date('g', $timeuntilraid));
-	$rmin = intval(date('i', $timeuntilraid));
+	$rhour = intval(date('g', $timeuntilegg));
+	$rmin = intval(date('i', $timeuntilegg));
 	} else {
-		$rhour = intval(date('H', $timeuntilraid));
-		$rmin = intval(date('i', $timeuntilraid));
+		$rhour = intval(date('H', $timeuntilegg));
+		$rmin = intval(date('i', $timeuntilegg));
 		}
 $rampm = date('A');
 $eggby = $conn->real_escape_string($_SESSION['uname']);

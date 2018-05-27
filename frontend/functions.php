@@ -54,58 +54,6 @@ slider.oninput = function() {
 </td>
 </tr>
 
-<!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
-<tr>
-<td style="width: 5%;">Time Found</td>
-<td style="width: 10%;">
-
-<?php 
-	if ($clock=="false"){ ?>
-	<select name="hour">
-		<?php
-			for($i=1; $i<=12; $i++){
-			echo "<option value=".$i.">".$i."</option>";}
-		?>
-		<option name="hour"> </option>   
-	</select> 
-	
-	<select name="min">
-		<?php
-			for($i=0; $i<=60; $i++){
-				$value = str_pad($i,2,"0",STR_PAD_LEFT);
-			echo "<option value=".$value.">".$value."</option>";}
-		?>
-		<option name="min"> </option>   
-	</select> 
-	
-	<select name="ampm">
-		<option value="AM/PM" selected>AM/PM</option>
-		<option value="AM">AM</option>
-		<option value="PM">PM</option>
-	</select>
-	
-	<?php } else { ?>
-	
-	<select name="hour">
-		<?php
-			for($i=0; $i<=24; $i++){
-			echo "<option value=".$i.">".$i."</option>";}
-		?>
-		<option name="hour"> </option>   
-	</select> 
-	
-	<select name="min">
-		<?php
-			for($i=0; $i<=60; $i++){
-				$value = str_pad($i,2,"0",STR_PAD_LEFT);
-			echo "<option value=".$value.">".$value."</option>";}
-		?>
-		<option name="min"> </option>   
-	</select> 
-	<?php } ?>
-</td>
-</tr>
-
 <!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;">Location</td>

@@ -18,6 +18,15 @@ width: 24px;
 height: 24px;
 }
 
+.maplabel {
+    font-weight: 300;
+    font-size: 13px;
+    overflow: hidden;
+    padding-left: 15px;
+	padding-bottom:10px;
+	padding-top: 5px;
+}
+
 #map {
     height: 100%;
 }

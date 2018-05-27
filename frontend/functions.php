@@ -549,53 +549,24 @@ while ($row = $result->fetch_assoc()) {
 
 <!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;">Time of Expire</td>
+<td style="width: 5%;">Minutes until expire:</td>
 <td style="width: 10%;">
+<style>
+.sliderraid
+{
+    width: 100% !important;
+}
+</style>
+	<input type="range" name="rtime" min="0" max="45" value="0" id="rtimerange" class="sliderraid"><span id="rtimeoutput"></span>
+	<script>
+var sliderraid = document.getElementById("rtimerange");
+var output = document.getElementById("rtimeoutput");
+output.innerHTML = "<br>Raid starts in: " + sliderraid.value + " minutes</center>";
 
-<?php 
-	if ($clock=="false"){ ?>
-	<select name="rhour">
-		<?php
-			for($i=1; $i<=12; $i++){
-			echo "<option value=".$i.">".$i."</option>";}
-		?>
-		<option name="hour"> </option>   
-	</select> 
-	
-	<select name="rmin">
-		<?php
-			for($i=0; $i<=60; $i++){
-				$value = str_pad($i,2,"0",STR_PAD_LEFT);
-			echo "<option value=".$value.">".$value."</option>";}
-		?>
-		<option name="rmin"> </option>   
-	</select> 
-	
-	<select name="rampm">
-		<option value="AM/PM" selected>AM/PM</option>
-		<option value="AM">AM</option>
-		<option value="PM">PM</option>
-	</select>
-	
-	<?php } else { ?>
-	
-	<select name="rhour">
-		<?php
-			for($i=0; $i<=24; $i++){
-			echo "<option value=".$i.">".$i."</option>";}
-		?>
-		<option name="rhour"> </option>   
-	</select> 
-	
-	<select name="rmin">
-		<?php
-			for($i=0; $i<=60; $i++){
-				$value = str_pad($i,2,"0",STR_PAD_LEFT);
-			echo "<option value=".$value.">".$value."</option>";}
-		?>
-		<option name="rmin"> </option>   
-	</select> 
-	<?php } ?>
+sliderraid.oninput = function() {
+  output.innerHTML = "<br>Raid starts in: " + this.value + " minutes</center>";
+}
+</script>
 </td>
 </tr>
 <!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->

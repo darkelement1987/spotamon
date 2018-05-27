@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title>Registration</title>
-<link rel="stylesheet" href="css/style.css" />
+<meta content="True" name="HandheldFriendly">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
 <?php
@@ -25,19 +28,19 @@
         }
     }else{
 ?>
-<div class="form">
+<center><div class="form">
 <h1>Registration</h1>
-<form name="registration" action="" method="post">
-<input type="text" name="uname" placeholder="Username" required />
-<input type="email" name="email" placeholder="Email" required />
-<input type="password" name="upass" placeholder="Password" required />
-<input type="submit" name="submit" value="Register" />
+<form name="registration" action="" method="post"></p>
+<p><input type="text" name="uname" placeholder="Username" required /></p>
+<p><input type="email" name="email" placeholder="Email" required /></p>
+<p><input type="password" name="upass" placeholder="Password" required /></p>
+<p><input type="submit" name="submit" value="Register" /></p>
 </form>
 <br />
 <p>Already registered? <a href='login.php'>Login Here</a></p>
 <br />
 <p>Back to <a href='../'>home</a></p>
-</div>
+</div></center>
 <?php } ?>
 </body>
 </html>

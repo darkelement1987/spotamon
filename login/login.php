@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title>Login</title>
-<link rel="stylesheet" href="css/style.css" />
+<meta content="True" name="HandheldFriendly">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
 <?php
@@ -30,19 +33,19 @@
 				}
     }else{
 ?>
-
+<center>
 <div class="form">
 <h1>Log In</h1>
 <form action="" method="post" name="login">
-<input type="text" name="uname" placeholder="Username" required />
-<input type="password" name="upass" placeholder="Password" required />
-<input name="submit" type="submit" value="Login" />
+<p><input type="text" name="uname" placeholder="Username" required /></p>
+<p><input type="password" name="upass" placeholder="Password" required /></p>
+<p><input name="submit" type="submit" value="Login" /></p>
 </form>
 <br />
 <p>Not registered yet? <a href='registration.php'>Register Here</a></p>
 <br />
 <p>Back to <a href='../'>home</a></p>
-</div>
+</div></center>
 <?php } ?>
 
 

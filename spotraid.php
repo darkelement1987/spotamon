@@ -15,6 +15,7 @@ $rampm = date('A');
 $gname = $conn->real_escape_string($_POST['gname']);
 $spotter = $conn->real_escape_string($_SESSION['uname']);
 
+	if ($clock=="false"){
 $sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rboss','$rhour','$rmin','$rampm','$spotter')";
     if(!mysqli_query($conn,$sql))
         {
@@ -33,6 +34,27 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
             {
                 echo 'Inserted';
             }                
+			
+	} else {
+		$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rboss','$rhour','$rmin','','$spotter')";
+    if(!mysqli_query($conn,$sql))
+        {
+            echo 'Not Inserted';
+        }
+            else
+            {
+                echo 'Inserted';
+            }
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='' WHERE gid='$gname'";
+    if(!mysqli_query($conn,$sql1))
+        {
+            echo 'Not Inserted';
+        }
+            else
+            {
+                echo 'Inserted';
+            }
+	}
 
 $bosslevelquery = "SELECT rlvl FROM raidbosses WHERE rid='$rboss'";
 	if(!mysqli_query($conn,$bosslevelquery))

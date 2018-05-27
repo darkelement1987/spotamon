@@ -16,6 +16,7 @@ $rampm = date('A');
 $eggby = $conn->real_escape_string($_SESSION['uname']);
 
 // Start queries
+	if ($clock=="false"){
 $sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby='$eggby' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
 		{
@@ -24,7 +25,18 @@ $sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby
 			else
 			{
 				echo 'Inserted';
-			}	
+			}
+	} else {
+$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='',eggby='$eggby' WHERE gid='$gname'";
+	if(!mysqli_query($conn,$sql))
+		{
+			echo 'Not Inserted';
+		}
+			else
+			{
+				echo 'Inserted';
+			}
+	}
 
 // Lookup gymname for webhook
 $gymquery = "SELECT gname,glatitude,glongitude FROM gyms WHERE gid = '$gname'";

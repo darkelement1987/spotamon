@@ -30,6 +30,8 @@ else
 echo $address;
 
 // Start queries
+
+	if ($clock=="false"){
 $sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, fulladdress, good, bad, spotter) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude','$address','$good','$bad', '$spotter')";
 if(!mysqli_query($conn,$sql))
 {
@@ -40,6 +42,21 @@ else
     echo 'Inserted';
 }    
 
+	} else {
+		
+$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, fulladdress, good, bad, spotter) VALUES ('$pokemon','$cp','$hour','$min','','$latitude','$longitude','$address','$good','$bad', '$spotter')";
+if(!mysqli_query($conn,$sql))
+{
+    echo 'Not Inserted';
+}
+else
+{
+    echo 'Inserted';
+}   
+
+	}
+		
+		
 // Lookup Pokemon name for webhook
 $monnamequery = "SELECT monster FROM pokedex WHERE id = '$pokemon'";
 	if(!mysqli_query($conn,$monnamequery))

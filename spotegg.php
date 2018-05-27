@@ -12,13 +12,13 @@ $timeuntilegg = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilegg);
 if ($clock=="false"){
 	$rhour = date('g', $timeuntilegg);
-	$rmin = date('i', $timeuntilegg);
 	$rampm = date('A');
 	} else {
 		$rhour = date('H', $timeuntilegg);
-		$rmin = date('i', $timeuntilegg);
 		$rampm = '';
 		}
+		
+			$rmin = date('i', $timeuntilegg);
 
 $eggby = $conn->real_escape_string($_SESSION['uname']);
 
@@ -93,15 +93,10 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Egg Spotted by $eggby",
+                "name" => "Level $egg egg spotted by $eggby",
             ],
             
             "fields" => [
-                [
-                    "name" => "Egg Level:",
-                    "value" => "$egg",
-                    "inline" => true
-                ],
 				[
 					"name" => "Hatches at:",
 					"value" => "$rhour:$rmin $rampm",

@@ -8,13 +8,13 @@ $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);
 if ($clock=="false"){
 	$hour = date('g');
-	$min = date('i');
 	$ampm = date('A');
 	} else {
 		$hour = date('H');
-		$min = date('i');
 		$ampm = '';
 		}
+		
+$min = date('i');
 
 $latitude = $conn->real_escape_string($_POST['latitude']);
 $longitude = $conn->real_escape_string($_POST['longitude']);
@@ -110,15 +110,10 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Pokemon Spotted by $spotter",
+                "name" => "$monname spotted by $spotter",
             ],
             
             "fields" => [
-                [
-                    "name" => "Pokemon:",
-                    "value" => "$monname",
-                    "inline" => true
-                ],
 				[
 					"name" => "Found:",
 					"value" => "$hour:$min $ampm",

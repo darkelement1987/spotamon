@@ -123,7 +123,7 @@ $bosscpquery = "SELECT rcp FROM raidbosses where rid='$rboss'";
 $resultbosscp = $conn->query($bosscpquery);
 
 $row = $resultbosscp->fetch_array(MYSQLI_NUM);
-$bosscp = $row[0]."CP";
+$bosscp = $row[0];
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
 
 if ($clock=="false"){
@@ -155,23 +155,23 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Raid Spotted by $spotter",
+                "name" => "Raid against $bossname spotted by $spotter",
             ],
             
             "fields" => [
-                [
-                    "name" => "Boss:",
-                    "value" => "$bossname",
-                    "inline" => true
-                ],
 				[
 					"name" => "Expires:",
 					"value" => "$rhour:$rmin $rampm",
 					"inline" => true
 				],
                 [
-                    "name" => "Strength:",
-                    "value" => "Level $bosslevel / $bosscp",
+                    "name" => "CP:",
+                    "value" => "Level $bosscp",
+                    "inline" => true
+                ],
+				                [
+                    "name" => "Difficulty:",
+                    "value" => "Level $bosslevel",
                     "inline" => true
                 ],
                 [

@@ -258,40 +258,23 @@ echo 15;
         var type = markerElem.getAttribute('id');
 		var good = markerElem.getAttribute('good');
 		var bad = markerElem.getAttribute('bad');
+		var spotter = markerElem.getAttribute('spotter');
         var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('latitude')),
             parseFloat(markerElem.getAttribute('longitude')));
 
-        var infowincontent = document.createElement('div');
-        var strong = document.createElement('strong');
-        strong.textContent = pokemon + ' (#' + id + ')'
-        infowincontent.appendChild(strong);
-        infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('text');
-        text.textContent = 'Found: ' + hour + ':' + min + ' ' + ampm  
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));	
-        var text = document.createElement('text');
-        text.textContent = cp + ' CP'
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('text');
-        text.textContent = good + ' Verified Find'
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('text');
-        text.textContent = bad + ' Not found'
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('a');
-		text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude');
-		text.textContent = 'Google Maps';
-		infowincontent.appendChild(text);	
+
         var icon = customLabel[type] || {};
         var image = {
             url: './static/icons/' + id + '.png',
             scaledSize: new google.maps.Size(32, 32)
         };
+		
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>' 
+		+ pokemon + ' (#' + id + ')</b><br>Found: ' + hour + ':' + min + ' ' + ampm +
+		'<br><hr><img src=\"./static/voting/up.png\" height=\"25\" width=\"25\"></img>' + good +
+		' x Found<br><img src=\"./static/voting/down.png\" height=\"25\" width=\"25\"></img>' + bad + ' x Not found<br><hr><a href=\"http://maps.google.com/maps?q=' + 
+		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><br><hr>Found by: <b>' + spotter + '</b></center></div>';
 		
         var marker = new google.maps.Marker({
           map: map,
@@ -300,7 +283,7 @@ echo 15;
           icon: image
         });
         marker.addListener('click', function() {
-          infoWindow.setContent(infowincontent);
+          infoWindow.setContent(html);
           infoWindow.open(map, marker);
         });
       });
@@ -470,6 +453,7 @@ echo 15;
             url: './static/stops/stops.png',
             scaledSize: new google.maps.Size(30, 30)
         };
+		
         var marker = new google.maps.Marker({
           map: map,
           position: point,

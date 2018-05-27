@@ -37,6 +37,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'type="' . $row['pokemon'] . '" ';
   echo 'good="' . $row['good'] . '" ';
   echo 'bad="' . $row['bad'] . '" ';
+  echo 'spotter="' . $row['spotter'] . '" ';  
   echo '/>';
   $ind = $ind + 1;
 }

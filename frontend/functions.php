@@ -201,12 +201,12 @@ while($row = mysqli_fetch_array($result)) {
 	</tr>";
 
 }}
-echo "</table></center>";
+echo "</table></center><p id='pages'>";
 ?><center><?php
 
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
 for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<p id='pages'><a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a></p>"; 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
 }; 
 ?></center><?php
 }
@@ -666,12 +666,12 @@ while($row = mysqli_fetch_array($result)) {
 	</tr>";
 	
 }}
-echo "</table></center>";
+echo "</table></center><p id='pages'>";
 ?><center><?php
 
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
 for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<p id='pages'><a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a></p>"; 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
 }; 
 ?></center><?php
 }

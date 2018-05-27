@@ -189,7 +189,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>TIME FOUND</th><th>LOCATION</th><th>MAP</th><th>Up Votes</th><th>Down votes</th></tr>";
+echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>FOUND</th><th>LOCATION</th><th>MAP</th><th>Votes</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$spotid = $row['spotid'];
 	$id = $row['monster'];
@@ -224,8 +224,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td style='text-align:center;'>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
 	<td style='text-align:center;'>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
-	<td style='text-align:center;'>".$good." <span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span></td>
-	<td style='text-align:center;'>".$bad." <span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span></td>
+<td style='text-align:center;'>".$good." <span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>
+	".$bad." <span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span></td>
 	</tr>";
 		
 	} else {
@@ -246,8 +246,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
 	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
-	<td style='text-align:center;'>".$good." <span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span></td>
-	<td style='text-align:center;'>".$bad." <span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span></td>
+	<td style='text-align:center;'>".$good." <span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>
+	".$bad." <span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span></td>
 	</tr>";
 
 }}
@@ -256,7 +256,7 @@ echo "</table></center>";
 
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
 for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+    echo "<p id='pages'><a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a></p>"; 
 }; 
 ?></center><?php
 }
@@ -778,7 +778,7 @@ echo "</table></center>";
 
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
 for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+    echo "<p id='pages'><a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a></p>"; 
 }; 
 ?></center><?php
 }

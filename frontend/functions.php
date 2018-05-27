@@ -799,53 +799,24 @@ while ($row = $result->fetch_assoc()) {
 </tr>
 
 <tr>
-<td style="width: 5%;">Hatches At</td>
+<td style="width: 5%;">Hatches in</td>
 <td style="width: 10%;">
+<style>
+.slideregg
+{
+    width: 100% !important;
+}
+</style>
+	<input type="range" name="etime" min="0" max="60" value="0" id="etimerange" class="slideregg"><span id="etimeoutput"></span>
+	<script>
+var slideregg = document.getElementById("etimerange");
+var output = document.getElementById("etimeoutput");
+output.innerHTML = "<br>Egg hatches in: " + slideregg.value + " minutes</center>";
 
-<?php 
-	if ($clock=="false"){ ?>
-	<select name="rhour">
-		<?php
-			for($i=1; $i<=12; $i++){
-			echo "<option value=".$i.">".$i."</option>";}
-		?>
-		<option name="hour"> </option>   
-	</select> 
-	
-	<select name="rmin">
-		<?php
-			for($i=0; $i<=60; $i++){
-				$value = str_pad($i,2,"0",STR_PAD_LEFT);
-			echo "<option value=".$value.">".$value."</option>";}
-		?>
-		<option name="rmin"> </option>   
-	</select> 
-	
-	<select name="rampm">
-		<option value="AM/PM" selected>AM/PM</option>
-		<option value="AM">AM</option>
-		<option value="PM">PM</option>
-	</select>
-	
-	<?php } else { ?>
-	
-	<select name="rhour">
-		<?php
-			for($i=0; $i<=24; $i++){
-			echo "<option value=".$i.">".$i."</option>";}
-		?>
-		<option name="rhour"> </option>   
-	</select> 
-	
-	<select name="rmin">
-		<?php
-			for($i=0; $i<=60; $i++){
-				$value = str_pad($i,2,"0",STR_PAD_LEFT);
-			echo "<option value=".$value.">".$value."</option>";}
-		?>
-		<option name="rmin"> </option>   
-	</select> 
-	<?php } ?>
+slideregg.oninput = function() {
+  output.innerHTML = "<br>Egg hatches in: " + this.value + " minutes</center>";
+}
+</script>
 </td>
 </tr>
 

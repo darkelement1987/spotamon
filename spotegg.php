@@ -6,8 +6,12 @@ include'frontend/functions.php';
 include("login/auth.php");
 $gname = $conn->real_escape_string($_POST['gname']);
 $egg = $conn->real_escape_string($_POST['egg']);
-$rhour = $conn->real_escape_string($_POST['rhour']);
-$rmin = $conn->real_escape_string($_POST['rmin']);
+$minutes = $conn->real_escape_string($_POST['etime']);
+$pulltime = date('H:i:s');
+$timeuntilegg = strtotime("+$minutes minutes", strtotime($pulltime));
+$newtime = date('Y-m-d H:i:s', $timeuntilegg);
+$rhour = intval(date('h', $timeuntilegg));
+$rmin = intval(date('i', $timeuntilegg));
 $rampm = $conn->real_escape_string($_POST['rampm']);
 $eggby = $conn->real_escape_string($_SESSION['uname']);
 

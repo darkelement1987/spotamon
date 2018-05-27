@@ -269,17 +269,10 @@ echo 15;
         strong.textContent = pokemon + ' (#' + id + ')'
         infowincontent.appendChild(strong);
         infowincontent.appendChild(document.createElement('br'));
-		if (min < 10){
-		var text = document.createElement('text');
-		text.textContent = 'Found: ' + hour + ':' + '0' + min + ' ' + ampm
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-		} else {
 		var text = document.createElement('text');
         text.textContent = 'Found: ' + hour + ':' + min + ' ' + ampm  
         infowincontent.appendChild(text);
 		infowincontent.appendChild(document.createElement('br'));	
-		}
         var text = document.createElement('text');
         text.textContent = cp + ' CP'
         infowincontent.appendChild(text);
@@ -354,17 +347,10 @@ echo 15;
 			text.textContent = 'Team: ' + tid
 			infowincontent.appendChild(text);
 			infowincontent.appendChild(document.createElement('br'));
-			if (min < 10){
-			var text = document.createElement('text');
-			text.textContent = 'Expires: ' + hour + ':' + '0' + min + ' ' + ampm  
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-			} else {
 			var text = document.createElement('text');
 			text.textContent = 'Expires: ' + hour + ':' + min + ' ' + ampm  
 			infowincontent.appendChild(text);
 			infowincontent.appendChild(document.createElement('br'));	
-			}
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/raids/' + actboss + '.png',
@@ -384,17 +370,10 @@ echo 15;
 			text.textContent = 'Team: ' + tid
 			infowincontent.appendChild(text);
 			infowincontent.appendChild(document.createElement('br'));
-			if (min < 10){
-			var text = document.createElement('text');
-			text.textContent = 'Expires: ' + hour + ':' + '0' + min + ' ' + ampm  
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-			} else {
 			var text = document.createElement('text');
 			text.textContent = 'Hatches: ' + hour + ':' + min + ' ' + ampm  
 			infowincontent.appendChild(text);
 			infowincontent.appendChild(document.createElement('br'));	
-			}
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/raids/' + actboss + '.png',
@@ -414,17 +393,10 @@ echo 15;
 			text.textContent = 'Team: ' + tid
 			infowincontent.appendChild(text);
 			infowincontent.appendChild(document.createElement('br'));
-			if (min < 10){
-			var text = document.createElement('text');
-			text.textContent = 'Expires: ' + hour + ':' + '0' + min + ' ' + ampm  
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-			} else {
 			var text = document.createElement('text');
 			text.textContent = 'Hatches: ' + hour + ':' + min + ' ' + ampm  
 			infowincontent.appendChild(text);
 			infowincontent.appendChild(document.createElement('br'));	
-			}
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/eggs/' + egg + '.png',

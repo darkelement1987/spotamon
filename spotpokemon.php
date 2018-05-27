@@ -6,8 +6,13 @@ include'frontend/functions.php';
 include("login/auth.php");
 $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);
-$hour = intval(date('h'));
-$min = intval(date('i'));
+if ($clock=="false"){
+	$hour = date('g');
+	$min = date('i');
+	} else {
+		$hour = date('H');
+		$min = date('i');
+		}
 $ampm = date('A');
 $latitude = $conn->real_escape_string($_POST['latitude']);
 $longitude = $conn->real_escape_string($_POST['longitude']);

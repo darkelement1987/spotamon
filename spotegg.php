@@ -10,8 +10,13 @@ $minutes = $conn->real_escape_string($_POST['etime']);
 $pulltime = date('H:i:s');
 $timeuntilegg = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilegg);
-$rhour = intval(date('h', $timeuntilegg));
-$rmin = intval(date('i', $timeuntilegg));
+if ($clock=="false"){
+	$rhour = intval(date('g', $timeuntilraid));
+	$rmin = intval(date('i', $timeuntilraid));
+	} else {
+		$rhour = intval(date('H', $timeuntilraid));
+		$rmin = intval(date('i', $timeuntilraid));
+		}
 $rampm = date('A');
 $eggby = $conn->real_escape_string($_SESSION['uname']);
 

@@ -132,12 +132,12 @@ height: 18px;
 table#t01 {
     width:85%;
     height: auto;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t01, tr{
     padding: 1px 5px 1px 5px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t01, td{
@@ -147,14 +147,14 @@ table#t01, td{
 }
 
 table#t01, th{
-    font-size:12px;
+    font-size:10px;
 }
 
 table#t01 th, td {
     padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t01 p {
@@ -173,7 +173,7 @@ table#t02 {
     width:80%;
     margin: 0% 5% 0% 5%;
     height:auto;
-    font-size: 12px;
+    font-size: 10px;
     background-color: #000;
 table-layout:auto;
     padding: 0px 0px 0px 0px;
@@ -181,7 +181,7 @@ table-layout:auto;
 
 table#t02, tr{
     padding: 1px 5px 1px 5px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t02, td{
@@ -192,14 +192,14 @@ table#t02, td{
 }
 
 table#t02, th{
-    font-size:12px;
+    font-size:10px;
 }
 
 table#t02 th, td {
     padding: 5px 5px 5px 5px;
     text-align: left;
     font-family: tahoma;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t02 p {
@@ -217,12 +217,12 @@ table#t02 td img{
 table#t03 {
     width:85%;
     height: auto;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t03, tr{
     padding: 1px 5px 1px 5px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t03, td{
@@ -232,13 +232,13 @@ table#t03, td{
 }
 
 table#t03, th{
-    font-size:12px;
+    font-size:10px;
 }
 table#t03 th, td {
     padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t03 p {
@@ -256,12 +256,12 @@ table#t03 td img{
 table#t04 {
     width:85%;
     height: auto;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 table#t04, tr{
     padding: 1px 5px 1px 5px;
-    font-size:12px;
+    font-size:10px;
 }
 
 table#t04, td{
@@ -271,14 +271,14 @@ table#t04, td{
 }
 
 table#t04, th{
-    font-size:12px;
+    font-size:10px;
 }
 
 table#t04 th, td {
     padding: 10px 10px 10px 10px;
     text-align: left;
     font-family: tahoma;
-    font-size:12px;
+    font-size:10px;
 }
 
 table#t04 p {

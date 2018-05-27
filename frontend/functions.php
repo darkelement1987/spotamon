@@ -561,10 +561,10 @@ while ($row = $result->fetch_assoc()) {
 	<script>
 var sliderraid = document.getElementById("rtimerange");
 var output = document.getElementById("rtimeoutput");
-output.innerHTML = "<br>Raid starts in: " + sliderraid.value + " minutes</center>";
+output.innerHTML = "<br>Raid ends in: " + sliderraid.value + " minutes</center>";
 
 sliderraid.oninput = function() {
-  output.innerHTML = "<br>Raid starts in: " + this.value + " minutes</center>";
+  output.innerHTML = "<br>Raid ends in: " + this.value + " minutes</center>";
 }
 </script>
 </td>

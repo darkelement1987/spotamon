@@ -171,9 +171,10 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$cp."</td>
 	<td style='text-align:center;'>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td style='text-align:center;'>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
-<td style='text-align:center;'>".$good.$bad." <span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>
-	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span></td>
+	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td style='text-align:center;'>
+	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>".$good."<br>
+	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span>".$bad."</td>
 	</tr>";
 		
 	} else {

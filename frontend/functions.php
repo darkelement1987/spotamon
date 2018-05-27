@@ -137,7 +137,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>FOUND</th><th>LOCATION</th><th>MAP</th><th>VOTING</th></tr>";
+echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>FOUND</th><th>LOCATION</th><th>VOTING</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$spotid = $row['spotid'];
 	$id = $row['monster'];
@@ -170,8 +170,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td style='text-align:center;'>".$hour.":".$minutes." ".$ampm."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19"><?php echo $fulladdress;?></a><?php echo "</td>
 	<td style='text-align:center;'>
 	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>".$good."<br>
 	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span>".$bad."</td>
@@ -193,8 +192,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
 	<td>".$hr.":".$minutes."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$latitude,",".$longitude.""?>"><?php echo $fulladdress;?></a><?php echo "</td>
-	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19"><?php echo $fulladdress;?></a><?php echo "</td>
 	<td style='text-align:center;'>
 	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>".$good."<br>
 	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span>".$bad."</td>
@@ -285,6 +283,10 @@ echo 15;
         text.textContent = bad + ' Not found'
         infowincontent.appendChild(text);
 		infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('a');
+		text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude');
+		text.textContent = 'Google Maps';
+		infowincontent.appendChild(text);	
         var icon = customLabel[type] || {};
         var image = {
             url: './static/icons/' + id + '.png',
@@ -332,6 +334,10 @@ echo 15;
         text.textContent = 'Team: ' + tid
         infowincontent.appendChild(text);
 		infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('a');
+		text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude');
+		text.textContent = 'Google Maps';
+		infowincontent.appendChild(text);
         var icon = customLabel[type] || {};
 			var image = {
             url: './static/gyms/' + gteam + '.png',
@@ -351,6 +357,10 @@ echo 15;
 			text.textContent = 'Expires: ' + hour + ':' + min + ' ' + ampm  
 			infowincontent.appendChild(text);
 			infowincontent.appendChild(document.createElement('br'));	
+    		var text = document.createElement('a');
+    		text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude');
+    		text.textContent = 'Google Maps';
+    		infowincontent.appendChild(text);
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/raids/' + actboss + '.png',
@@ -373,7 +383,11 @@ echo 15;
 			var text = document.createElement('text');
 			text.textContent = 'Hatches: ' + hour + ':' + min + ' ' + ampm  
 			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));	
+			infowincontent.appendChild(document.createElement('br'));
+		    var text = document.createElement('a');
+		    text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude');
+		    text.textContent = 'Google Maps';
+		    infowincontent.appendChild(text);			
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/raids/' + actboss + '.png',
@@ -396,7 +410,11 @@ echo 15;
 			var text = document.createElement('text');
 			text.textContent = 'Hatches: ' + hour + ':' + min + ' ' + ampm  
 			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));	
+			infowincontent.appendChild(document.createElement('br'));
+		    var text = document.createElement('a');
+		    text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude');
+		    text.textContent = 'Google Maps';
+		    infowincontent.appendChild(text);			
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/eggs/' + egg + '.png',
@@ -443,6 +461,10 @@ echo 15;
         text.textContent = 'Reward: ' + reward
         infowincontent.appendChild(text);
 		infowincontent.appendChild(document.createElement('br'));
+		var text = document.createElement('a');
+	    text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude');
+		text.textContent = 'Google Maps';
+		infowincontent.appendChild(text);
         var icon = customLabel[type] || {};
         var image = {
             url: './static/stops/stops.png',
@@ -611,7 +633,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th><th>MAP</th></tr>";
+echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$rid = $row['rid'];
     $rboss = $row['rboss'];
@@ -642,8 +664,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hour.":".$minutes." ".$ampm."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
-	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
 	</tr>";
 		
 	} else {
@@ -661,8 +682,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hr.":".$minutes."</td>
-	<td>"?><a href="http://maps.google.com/maps?q=<?php echo "".$glatitude,",".$glongitude.""?>"><?php echo $gname;?></a><?php echo "</td>
-	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19">Map</a><?php echo "</td>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
 	</tr>";
 	
 }}

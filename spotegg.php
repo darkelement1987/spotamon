@@ -11,12 +11,12 @@ $pulltime = date('H:i:s');
 $timeuntilegg = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilegg);
 if ($clock=="false"){
-	$rhour = date('g');
-	$rmin = date('i');
+	$rhour = date('g', $timeuntilegg);
+	$rmin = date('i', $timeuntilegg);
 	$rampm = date('A');
 	} else {
-		$rhour = date('H');
-		$rmin = date('i');
+		$rhour = date('H', $timeuntilegg);
+		$rmin = date('i', $timeuntilegg);
 		$rampm = '';
 		}
 

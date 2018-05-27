@@ -10,12 +10,12 @@ $pulltime = date('H:i:s');
 $timeuntilraid = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilraid);
 if ($clock=="false"){
-	$rhour = date('g');
-	$rmin = date('i');
+	$rhour = date('g', $timeuntilraid);
+	$rmin = date('i', $timeuntilraid);
 	$rampm = date('A');
 	} else {
-		$rhour = date('H');
-		$rmin = date('i');
+		$rhour = date('H', $timeuntilraid);
+		$rmin = date('i', $timeuntilraid);
 		$rampm = '';
 		}
 

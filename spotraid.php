@@ -10,13 +10,15 @@ $pulltime = date('H:i:s');
 $timeuntilraid = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilraid);
 if ($clock=="false"){
-	$rhour = intval(date('g', $timeuntilraid));
-	$rmin = intval(date('i', $timeuntilraid));
+	$rhour = date('g');
+	$rmin = date('i');
+	$rampm = date('A');
 	} else {
-		$rhour = intval(date('H', $timeuntilraid));
-		$rmin = intval(date('i', $timeuntilraid));
+		$rhour = date('H');
+		$rmin = date('i');
+		$rampm = '';
 		}
-$rampm = date('A');
+
 $gname = $conn->real_escape_string($_POST['gname']);
 $spotter = $conn->real_escape_string($_SESSION['uname']);
 
@@ -123,7 +125,12 @@ $resultbosscp = $conn->query($bosscpquery);
 $row = $resultbosscp->fetch_array(MYSQLI_NUM);
 $bosscp = $row[0]."CP";
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
-$date = date('h:i:s');
+
+if ($clock=="false"){
+	$date = date('g:i:s A');
+	} else {
+		$date = date('H:i:s');
+		}
 
 $hookObject = json_encode([
     "username" => "Raid Spotted!",
@@ -159,7 +166,7 @@ $hookObject = json_encode([
                 ],
 				[
 					"name" => "Expires:",
-					"value" => "$rhour:$rmin",
+					"value" => "$rhour:$rmin $rampm",
 					"inline" => true
 				],
                 [

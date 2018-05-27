@@ -11,13 +11,15 @@ $pulltime = date('H:i:s');
 $timeuntilegg = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilegg);
 if ($clock=="false"){
-	$rhour = intval(date('g', $timeuntilegg));
-	$rmin = intval(date('i', $timeuntilegg));
+	$rhour = date('g');
+	$rmin = date('i');
+	$rampm = date('A');
 	} else {
-		$rhour = intval(date('H', $timeuntilegg));
-		$rmin = intval(date('i', $timeuntilegg));
+		$rhour = date('H');
+		$rmin = date('i');
+		$rampm = '';
 		}
-$rampm = date('A');
+
 $eggby = $conn->real_escape_string($_SESSION['uname']);
 
 // Start queries
@@ -61,7 +63,12 @@ $gymname = $row[0];
 $gymlat = $row[1];
 $gymlon = $row[2];
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";		
-$date = date('h:i:s');
+
+if ($clock=="false"){
+	$date = date('g:i:s A');
+	} else {
+		$date = date('H:i:s');
+		}
 
 $hookObject = json_encode([
     "username" => "Egg spotted!",
@@ -97,7 +104,7 @@ $hookObject = json_encode([
                 ],
 				[
 					"name" => "Hatches at:",
-					"value" => "$rhour:$rmin",
+					"value" => "$rhour:$rmin $rampm",
 					"inline" => true
 				],
                 [

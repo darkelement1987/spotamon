@@ -9,11 +9,13 @@ $cp = $conn->real_escape_string($_POST['cp']);
 if ($clock=="false"){
 	$hour = date('g');
 	$min = date('i');
+	$ampm = date('A');
 	} else {
 		$hour = date('H');
 		$min = date('i');
+		$ampm = '';
 		}
-$ampm = date('A');
+
 $latitude = $conn->real_escape_string($_POST['latitude']);
 $longitude = $conn->real_escape_string($_POST['longitude']);
 $url  = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false&key=".$gmaps;
@@ -78,7 +80,12 @@ $row = $result->fetch_array(MYSQLI_NUM);
 $monname = $row[0];
 $moncp = $cp."CP";
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$latitude,$longitude&zoom=19)";
-$date = date('h:i:s');
+
+if ($clock=="false"){
+	$date = date('g:i:s A');
+	} else {
+		$date = date('H:i:s');
+		}
 
 $hookObject = json_encode([
     "username" => "$monname spotted!",
@@ -114,7 +121,7 @@ $hookObject = json_encode([
                 ],
 				[
 					"name" => "Found:",
-					"value" => "$hour:$min",
+					"value" => "$hour:$min $ampm",
 					"inline" => true
 				],
                 [

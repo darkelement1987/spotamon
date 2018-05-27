@@ -84,7 +84,7 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Gym Taken (spotted by $spotter)",
+                "name" => "Gym Taken (spotted by $teamby)",
             ],
             
             "fields" => [

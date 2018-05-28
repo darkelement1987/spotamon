@@ -41,7 +41,7 @@ while ($row = $result->fetch_assoc()) {
     width: 100% !important;
 }
 </style>
-	<input type="range" name="cp" min="0" max="4760" value="0" id="cprange" class="slider"><span id="cpoutput"></span>
+	<input type="range" name="cp" min="10" max="4760" value="0" id="cprange" class="slider"><span id="cpoutput"></span>
 	<script>
 var slider = document.getElementById("cprange");
 var output = document.getElementById("cpoutput");

@@ -1,3 +1,4 @@
+<?php session_start();?>
 <?php
 include './frontend/functions.php';
 include './frontend/menu.php';

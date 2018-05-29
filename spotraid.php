@@ -161,7 +161,7 @@ $hookObject = json_encode([
     "embeds" => [
         [
             "type" => "rich",
-            "description" => "$siteurl\n\n:alarm_clock: **Expires:** $rhour:$rmin $rampm\n:muscle: **Cp:** $bosscp\n:thermometer: **Difficulty:** Level $bosslevel\n:medal: **Gym:** $gymname",
+            "description" => "$siteurl",
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $spotter at $date",

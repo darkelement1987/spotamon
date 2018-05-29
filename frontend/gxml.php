@@ -9,7 +9,7 @@ $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
-$query = "SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid";
+$query = "SELECT * FROM gyms,teams,pokedex WHERE gyms.gteam = teams.tid AND pokedex.id=gyms.actboss";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
 
@@ -36,6 +36,43 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'min="' . $row['min'] . '" ';
   echo 'ampm="' . $row['ampm'] . '" ';
   echo 'egg="' . $row['egg'] . '" ';
+  echo 'bossname="' . $row['monster'] . '" ';
+  echo 'raidby="' . $row['raidby'] . '" ';
+  echo 'eggby="' . $row['eggby'] . '" ';  
+  echo 'teamby="' . $row['teamby'] . '" ';  
+  echo '/>';
+  $ind = $ind + 1;
+}
+
+$query2 = "SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid";
+$result2 = mysqli_query($conn,$query2)or die(mysqli_error($conn));
+//////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
+
+header('Content-Type: text/xml');
+
+// Start XML file, echo parent node
+$ind=0;
+// Iterate through the rows, printing XML nodes for each
+while ($row = @mysqli_fetch_assoc($result2)){
+  // Add to XML document node
+  echo '<marker ';
+  echo 'gid="' . $row['gid'] . '" ';
+  echo 'gname="' . parseToXML($row['gname']) . '" ';
+  echo 'glatitude="' . $row['glatitude'] . '" ';
+  echo 'glongitude="' . $row['glongitude'] . '" ';
+  echo 'gteam="' . $row['gteam'] . '" ';
+  echo 'type="' . $row['type'] . '" ';
+  echo 'tid="' . $row['tname'] . '" ';
+  echo 'actraid="' . $row['actraid'] . '" ';
+  echo 'actboss="' . $row['actboss'] . '" ';
+  echo 'hour="' . $row['hour'] . '" ';
+  echo 'min="' . $row['min'] . '" ';
+  echo 'ampm="' . $row['ampm'] . '" ';
+  echo 'egg="' . $row['egg'] . '" ';
+  echo 'bossname="' . $row['monster'] . '" ';
+  echo 'raidby="' . $row['raidby'] . '" ';
+  echo 'eggby="' . $row['eggby'] . '" ';  
+  echo 'teamby="' . $row['teamby'] . '" ';  
   echo '/>';
   $ind = $ind + 1;
 }

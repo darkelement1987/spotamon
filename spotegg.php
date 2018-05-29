@@ -23,6 +23,29 @@ if ($clock=="false"){
 $eggby = $conn->real_escape_string($_SESSION['uname']);
 
 // Start queries
+
+// Check if active raid
+$checkraid = "SELECT actraid FROM gyms WHERE gid='$gname'";
+	if(!mysqli_query($conn,$checkraid))
+		{
+			echo 'Not Inserted';
+		}
+			else
+			{
+				echo 'Inserted';
+			}
+
+$checkresult = $conn->query($checkraid);
+$checkrow = $checkresult->fetch_array(MYSQLI_NUM);
+$checkstatus = $checkrow[0];
+
+if($checkstatus == "1") {
+echo '<script language="javascript">';
+echo 'alert("Cannot submit an Egg while there is an active raid")';
+echo '</script>';
+header('Refresh: 0; URL=submit-egg.php');
+} else {
+
 	if ($clock=="false"){
 $sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby='$eggby' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
@@ -129,5 +152,5 @@ $response = curl_exec( $ch );
 curl_close( $ch );			
 			
 	header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-	
+}
 ?>

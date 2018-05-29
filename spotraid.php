@@ -22,6 +22,28 @@ if ($clock=="false"){
 $gname = $conn->real_escape_string($_POST['gname']);
 $spotter = $conn->real_escape_string($_SESSION['uname']);
 
+// Check if active egg
+$checkraid = "SELECT egg FROM gyms WHERE gid='$gname'";
+	if(!mysqli_query($conn,$checkraid))
+		{
+			echo 'Not Inserted';
+		}
+			else
+			{
+				echo 'Inserted';
+			}
+
+$checkresult = $conn->query($checkraid);
+$checkrow = $checkresult->fetch_array(MYSQLI_NUM);
+$checkstatus = $checkrow[0];
+
+if($checkstatus == "1") {
+echo '<script language="javascript">';
+echo 'alert("Cannot submit a Raid while there is an active egg")';
+echo '</script>';
+header('Refresh: 0; URL=submit-raid.php');
+} else {
+
 	if ($clock=="false"){
 $sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rboss','$rhour','$rmin','$rampm','$spotter')";
     if(!mysqli_query($conn,$sql))
@@ -32,7 +54,7 @@ $sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rbos
             {
                 echo 'Inserted';
             }
-$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='$rampm' WHERE gid='$gname'";
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='$rampm',raidby='$spotter' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';
@@ -156,29 +178,6 @@ $hookObject = json_encode([
             
             "author" => [
                 "name" => "Raid against $bossname spotted by $spotter",
-            ],
-            
-            "fields" => [
-				[
-					"name" => "Expires:",
-					"value" => "$rhour:$rmin $rampm",
-					"inline" => true
-				],
-                [
-                    "name" => "CP:",
-                    "value" => "Level $bosscp",
-                    "inline" => true
-                ],
-				                [
-                    "name" => "Difficulty:",
-                    "value" => "Level $bosslevel",
-                    "inline" => true
-                ],
-                [
-                    "name" => "Gym",
-                    "value" => "$gymname",
-                    "inline" => true
-                ]
             ]
         ]
     ]
@@ -201,5 +200,5 @@ $response = curl_exec( $ch );
 curl_close( $ch );
 			
     header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-    
+}    
 ?>

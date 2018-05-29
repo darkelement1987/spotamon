@@ -304,100 +304,31 @@ echo 15;
 		var min = markerElem.getAttribute('min');
 		var ampm = markerElem.getAttribute('ampm');
 		var egg = markerElem.getAttribute('egg');
+		var bossname = markerElem.getAttribute('bossname');
+		var raidby = markerElem.getAttribute('raidby');
+		var eggby = markerElem.getAttribute('eggby');
 		var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('glatitude')),
             parseFloat(markerElem.getAttribute('glongitude')));
+			
+
 		if (actraid === "0" && egg === "0"){
-		var infowincontent = document.createElement('div');
-        var strong = document.createElement('strong');
-        strong.textContent = gname
-        infowincontent.appendChild(strong);
-        infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('text');
-        text.textContent = 'Team: ' + tid
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('a');
-		text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude');
-		text.textContent = 'Google Maps';
-		infowincontent.appendChild(text);
+		
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><br></center></div>';
         var icon = customLabel[type] || {};
 			var image = {
             url: './static/gyms/' + gteam + '.png',
             scaledSize: new google.maps.Size(50, 50)
 			};
 		} else if (actraid !== "0" && egg === "0"){
-			var infowincontent = document.createElement('div');
-			var strong = document.createElement('strong');
-			strong.textContent = 'Raid At: ' +gname
-			infowincontent.appendChild(strong);
-			infowincontent.appendChild(document.createElement('br'));
-			var text = document.createElement('text');
-			text.textContent = 'Team: ' + tid
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-			var text = document.createElement('text');
-			text.textContent = 'Expires: ' + hour + ':' + min + ' ' + ampm  
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));	
-    		var text = document.createElement('a');
-    		text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude');
-    		text.textContent = 'Google Maps';
-    		infowincontent.appendChild(text);
+			var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><br><hr>Spotted by: ' + raidby + '</center></div>';
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/raids/' + actboss + '.png',
             scaledSize: new google.maps.Size(75, 75)
-			};		
-		} else if (actraid !== "0" && egg !== "0"){
-			var infowincontent = document.createElement('div');
-			var strong = document.createElement('strong');
-			strong.textContent = 'Raid At: ' + gname
-			infowincontent.appendChild(strong);
-			infowincontent.appendChild(document.createElement('br'));
-			var text = document.createElement('text');
-			text.textContent = 'Raid Lvl: ' + egg
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-			var text = document.createElement('text');
-			text.textContent = 'Team: ' + tid
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-			var text = document.createElement('text');
-			text.textContent = 'Hatches: ' + hour + ':' + min + ' ' + ampm  
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-		    var text = document.createElement('a');
-		    text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude');
-		    text.textContent = 'Google Maps';
-		    infowincontent.appendChild(text);			
-			var icon = customLabel[type] || {};
-			var image = {
-            url: './static/raids/' + actboss + '.png',
-            scaledSize: new google.maps.Size(75, 75)
-			};		
+			};			
 		} else if (actraid === "0" && egg !== "0"){
-			var infowincontent = document.createElement('div');
-			var strong = document.createElement('strong');
-			strong.textContent = 'Egg At: ' + gname
-			infowincontent.appendChild(strong);
-			infowincontent.appendChild(document.createElement('br'));
-			var text = document.createElement('text');
-			text.textContent = 'Egg Lvl: ' + egg
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-			var text = document.createElement('text');
-			text.textContent = 'Team: ' + tid
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-			var text = document.createElement('text');
-			text.textContent = 'Hatches: ' + hour + ':' + min + ' ' + ampm  
-			infowincontent.appendChild(text);
-			infowincontent.appendChild(document.createElement('br'));
-		    var text = document.createElement('a');
-		    text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude');
-		    text.textContent = 'Google Maps';
-		    infowincontent.appendChild(text);			
+			var html = '<div class=\"maplabel\"><center><img src=\"./static/eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><br><hr>Spotted by: ' + eggby + '</center></div>';		
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/eggs/' + egg + '.png',
@@ -413,7 +344,7 @@ echo 15;
 		  title: gname + ' held by ' + tid
         });
         marker.addListener('click', function() {
-          infoWindow.setContent(infowincontent);
+          infoWindow.setContent(html);
           infoWindow.open(map, marker);
         });
       });

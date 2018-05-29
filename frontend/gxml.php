@@ -9,7 +9,7 @@ $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
-$query = "SELECT * FROM gyms,teams,pokedex WHERE gyms.gteam = teams.tid AND pokedex.id=gyms.actboss";
+$query = "SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid AND egg=0 AND actraid=0";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
 
@@ -39,12 +39,12 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'bossname="' . $row['monster'] . '" ';
   echo 'raidby="' . $row['raidby'] . '" ';
   echo 'eggby="' . $row['eggby'] . '" ';  
-  echo 'teamby="' . $row['teamby'] . '" ';  
+  echo 'teamby="' . $row['teamby'] . '" '; 
   echo '/>';
   $ind = $ind + 1;
 }
 
-$query2 = "SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid";
+$query2 = "SELECT * FROM gyms,teams,pokedex WHERE gyms.gteam = teams.tid AND pokedex.id=gyms.actboss";
 $result2 = mysqli_query($conn,$query2)or die(mysqli_error($conn));
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
 
@@ -72,7 +72,7 @@ while ($row = @mysqli_fetch_assoc($result2)){
   echo 'bossname="' . $row['monster'] . '" ';
   echo 'raidby="' . $row['raidby'] . '" ';
   echo 'eggby="' . $row['eggby'] . '" ';  
-  echo 'teamby="' . $row['teamby'] . '" ';  
+  echo 'teamby="' . $row['teamby'] . '" '; 
   echo '/>';
   $ind = $ind + 1;
 }

@@ -22,7 +22,6 @@ while ($row = $result->fetch_assoc()) {
     unset($id, $monster);
         $id = $row['id'];
             $monster= $row['monster'];
-			    $spotter=$row['spotter'];
 				echo '<option value="'.$id.'">'.$id.' - '.$monster.'</option>';
 					}					
 						echo "</select>";
@@ -274,7 +273,7 @@ echo 15;
 		+ pokemon + ' (#' + id + ')</b><br>Found: ' + hour + ':' + min + ' ' + ampm +
 		'<br><hr><img src=\"./static/voting/up.png\" height=\"25\" width=\"25\"></img>' + good +
 		' x Found<br><img src=\"./static/voting/down.png\" height=\"25\" width=\"25\"></img>' + bad + ' x Not found<br><hr><a href=\"http://maps.google.com/maps?q=' + 
-		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><br><hr>Found by: <b>' + spotter + '</b></center></div>';
+		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><br><hr>Spotted by: <b>' + spotter + '</b></center></div>';
 		
         var marker = new google.maps.Marker({
           map: map,
@@ -307,6 +306,7 @@ echo 15;
 		var bossname = markerElem.getAttribute('bossname');
 		var raidby = markerElem.getAttribute('raidby');
 		var eggby = markerElem.getAttribute('eggby');
+		var bosscp = markerElem.getAttribute('bosscp');
 		var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('glatitude')),
             parseFloat(markerElem.getAttribute('glongitude')));
@@ -321,14 +321,14 @@ echo 15;
             scaledSize: new google.maps.Size(50, 50)
 			};
 		} else if (actraid !== "0" && egg === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><br><hr>Spotted by: ' + raidby + '</center></div>';
+			var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><br><hr>Spotted by: <b>' + raidby + '</b></center></div>';
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/raids/' + actboss + '.png',
             scaledSize: new google.maps.Size(75, 75)
 			};			
 		} else if (actraid === "0" && egg !== "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"./static/eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><br><hr>Spotted by: ' + eggby + '</center></div>';		
+			var html = '<div class=\"maplabel\"><center><img src=\"./static/eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><br><hr>Spotted by: <b>' + eggby + '</b></center></div>';		
 			var icon = customLabel[type] || {};
 			var image = {
             url: './static/eggs/' + egg + '.png',
@@ -449,7 +449,6 @@ while ($row = $result->fetch_assoc()) {
     unset($rid, $rboss);
         $rid = $row['rid'];
             $rboss= $row['rboss'];
-			    $spotter = $row['spotter'];
 				echo '<option value="'.$rid.'">'.$rid.' - '.$rboss.'</option>';
 					}					
 						echo "</select>";
@@ -637,7 +636,6 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-				    $teamby= $row['teamby'];
 					echo '<option value="'.$gid.'" label="'.$gteam.'">'.$gname.'</option>';
 						}					
 							echo "</select>";
@@ -698,7 +696,6 @@ while ($row = $result->fetch_assoc()) {
 		$tid = $row['tname'];
             $gname= $row['gname'];
 				$gteam= $row['gteam'];
-				    $eggby= $row['eggby'];
 					echo '<option value="'.$gid.'" label="'.$gteam.'">'.$gname.'</option>';
 						}					
 							echo "</select>";

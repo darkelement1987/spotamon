@@ -178,6 +178,29 @@ $hookObject = json_encode([
             
             "author" => [
                 "name" => "Raid against $bossname spotted by $spotter",
+            ],
+            
+            "fields" => [
+				[
+					"name" => "Expires:",
+					"value" => "$rhour:$rmin $rampm",
+					"inline" => true
+				],
+                [
+                    "name" => "CP:",
+                    "value" => "Level $bosscp",
+                    "inline" => true
+                ],
+				                [
+                    "name" => "Difficulty:",
+                    "value" => "Level $bosslevel",
+                    "inline" => true
+                ],
+                [
+                    "name" => "Gym",
+                    "value" => "$gymname",
+                    "inline" => true
+                ]
             ]
         ]
     ]

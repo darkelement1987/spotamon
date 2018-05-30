@@ -25,7 +25,7 @@ $eggby = $conn->real_escape_string($_SESSION['uname']);
 // Start queries
 
 // Check if active raid
-$checkraid = "SELECT actraid FROM gyms WHERE gid='$gname'";
+$checkraid = "SELECT actraid,egg FROM gyms WHERE gid='$gname'";
 	if(!mysqli_query($conn,$checkraid))
 		{
 			echo 'Not Inserted';
@@ -37,13 +37,19 @@ $checkraid = "SELECT actraid FROM gyms WHERE gid='$gname'";
 
 $checkresult = $conn->query($checkraid);
 $checkrow = $checkresult->fetch_array(MYSQLI_NUM);
-$checkstatus = $checkrow[0];
+$checkactraid = $checkrow[0];
+$checkactegg = $checkrow[1];
 
-if($checkstatus == "1") {
+if($checkactraid == "1") {
 echo '<script language="javascript">';
 echo 'alert("Cannot submit an Egg while there is an active raid")';
 echo '</script>';
 header('Refresh: 0; URL=submit-egg.php');
+} elseif($checkactegg!=0) {
+	echo '<script language="javascript">';
+	echo 'alert("Cannot submit multiple eggs on the same gym")';
+	echo '</script>';
+	header('Refresh: 0; URL=submit-egg.php');
 } else {
 
 	if ($clock=="false"){

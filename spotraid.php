@@ -45,7 +45,7 @@ header('Refresh: 0; URL=submit-raid.php');
 } else {
 
 	if ($clock=="false"){
-$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rboss','$rhour','$rmin','$rampm','$spotter')";
+$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter,rdate) VALUES ('$rboss','$rhour','$rmin','$rampm','$spotter','$newtime')";
     if(!mysqli_query($conn,$sql))
         {
             echo 'Not Inserted';
@@ -54,7 +54,7 @@ $sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rbos
             {
                 echo 'Inserted';
             }
-$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='$rampm',raidby='$spotter' WHERE gid='$gname'";
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='$rampm',raidby='$spotter',date='$newtime' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';
@@ -65,7 +65,7 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
             }                
 			
 	} else {
-		$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rboss','$rhour','$rmin','','$spotter')";
+		$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter,rdate) VALUES ('$rboss','$rhour','$rmin','','$spotter','$newtime')";
     if(!mysqli_query($conn,$sql))
         {
             echo 'Not Inserted';
@@ -74,7 +74,7 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
             {
                 echo 'Inserted';
             }
-$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='' WHERE gid='$gname'";
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='',date='$newtime' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';

@@ -47,7 +47,7 @@ header('Refresh: 0; URL=submit-egg.php');
 } else {
 
 	if ($clock=="false"){
-$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby='$eggby' WHERE gid='$gname'";
+$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby='$eggby',date='$newtime' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
 		{
 			echo 'Not Inserted';
@@ -57,7 +57,7 @@ $sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby
 				echo 'Inserted';
 			}
 	} else {
-$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='',eggby='$eggby' WHERE gid='$gname'";
+$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='',eggby='$eggby',date='$newtime' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
 		{
 			echo 'Not Inserted';

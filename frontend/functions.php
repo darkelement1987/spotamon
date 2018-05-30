@@ -781,7 +781,10 @@ $id = $usergroup = "";?>
 		<h2 style="text-align:center;"><strong>Admin Panel:</strong></h2>
 		<center>
 		<a href="gymcsv.php">Upload Gym .CSV</a><br />
-		<a href="stopcsv.php">Upload Stop .CSV</a>
+		<a href="stopcsv.php">Upload Stop .CSV</a><br />
+		<h2 style="text-align:center;"><strong>Database:</strong></h2>
+		<a href="./droptables.php">Drop database</a>
+		
 		<?php
 	}
 	
@@ -841,5 +844,4 @@ $id = $usergroup = "";?>
 
 
 ?>
-
 

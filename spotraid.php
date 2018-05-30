@@ -161,7 +161,7 @@ $hookObject = json_encode([
     "embeds" => [
         [
             "type" => "rich",
-            "description" => "$siteurl\n\n:alarm_clock: **Expires:** $rhour:$rmin $rampm\n:muscle: **Cp:** $bosscp\n:thermometer: **Difficulty:** Level $bosslevel\n:medal: **Gym:** $gymname",
+            "description" => "$siteurl",
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $spotter at $date",
@@ -178,6 +178,29 @@ $hookObject = json_encode([
             
             "author" => [
                 "name" => "Raid against $bossname spotted by $spotter",
+            ],
+            
+            "fields" => [
+				[
+					"name" => "Expires:",
+					"value" => "$rhour:$rmin $rampm",
+					"inline" => true
+				],
+                [
+                    "name" => "CP:",
+                    "value" => "Level $bosscp",
+                    "inline" => true
+                ],
+				                [
+                    "name" => "Difficulty:",
+                    "value" => "Level $bosslevel",
+                    "inline" => true
+                ],
+                [
+                    "name" => "Gym",
+                    "value" => "$gymname",
+                    "inline" => true
+                ]
             ]
         ]
     ]

@@ -35,9 +35,10 @@ $date = date("Y-m-d H:i:s");
 
                     $item1 = mysqli_real_escape_string($conn,$data[0]); // PUT CSV ROW 1 CONTENT IN VAR
                     $item2 = mysqli_real_escape_string($conn,$data[1]); // PUT CSV ROW 2 CONTENT IN VAR
+					$item3 = mysqli_real_escape_string($conn,$data[2]); // PUT CSV ROW 2 CONTENT IN VAR
                     
 					
-                    $import="INSERT IGNORE INTO stops (sid,slatitude,slongitude,quested,quest,reward,lured,type,date) VALUES (DEFAULT,'$item1','$item2',NULL,NULL,NULL,NULL,NULL,'$date')";
+                    $import="INSERT IGNORE INTO stops (sid, sname, slatitude,slongitude,quested,quest,reward,lured,type,date) VALUES (DEFAULT,'$item1','$item2','$item3',NULL,NULL,NULL,NULL,NULL,'$date')";
                     mysqli_query($conn,$import);
 					
                 } // <<-- END LOOP THROUGH CSV \\

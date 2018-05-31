@@ -763,7 +763,7 @@ $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
 <?php
 	echo "<center><table id=\"t02\" class=\"spotted\">";
-	echo "<tr><th>user</th><th>Email</th><th>LVL</th></tr>";
+	echo "<tr><th>user</th><th>Email</th><th>Usergroup</th></tr>";
 	while ($row = $result->fetch_assoc()) {
 	$id = $row['id'];
     $uname = $row['uname'];

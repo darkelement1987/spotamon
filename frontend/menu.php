@@ -138,6 +138,7 @@ body {
     <div class="dropdown-content">
       <a href="./pokemon.php">Pokémon</a>
       <a href="./raids.php">Raids</a>
+	  <a href="./eggs.php">Eggs</a>
     </div>
   </div>
   

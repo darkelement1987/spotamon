@@ -355,6 +355,7 @@ echo 15;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
         var sid = markerElem.getAttribute('sid');
+        var sname = markerElem.getAttribute('sname');
 		var quest = markerElem.getAttribute('quest');
         var reward = markerElem.getAttribute('reward');
 		var type = markerElem.getAttribute('type');
@@ -362,23 +363,7 @@ echo 15;
             parseFloat(markerElem.getAttribute('slatitude')),
             parseFloat(markerElem.getAttribute('slongitude')));
 		
-		var infowincontent = document.createElement('div');
-		var strong = document.createElement('strong');
-        strong.textContent = 'Stop ID: ' + sid
-        infowincontent.appendChild(strong);
-        infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('text');
-        text.textContent = 'Quest: ' + quest
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('text');
-        text.textContent = 'Reward: ' + reward
-        infowincontent.appendChild(text);
-		infowincontent.appendChild(document.createElement('br'));
-		var text = document.createElement('a');
-	    text.href = 	'http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude');
-		text.textContent = 'Google Maps';
-		infowincontent.appendChild(text);
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><br>Quest: ' + quest + '<br>Reward:' + reward + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a></center></div>'
         var icon = customLabel[type] || {};
         var image = {
             url: './static/stops/stops.png',
@@ -392,7 +377,7 @@ echo 15;
           icon: image,
         });
         marker.addListener('click', function() {
-          infoWindow.setContent(infowincontent);
+          infoWindow.setContent(html);
           infoWindow.open(map, marker);
         });
       });

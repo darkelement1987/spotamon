@@ -155,7 +155,7 @@ body {
 	<?php } 
 	else{?>
 	<div class="dropdown">
-    <button class="dropbtn">Registration <?php echo $_SESSION['uname']; ?> <i class="fa fa-caret-down"></i></button>
+    <button class="dropbtn">Registration<i class="fa fa-caret-down"></i></button>
 	 <div class="dropdown-content">
 	 <a href="login/login.php">Login</a>
 	 <a href="login/registration.php">Register</a>

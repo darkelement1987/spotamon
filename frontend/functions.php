@@ -40,7 +40,7 @@ while ($row = $result->fetch_assoc()) {
     width: 100% !important;
 }
 </style>
-	<input type="text" name="cp" min="10" max="4760" value="0" id="cprange" class="slider"><span id="cpoutput"></span>
+	<input type="text" name="cp" min="10" max="4760" value="0"><span id="cpoutput"></span>
 </td>
 </tr>
 

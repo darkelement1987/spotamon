@@ -916,7 +916,7 @@ $id = $usergroup = "";?>
         <td><strong><?php echo $totalspots?></strong></td>
         </tr>			
 		<tr>
-		<td colspan="2"><a href="./droptables.php"><center>Drop database</center></a></td>
+		<td colspan="2"><a href="./droptables.php" onclick="return confirm('Are you sure?');"><center>Drop database</center></a></td>
 		<tr>
         </tbody>
         </table></center>

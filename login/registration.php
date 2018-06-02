@@ -41,7 +41,7 @@
 <p><input type="password" name="upass" placeholder="Password" required /></p>
 <a href="../policy.php">Read our privacy policy</a>
 <p>I've read the privacy policy and agree to share my personal information</p>
-<p><input type="submit" name="accPolicy" value="I agree" onclick="enableregbutton()"></p>
+<p><input type="button" name="accPolicy" value="I agree" onclick="enableregbutton()"></p>
 <p><input type="submit" name="submit" value="Register" id="regbutton" disabled="disabled"/></p>
 </form>
 <br />

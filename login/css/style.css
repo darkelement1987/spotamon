@@ -30,7 +30,7 @@ body {
      font-size: 14px;
      margin-top: 10px;
 }
- input[type='submit']{
+ input[type='submit'], input[type='button']{
     padding: 10px 25px 8px;
      color: #fff;
      background-color: #0067ab;

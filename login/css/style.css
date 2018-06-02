@@ -46,6 +46,12 @@ body {
     background-color: #024978;
 }
 
+input[type='submit']:disabled {
+	background-color: #dddddd;
+	border: 1px solid #d3d3d3;
+	color: #bbb;
+	}
+
 @media only screen and (max-width: 600px) {
 body {
     font-family:Arial, Sans-Serif;

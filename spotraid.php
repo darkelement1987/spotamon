@@ -80,7 +80,7 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
             {
                 echo 'Inserted';
             }
-$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='',date='$newtime' WHERE gid='$gname'";
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='',raidby='$spotter',date='$newtime' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';

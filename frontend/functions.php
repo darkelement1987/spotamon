@@ -830,7 +830,28 @@ slideregg.oninput = function() {
 function profile(){ 
 if(isset($_SESSION["uname"])){
 require('config/config.php');
-$result = $conn->query("SELECT * FROM users,usergroup WHERE uname='".$_SESSION['uname']."' AND users.usergroup = usergroup.id LIMIT 1  "); 
+$result = $conn->query("SELECT * FROM users,usergroup WHERE uname='".$_SESSION['uname']."' AND users.usergroup = usergroup.id LIMIT 1  ");
+
+$gcountquery = $conn->query("SELECT * FROM `gyms`");
+$gcountresult = mysqli_num_rows($gcountquery);
+
+$scountquery = $conn->query("SELECT * FROM `stops`");
+$scountresult = mysqli_num_rows($scountquery);  
+
+$eggcountquery = $conn->query("SELECT * FROM `gyms` WHERE egg != 0");
+$eggcountresult = mysqli_num_rows($eggcountquery);  
+
+$raidcountquery = $conn->query("SELECT * FROM `gyms` WHERE actraid != 0");
+$raidcountresult = mysqli_num_rows($raidcountquery); 
+
+$teamcountquery = $conn->query("SELECT * FROM `gyms` WHERE gteam > 1");
+$teamcountresult = mysqli_num_rows($teamcountquery); 
+
+$moncountquery = $conn->query("SELECT * FROM `spots`");
+$moncountresult = mysqli_num_rows($moncountquery); 
+
+$totalspots = $eggcountresult + $raidcountresult + $teamcountresult + $moncountresult;
+
 $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
 <?php
@@ -850,13 +871,55 @@ $id = $usergroup = "";?>
 	echo "<br /><center><a href='./edit-profile.php'>Edit Profile</a></center>";
 	if ("$usergroup" == 'admin'){
 		?>
+		
 		<h2 style="text-align:center;"><strong>Admin Panel:</strong></h2>
 		<center>
 		<a href="gymcsv.php">Upload Gym .CSV</a><br />
 		<a href="stopcsv.php">Upload Stop .CSV</a><br />
-		<h2 style="text-align:center;"><strong>Database:</strong></h2>
-		<a href="./droptables.php">Drop database</a>
 		
+		<h2 style="text-align:center;"><strong>Database overview</strong></h2>
+		
+		<center><table id="t02" class="spotted">
+        <tbody>
+        <tr>
+        <th colspan="2"><strong><center>Database</strong></th>
+        </tr>	
+        <tr>
+        <td>Gyms</td>
+        <td><?php echo $gcountresult?></td>
+        </tr>
+        <tr>
+        <td>Stops</td>
+        <td><?php echo $scountresult?></td>
+        </tr>
+        <tr>
+        <th colspan="2"><strong><center>Spots</strong></th>
+        </tr>		
+        <tr>
+        <td>Pokemon</td>
+        <td><?php echo $moncountresult?></td>
+        </tr>			
+        <tr>
+        <td>Raids</td>
+        <td><?php echo $raidcountresult?></td>
+        </tr>
+        <tr>
+        <td>Eggs</td>
+        <td><?php echo $eggcountresult?></td>
+        </tr>
+        <tr>
+        <td>Teams</td>
+        <td><?php echo $teamcountresult?></td>
+        </tr>		
+        <tr>
+        <td><strong>Total spots:</strong></td>
+        <td><strong><?php echo $totalspots?></strong></td>
+        </tr>			
+		<tr>
+		<td colspan="2"><a href="./droptables.php"><center>Drop database</center></a></td>
+		<tr>
+        </tbody>
+        </table></center>
 		<?php
 	}
 	

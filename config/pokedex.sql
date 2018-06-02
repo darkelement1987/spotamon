@@ -452,7 +452,7 @@ INSERT IGNORE INTO `usergroup` (`id`, `groupname`) VALUES
 COMMIT;
 
 INSERT IGNORE INTO `users` (`id`, `email`, `uname`, `upass`, `usergroup`, `trn_date`) VALUES
-(1, 'dpgm@dpgmaps.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', '3', '');
+(1, 'demo@demo.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', '3', '');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

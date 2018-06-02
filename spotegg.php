@@ -10,14 +10,50 @@ $minutes = $conn->real_escape_string($_POST['etime']);
 $pulltime = date('H:i:s');
 $timeuntilegg = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilegg);
-$rhour = intval(date('h', $timeuntilegg));
-$rmin = intval(date('i', $timeuntilegg));
-$rampm = date('A');
+if ($clock=="false"){
+	$rhour = date('g', $timeuntilegg);
+	$rampm = date('A');
+	} else {
+		$rhour = date('H', $timeuntilegg);
+		$rampm = '';
+		}
+		
+			$rmin = date('i', $timeuntilegg);
+
 $eggby = $conn->real_escape_string($_SESSION['uname']);
 
 // Start queries
+
+// Check if active raid
+$checkraid = "SELECT actraid,egg FROM gyms WHERE gid='$gname'";
+	if(!mysqli_query($conn,$checkraid))
+		{
+			echo 'Not Inserted';
+		}
+			else
+			{
+				echo 'Inserted';
+			}
+
+$checkresult = $conn->query($checkraid);
+$checkrow = $checkresult->fetch_array(MYSQLI_NUM);
+$checkactraid = $checkrow[0];
+$checkactegg = $checkrow[1];
+
+if($checkactraid == "1") {
+echo '<script language="javascript">';
+echo 'alert("Cannot submit an Egg while there is an active raid")';
+echo '</script>';
+header('Refresh: 0; URL=submit-egg.php');
+} elseif($checkactegg!=0) {
+	echo '<script language="javascript">';
+	echo 'alert("Cannot submit multiple eggs on the same gym")';
+	echo '</script>';
+	header('Refresh: 0; URL=submit-egg.php');
+} else {
+
 	if ($clock=="false"){
-$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby='$eggby' WHERE gid='$gname'";
+$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby='$eggby',date='$newtime' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
 		{
 			echo 'Not Inserted';
@@ -27,7 +63,7 @@ $sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='$rampm',eggby
 				echo 'Inserted';
 			}
 	} else {
-$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='',eggby='$eggby' WHERE gid='$gname'";
+$sql = "UPDATE gyms SET egg='$egg',hour='$rhour',min='$rmin',ampm='',eggby='$eggby',date='$newtime' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
 		{
 			echo 'Not Inserted';
@@ -56,7 +92,12 @@ $gymname = $row[0];
 $gymlat = $row[1];
 $gymlon = $row[2];
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";		
-$date = date('h:i:s');
+
+if ($clock=="false"){
+	$date = date('g:i:s A');
+	} else {
+		$date = date('H:i:s');
+		}
 
 $hookObject = json_encode([
     "username" => "Egg spotted!",
@@ -81,18 +122,13 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Egg Spotted by $eggby",
+                "name" => "Level $egg egg spotted by $eggby",
             ],
             
             "fields" => [
-                [
-                    "name" => "Egg Level:",
-                    "value" => "$egg",
-                    "inline" => true
-                ],
 				[
 					"name" => "Hatches at:",
-					"value" => "$rhour:$rmin",
+					"value" => "$rhour:$rmin $rampm",
 					"inline" => true
 				],
                 [
@@ -122,5 +158,5 @@ $response = curl_exec( $ch );
 curl_close( $ch );			
 			
 	header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-	
+}
 ?>

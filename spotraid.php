@@ -9,14 +9,49 @@ $minutes = $conn->real_escape_string($_POST['rtime']);
 $pulltime = date('H:i:s');
 $timeuntilraid = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilraid);
-$rhour = intval(date('h', $timeuntilraid));
-$rmin = intval(date('i', $timeuntilraid));
-$rampm = date('A');
+if ($clock=="false"){
+	$rhour = date('g', $timeuntilraid);
+	$rmin = date('i', $timeuntilraid);
+	$rampm = date('A');
+	} else {
+		$rhour = date('H', $timeuntilraid);
+		$rmin = date('i', $timeuntilraid);
+		$rampm = '';
+		}
+
 $gname = $conn->real_escape_string($_POST['gname']);
 $spotter = $conn->real_escape_string($_SESSION['uname']);
 
+// Check if active egg
+$checkegg = "SELECT egg,actraid FROM gyms WHERE gid='$gname'";
+	if(!mysqli_query($conn,$checkegg))
+		{
+			echo 'Not Inserted';
+		}
+			else
+			{
+				echo 'Inserted';
+			}
+
+$checkresult = $conn->query($checkegg);
+$checkrow = $checkresult->fetch_array(MYSQLI_NUM);
+$checkactegg = $checkrow[0];
+$checkactraid = $checkrow[1];
+
+if($checkactegg !=0) {
+echo '<script language="javascript">';
+echo 'alert("Cannot submit a Raid while there is an active egg")';
+echo '</script>';
+header('Refresh: 0; URL=submit-raid.php');
+} elseif ($checkactraid == "1") {
+	echo '<script language="javascript">';
+	echo 'alert("Cannot submit multiple raids on the same gym")';
+	echo '</script>';
+	header('Refresh: 0; URL=submit-egg.php');
+} else {
+
 	if ($clock=="false"){
-$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rboss','$rhour','$rmin','$rampm','$spotter')";
+$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter,rdate) VALUES ('$rboss','$rhour','$rmin','$rampm','$spotter','$newtime')";
     if(!mysqli_query($conn,$sql))
         {
             echo 'Not Inserted';
@@ -25,7 +60,7 @@ $sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rbos
             {
                 echo 'Inserted';
             }
-$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='$rampm' WHERE gid='$gname'";
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='$rampm',raidby='$spotter',date='$newtime' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';
@@ -36,7 +71,7 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
             }                
 			
 	} else {
-		$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter) VALUES ('$rboss','$rhour','$rmin','','$spotter')";
+		$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter,rdate) VALUES ('$rboss','$rhour','$rmin','','$spotter','$newtime')";
     if(!mysqli_query($conn,$sql))
         {
             echo 'Not Inserted';
@@ -45,7 +80,7 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
             {
                 echo 'Inserted';
             }
-$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='' WHERE gid='$gname'";
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='',date='$newtime' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';
@@ -116,9 +151,14 @@ $bosscpquery = "SELECT rcp FROM raidbosses where rid='$rboss'";
 $resultbosscp = $conn->query($bosscpquery);
 
 $row = $resultbosscp->fetch_array(MYSQLI_NUM);
-$bosscp = $row[0]."CP";
+$bosscp = $row[0];
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
-$date = date('h:i:s');
+
+if ($clock=="false"){
+	$date = date('g:i:s A');
+	} else {
+		$date = date('H:i:s');
+		}
 
 $hookObject = json_encode([
     "username" => "Raid Spotted!",
@@ -143,23 +183,23 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Raid Spotted by $spotter",
+                "name" => "Raid against $bossname spotted by $spotter",
             ],
             
             "fields" => [
-                [
-                    "name" => "Boss:",
-                    "value" => "$bossname",
-                    "inline" => true
-                ],
 				[
 					"name" => "Expires:",
-					"value" => "$rhour:$rmin",
+					"value" => "$rhour:$rmin $rampm",
 					"inline" => true
 				],
                 [
-                    "name" => "Strength:",
-                    "value" => "Level $bosslevel / $bosscp",
+                    "name" => "CP:",
+                    "value" => "Level $bosscp",
+                    "inline" => true
+                ],
+				                [
+                    "name" => "Difficulty:",
+                    "value" => "Level $bosslevel",
                     "inline" => true
                 ],
                 [
@@ -189,5 +229,5 @@ $response = curl_exec( $ch );
 curl_close( $ch );
 			
     header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-    
+}    
 ?>

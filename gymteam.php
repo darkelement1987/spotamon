@@ -54,7 +54,12 @@ $gymlat = $row[1];
 $gymlon = $row[2];
 
 $siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
-$date = date('h:i:s');
+
+if ($clock=="false"){
+	$date = date('g:i:s A');
+	} else {
+		$date = date('H:i:s');
+		}
 
 $hookObject = json_encode([
     "username" => "Gym taken!",
@@ -79,24 +84,24 @@ $hookObject = json_encode([
             ],
             
             "author" => [
-                "name" => "Gym Taken (spotted by $spotter)",
+                "name" => "Gym Taken (spotted by $teamby)",
             ],
             
             "fields" => [
                 [
                     "name" => "Gym:",
                     "value" => "$gymname",
-                    "inline" => false
+                    "inline" => true
                 ],
 				[
 					"name" => "Taken at:",
 					"value" => "$date",
-					"inline" => false
+					"inline" => true
 				],
                 [
                     "name" => "Now controlled by:",
                     "value" => "$teamname",
-                    "inline" => false
+                    "inline" => true
                 ]
             ]
         ]

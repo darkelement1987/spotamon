@@ -138,6 +138,7 @@ body {
     <div class="dropdown-content">
       <a href="./pokemon.php">Pokémon</a>
       <a href="./raids.php">Raids</a>
+	  <a href="./eggs.php">Eggs</a>
     </div>
   </div>
   
@@ -148,12 +149,18 @@ body {
     <button class="dropbtn">Welcome <?php echo $_SESSION['uname']; ?> <i class="fa fa-caret-down"></i></button>
 	 <div class="dropdown-content">
 	 <a href="profile.php">Profile</a>
-		<a href="login/logout.php">Logout</a>
+	 <a href="login/logout.php">Logout</a>
 	</div>
 	</div>
 	<?php } 
 	else{?>
-	<a href="login/login.php">Login</a>
+	<div class="dropdown">
+    <button class="dropbtn">Registration<i class="fa fa-caret-down"></i></button>
+	 <div class="dropdown-content">
+	 <a href="login/login.php">Login</a>
+	 <a href="login/registration.php">Register</a>
+	</div>
+	</div>
 	<?php }?>
   
   

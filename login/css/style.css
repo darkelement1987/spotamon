@@ -30,7 +30,7 @@ body {
      font-size: 14px;
      margin-top: 10px;
 }
- input[type='submit']{
+ input[type='submit'], input[type='button']{
     padding: 10px 25px 8px;
      color: #fff;
      background-color: #0067ab;
@@ -45,6 +45,12 @@ body {
  input[type='submit']:hover {
     background-color: #024978;
 }
+
+input[type='submit']:disabled {
+	background-color: #dddddd;
+	border: 1px solid #d3d3d3;
+	color: #bbb;
+	}
 
 @media only screen and (max-width: 600px) {
 body {

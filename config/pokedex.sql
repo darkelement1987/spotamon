@@ -426,6 +426,7 @@ INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rlvl`, `rboss`) VALUES
 (256, 8610, 2, 'Combusken'),
 (57, 11876, 2, 'Primeape'),
 (68, 18144, 3, 'Machamp'),
+(76, 30572, 4, 'Golem'),
 (286, 18174, 4, 'Breloom'),
 (107, 17164, 4, 'Hitmonchan'),
 (106, 19679, 4, 'Hitmonlee'),

@@ -431,6 +431,7 @@ INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rlvl`, `rboss`) VALUES
 (106, 19679, 4, 'Hitmonlee'),
 (248, 34707, 4, 'Tyranitar'),
 (62, 24247, 4, 'Poliwrath'),
+(76, 30572, 4, 'Golem'),
 (359, 26262, 4, 'Absol'),
 (306, 33458, 4, 'Aggron'),
 (380, 45704, 5, 'Latias'),

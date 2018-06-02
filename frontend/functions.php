@@ -40,16 +40,7 @@ while ($row = $result->fetch_assoc()) {
     width: 100% !important;
 }
 </style>
-	<input type="range" name="cp" min="10" max="4760" value="0" id="cprange" class="slider"><span id="cpoutput"></span>
-	<script>
-var slider = document.getElementById("cprange");
-var output = document.getElementById("cpoutput");
-output.innerHTML = "<br>Pokemon CP: " + slider.value + "</center>";
-
-slider.oninput = function() {
-  output.innerHTML = "<br>Pokemon CP: " + this.value + "</center>";
-}
-</script>
+	<input type="text" name="cp" min="10" max="4760" value="0" id="cprange" class="slider"><span id="cpoutput"></span>
 </td>
 </tr>
 

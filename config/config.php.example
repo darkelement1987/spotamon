@@ -16,6 +16,10 @@ $polpostal = ""; // <-- Postal
 $polcountry = ""; // <-- Country
 $polemail = ""; // <-- Email
 
+// Spot removal when downvoting
+
+$delmon = ""; // <-- Delete Pokemon after this many 'bad'-votes
+
 // Set maps default location example: 
 // Example:
 // $mapcenter = "51.9720526, 6.7202572";

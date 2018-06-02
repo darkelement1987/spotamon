@@ -270,7 +270,7 @@ echo 15;
         };
 		
 		var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>' 
-		+ pokemon + ' (#' + id + ')</b><br>Found: ' + hour + ':' + min + ' ' + ampm +
+		+ pokemon + ' (#' + id + ')</b><br>CP: ' + cp + '<br>Found: ' + hour + ':' + min + ' ' + ampm +
 		'<br><hr><img src=\"./static/voting/up.png\" height=\"25\" width=\"25\"></img>' + good +
 		' x Found<br><img src=\"./static/voting/down.png\" height=\"25\" width=\"25\"></img>' + bad + ' x Not found<br><hr><a href=\"http://maps.google.com/maps?q=' + 
 		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><br><hr>Spotted by: <b>' + spotter + '</b></center></div>';

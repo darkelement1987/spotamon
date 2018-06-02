@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
+<script>
+ function enableregbutton() {
+	 document.getElementById("regbutton").disabled = false;
+	 }
+	 </script>
 <?php
 	require('../config/config.php');
     // If form submitted, insert values into the database.
@@ -34,7 +39,10 @@
 <p><input type="text" name="uname" placeholder="Username" required /></p>
 <p><input type="email" name="email" placeholder="Email" required /></p>
 <p><input type="password" name="upass" placeholder="Password" required /></p>
-<p><input type="submit" name="submit" value="Register" /></p>
+<a href="../policy.php">Read our privacy policy</a>
+<p>I've read the privacy policy and agree to share my personal information</p>
+<p><input type="submit" name="accPolicy" value="I agree" onclick="enableregbutton()"></p>
+<p><input type="submit" name="submit" value="Register" id="regbutton" disabled="disabled"/></p>
 </form>
 <br />
 <p>Already registered? <a href='login.php'>Login Here</a></p>

@@ -34,7 +34,7 @@ while ($row = $result->fetch_assoc()) {
 <tr>
 <td style="width: 5%;">CP</td>
 <td style="width: 10%;">
-	<input type="number" name="cp" min="10" max="4760" value="10"><span id="cpoutput"></span>
+	<input type="number" name="cp" min="10" max="4760" value="10" class="cpinput"><span id="cpoutput"></span>
 </td>
 </tr>
 

@@ -27,7 +27,7 @@ height: 24px;
 	padding-top: 5px;
 }
 
-input, textarea {
+.cpinput {
     width: 100% !important;
 }
 

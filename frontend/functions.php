@@ -234,6 +234,7 @@ echo 15;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
         var id = markerElem.getAttribute('id');
+        var spotid = markerElem.getAttribute('spotid');
         var pokemon = markerElem.getAttribute('pokemon');
         var cp = markerElem.getAttribute('cp');
 		var hour = markerElem.getAttribute('hour');
@@ -256,9 +257,9 @@ echo 15;
 		
 		var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>' 
 		+ pokemon + ' (#' + id + ')</b><br>CP: ' + cp + '<br>Found: ' + hour + ':' + min + ' ' + ampm +
-		'<br><hr><img src=\"./static/voting/up.png\" height=\"25\" width=\"25\"></img>' + good +
-		' x Found<br><img src=\"./static/voting/down.png\" height=\"25\" width=\"25\"></img>' + bad + ' x Not found<br><hr><a href=\"http://maps.google.com/maps?q=' + 
-		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><br><hr>Spotted by: <b>' + spotter + '</b></center></div>';
+		'<?php if(isset($_SESSION["uname"])){?><br><hr><a href =\"./good.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"./static/voting/up.png\" height=\"25\" width=\"25\"></img></a>' + good +
+		' x Found<br><a href =\"./bad.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"./static/voting/down.png\" height=\"25\" width=\"25\"></img></a>' + bad + ' x Not found<?php }?><br><hr><a href=\"http://maps.google.com/maps?q=' + 
+		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr>Spotted by: <b>' + spotter + '</b><?php }?></center></div>';
 		
         var marker = new google.maps.Marker({
           map: map,

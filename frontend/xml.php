@@ -27,6 +27,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   // Add to XML document node
   echo '<marker ';
   echo 'id="' . $row['pokemon'] . '" ';
+  echo 'spotid="' . $row['spotid'] . '" ';
   echo 'pokemon="' . parseToXML($row['monster']) . '" ';
   echo 'cp="' . parseToXML($row['cp']) . '" ';
   echo 'hour="' . parseToXML($row['hour']) . '" ';

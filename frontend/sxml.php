@@ -9,7 +9,7 @@ $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
-$query = "SELECT * FROM stops WHERE 1";
+$query = "SELECT stops.type AS stype, quests.type AS qtype, stops.quest AS quest, quests.quest AS questname, rewards.reward, quests.qid, stops.sid, stops.sname, stops.slatitude, stops.slongitude, stops.quested FROM quests,stops,rewards WHERE quests.qid = stops.quest AND rewards.reid = stops.reward";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));
 
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
@@ -30,7 +30,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'sname="' . parseToXML($row['sname']) . '" ';
   echo 'slatitude="' . $row['slatitude'] . '" ';
   echo 'slongitude="' . $row['slongitude'] . '" ';
-  echo 'quest="' . $row['quest'] . '" ';
+  echo 'quest="' . $row['questname'] . '" ';
   echo 'reward="' . $row['reward'] . '" ';
   echo 'type="' . $row['type'] . '" ';
   echo '/>';

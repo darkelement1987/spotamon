@@ -1,4 +1,5 @@
 <?php
+session_start(); // <-------- add session_start here
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function pokesubmission(){
 require('./config/config.php');
@@ -113,7 +114,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Spotted Pokemon:</strong></h2>
+<h2 style="text-align:center;"><strong>Submitted Pokemon:</strong></h2>
 
 <center>
 
@@ -404,7 +405,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
+<h2 style="text-align:center;"><strong>Submit a Active Raid (please try to be exact):</strong></h2>
 <form id="usersubmit" method="post" action="./spotraid.php">
 <center><table id="t03">
 <tbody>
@@ -489,28 +490,122 @@ while ($row = $result->fetch_assoc()) {
 	
 } }
 
+///////////////// SUBMIT QUESTS \\\\\\\\\\\\\\\\\
 
-////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-function spottedraids(){
+function questsubmission(){
 require('./config/config.php');
-$results_per_page = 10;
+$result = $conn->query("SELECT * FROM quests");
+$qid = $quest="";
+if(isset($_SESSION["uname"])){ 
+?>
+
+<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+<h2 style="text-align:center;"><strong>Submit a Quest:</strong></h2>
+<form id="usersubmit" method="post" action="./spotquest.php">
+<center><table id="t03">
+<tbody>
+
+
+<!--///////////////////// GENERATE QUEST & REWARD LIST \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">Quests</td>
+<td style="width: 10%;">
+<?php
+echo "<select id='questsearch' name='quest'>";
+while ($row = $result->fetch_assoc()) {
+    unset($qid, $quest);
+        $qid = $row['qid'];
+            $quest= $row['quest'];
+				echo '<option value="'.$qid.'">'.$quest.'</option>';
+					}					
+						echo "</select>";
+							mysqli_close($conn);
+?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%;">Quest Reward</td>
+<td style="width: 10%;">
+<?php
+require('./config/config.php');
+$result = $conn->query("SELECT * FROM rewards");
+$sid = $reward = $reward = "";
+echo "<select id='rewardsearch' name='reward'>";
+while ($row = $result->fetch_assoc()) {
+    unset($qid, $quest);
+        $reid = $row['reid'];
+            $reward= $row['reward'];
+				echo '<option value="'.$reid.'">'.$reward.'</option>';
+					}					
+						echo "</select>";
+							mysqli_close($conn);
+?>
+</td>
+</tr>
+
+</script>
+</td>
+</tr>
+<!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">At Pokestop</td>
+<td style="width: 10%;">
+<?php
+require('./config/config.php');
+$result = $conn->query("SELECT * FROM stops");
+$sid = $sname = $sname = "";
+echo "<select id='pokestopsearch' name='sname'>";
+while ($row = $result->fetch_assoc()) {
+    unset($sid, $sname);
+        $sid = $row['sid'];
+            $sname= $row['sname'];
+				echo '<option value="'.$sid.'">'.$sname.'</option>';
+					}					
+						echo "</select>";
+							mysqli_close($conn);
+						
+?>
+
+</td>
+</tr>
+<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+<center><td style="width:10%;"><input type="submit" value="SPOT!"/></td></center>
+
+</tbody>
+</table></center>
+</form>
+
+<?php } else{
+	
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to spot a Raid";
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
+	echo "</div></center>";
+	
+} }
+
+////////////////////// SPOTTED QUESTS \\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+function spottedquests(){
+require('./config/config.php');
+$results_per_page = 60;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM raidbosses,gyms WHERE gyms.actraid = '1' AND gyms.actboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude ORDER BY date DESC LIMIT $start_from,".$results_per_page;
+$sql = "SELECT stops.type AS stype, quests.type AS qtype, stops.quest AS quest, quests.quest AS questname, rewards.reward, quests.qid, stops.sid, stops.sname, stops.slatitude, stops.slongitude, stops.quested FROM quests,stops,rewards WHERE quests.qid = stops.quest AND rewards.reid = stops.reward ORDER BY date DESC LIMIT $start_from,".$results_per_page;
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 
 
-$sqlcnt = "SELECT COUNT(RID) AS total FROM spotraid"; 
+$sqlcnt = "SELECT COUNT(SID) AS total FROM stops WHERE quested='1'"; 
 $resultcnt = $conn->query($sqlcnt);
 $row = $resultcnt->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Spotted Raids:</strong></h2>
+<h2 style="text-align:center;"><strong>Spotted Quests:</strong></h2>
 
 <center>
 
@@ -518,20 +613,12 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
+echo "<tr><th>ID</th><th>QUEST</th><th>REWARD</th></tr>";
 while($row = mysqli_fetch_array($result)) {
-	$rid = $row['rid'];
-    $rboss = $row['rboss'];
-    $rlvl = $row['rlvl'];
-	$rcp = $row['rcp'];
-	$hour = $row['hour'];
-	$min = $row['min'];
-	$ampm = $row['ampm'];
-	$glatitude = $row['glatitude'];
-	$glongitude = $row['glongitude'];
-	$minutes = $min;
-	$hr = $hour;
-	$gname = $row['gname'];
+	$questname = $row['questname'];
+    $sname = $row['sname'];
+    $reward = $row['reward'];	
+	$sid = $row['sid'];
 	
 	
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
@@ -545,11 +632,9 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
-	<td>".$rid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
-	<td>".$rlvl." / ".$rcp."</td>
-	<td>".$hour.":".$minutes." ".$ampm."</td>
-	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	<td>".$sid."</td>
+	<td>".$questname."</td>
+	<td>".$reward."</td>
 	</tr>";
 		
 	} else {
@@ -563,11 +648,9 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
-	<td>".$rid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
-	<td>".$rlvl." / ".$rcp."</td>
-	<td>".$hr.":".$minutes."</td>
-	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	<td>".$sid."</td>
+	<td>".$questname."</td>
+	<td>".$reward."</td>
 	</tr>";
 	
 }}
@@ -737,7 +820,8 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Spot Egg:</strong></h2>
+<center><td style="width: 5%;">Please submit the hatch time + the amount of time the Latias</td>
+<center><td style="width: 5%;">or Ho-Oh will have meaning 105 minutes total max, please try to be exact.</td>
 <form id="usersubmit" method="post" action="./spotegg.php">
 <center><table id="t04">
 <tbody>
@@ -771,7 +855,7 @@ while ($row = $result->fetch_assoc()) {
     width: 100% !important;
 }
 </style>
-	<input type="range" name="etime" min="0" max="60" value="0" id="etimerange" class="slideregg"><span id="etimeoutput"></span>
+	<input type="range" name="etime" min="0" max="105" value="105" id="etimerange" class="slideregg"><span id="etimeoutput"></span>
 	<script>
 var slideregg = document.getElementById("etimerange");
 var output = document.getElementById("etimeoutput");

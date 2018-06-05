@@ -587,7 +587,7 @@ for ($i=1; $i<=$total_pages; $i++) {
 function questsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM quests");
-$qid = $quest="";
+$qid = $qname= "";
 if(isset($_SESSION["uname"])){ 
 ?>
 
@@ -605,38 +605,59 @@ if(isset($_SESSION["uname"])){
 <?php
 echo "<select id='questsearch' name='quest'>";
 while ($row = $result->fetch_assoc()) {
-    unset($qid, $quest);
+    unset($qid, $qname);
         $qid = $row['qid'];
-            $quest= $row['qname'];
-				echo '<option value="'.$qid.'">'.$quest.'</option>';
+            $qname= $row['qname'];
+$array[$row['type']][] = $row;
 					}					
-						echo "</select>";
-							mysqli_close($conn);
+// loop the array to create optgroup
+foreach($array as $key=>$value){
+    // check if its an array
+    if(is_array($value)){
+        // create optgroup for each groupname
+        echo "<optgroup label='".$key."'>";
+        foreach($value as $k=>$v){
+            echo "<option value='".$v['qid']."'>'".$v['qname']."'</option>";
+        }
+        echo "</optgroup>";
+    }
+}
+
+					echo "</select>";
+
 ?>
 </td>
 </tr>
 
 <tr>
-<td style="width: 5%;">Quest Reward</td>
+<td style="width: 5%;">Rewards</td>
 <td style="width: 10%;">
 <?php
 require('./config/config.php');
-$result = $conn->query("SELECT * FROM rewards");
-$sid = $reward = $reward = "";
+$result2 = $conn->query("SELECT * FROM rewards");
+$reid = $rname= "";
 echo "<select id='rewardsearch' name='reward'>";
-while ($row = $result->fetch_assoc()) {
-    unset($qid, $quest);
-        $reid = $row['reid'];
-            $reward= $row['rname'];
-				echo '<option value="'.$reid.'">'.$reward.'</option>';
+while ($row2 = $result2->fetch_assoc()) {
+    unset($reid, $rname);
+        $reid = $row2['reid'];
+            $rname= $row2['rname'];
+$array2[$row2['type']][] = $row2;
 					}					
-						echo "</select>";
-							mysqli_close($conn);
-?>
-</td>
-</tr>
+// loop the array to create optgroup
+foreach($array2 as $key=>$value){
+    // check if its an array
+    if(is_array($value)){
+        // create optgroup for each groupname
+        echo "<optgroup label='".$key."'>";
+        foreach($value as $k=>$v){
+            echo "<option value='".$v['reid']."'>'".$v['rname']."'</option>";
+        }
+        echo "</optgroup>";
+    }
+}
 
-</script>
+					echo "</select>";
+?>
 </td>
 </tr>
 <!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
@@ -644,7 +665,6 @@ while ($row = $result->fetch_assoc()) {
 <td style="width: 5%;">At Pokestop</td>
 <td style="width: 10%;">
 <?php
-require('./config/config.php');
 $result = $conn->query("SELECT * FROM stops");
 $sid = $sname = $sname = "";
 echo "<select id='pokestopsearch' name='sname'>";
@@ -655,7 +675,6 @@ while ($row = $result->fetch_assoc()) {
 				echo '<option value="'.$sid.'">'.$sname.'</option>';
 					}					
 						echo "</select>";
-							mysqli_close($conn);
 						
 ?>
 

@@ -1,5 +1,4 @@
 <?php
-session_start(); // <-------- add session_start here
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function pokesubmission(){
 require('./config/config.php');
@@ -344,18 +343,29 @@ echo 15;
         var sid = markerElem.getAttribute('sid');
         var sname = markerElem.getAttribute('sname');
 		var quest = markerElem.getAttribute('quest');
+		var quested = markerElem.getAttribute('quested');
         var reward = markerElem.getAttribute('reward');
 		var type = markerElem.getAttribute('type');
 		var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('slatitude')),
             parseFloat(markerElem.getAttribute('slongitude')));
 		
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><br>Quest: ' + quest + '<br>Reward:' + reward + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a></center></div>'
+		if (quested === "1"){
+		
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
         var image = {
             url: './static/stops/stops.png',
             scaledSize: new google.maps.Size(30, 30)
-        };
+			};
+		} else if (quested === ""){
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a></center></div>';
+        var icon = customLabel[type] || {};
+        var image = {
+            url: './static/stops/stops.png',
+            scaledSize: new google.maps.Size(30, 30)
+			};				
+		} 
 		
         var marker = new google.maps.Marker({
           map: map,
@@ -489,6 +499,88 @@ while ($row = $result->fetch_assoc()) {
 	echo "</div></center>";
 	
 } }
+////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
+function spottedraids(){
+require('./config/config.php');
+$results_per_page = 10;
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$start_from = ($page-1) * $results_per_page;
+$sql = "SELECT * FROM raidbosses,gyms WHERE gyms.actraid = '1' AND gyms.actboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude ORDER BY date DESC LIMIT $start_from,".$results_per_page;
+$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
+$sqlcnt = "SELECT COUNT(RID) AS total FROM spotraid"; 
+$resultcnt = $conn->query($sqlcnt);
+$row = $resultcnt->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page);
+?>
+
+
+<h2 style="text-align:center;"><strong>Spotted Raids:</strong></h2>
+
+<center>
+
+<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
+<?php
+echo "<table id=\"t02\" class=\"spotted\">";
+echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
+while($row = mysqli_fetch_array($result)) {
+	$rid = $row['rid'];
+    $rboss = $row['rboss'];
+    $rlvl = $row['rlvl'];
+	$rcp = $row['rcp'];
+	$hour = $row['hour'];
+	$min = $row['min'];
+	$ampm = $row['ampm'];
+	$glatitude = $row['glatitude'];
+	$glongitude = $row['glongitude'];
+	$minutes = $min;
+	$hr = $hour;
+	$gname = $row['gname'];
+	
+	
+	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
+	if ($min < 10) {
+    $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);	
+	}
+	
+	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+	if ($clock=="false"){
+		
+	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>".$rid."</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
+	<td>".$rlvl." / ".$rcp."</td>
+	<td>".$hour.":".$minutes." ".$ampm."</td>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	</tr>";
+		
+	} else {
+	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+	///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
+	if ($hour < 10) {
+    $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);	
+	}
+	
+	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>".$rid."</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
+	<td>".$rlvl." / ".$rcp."</td>
+	<td>".$hr.":".$minutes."</td>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	</tr>";
+	
+}}
+echo "</table></center><p id='pages'>";
+?><center><?php
+///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
+for ($i=1; $i<=$total_pages; $i++) { 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+}; 
+?></center><?php
+}
 
 ///////////////// SUBMIT QUESTS \\\\\\\\\\\\\\\\\
 
@@ -515,7 +607,7 @@ echo "<select id='questsearch' name='quest'>";
 while ($row = $result->fetch_assoc()) {
     unset($qid, $quest);
         $qid = $row['qid'];
-            $quest= $row['quest'];
+            $quest= $row['qname'];
 				echo '<option value="'.$qid.'">'.$quest.'</option>';
 					}					
 						echo "</select>";
@@ -535,7 +627,7 @@ echo "<select id='rewardsearch' name='reward'>";
 while ($row = $result->fetch_assoc()) {
     unset($qid, $quest);
         $reid = $row['reid'];
-            $reward= $row['reward'];
+            $reward= $row['rname'];
 				echo '<option value="'.$reid.'">'.$reward.'</option>';
 					}					
 						echo "</select>";
@@ -579,7 +671,7 @@ while ($row = $result->fetch_assoc()) {
 <?php } else{
 	
 	echo "<center><div style='margin-top:5%;'>";
-	echo "Login to spot a Raid";
+	echo "Login to spot a Quest";
 		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
 	
@@ -590,11 +682,11 @@ while ($row = $result->fetch_assoc()) {
 
 function spottedquests(){
 require('./config/config.php');
-$results_per_page = 60;
+$results_per_page = 10;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $results_per_page;
-$sql = "SELECT stops.type AS stype, quests.type AS qtype, stops.quest AS quest, quests.quest AS questname, rewards.reward, quests.qid, stops.sid, stops.sname, stops.slatitude, stops.slongitude, stops.quested FROM quests,stops,rewards WHERE quests.qid = stops.quest AND rewards.reid = stops.reward ORDER BY date DESC LIMIT $start_from,".$results_per_page;
+$sql = "SELECT * from stops,quests,rewards WHERE quested='1' AND stops.actquest = quests.qid AND stops.actreward = rewards.reid ORDER BY date DESC LIMIT $start_from,".$results_per_page;
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 
 
@@ -613,13 +705,19 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>ID</th><th>QUEST</th><th>REWARD</th></tr>";
+echo "<tr><th>ID</th><th>QUEST</th><th>REWARD</th><th>SPOTTED</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
-	$questname = $row['questname'];
+	$questname = $row['qname'];
     $sname = $row['sname'];
-    $reward = $row['reward'];	
+    $reward = $row['rname'];	
 	$sid = $row['sid'];
-	
+	$slat = $row['slatitude'];
+	$slon = $row['slongitude'];
+	$hour = $row['hour'];
+	$min = $row['min'];
+	$ampm = $row['ampm'];
+	$minutes = $min;
+	$hr = $hour;
 	
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($min < 10) {
@@ -635,6 +733,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$sid."</td>
 	<td>".$questname."</td>
 	<td>".$reward."</td>
+	<td>".$hour.":".$minutes." ".$ampm."</td>
+	<td>"?><a href="./?loc=<?php echo "".$slat,",".$slon.""?>&zoom=19"><?php echo $sname;?></a><?php echo "</td>
 	</tr>";
 		
 	} else {
@@ -651,6 +751,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$sid."</td>
 	<td>".$questname."</td>
 	<td>".$reward."</td>
+	<td>".$hr.":".$minutes."</td>
+	<td>"?><a href="./?loc=<?php echo "".$slat,",".$slon.""?>&zoom=19"><?php echo $sname;?></a><?php echo "</td>	
 	</tr>";
 	
 }}

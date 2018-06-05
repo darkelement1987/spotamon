@@ -1,5 +1,4 @@
 <?php
-session_start(); // <-------- add session_start here
 include 'frontend/functions.php';
 include 'frontend/menu.php';
 include 'config/dbbuilding.php';

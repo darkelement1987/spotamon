@@ -587,7 +587,7 @@ for ($i=1; $i<=$total_pages; $i++) {
 function questsubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM quests");
-$qid = $qname= "";
+$qid = $qname= $spotter="";
 if(isset($_SESSION["uname"])){ 
 ?>
 
@@ -617,7 +617,7 @@ foreach($array as $key=>$value){
         // create optgroup for each groupname
         echo "<optgroup label='".$key."'>";
         foreach($value as $k=>$v){
-            echo "<option value='".$v['type']."'>'".$v['qname']."'</option>";
+            echo "<option value='".$v['qid']."'>'".$v['qname']."'</option>";
         }
         echo "</optgroup>";
     }
@@ -650,7 +650,7 @@ foreach($array2 as $key=>$value){
         // create optgroup for each groupname
         echo "<optgroup label='".$key."'>";
         foreach($value as $k=>$v){
-            echo "<option value='".$v['type']."'>'".$v['rname']."'</option>";
+            echo "<option value='".$v['reid']."'>'".$v['rname']."'</option>";
         }
         echo "</optgroup>";
     }

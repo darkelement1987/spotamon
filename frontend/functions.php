@@ -355,7 +355,7 @@ echo 15;
 		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '<?php if(isset($_SESSION["uname"])){?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
         var image = {
-            url: './static/stops/stops.png',
+            url: './static/stops/queststop.png',
             scaledSize: new google.maps.Size(30, 30)
 			};
 		} else if (quested === ""){

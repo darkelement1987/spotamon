@@ -11,6 +11,7 @@ $sname = $conn->real_escape_string($_POST['sname']);
 $sid = $conn->real_escape_string($_POST['sid']); 
 $reid = $conn->real_escape_string($_POST['reid']); 
 $qid = $conn->real_escape_string($_POST['qid']); 
+$spotter = $conn->real_escape_string($_SESSION['uname']);
 
 if ($clock=="false"){
 	$qhour = date('g');
@@ -22,7 +23,7 @@ if ($clock=="false"){
 		
 $qmin = date('i');
 
-$sql1 = "UPDATE stops SET quested='1',actquest='$quest',actreward='$reward',hour='$qhour', min='$qmin',ampm='$qampm',questby='bla' WHERE sid='$sname'";
+$sql1 = "UPDATE stops SET quested='1',actquest='$quest',actreward='$reward',hour='$qhour', min='$qmin',ampm='$qampm',questby='$spotter' WHERE sid='$sname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';

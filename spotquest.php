@@ -12,7 +12,6 @@ $sid = $conn->real_escape_string($_POST['sid']);
 $reid = $conn->real_escape_string($_POST['reid']); 
 $qid = $conn->real_escape_string($_POST['qid']); 
 
-
 if ($clock=="false"){
 	$qhour = date('g');
 	$qampm = date('A');
@@ -23,7 +22,7 @@ if ($clock=="false"){
 		
 $qmin = date('i');
 
-$sql1 = "UPDATE stops SET quested='1',actquest='$quest',actreward='$reward',hour='$qhour', min='$qmin',ampm='$qampm' WHERE sid='$sname'";
+$sql1 = "UPDATE stops SET quested='1',actquest='$quest',actreward='$reward',hour='$qhour', min='$qmin',ampm='$qampm',questby='bla' WHERE sid='$sname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';
@@ -140,5 +139,5 @@ curl_setopt_array( $ch, [
 $response = curl_exec( $ch );
 curl_close( $ch );
 			
-    header('Location:index.php?loc='.$slat.','.$slon.'&zoom=19');    
+    //header('Location:index.php?loc='.$slat.','.$slon.'&zoom=19');    
 ?>

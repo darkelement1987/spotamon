@@ -140,5 +140,5 @@ curl_setopt_array( $ch, [
 $response = curl_exec( $ch );
 curl_close( $ch );
 			
-    //header('Location:index.php?loc='.$slat.','.$slon.'&zoom=19');    
+    header('Location:index.php?loc='.$slat.','.$slon.'&zoom=19');    
 ?>

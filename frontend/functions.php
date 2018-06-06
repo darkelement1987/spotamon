@@ -941,8 +941,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<center><td style="width: 5%;">Please submit the hatch time + the amount of time the Latias</td>
-<center><td style="width: 5%;">or Ho-Oh will have meaning 105 minutes total max, please try to be exact.</td>
+<h2 style="text-align:center;"><strong>Spot Egg:</strong></h2>
 <form id="usersubmit" method="post" action="./spotegg.php">
 <center><table id="t04">
 <tbody>

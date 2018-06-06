@@ -617,7 +617,7 @@ foreach($array as $key=>$value){
         // create optgroup for each groupname
         echo "<optgroup label='".$key."'>";
         foreach($value as $k=>$v){
-            echo "<option value='".$v['qid']."'>'".$v['qname']."'</option>";
+            echo "<option label='".$v['type']."' value='".$v['qid']."'>'".$v['qname']."'</option>";
         }
         echo "</optgroup>";
     }
@@ -650,7 +650,7 @@ foreach($array2 as $key=>$value){
         // create optgroup for each groupname
         echo "<optgroup label='".$key."'>";
         foreach($value as $k=>$v){
-            echo "<option value='".$v['reid']."'>'".$v['rname']."'</option>";
+            echo "<option label='".$v['type']."' value='".$v['reid']."'>'".$v['rname']."'</option>";
         }
         echo "</optgroup>";
     }

@@ -1041,7 +1041,10 @@ $teamcountresult = mysqli_num_rows($teamcountquery);
 $moncountquery = $conn->query("SELECT * FROM `spots`");
 $moncountresult = mysqli_num_rows($moncountquery); 
 
-$totalspots = $eggcountresult + $raidcountresult + $teamcountresult + $moncountresult;
+$questcountquery = $conn->query("SELECT * FROM `stops` WHERE quested != 0");
+$questcountresult = mysqli_num_rows($questcountquery); 
+
+$totalspots = $eggcountresult + $raidcountresult + $teamcountresult + $moncountresult + $questcountresult;
 
 $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
@@ -1102,6 +1105,10 @@ $id = $usergroup = "";?>
         <td>Teams</td>
         <td><?php echo $teamcountresult?></td>
         </tr>		
+        <tr>
+        <td>Quests</td>
+        <td><?php echo $questcountresult?></td>
+        </tr>			
         <tr>
         <td><strong>Total spots:</strong></td>
         <td><strong><?php echo $totalspots?></strong></td>

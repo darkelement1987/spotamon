@@ -346,13 +346,14 @@ echo 15;
 		var quested = markerElem.getAttribute('quested');
         var reward = markerElem.getAttribute('reward');
 		var type = markerElem.getAttribute('type');
+        var questby = markerElem.getAttribute('questby');
 		var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('slatitude')),
             parseFloat(markerElem.getAttribute('slongitude')));
 		
 		if (quested === "1"){
 		
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '<?php if(isset($_SESSION["uname"])){?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '<?php if(isset($_SESSION["uname"])){?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr><b>Spotted by: </b>' + questby + '<?php }?></center></div>';
         var icon = customLabel[type] || {};
         var image = {
             url: './static/stops/queststop.png',

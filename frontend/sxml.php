@@ -33,6 +33,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'reward="' . $row['rname'] . '" ';
   echo 'type="' . $row['type'] . '" ';
   echo 'quested="' . $row['quested'] . '" ';
+  echo 'questby="' . $row['questby'] . '" ';  
   echo '/>';
 }
 
@@ -50,6 +51,7 @@ while ($row2 = @mysqli_fetch_assoc($result2)){
   echo 'slongitude="' . $row2['slongitude'] . '" ';
   echo 'type="' . $row2['type'] . '" ';
   echo 'quested="' . $row['quested'] . '" ';  
+  echo 'questby="' . $row['questby'] . '" ';    
   echo '/>';
 }
 

@@ -355,7 +355,7 @@ echo 15;
 		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
         var image = {
-            url: './static/stops/stops.png',
+            url: './static/stops/queststops.png',
             scaledSize: new google.maps.Size(30, 30)
 			};
 		} else if (quested === ""){
@@ -976,7 +976,7 @@ while ($row = $result->fetch_assoc()) {
     width: 100% !important;
 }
 </style>
-	<input type="range" name="etime" min="0" max="105" value="105" id="etimerange" class="slideregg"><span id="etimeoutput"></span>
+	<input type="range" name="etime" min="0" max="60" value="0" id="etimerange" class="slideregg"><span id="etimeoutput"></span>
 	<script>
 var slideregg = document.getElementById("etimerange");
 var output = document.getElementById("etimeoutput");

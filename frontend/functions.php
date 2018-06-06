@@ -113,7 +113,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Submitted Pokemon:</strong></h2>
+<h2 style="text-align:center;"><strong>Spotted Pokemon:</strong></h2>
 
 <center>
 
@@ -415,7 +415,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Submit a Active Raid (please try to be exact):</strong></h2>
+<h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
 <form id="usersubmit" method="post" action="./spotraid.php">
 <center><table id="t03">
 <tbody>

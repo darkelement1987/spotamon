@@ -23,18 +23,18 @@ include 'config/dbbuilding.php';
  function formatState1 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
-   '<span ><img style="display: inline-block;" src="static/stops/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+   '<span ><img style="display: inline-block;" src="static/quests/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
   );
   return $state;
  }
  $(document).ready(function(){
   $("#pokestopsearch").select2({
-   templateResult: formatState1,
+   templateResult: formatState2,
    width:'100%'
   });
  });
  
- function formatState1 (state) {
+ function formatState2 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
    '<span ><img style="display: inline-block;" src="static/stops/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
@@ -43,7 +43,7 @@ include 'config/dbbuilding.php';
  }
   $(document).ready(function(){
   $("#rewardsearch").select2({
-   templateResult: formatState2,
+   templateResult: formatState3,
    sorter: sortresults,
    width:'100%'
   });
@@ -61,10 +61,10 @@ include 'config/dbbuilding.php';
     });
 }
  
- function formatState2 (state) {
+ function formatState3 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
-   '<span ><img style="display: inline-block;" src="static/stops/' + state.element.label + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+   '<span ><img style="display: inline-block;" src="static/rewards/' + state.element.value.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
   );
   return $state;
  }

@@ -3,7 +3,7 @@ ob_start();
 require './config/config.php';
 include'frontend/functions.php';
 
-$updatestops = "ALTER TABLE `stops` CHANGE `sid` `sid` INT(6) UNSIGNED NOT NULL AUTO_INCREMENT, CHANGE `quested` `quested` INT(1) NULL, CHANGE `quest` `actquest` INT(3) NULL, CHANGE `reward` `actreward` INT(3) NULL, CHANGE `lured` `lured` INT(1) NULL, CHANGE `type` `type` VARCHAR(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL, CHANGE `date` `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;";
+$updatestops = "ALTER TABLE `stops` CHANGE `sid` `sid` INT(6) UNSIGNED NOT NULL AUTO_INCREMENT, CHANGE `quested` `quested` INT(1) NOT NULL, CHANGE `quest` `actquest` INT(3) NOT NULL, CHANGE `reward` `actreward` INT(3) NOT NULL, CHANGE `lured` `lured` INT(1) NOT NULL, CHANGE `type` `type` VARCHAR(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL, CHANGE `date` `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;";
 	if(!mysqli_query($conn,$updatestops))
 		{
 			echo 'Not Inserted';

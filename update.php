@@ -33,7 +33,7 @@ $updaterewards = "ALTER TABLE `rewards` CHANGE `reward` `rname` VARCHAR(255) CHA
 				echo 'Inserted';
 			}
 			
-$modifyspots = "ALTER TABLE `stops` ADD `hour` INT(2) NOT NULL AFTER `actreward`, ADD `min` INT(2) NOT NULL AFTER `hour`, ADD `ampm` INT(2) NOT NULL AFTER `min`;";
+$modifyspots = "ALTER TABLE `stops` ADD `hour` INT(2) NOT NULL AFTER `actreward`, ADD `min` INT(2) NOT NULL AFTER `hour`, ADD `ampm` INT(2) NOT NULL AFTER `min`, ADD `questby` VARCHAR(100) NOT NULL AFTER `type`;";
 	if(!mysqli_query($conn,$modifyspots))
 		{
 			echo 'Not Inserted';

@@ -343,18 +343,30 @@ echo 15;
         var sid = markerElem.getAttribute('sid');
         var sname = markerElem.getAttribute('sname');
 		var quest = markerElem.getAttribute('quest');
+		var quested = markerElem.getAttribute('quested');
         var reward = markerElem.getAttribute('reward');
 		var type = markerElem.getAttribute('type');
+        var questby = markerElem.getAttribute('questby');
 		var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('slatitude')),
             parseFloat(markerElem.getAttribute('slongitude')));
 		
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><br>Quest: ' + quest + '<br>Reward:' + reward + '<br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a></center></div>'
+		if (quested === "1"){
+		
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '<?php if(isset($_SESSION["uname"])){?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr><b>Spotted by: </b>' + questby + '<?php }?></center></div>';
+        var icon = customLabel[type] || {};
+        var image = {
+            url: './static/stops/queststop.png',
+            scaledSize: new google.maps.Size(30, 30)
+			};
+		} else if (quested === ""){
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
         var image = {
             url: './static/stops/stops.png',
             scaledSize: new google.maps.Size(30, 30)
-        };
+			};				
+		} 
 		
         var marker = new google.maps.Marker({
           map: map,
@@ -488,21 +500,14 @@ while ($row = $result->fetch_assoc()) {
 	echo "</div></center>";
 	
 } }
-
-
 ////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
-
-
 function spottedraids(){
 require('./config/config.php');
 $results_per_page = 10;
-
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $results_per_page;
 $sql = "SELECT * FROM raidbosses,gyms WHERE gyms.actraid = '1' AND gyms.actboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude ORDER BY date DESC LIMIT $start_from,".$results_per_page;
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
-
-
 $sqlcnt = "SELECT COUNT(RID) AS total FROM spotraid"; 
 $resultcnt = $conn->query($sqlcnt);
 $row = $resultcnt->fetch_assoc();
@@ -516,7 +521,6 @@ $total_pages = ceil($row["total"] / $results_per_page);
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
 echo "<table id=\"t02\" class=\"spotted\">";
 echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
@@ -554,7 +558,6 @@ while($row = mysqli_fetch_array($result)) {
 		
 	} else {
 	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
-
 	///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($hour < 10) {
     $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);	
@@ -568,6 +571,208 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$rlvl." / ".$rcp."</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	</tr>";
+	
+}}
+echo "</table></center><p id='pages'>";
+?><center><?php
+///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
+for ($i=1; $i<=$total_pages; $i++) { 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+}; 
+?></center><?php
+}
+
+///////////////// SUBMIT QUESTS \\\\\\\\\\\\\\\\\
+
+function questsubmission(){
+require('./config/config.php');
+$result = $conn->query("SELECT * FROM quests");
+$qid = $qname= $spotter="";
+if(isset($_SESSION["uname"])){ 
+?>
+
+<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+<h2 style="text-align:center;"><strong>Submit a Quest:</strong></h2>
+<form id="usersubmit" method="post" action="./spotquest.php">
+<center><table id="t03">
+<tbody>
+
+
+<!--///////////////////// GENERATE QUEST & REWARD LIST \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">Quests</td>
+<td style="width: 10%;">
+<?php
+echo "<select id='questsearch' name='quest'>";
+while ($row = $result->fetch_assoc()) {
+    unset($qid, $qname);
+        $qid = $row['qid'];
+            $qname= $row['qname'];
+$array[$row['type']][] = $row;
+					}					
+// loop the array to create optgroup
+foreach($array as $key=>$value){
+    // check if its an array
+    if(is_array($value)){
+        // create optgroup for each groupname
+        echo "<optgroup label='".$key."'>";
+        foreach($value as $k=>$v){
+            echo "<option label='".$v['type']."' value='".$v['qid']."'>'".$v['qname']."'</option>";
+        }
+        echo "</optgroup>";
+    }
+}
+
+					echo "</select>";
+
+?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%;">Rewards</td>
+<td style="width: 10%;">
+<?php
+require('./config/config.php');
+$result2 = $conn->query("SELECT * FROM rewards");
+$reid = $rname= "";
+echo "<select id='rewardsearch' name='reward'>";
+while ($row2 = $result2->fetch_assoc()) {
+    unset($reid, $rname);
+        $reid = $row2['reid'];
+            $rname= $row2['rname'];
+$array2[$row2['type']][] = $row2;
+					}					
+// loop the array to create optgroup
+foreach($array2 as $key=>$value){
+    // check if its an array
+    if(is_array($value)){
+        // create optgroup for each groupname
+        echo "<optgroup label='".$key."'>";
+        foreach($value as $k=>$v){
+            echo "<option label='".$v['type']."' value='".$v['reid']."'>'".$v['rname']."'</option>";
+        }
+        echo "</optgroup>";
+    }
+}
+
+					echo "</select>";
+?>
+</td>
+</tr>
+<!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">At Pokestop</td>
+<td style="width: 10%;">
+<?php
+$result = $conn->query("SELECT * FROM stops");
+$sid = $sname = $sname = "";
+echo "<select id='pokestopsearch' name='sname'>";
+while ($row = $result->fetch_assoc()) {
+    unset($sid, $sname);
+        $sid = $row['sid'];
+            $sname= $row['sname'];
+				echo '<option value="'.$sid.'">'.$sname.'</option>';
+					}					
+						echo "</select>";
+						
+?>
+
+</td>
+</tr>
+<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+<center><td style="width:10%;"><input type="submit" value="SPOT!"/></td></center>
+
+</tbody>
+</table></center>
+</form>
+
+<?php } else{
+	
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to spot a Quest";
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
+	echo "</div></center>";
+	
+} }
+
+////////////////////// SPOTTED QUESTS \\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+function spottedquests(){
+require('./config/config.php');
+$results_per_page = 10;
+
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$start_from = ($page-1) * $results_per_page;
+$sql = "SELECT * from stops,quests,rewards WHERE quested='1' AND stops.actquest = quests.qid AND stops.actreward = rewards.reid ORDER BY date DESC LIMIT $start_from,".$results_per_page;
+$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
+
+
+$sqlcnt = "SELECT COUNT(SID) AS total FROM stops WHERE quested='1'"; 
+$resultcnt = $conn->query($sqlcnt);
+$row = $resultcnt->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page);
+?>
+
+
+<h2 style="text-align:center;"><strong>Spotted Quests:</strong></h2>
+
+<center>
+
+<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
+<?php
+
+echo "<table id=\"t02\" class=\"spotted\">";
+echo "<tr><th>ID</th><th>QUEST</th><th>REWARD</th><th>SPOTTED</th><th>LOCATION</th></tr>";
+while($row = mysqli_fetch_array($result)) {
+	$questname = $row['qname'];
+    $sname = $row['sname'];
+    $reward = $row['rname'];	
+	$sid = $row['sid'];
+	$slat = $row['slatitude'];
+	$slon = $row['slongitude'];
+	$hour = $row['hour'];
+	$min = $row['min'];
+	$ampm = $row['ampm'];
+	$minutes = $min;
+	$hr = $hour;
+	
+	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
+	if ($min < 10) {
+    $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);	
+	}
+	
+	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+	if ($clock=="false"){
+		
+	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>".$sid."</td>
+	<td>".$questname."</td>
+	<td>".$reward."</td>
+	<td>".$hour.":".$minutes." ".$ampm."</td>
+	<td>"?><a href="./?loc=<?php echo "".$slat,",".$slon.""?>&zoom=19"><?php echo $sname;?></a><?php echo "</td>
+	</tr>";
+		
+	} else {
+	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+
+	///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
+	if ($hour < 10) {
+    $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);	
+	}
+	
+	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>".$sid."</td>
+	<td>".$questname."</td>
+	<td>".$reward."</td>
+	<td>".$hr.":".$minutes."</td>
+	<td>"?><a href="./?loc=<?php echo "".$slat,",".$slon.""?>&zoom=19"><?php echo $sname;?></a><?php echo "</td>	
 	</tr>";
 	
 }}
@@ -836,7 +1041,10 @@ $teamcountresult = mysqli_num_rows($teamcountquery);
 $moncountquery = $conn->query("SELECT * FROM `spots`");
 $moncountresult = mysqli_num_rows($moncountquery); 
 
-$totalspots = $eggcountresult + $raidcountresult + $teamcountresult + $moncountresult;
+$questcountquery = $conn->query("SELECT * FROM `stops` WHERE quested != 0");
+$questcountresult = mysqli_num_rows($questcountquery); 
+
+$totalspots = $eggcountresult + $raidcountresult + $teamcountresult + $moncountresult + $questcountresult;
 
 $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
@@ -897,6 +1105,10 @@ $id = $usergroup = "";?>
         <td>Teams</td>
         <td><?php echo $teamcountresult?></td>
         </tr>		
+        <tr>
+        <td>Quests</td>
+        <td><?php echo $questcountresult?></td>
+        </tr>			
         <tr>
         <td><strong>Total spots:</strong></td>
         <td><strong><?php echo $totalspots?></strong></td>

@@ -131,6 +131,7 @@ body {
       <a href="./submit-raid.php">Raid</a>
       <a href="./submit-team.php">Team</a>
 	  <a href="./submit-egg.php">Egg</a>
+	  <a href="./submit-quest.php">Quest</a>
     </div>
   </div>
   <div class="dropdown">
@@ -139,6 +140,7 @@ body {
       <a href="./pokemon.php">Pokémon</a>
       <a href="./raids.php">Raids</a>
 	  <a href="./eggs.php">Eggs</a>
+	  <a href="./quests.php">Quests</a>
     </div>
   </div>
   

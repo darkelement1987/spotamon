@@ -1,5 +1,6 @@
 <?php function menu(){ 
 include("login/auth.php");
+require 'config/config.php';
 ?>
 
 <style>
@@ -114,9 +115,26 @@ body {
   }
 }
 </style>
-
+<script src="./static/scripts/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="./static/scripts/sweetalert2.min.css">
 </head>
 <body>
+
+<?php if ($disablemotd == true) {} elseif ($motdalways == true) {?>
+
+<script>swal({
+  title: '<?php echo $motdtitle;?>',
+  text: '<?php echo $motdtext;?>',
+  imageUrl: '<?php echo $motdimage;?>'
+})</script><?php } elseif ($motdalways == false){?>
+
+<?php if(!isset($_SESSION["uname"])){?>
+<script>swal({
+  title: '<?php echo $motdtitle;?>',
+  text: '<?php echo $motdtext;?>',
+  imageUrl: '<?php echo $motdimage;?>'
+})</script><?php }?><?php }?>
+
 <a href="./"><img src="header.png" alt="logo" style="padding-top:7px; float:left; background-color:#333; position:absolute; z-index:100;"></a>
 <div class="topnav" id="myTopnav">
 
@@ -131,6 +149,7 @@ body {
       <a href="./submit-raid.php">Raid</a>
       <a href="./submit-team.php">Team</a>
 	  <a href="./submit-egg.php">Egg</a>
+	  <a href="./submit-quest.php">Quest</a>
     </div>
   </div>
   <div class="dropdown">
@@ -139,6 +158,7 @@ body {
       <a href="./pokemon.php">Pokémon</a>
       <a href="./raids.php">Raids</a>
 	  <a href="./eggs.php">Eggs</a>
+	  <a href="./quests.php">Quests</a>
     </div>
   </div>
   

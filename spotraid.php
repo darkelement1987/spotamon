@@ -11,13 +11,13 @@ $timeuntilraid = strtotime("+$minutes minutes", strtotime($pulltime));
 $newtime = date('Y-m-d H:i:s', $timeuntilraid);
 if ($clock=="false"){
 	$rhour = date('g', $timeuntilraid);
-	$rmin = date('i', $timeuntilraid);
 	$rampm = date('A');
 	} else {
 		$rhour = date('H', $timeuntilraid);
-		$rmin = date('i', $timeuntilraid);
 		$rampm = '';
 		}
+		
+			$rmin = date('i', $timeuntilraid);
 
 $gname = $conn->real_escape_string($_POST['gname']);
 $spotter = $conn->real_escape_string($_SESSION['uname']);
@@ -80,7 +80,7 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
             {
                 echo 'Inserted';
             }
-$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='',date='$newtime' WHERE gid='$gname'";
+$sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',ampm='',raidby='$spotter',date='$newtime' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {
             echo 'Not Inserted';

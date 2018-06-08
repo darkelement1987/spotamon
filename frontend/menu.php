@@ -1,5 +1,6 @@
 <?php function menu(){ 
 include("login/auth.php");
+require 'config/config.php';
 ?>
 
 <style>
@@ -114,9 +115,26 @@ body {
   }
 }
 </style>
-
+<script src="./static/scripts/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="./static/scripts/sweetalert2.min.css">
 </head>
 <body>
+
+<?php if ($motdalways == true) {?>
+
+<script>swal({
+  title: '<?php echo $motdtitle;?>',
+  text: '<?php echo $motdtext;?>',
+  imageUrl: '<?php echo $motdimage;?>'
+})</script><?php } else {?>
+
+<?php if(!isset($_SESSION["uname"])){?>
+<script>swal({
+  title: '<?php echo $motdtitle;?>',
+  text: '<?php echo $motdtext;?>',
+  imageUrl: '<?php echo $motdimage;?>'
+})</script><?php }?><?php }?>
+
 <a href="./"><img src="header.png" alt="logo" style="padding-top:7px; float:left; background-color:#333; position:absolute; z-index:100;"></a>
 <div class="topnav" id="myTopnav">
 

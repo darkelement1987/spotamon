@@ -2,6 +2,10 @@
 include("login/auth.php");
 require 'config/config.php';
 ?>
+<head>
+	<title>Spotamon</title>
+	<link rel="icon" href="https://raw.githubusercontent.com/darkelement1987/spotamon/main/static/img/favicon.ico" type="image/ico" sizes="64x64">
+</head>
 
 <style>
 body {

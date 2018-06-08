@@ -37,6 +37,13 @@ $webhook_url = ""; // <-- Webhook URL of your Discord channel
 $viewurl = ""; // <-- Enter your FULL Spotamon url here including http:// or https:// example: https://www.mysite.com < NO BACKSLASH AT THE END!
 $viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
 
+// MOTD POPUP
+
+$motdtitle = "";
+$motdtext = "";
+$motdimage = "";
+$motdalways = false; // Always show MOTD, even when logged  in? -> Set to -> 'true'. Only when NOT logged in? Set to -> 'false'
+
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);

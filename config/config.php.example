@@ -39,6 +39,7 @@ $viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
 
 // MOTD POPUP
 
+$disablemotd = true;
 $motdtitle = "";
 $motdtext = "";
 $motdimage = ""; // Set URL for custom popup-image

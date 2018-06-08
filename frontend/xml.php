@@ -30,6 +30,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'spotid="' . $row['spotid'] . '" ';
   echo 'pokemon="' . parseToXML($row['monster']) . '" ';
   echo 'cp="' . parseToXML($row['cp']) . '" ';
+  echo 'iv="' . parseToXML($row['iv']) . '" ';
   echo 'hour="' . parseToXML($row['hour']) . '" ';
   echo 'min="' . parseToXML($row['min']) . '" ';
   echo 'ampm="' . parseToXML($row['ampm']) . '" ';

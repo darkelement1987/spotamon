@@ -126,6 +126,11 @@ $hookObject = json_encode([
                     "inline" => true
                 ],
                 [
+                    "name" => "IV:",
+                    "value" => "$iv%",
+                    "inline" => true
+                ],
+                [
                     "name" => "Location",
                     "value" => "$address",
                     "inline" => true

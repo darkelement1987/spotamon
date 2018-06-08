@@ -43,7 +43,7 @@ $date = date("Y-m-d H:i:s");
                 } // <<-- END LOOP THROUGH CSV \\
                 fclose($handle);
                 print "<center><h1><b>CSV Loaded!</b></h1></center>";
-				header('Location: profile.php');
+			    echo "<meta http-equiv='refresh' content='3;url=profile.php'>";
             }
         }
     }

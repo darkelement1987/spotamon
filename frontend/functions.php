@@ -3,7 +3,7 @@
 function pokesubmission(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
-$id = $pokemon = $cp = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter ="";
+$id = $pokemon = $cp = $iv = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter ="";
 if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
@@ -35,6 +35,12 @@ while ($row = $result->fetch_assoc()) {
 <td style="width: 5%;">CP</td>
 <td style="width: 10%;">
 	<input type="number" name="cp" min="10" max="4760" value="10" class="cpinput"><span id="cpoutput"></span>
+</td>
+</tr>
+<tr>
+<td style="width: 5%;">IV in %</td>
+<td style="width: 10%;">
+<input type="number" name="moniv" min="1" max="100" value="1" class="cpinput"><span id="cpoutput"></span>
 </td>
 </tr>
 
@@ -121,12 +127,13 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>FOUND</th><th>LOCATION</th><th>VOTING</th></tr>";
+echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th><th>VOTING</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$spotid = $row['spotid'];
 	$id = $row['monster'];
     $pokemon = $row['pokemon'];
     $cp = $row['cp'];
+    $iv = $row['iv'];	
 	$hour = $row['hour'];
 	$min = $row['min'];
 	$ampm = $row['ampm'];
@@ -153,6 +160,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td style='text-align:center;'>".$pokemon."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
+	<td>".$iv."%</td>
 	<td style='text-align:center;'>".$hour.":".$minutes." ".$ampm."</td>
 	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19"><?php echo $fulladdress;?></a><?php echo "</td>
 	<td style='text-align:center;'>
@@ -175,6 +183,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$pokemon."</td>
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>".$cp."</td>
+	<td>".$iv."%</td>
 	<td>".$hr.":".$minutes."</td>
 	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19"><?php echo $fulladdress;?></a><?php echo "</td>
 	<td style='text-align:center;'>
@@ -237,6 +246,7 @@ echo 15;
         var spotid = markerElem.getAttribute('spotid');
         var pokemon = markerElem.getAttribute('pokemon');
         var cp = markerElem.getAttribute('cp');
+        var iv = markerElem.getAttribute('iv');
 		var hour = markerElem.getAttribute('hour');
 		var min = markerElem.getAttribute('min');
 		var ampm = markerElem.getAttribute('ampm');
@@ -256,7 +266,7 @@ echo 15;
         };
 		
 		var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>' 
-		+ pokemon + ' (#' + id + ')</b><br>CP: ' + cp + '<br>Found: ' + hour + ':' + min + ' ' + ampm +
+		+ pokemon + ' (#' + id + ')</b><br>CP: ' + cp + '<br>IV: '+ iv + '%<br>Found: ' + hour + ':' + min + ' ' + ampm +
 		'<?php if(isset($_SESSION["uname"])){?><br><hr><a href =\"./good.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"./static/voting/up.png\" height=\"25\" width=\"25\"></img></a>' + good +
 		' x Found<br><a href =\"./bad.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"./static/voting/down.png\" height=\"25\" width=\"25\"></img></a>' + bad + ' x Not found<?php }?><br><hr><a href=\"http://maps.google.com/maps?q=' + 
 		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr>Spotted by: <b>' + spotter + '</b><?php }?></center></div>';

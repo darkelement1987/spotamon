@@ -6,6 +6,7 @@ include'frontend/functions.php';
 include("login/auth.php");
 $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);
+$iv = $conn->real_escape_string($_POST['moniv']);
 if ($clock=="false"){
 	$hour = date('g');
 	$ampm = date('A');
@@ -39,7 +40,7 @@ echo $address;
 // Start queries
 
 	if ($clock=="false"){
-$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, fulladdress, good, bad, spotter) VALUES ('$pokemon','$cp','$hour','$min','$ampm','$latitude','$longitude','$address','$good','$bad', '$spotter')";
+$sql = "INSERT INTO spots (pokemon, cp, iv, hour, min, ampm, latitude, longitude, fulladdress, good, bad, spotter) VALUES ('$pokemon','$cp','$iv','$hour','$min','$ampm','$latitude','$longitude','$address','$good','$bad', '$spotter')";
 if(!mysqli_query($conn,$sql))
 {
     echo 'Not Inserted';
@@ -51,7 +52,7 @@ else
 
 	} else {
 		
-$sql = "INSERT INTO spots (pokemon, cp, hour, min, ampm, latitude, longitude, fulladdress, good, bad, spotter) VALUES ('$pokemon','$cp','$hour','$min','','$latitude','$longitude','$address','$good','$bad', '$spotter')";
+$sql = "INSERT INTO spots (pokemon, cp, iv, hour, min, ampm, latitude, longitude, fulladdress, good, bad, spotter) VALUES ('$pokemon','$cp','$iv','$hour','$min','','$latitude','$longitude','$address','$good','$bad', '$spotter')";
 if(!mysqli_query($conn,$sql))
 {
     echo 'Not Inserted';
@@ -122,6 +123,11 @@ $hookObject = json_encode([
                 [
                     "name" => "CP:",
                     "value" => "$cp",
+                    "inline" => true
+                ],
+                [
+                    "name" => "IV:",
+                    "value" => "$iv%",
                     "inline" => true
                 ],
                 [

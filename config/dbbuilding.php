@@ -18,5 +18,4 @@ foreach ($sqlScript as $line)    {
         $query= '';        
     }
 }
-echo '<div class="success-response sql-import-response"></div>';
 ?>

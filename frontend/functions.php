@@ -119,7 +119,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Submitted Pokemon:</strong></h2>
+<h2 style="text-align:center;"><strong>Spotted Pokemon:</strong></h2>
 
 <center>
 
@@ -426,7 +426,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Submit a Active Raid (please try to be exact):</strong></h2>
+<h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
 <form id="usersubmit" method="post" action="./spotraid.php">
 <center><table id="t03">
 <tbody>
@@ -986,7 +986,7 @@ while ($row = $result->fetch_assoc()) {
     width: 100% !important;
 }
 </style>
-	<input type="range" name="etime" min="0" max="105" value="105" id="etimerange" class="slideregg"><span id="etimeoutput"></span>
+	<input type="range" name="etime" min="0" max="60" value="0" id="etimerange" class="slideregg"><span id="etimeoutput"></span>
 	<script>
 var slideregg = document.getElementById("etimerange");
 var output = document.getElementById("etimeoutput");

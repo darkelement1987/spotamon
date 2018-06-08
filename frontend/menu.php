@@ -4,7 +4,7 @@ require 'config/config.php';
 ?>
 
 	<title>Spotamon</title>
-	<link rel="icon" href="https://raw.githubusercontent.com/darkelement1987/spotamon/main/static/img/favicon.ico" type="image/ico" sizes="16x16">
+	<link rel="icon" href="static/img/favicon.ico" type="image/ico" sizes="16x16">
 
 <style>
 body {

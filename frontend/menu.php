@@ -120,13 +120,13 @@ body {
 </head>
 <body>
 
-<?php if ($motdalways == true) {?>
+<?php if ($disablemotd == true) {} elseif ($motdalways == true) {?>
 
 <script>swal({
   title: '<?php echo $motdtitle;?>',
   text: '<?php echo $motdtext;?>',
   imageUrl: '<?php echo $motdimage;?>'
-})</script><?php } else {?>
+})</script><?php } elseif ($motdalways == false){?>
 
 <?php if(!isset($_SESSION["uname"])){?>
 <script>swal({

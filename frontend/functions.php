@@ -127,7 +127,12 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <?php
 
 echo "<table id=\"t02\" class=\"spotted\">";
+if(isset($_SESSION["uname"])){
 echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th><th>VOTING</th></tr>";
+} else {
+echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th></tr>";
+}
+
 while($row = mysqli_fetch_array($result)) {
 	$spotid = $row['spotid'];
 	$id = $row['monster'];
@@ -142,8 +147,10 @@ while($row = mysqli_fetch_array($result)) {
 	$minutes = $min;
 	$hr = $hour;
     $fulladdress = $row['fulladdress'];
+	if(isset($_SESSION["uname"])){
 	$good = $row['good'];
 	$bad = $row['bad'];
+	}
 	
 	///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
 	if ($min < 10) {
@@ -154,6 +161,8 @@ while($row = mysqli_fetch_array($result)) {
 	if ($clock=="false"){
 		
 	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	
+	if(isset($_SESSION["uname"])){
 	echo "
 	<tr>
 	<td style='text-align:center;'>".$spotid."</td>
@@ -167,6 +176,19 @@ while($row = mysqli_fetch_array($result)) {
 	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>".$good."<br>
 	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span>".$bad."</td>
 	</tr>";
+	} else {
+	echo "
+	<tr>
+	<td style='text-align:center;'>".$spotid."</td>
+	<td style='text-align:center;'>".$pokemon."</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>".$cp."</td>
+	<td>".$iv."%</td>
+	<td style='text-align:center;'>".$hour.":".$minutes." ".$ampm."</td>
+	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19"><?php echo $fulladdress;?></a><?php echo "</td>
+	";
+	}
+		
 		
 	} else {
 	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
@@ -177,6 +199,8 @@ while($row = mysqli_fetch_array($result)) {
 	}
 	
 	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	
+	if(isset($_SESSION["uname"])){	
 	echo "
 	<tr>
 	<td style='text-align:center;'>".$spotid."</td>
@@ -190,6 +214,18 @@ while($row = mysqli_fetch_array($result)) {
 	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>".$good."<br>
 	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span>".$bad."</td>
 	</tr>";
+	} else {
+	echo "
+	<tr>
+	<td style='text-align:center;'>".$spotid."</td>
+	<td>".$pokemon."</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>".$cp."</td>
+	<td>".$iv."%</td>
+	<td>".$hr.":".$minutes."</td>
+	<td>"?><a href="./?loc=<?php echo "".$latitude,",".$longitude.""?>&zoom=19"><?php echo $fulladdress;?></a><?php echo "</td>
+	";
+	}
 
 }}
 echo "</table></center><p id='pages'>";

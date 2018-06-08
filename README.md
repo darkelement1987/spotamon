@@ -44,7 +44,7 @@ Egg spots: `/usr/bin/wget 'https://www.siteurl/frontend/eggcron.php'`
 
 1. First download the browser-extension '<a href="https://tampermonkey.net/">Tampermonkey</a>'.
 2. In Tampermonkey go to the "Utilities"-tab and in the URL-field enter this url: `https://www.spotamon.com/gymscript.js` and click `Import -> Install`
-3. Go to pokemongomap.info, search your location and from the top part of the  map click 'S2-Grid'. This wil open a popup-menu.
+3. Go to http://pokemongomap.info, search your location and from the top part of the  map click 'S2-Grid'. This wil open a popup-menu.
 4. In this menu click 'Save stops as CSV' or 'Save gyms as CSV'.
 5. Login as `admin` with password `admin` and upload the CSV's on your profile-page.
 

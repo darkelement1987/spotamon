@@ -13,6 +13,11 @@ body {
 
 	}
 
+.fa-caret-down:before {
+    content: "\f0d7";
+    padding-left: 5;
+}
+
 .topnav {
   overflow: hidden;
   background-color: #333;

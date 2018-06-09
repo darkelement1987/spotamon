@@ -2,6 +2,7 @@
 include("login/auth.php");
 require 'config/config.php';
 ?>
+
 	<title>Spotamon</title>
 	<link rel="icon" href="static/img/favicon.ico" type="image/ico" sizes="16x16">
 
@@ -12,11 +13,6 @@ body {
 	height:100%;
 
 	}
-
-.fa-caret-down:before {
-    content: "\f0d7";
-    padding-left: 5;
-}
 
 .topnav {
   overflow: hidden;
@@ -142,7 +138,6 @@ body {
   imageUrl: '<?php echo $motdimage;?>'
 })</script><?php }?><?php }?>
 
-<div style=" background-color:transparent; position:absolute; z-index:100; width:100%">
 <a href="./"><img src="header.png" alt="logo" style="padding-top:7px; float:left; background-color:#333; position:absolute; z-index:100;"></a>
 <div class="topnav" id="myTopnav">
 
@@ -193,7 +188,6 @@ body {
   
   
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-</div>
 </div>
 
 <script>

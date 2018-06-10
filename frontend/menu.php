@@ -5,20 +5,6 @@ require 'config/config.php';
 <title>Spotamon</title>
 <link rel="icon" href="static/img/favicon.ico" type="image/ico" sizes="16x16">
 
-<?php if ($disablemotd == true) {} elseif ($motdalways == true) {?>
-<script>swal({
-  title: '<?php echo $motdtitle;?>',
-  text: '<?php echo $motdtext;?>',
-  imageUrl: '<?php echo $motdimage;?>'
-})</script><?php } elseif ($motdalways == false){?>
-
-<?php if(!isset($_SESSION["uname"])){?>
-<script>swal({
-  title: '<?php echo $motdtitle;?>',
-  text: '<?php echo $motdtext;?>',
-  imageUrl: '<?php echo $motdimage;?>'
-})</script><?php }?><?php }?>
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -37,6 +23,19 @@ require 'config/config.php';
 
 </head>
 <body>
+<?php if ($disablemotd == true) {} elseif ($motdalways == true) {?>
+<script>swal({
+  title: '<?php echo $motdtitle;?>',
+  text: '<?php echo $motdtext;?>',
+  imageUrl: '<?php echo $motdimage;?>'
+})</script><?php } elseif ($motdalways == false){?>
+
+<?php if(!isset($_SESSION["uname"])){?>
+<script>swal({
+  title: '<?php echo $motdtitle;?>',
+  text: '<?php echo $motdtext;?>',
+  imageUrl: '<?php echo $motdimage;?>'
+})</script><?php }?><?php }?>
 <nav class="navbar navbar-inverse" style="margin-bottom:0px;">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->

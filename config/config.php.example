@@ -151,7 +151,6 @@ trn_date datetime NOT NULL,
 url TEXT NOT NULL,
 lastUpload VARCHAR(200) NOT NULL)";
 
-
 $usergroup = "CREATE TABLE IF NOT EXISTS `usergroup` (
 id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 groupname VARCHAR(20) NOT NULL)";

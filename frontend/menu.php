@@ -46,6 +46,7 @@ require 'config/config.php';
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+	  	<div class="spotlogo"><a href="./"><img src="header.png" alt="logo"></a></div>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

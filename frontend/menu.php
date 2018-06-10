@@ -74,6 +74,7 @@ require 'config/config.php';
           <li><a href="./quests.php">Quest</a></li>
         </ul>
       </li>
+	  <li class="divider"></li>
     </ul>
       <ul class="nav navbar-nav navbar-right">
 	<?php

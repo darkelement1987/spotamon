@@ -16,6 +16,10 @@ background:#000;
 color:#fff;
 }
 
+.spotlogo img  {
+    margin-top: 5px;
+}
+
 a {
     color: #000;
     text-decoration: underline;

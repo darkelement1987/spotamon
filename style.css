@@ -51,6 +51,11 @@ background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
 background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
 }
 
+.divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.09);
+}
+
 .maplabel {
     font-weight: 300;
     font-size: 13px;

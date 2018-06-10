@@ -94,7 +94,7 @@ function showPosition(position) {
 
 <?php } else {
 	
-	echo "<center><div style='margin-top:5%;'>";
+	echo "<center><div style='margin-top:10px;'>";
 	echo "Login to spot a pokemon";
 		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
@@ -540,7 +540,7 @@ while ($row = $result->fetch_assoc()) {
 
 <?php } else{
 	
-	echo "<center><div style='margin-top:5%;'>";
+	echo "<center><div style='margin-top:10px;'>";
 	echo "Login to spot a Raid";
 		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
@@ -736,7 +736,7 @@ while ($row = $result->fetch_assoc()) {
 
 <?php } else{
 	
-	echo "<center><div style='margin-top:5%;'>";
+	echo "<center><div style='margin-top:10px;'>";
 	echo "Login to spot a Quest";
 		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
@@ -973,7 +973,7 @@ while ($row = $result->fetch_assoc()) {
 
 <?php } else{
 	
-	echo "<center><div style='margin-top:5%;'>";
+	echo "<center><div style='margin-top:10px;'>";
 	echo "Login to spot a team";
 		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
@@ -1057,7 +1057,7 @@ slideregg.oninput = function() {
 </form>
 
 <?php } else{
-	echo "<center><div style='margin-top:5%;'>";
+	echo "<center><div style='margin-top:10px;'>";
 	echo "Login to spot an Egg";
 		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 	echo "</div></center>";
@@ -1096,13 +1096,15 @@ $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
 <?php
 	echo "<center><table id=\"t02\" class=\"spotted\">";
-	echo "<tr><th>user</th><th>Email</th><th>Usergroup</th></tr>";
+	echo "<tr><th>Pic<th>User</th><th>Email</th><th>Usergroup</th></tr>";
 	while ($row = $result->fetch_assoc()) {
 	$id = $row['id'];
     $uname = $row['uname'];
     $email = $row['email'];
 	$usergroup = $row['groupname'];
+	$url = $row['url'];
 	echo "<tr>"; ?>
+	<td><?php if ("$url" == $uname . '.png'){?><img src="./userpics/<?php echo $_SESSION['uname']; ?>.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php }?></td>
 	<td><?php echo $uname; ?></td>
 	<td><?php echo $email; ?></td>
 	<td><?php echo $usergroup; ?></td>
@@ -1169,7 +1171,7 @@ $id = $usergroup = "";?>
 	
 	}
 } else{
-	echo "<center><div style='margin-top:5%;'>";
+	echo "<center><div style='margin-top:10px;'>";
 	echo "Login to view your profile";
 		?><br /><br /><a href="/login/login.php">Login Here</a><?php
 	echo "</div></center></table></center>";
@@ -1208,12 +1210,75 @@ $id = $usergroup = "";?>
 	<?php echo "<th style='background-color:#fff;color:#000;'><center>Password: </center></th>";?>
 	<?php echo "<td><center><input type='password' name='upass' id='upass'><input type='submit' value='Submit'></center></td></form>";?>
 	</tr>
-	<?php echo "</table></center>";?>
+	<?php echo "</table>";?>
+	<h2 style="text-align:center;"><strong>Upload profile picture:</strong></h2>
 	<?php
 	}
+	
+if($conn->connect_errno){
+echo $conn->connect_error;
+}
+$pull="select * from users where uname='".$_SESSION['uname']."'";
+$allowedExts = array("png");
+$extension = @end(explode(".", $_FILES["file"]["name"]));
+if(isset($_POST['pupload'])){
+if ((($_FILES["file"]["type"] == "image/png"))
+&& ($_FILES["file"]["size"] < 800000)
+&& in_array($extension, $allowedExts))
+{
+	if ($_FILES["file"]["error"] > 0)
+	{
+	echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+	}
+	else
+	{
+		echo '<div class="plus">';
+		echo "Uploaded Successully";
+		echo '</div>';echo"<br/><b><u>Image Details</u></b><br/>";
+
+		echo "Name: " . $_FILES["file"]["name"] . "<br/>";
+		echo "Type: " . $_FILES["file"]["type"] . "<br/>";
+		echo "Size: " . ceil(($_FILES["file"]["size"] / 1024)) . " KB";
+
+		if (file_exists("./userpics/" . $_FILES["file"]["name"]))
+		{
+		unlink("./userpics/" . $_FILES["file"]["name"]);
+		}
+		else{
+			$pic=$_FILES["file"]["name"];
+			$conv=explode(".",$pic);
+			$ext=$conv['1'];
+			move_uploaded_file($_FILES["file"]["tmp_name"],"./userpics/".$_SESSION['uname'].".".$ext);
+			echo "Stored in as: " . "./userpics/".$_SESSION['uname'].".".$ext;
+			$url=$_SESSION['uname'].".".$ext;
+
+			$query="update users set url='$url', lastUpload=now() where uname='".$_SESSION['uname']."'";
+			if($upl=$conn->query($query)){
+			echo "<br/>Saved to Database successfully";
+			echo "<meta http-equiv='refresh' content='3;url=profile.php'>";
+			}
+		 }
+	}
+}else{
+ echo "File Size exceeded 500kb limit or wrong extension, please upload .png";
+}
+}
+?>
+<form action="" method="post" enctype="multipart/form-data">
+<?php
+$res=$conn->query($pull);
+$pics=$res->fetch_assoc();
+echo '<div class="imgLow">';
+?>
+<?php if (file_exists('./userpics/'.$_SESSION['uname'].'.png')) {?><img src="./userpics/<?php echo $_SESSION['uname']; ?>.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php }?>
+<?php echo "</div><br>";
+?>
+<input type="file" name="file" />
+<input type="submit" name="pupload" class="button" value="Upload"/>
+</form></center><?php
 
 	} else{
-	echo "<center><div style='margin-top:5%;'>";
+	echo "<center><div style='margin-top:10px;'>";
 	echo "Login to view your profile";
 		?><br /><br /><a href="/login/login.php">Login Here</a><?php
 	echo "</div></center></table></center>";

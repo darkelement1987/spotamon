@@ -11,11 +11,49 @@
     vertical-align: middle;
 }
 
+.navbar-inverse ul li a:hover {
+background:#000;
+color:#fff;
+}
+
+.spotlogo img  {
+    margin-top: 5px;
+}
+
+a {
+    color: #000;
+    text-decoration: underline;
+}
+
+a:visited { 
+    color: #000;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #9d9d9d;
+	text-decoration: none;
+}
+
 .select2-results__options img {
 max-height: 24px;
 max-width: 24px;
 width: 24px;
 height: 24px;
+}
+
+hr { 
+border: 0;
+height: 1px;
+background: #333;
+background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+}
+
+.divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.09);
 }
 
 .maplabel {

@@ -54,7 +54,7 @@ require 'config/config.php';
     <ul class="nav navbar-nav">
       <li><a href="./">Home</a></li>
       <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add spot
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-plus"></span> Add spot
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="./submit-pokemon.php">Pokémon</a></li>
@@ -65,7 +65,7 @@ require 'config/config.php';
         </ul>
       </li>
       <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">View spots
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-search"></span> View spots
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="./pokemon.php">Pokémon</a></li>

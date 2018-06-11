@@ -161,11 +161,4 @@ foreach($tables as $k => $sql){
     $query = @$conn->query($sql);
 }
 
-// Lookup image url for user
-$urlquery = "SELECT url,id FROM users WHERE uname = '".$_SESSION['uname']."'";
-$result = $conn->query($urlquery);
-$row = $result->fetch_array(MYSQLI_NUM);
-$url = $row[0];
-$userid = $row[1];
-
 ?>

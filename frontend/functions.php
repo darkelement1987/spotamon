@@ -1104,7 +1104,7 @@ $id = $usergroup = "";?>
 	$usergroup = $row['groupname'];
 	$url = $row['url'];
 	echo "<tr>"; ?>
-	<td><?php if ("$url" == $uname . '.png'){?><img src="./userpics/<?php echo $_SESSION['uname']; ?>.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php }?></td>
+	<td><?php if ($url !== ''){?><img src="./userpics/<?php echo $url; ?>" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php }?></td>
 	<td><?php echo $uname; ?></td>
 	<td><?php echo $email; ?></td>
 	<td><?php echo $usergroup; ?></td>
@@ -1191,7 +1191,8 @@ $id = $usergroup = "";?>
 	$id = $row['id'];
     $uname = $row['uname'];
     $email = $row['email'];
-	$usergroup = $row['groupname'];?>
+	$usergroup = $row['groupname'];
+	$url = $row['url'];?>
 	
 	<tr>
 	<form action="editusername.php" method="post">
@@ -1219,10 +1220,20 @@ if($conn->connect_errno){
 echo $conn->connect_error;
 }
 $pull="select * from users where uname='".$_SESSION['uname']."'";
-$allowedExts = array("png");
+
+// Lookup id for user
+$urlquery = "SELECT id FROM users WHERE uname = '".$_SESSION['uname']."'";
+$resulturl = $conn->query($urlquery);
+$rowurl = $resulturl->fetch_array(MYSQLI_NUM);
+$userid = $rowurl[0];
+$allowedExts = array("jpg", "jpeg", "gif", "png","JPG");
 $extension = @end(explode(".", $_FILES["file"]["name"]));
 if(isset($_POST['pupload'])){
-if ((($_FILES["file"]["type"] == "image/png"))
+if ((($_FILES["file"]["type"] == "image/gif")
+|| ($_FILES["file"]["type"] == "image/jpeg")
+|| ($_FILES["file"]["type"] == "image/JPG")
+|| ($_FILES["file"]["type"] == "image/png")
+|| ($_FILES["file"]["type"] == "image/pjpeg"))
 && ($_FILES["file"]["size"] < 800000)
 && in_array($extension, $allowedExts))
 {
@@ -1248,11 +1259,11 @@ if ((($_FILES["file"]["type"] == "image/png"))
 			$pic=$_FILES["file"]["name"];
 			$conv=explode(".",$pic);
 			$ext=$conv['1'];
-			move_uploaded_file($_FILES["file"]["tmp_name"],"./userpics/".$_SESSION['uname'].".".$ext);
-			echo "Stored in as: " . "./userpics/".$_SESSION['uname'].".".$ext;
-			$url=$_SESSION['uname'].".".$ext;
+			move_uploaded_file($_FILES["file"]["tmp_name"],"./userpics/".$userid.".".$ext);
+			echo "Stored in as: " . "./userpics/".$userid.".".$ext;
+			$urlpic=$userid.".".$ext;
 
-			$query="update users set url='$url', lastUpload=now() where uname='".$_SESSION['uname']."'";
+			$query="update users set url='$urlpic', lastUpload=now() where uname='".$_SESSION['uname']."'";
 			if($upl=$conn->query($query)){
 			echo "<br/>Saved to Database successfully";
 			echo "<meta http-equiv='refresh' content='3;url=profile.php'>";
@@ -1260,7 +1271,7 @@ if ((($_FILES["file"]["type"] == "image/png"))
 		 }
 	}
 }else{
- echo "File Size exceeded 500kb limit or wrong extension, please upload .png";
+ echo "File Size exceeded 800kb limit or wrong extension, please upload .png/gif/jpg";
 }
 }
 ?>
@@ -1270,7 +1281,7 @@ $res=$conn->query($pull);
 $pics=$res->fetch_assoc();
 echo '<div class="imgLow">';
 ?>
-<?php if (file_exists('./userpics/'.$_SESSION['uname'].'.png')) {?><img src="./userpics/<?php echo $_SESSION['uname']; ?>.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php }?>
+<?php if ($url!=='') {?><img src="./userpics/<?php echo $url; ?>" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php }?>
 <?php echo "</div><br>";
 ?>
 <input type="file" name="file" />

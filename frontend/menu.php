@@ -81,8 +81,15 @@ require 'config/config.php';
       <ul class="nav navbar-nav navbar-right">
 	<?php
 	if(isset($_SESSION["uname"])){
+		
+        // Lookup usrpic filename for user
+        $urlquery = "SELECT url FROM users WHERE uname = '".$_SESSION['uname']."'";
+        $resulturl = $conn->query($urlquery);
+        $rowurl = $resulturl->fetch_array(MYSQLI_NUM);
+        $url = $rowurl[0];		
+		
 	?>
-        <li><a href="profile.php"><?php if (file_exists('./userpics/'.$_SESSION['uname'].'.png')) {?><img src="./userpics/<?php echo $_SESSION['uname']; ?>.png" height="25px" width="25px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="25px" width="25px" alt="logo"  style="border:1px solid black"><?php }?> Welcome <?php echo $_SESSION['uname']; ?></a></li>
+        <li><a href="profile.php"><?php if ($url !=='') {?><img src="./userpics/<?php echo $url; ?>" height="25px" width="25px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="25px" width="25px" alt="logo"  style="border:1px solid black"><?php }?> Welcome <?php echo $_SESSION['uname']; ?></a></li>
         <li><a href="login/logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 	<?php } else {?>
         <li><a href="login/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

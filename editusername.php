@@ -7,14 +7,14 @@ $uname = $conn->real_escape_string($_POST['uname']);
 if(!empty($uname)){
 $sql = "UPDATE users SET uname='$uname' WHERE uname='".$_SESSION['uname']."'";
 if(mysqli_query($conn, $sql)){
-    echo "Records added successfully.";
+    echo "Username changed, logging out....";
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
 }
  
 // close connection
 mysqli_close($conn);
-echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
+echo "<meta http-equiv=\"refresh\" content=\"3;URL=./login/logout.php\">";
 
 } else {
     echo "<br /><center><img src='./static/img/oops2.png'></center>";

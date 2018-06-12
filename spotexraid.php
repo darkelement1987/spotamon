@@ -50,7 +50,6 @@ $gymlon = $row[2];
 		$hookObject = json_encode([
     "username" => "EX Raid Spotted!",
     "tts" => false,
-	"avatar_url" => "$viewurl/static/raids/$rboss.png",
     "embeds" => [
         [
             "type" => "rich",

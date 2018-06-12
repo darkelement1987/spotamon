@@ -3,12 +3,12 @@ $curl = curl_init();
 ob_start();
 require './config/config.php';
 include'frontend/functions.php';
-include("login/auth.php");	
-
+include("login/auth.php");
 $exraiddate = $conn->real_escape_string($_POST['exraiddate']);
 $gname = $conn->real_escape_string($_POST['gname']);
+$spotter = $conn->real_escape_string($_SESSION['uname']);
 
-$sql = "INSERT INTO exraids (gname, exraiddate) VALUES ('$gname', '$exraiddate')";
+$sql = "INSERT INTO exraids (gname, exraiddate, spotter) VALUES ('$gname', '$exraiddate', '$spotter')";
     if(!mysqli_query($conn,$sql))
         {
             echo 'Not Inserted';
@@ -21,21 +21,21 @@ $sql = "INSERT INTO exraids (gname, exraiddate) VALUES ('$gname', '$exraiddate')
 $sql1 = "UPDATE gyms SET exraid='1',exraiddate='$exraiddate' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {
-            echo 'Not Inserted';
+            echo 'Not Updated';
         }
             else
             {
-                echo 'Inserted';
+                echo 'Updated';
             }
 
 	$gymquery = "SELECT gname,glatitude,glongitude FROM gyms WHERE gid = '$gname'";
 	if(!mysqli_query($conn,$gymquery))
 		{
-			echo 'Not Inserted';
+			echo 'Not Selected';
 		}
 			else
 			{
-				echo 'Inserted';
+				echo 'Selected';
 			}
 
 $resultgym = $conn->query($gymquery);
@@ -84,7 +84,6 @@ curl_setopt_array( $ch, [
 
 $response = curl_exec( $ch );
 curl_close( $ch );
-			
-    header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-
+	
+	header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
 ?>

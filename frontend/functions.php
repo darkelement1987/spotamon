@@ -1400,6 +1400,8 @@ echo "<tr><th>GYM</th><th>Date and Time</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$exraiddate = $row['exraiddate'];
 	$gname = $row['gname'];
+	$glatitude = $row['glatitude'];
+	$glongitude = $row['glongitude'];
 	
 	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
 	if ($clock=="false"){

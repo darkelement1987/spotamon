@@ -339,19 +339,29 @@ echo 15;
 		var raidby = markerElem.getAttribute('raidby');
 		var eggby = markerElem.getAttribute('eggby');
 		var bosscp = markerElem.getAttribute('bosscp');
+		var exraid = markerElem.getAttribute('exraid');
+		var exraiddate = markerElem.getAttribute('exraiddate');
 		var point = new google.maps.LatLng(
             parseFloat(markerElem.getAttribute('glatitude')),
             parseFloat(markerElem.getAttribute('glongitude')));
 			
 
 		if (actraid === "0" && egg === "0"){
-		
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if(!isset($_SESSION["uname"])){?><hr><b><span class="text-danger">Login to change teams.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
-        var icon = customLabel[type] || {};
+			if (exraid === "1"){
+			var html = '<div class=\"maplabel\"><center><img src=\"./static/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if(isset($_SESSION["uname"])){?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
+			var icon = customLabel[type] || {};
+			var image = {
+            url: './static/gyms/' + gteam + 'ex.png',
+            scaledSize: new google.maps.Size(50, 50)
+			};
+			} else if (exraid === "0"){
+			var html = '<div class=\"maplabel\"><center><img src=\"./static/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if(isset($_SESSION["uname"])){?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
+			var icon = customLabel[type] || {};
 			var image = {
             url: './static/gyms/' + gteam + '.png',
             scaledSize: new google.maps.Size(50, 50)
 			};
+			}
 		} else if (actraid !== "0" && egg === "0"){
 			var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if(!isset($_SESSION["uname"])){?><hr><b><span class="text-danger">Login to change teams.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr><b>Spotted by: </b>' + raidby + '<?php }?></center></div>';
 			var icon = customLabel[type] || {};
@@ -1295,7 +1305,127 @@ echo '<div class="imgLow">';
 	echo "</div></center></table></center>";
 } }
 
+///////////////// SUBMIT EX RAIDS \\\\\\\\\\\\\\\\\
 
+function exraidsubmission(){
+require('./config/config.php');
+if(isset($_SESSION["uname"])){ 
+?>
+
+<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+<h2 style="text-align:center;"><strong>Add EX Raid:</strong></h2>
+<form id="usersubmit" method="post" action="./spotexraid.php">
+<center><table id="t03">
+<tbody>
+
+<tr>
+<td style="width: 5%;">At Gym</td>
+<td style="width: 10%;">
+<?php
+require('./config/config.php');
+$result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
+$gid = $gname = $gteam = "";
+echo "<select id='gymsearch' name='gname'>";
+while ($row = $result->fetch_assoc()) {
+    unset($gid, $gname);
+        $gid = $row['gid'];
+		$tid = $row['tname'];
+            $gname= $row['gname'];
+				$gteam= $row['gteam'];
+					echo '<option value="'.$gid.'" label="'.$gteam.'">'.$gname.'</option>';
+						}					
+							echo "</select>";				
+?>
+
+</td>
+</tr>
+
+<!--///////////////////// DATE & TIME \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">Date & Time:</td>
+<td style="width: 10%;">
+
+<input type="datetime-local" name="exraiddate">
+
+</td>
+</tr>
+
+<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+<center><td style="width:10%;"><input type="submit" value="SPOT!"/></td></center>
+
+</tbody>
+</table></center>
+</form>
+
+<?php } else{
+	
+	echo "<center><div style='margin-top:5%;'>";
+	echo "Login to spot a Raid";
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
+	echo "</div></center>";
+	
+} }
+
+////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
+function spottedexraids(){
+require('./config/config.php');
+$results_per_page = 10;
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$start_from = ($page-1) * $results_per_page;
+$sql = "SELECT * FROM gyms WHERE gyms.exraid = '1' ORDER BY exraiddate DESC LIMIT $start_from,".$results_per_page;
+$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
+$sqlcnt = "SELECT COUNT(RID) AS total FROM spotraid"; 
+$resultcnt = $conn->query($sqlcnt);
+$row = $resultcnt->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page);
+?>
+
+
+<h2 style="text-align:center;"><strong>Spotted EX Raids:</strong></h2>
+
+<center>
+
+<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
+<?php
+echo "<table id=\"t02\" class=\"spotted\">";
+echo "<tr><th>GYM</th><th>Date and Time</th></tr>";
+while($row = mysqli_fetch_array($result)) {
+	$exraiddate = $row['exraiddate'];
+	$gname = $row['gname'];
+	
+	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+	if ($clock=="false"){
+		
+	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	<td>".$exraiddate."</td>
+	</tr>";
+		
+	} else {
+	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+	///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
+	if ($hour < 10) {
+    $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);	
+	}
+	
+	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	<td>".$exraiddate."</td>
+	</tr>";
+	
+}}
+echo "</table></center><p id='pages'>";
+?><center><?php
+///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
+for ($i=1; $i<=$total_pages; $i++) { 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+}; 
+?></center><?php
+}
 
 
 ?>

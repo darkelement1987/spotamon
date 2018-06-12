@@ -61,6 +61,7 @@ require 'config/config.php';
         <ul class="dropdown-menu">
           <li><a href="./submit-pokemon.php">Pokémon</a></li>
           <li><a href="./submit-raid.php">Raid</a></li>
+		  <li><a href="./submit-ex-raid.php">EX Raid</a></li>
           <li><a href="./submit-team.php">Team</a></li>
           <li><a href="./submit-egg.php">Egg</a></li>
           <li><a href="./submit-quest.php">Quest</a></li>
@@ -72,6 +73,7 @@ require 'config/config.php';
         <ul class="dropdown-menu">
           <li><a href="./pokemon.php">Pokémon</a></li>
           <li><a href="./raids.php">Raid</a></li>
+		  <li><a href="./exraids.php">EX Raids</a></li>
           <li><a href="./eggs.php">Egg</a></li>
           <li><a href="./quests.php">Quest</a></li>
         </ul>

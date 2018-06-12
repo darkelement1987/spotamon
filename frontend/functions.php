@@ -1105,6 +1105,10 @@ $totalspots = $eggcountresult + $raidcountresult + $teamcountresult + $moncountr
 $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
 <?php
+	$versionquery = "SELECT version FROM version";
+	$versionresult = $conn->query($versionquery);
+	$rowversion = $versionresult->fetch_array(MYSQLI_NUM);
+	$version = $rowversion[0];
 	echo "<center><table id=\"t02\" class=\"spotted\">";
 	echo "<tr><th>Pic<th>User</th><th>Email</th><th>Usergroup</th></tr>";
 	while ($row = $result->fetch_assoc()) {
@@ -1144,6 +1148,10 @@ $id = $usergroup = "";?>
         <td>Stops</td>
         <td><?php echo $scountresult?></td>
         </tr>
+        <tr>
+        <td>Database version</td>
+        <td><?php echo $version?></td>
+        </tr>		
         <tr>
         <th colspan="2"><strong><center>Spots</strong></th>
         </tr>		

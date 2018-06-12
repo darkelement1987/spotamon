@@ -26,7 +26,7 @@
 		$upass = mysqli_real_escape_string($conn,$upass);
 		$usergroup = 1;
 		$trn_date = date("Y-m-d H:i:s");
-        $query = "INSERT into `users` (uname, upass, email, usergroup, trn_date) VALUES ('$uname', '".md5($upass)."', '$email', '$usergroup', '$trn_date')";
+        $query = "INSERT into `users` (uname, upass, email, usergroup, trn_date, url, lastUpload) VALUES ('$uname', '".md5($upass)."', '$email', '$usergroup', '$trn_date', '', '')";
         $result = mysqli_query($conn,$query);
         if($result){
             echo "<div class='form'><h3>Registration was Successful.</h3><br/>Click here to <a href='login.php'>Login</a></div>";

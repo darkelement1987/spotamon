@@ -17,6 +17,7 @@ Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/
 #### Install
 - Create Database,
 - Connect to DB in config and load site, on first load it will auto create tables. 
+- Set `/userpics/` folder permissions to 777 / 757
 
 #### Default Login
 Username: admin<br>

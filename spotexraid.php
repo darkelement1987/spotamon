@@ -8,6 +8,16 @@ include("login/auth.php");
 $exraiddate = $conn->real_escape_string($_POST['exraiddate']);
 $gname = $conn->real_escape_string($_POST['gname']);
 
+$sql = "INSERT INTO exraids (gname, exraiddate) VALUES ('$gname', '$exraiddate')";
+    if(!mysqli_query($conn,$sql))
+        {
+            echo 'Not Inserted';
+        }
+            else
+            {
+                echo 'Inserted';
+            }
+
 $sql1 = "UPDATE gyms SET exraid='1',exraiddate='$exraiddate' WHERE gid='$gname'";
     if(!mysqli_query($conn,$sql1))
         {

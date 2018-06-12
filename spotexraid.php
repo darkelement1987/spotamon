@@ -38,7 +38,7 @@ $gymlon = $row[2];
 	$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
 		
 		$hookObject = json_encode([
-    "username" => "Raid Spotted!",
+    "username" => "EX Raid Spotted!",
     "tts" => false,
 	"avatar_url" => "$viewurl/static/raids/$rboss.png",
     "embeds" => [

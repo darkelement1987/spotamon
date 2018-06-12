@@ -1396,13 +1396,14 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 echo "<table id=\"t02\" class=\"spotted\">";
-echo "<tr><th>GYM</th><th>Date and Time</th></tr>";
+echo "<tr><th>EX ID</th><th>GYM</th><th>Date and Time</th><th>Spotter</th><th>Attendance</th></tr>";
 while($row = mysqli_fetch_array($result)) {
+	$exid = $row['exid'];
 	$exraiddate = $row['exraiddate'];
 	$gname = $row['gname'];
+	$spotter = $row['spotter'];
 	$glatitude = $row['glatitude'];
 	$glongitude = $row['glongitude'];
-	$hour = $row['hour'];
 	
 	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
 	if ($clock=="false"){
@@ -1410,16 +1411,15 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
+	<td>"?><center><?php echo $exid;?><center><?php echo"</td>
 	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
 	<td>".$exraiddate."</td>
+	<td>"?><center><?php echo $spotter;?><center><?php echo "</td>
+	<td>"?><center><form action='attendance.php' method='post'><input type='hidden' name='exidr' value="<?php echo $exid; ?>" /><input type='image' name='att' style='width:25px;height:auto;align:middle;' src='static/voting/up.png' value="<?php echo $_SESSION['uname']?>" /></form><a href='./ex-attendance.php' style='display:inline;'>View</a></center><?php echo "</td>
 	</tr>";
 		
 	} else {
 	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
-	///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
-	if ($hour < 10) {
-    $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);	
-	}
 	
 	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
@@ -1438,6 +1438,68 @@ for ($i=1; $i<=$total_pages; $i++) {
 ?></center><?php
 }
 
+function exatt(){
+require('./config/config.php');
+
+
+?>
+
+
+<h2 style="text-align:center;"><strong>EX Raid Attendance:</strong></h2>
+
+<center>
+
+<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
+<?php
+echo "<table id=\"t02\" class=\"spotted\">";
+echo "<tr><th>ID</th><th>Gym</th><th>Date and Time</th><th>Attending</th></tr>";
+$results_per_page = 15;
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$start_from = ($page-1) * $results_per_page;
+$sql1 = "SELECT * FROM exraidatt,exraids,gyms WHERE exraidatt.exid = exraids.exid AND exraids.gname = gyms.gid ORDER BY exraids.exid ASC LIMIT $start_from,".$results_per_page;
+$result = mysqli_query($conn,$sql1)or die(mysqli_error($conn));
+$sqlcnt = "SELECT COUNT(EXID) AS total FROM exraidatt";
+$resultcnt = $conn->query($sqlcnt);
+$row = $resultcnt->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page);
+while($row = mysqli_fetch_array($result)) {
+	
+	$exid = $row['exid'];
+	$uid = $row['uid'];
+	$gname = $row['gname'];
+	$exraiddate = $row['exraiddate'];
+	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+
+	if ($clock=="false"){
+		
+	///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>"?><center><?php echo $exid;?><center><?php echo"</td>
+	<td>".$gname."</td>
+	<td>".$exraiddate."</td>
+	<td>".$uid."</td>
+	</tr>";
+		
+	} else {
+	///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
+	
+	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
+	echo "
+	<tr>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	<td>".$exraiddate."</td>
+	</tr>";
+	
+}}
+echo "</table></center><p id='pages'>";
+?><center><?php
+///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
+for ($i=1; $i<=$total_pages; $i++) { 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+}; 
+?></center><?php
+}
 
 ?>
 

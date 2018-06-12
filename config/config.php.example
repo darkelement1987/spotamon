@@ -157,7 +157,10 @@ $usergroup = "CREATE TABLE IF NOT EXISTS `usergroup` (
 id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 groupname VARCHAR(20) NOT NULL)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops, $quests, $rewards, $users, $usergroup];
+$version = "CREATE TABLE IF NOT EXISTS `version` (
+version INT(3) NOT NULL)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops, $quests, $rewards, $users, $usergroup, $version];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

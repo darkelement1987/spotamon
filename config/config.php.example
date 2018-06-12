@@ -117,6 +117,7 @@ $exraids = "CREATE TABLE IF NOT EXISTS `exraids` (
 exid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 gname INT(10) NOT NULL UNIQUE,
 exraiddate DATETIME NULL,
+spotter VARCHAR(255) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
 
 $teams = "CREATE TABLE IF NOT EXISTS `teams` (
@@ -166,7 +167,7 @@ groupname VARCHAR(20) NOT NULL)";
 $version = "CREATE TABLE IF NOT EXISTS `version` (
 version INT(3) NOT NULL)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $teams, $stops, $quests, $rewards, $users, $usergroup, $version];
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $teams, $stops, $quests, $rewards, $users, $usergroup, $version];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

@@ -9,7 +9,7 @@ $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
-$query = "SELECT gid, gname, glatitude, glongitude, gteam, type, tname, actraid, actboss, hour, min, ampm, egg, monster, raidby, eggby, teamby, rcp FROM gyms as g LEFT JOIN teams AS t ON g.gteam = t.tid LEFT JOIN pokedex AS p ON p.id = g.actboss LEFT JOIN raidbosses AS r ON r.rid = g.actboss WHERE (g.gteam = t.tid AND g.egg=0 AND g.actraid=0) OR (g.gteam = t.tid AND p.id=g.actboss AND r.rid = g.actboss) OR (g.gteam = t.tid AND g.egg!=0)";
+$query = "SELECT gid, gname, glatitude, glongitude, gteam, type, tname, actraid, actboss, hour, min, ampm, egg, monster, raidby, exraid, exraiddate, eggby, teamby, rcp FROM gyms as g LEFT JOIN teams AS t ON g.gteam = t.tid LEFT JOIN pokedex AS p ON p.id = g.actboss LEFT JOIN raidbosses AS r ON r.rid = g.actboss WHERE (g.gteam = t.tid AND g.egg=0 AND g.actraid=0) OR (g.gteam = t.tid AND p.id=g.actboss AND r.rid = g.actboss) OR (g.gteam = t.tid AND g.egg!=0)";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
 
@@ -41,6 +41,8 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'eggby="' . $row['eggby'] . '" ';  
   echo 'teamby="' . $row['teamby'] . '" '; 
   echo 'bosscp="' . $row['rcp'] . '" ';
+  echo 'exraid="' . $row['exraid'] . '" ';
+  echo 'exraiddate="' . $row['exraiddate'] . '" ';
   echo '/>';
   $ind = $ind + 1;
 }

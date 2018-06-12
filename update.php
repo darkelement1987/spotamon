@@ -35,21 +35,6 @@ $update2 = "ALTER TABLE `users` ADD `url` TEXT NOT NULL AFTER `trn_date`, ADD `l
 	
 	echo '<br><hr>';
 	
-// Column update for 'users -> url' and 'users -> lastUplooad'	
-$update2 = "ALTER TABLE `users` ADD `url` TEXT NOT NULL AFTER `trn_date`, ADD `lastUpload` VARCHAR(200) NOT NULL AFTER `url`;";
-	if(!mysqli_query($conn,$update2))
-		{
-			echo '- Not updated, profile pic columns already exist :-)';
-		}
-			else
-			{
-				echo '- Added columns \'lastUpload\' and \'url\' to `users`';
-			}
-					
-    header("Refresh: 3; url= index.php");
-	
-	echo '<br><hr>';	
-	
 // Column update for ex-raids	
 $update3 = "ALTER TABLE `gyms` ADD `exraid` INT(1) NOT NULL AFTER `raidby`, ADD `exraiddate` DATETIME NULL AFTER `exraid`;";
 	if(!mysqli_query($conn,$update3))

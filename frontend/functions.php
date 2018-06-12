@@ -1402,6 +1402,7 @@ while($row = mysqli_fetch_array($result)) {
 	$gname = $row['gname'];
 	$glatitude = $row['glatitude'];
 	$glongitude = $row['glongitude'];
+	$hour = $row['hour'];
 	
 	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
 	if ($clock=="false"){

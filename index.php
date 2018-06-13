@@ -12,7 +12,7 @@ require './config/config.php';
     <script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
     <meta property="og:title" content="Spotamon, Pokemon in your area">
     <meta property="og:description" content="spot a pokemon, raid, pokestop quest or more all in your local area! Welcome to spotamon">
-    <meta property="og:image" content="static/img/ultra-ball.png">
+    <meta property="og:image" content="/static/img/ultra-ball.png">
     <script>
 
 function submitInstinct(){

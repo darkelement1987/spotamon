@@ -1468,6 +1468,8 @@ while($row = mysqli_fetch_array($result)) {
 	$uid = $row['uid'];
 	$gname = $row['gname'];
 	$exraiddate = $row['exraiddate'];
+	$glatitude = $row['glatitude'];
+	$glongitude = $row['glongitude'];
 	///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
 
 	if ($clock=="false"){
@@ -1476,7 +1478,7 @@ while($row = mysqli_fetch_array($result)) {
 	echo "
 	<tr>
 	<td>"?><center><?php echo $exid;?><center><?php echo"</td>
-	<td>".$gname."</td>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
 	<td>".$exraiddate."</td>
 	<td>".$uid."</td>
 	</tr>";
@@ -1488,7 +1490,7 @@ while($row = mysqli_fetch_array($result)) {
 	echo "
 	<tr>
 	<td>"?><center><?php echo $exid;?><center><?php echo"</td>
-	<td>".$gname."</td>
+	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
 	<td>".$exraiddate."</td>
 	<td>".$uid."</td>
 	</tr>";

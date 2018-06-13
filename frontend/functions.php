@@ -1487,8 +1487,10 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
-	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
+	<td>"?><center><?php echo $exid;?><center><?php echo"</td>
+	<td>".$gname."</td>
 	<td>".$exraiddate."</td>
+	<td>".$uid."</td>
 	</tr>";
 	
 }}

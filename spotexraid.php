@@ -3,13 +3,13 @@ $curl = curl_init();
 ob_start();
 require './config/config.php';
 include'frontend/functions.php';
-include("login/auth.php");	
-
+include("login/auth.php");
 $exraiddate = $conn->real_escape_string($_POST['exraiddate']);
 $gname = $conn->real_escape_string($_POST['gname']);
+$spotter = $conn->real_escape_string($_SESSION['uname']);
 
-$sql1 = "UPDATE gyms SET exraid='1',exraiddate='$exraiddate' WHERE gid='$gname'";
-    if(!mysqli_query($conn,$sql1))
+$sql = "INSERT INTO exraids (gname, exraiddate, spotter) VALUES ('$gname', '$exraiddate', '$spotter')";
+    if(!mysqli_query($conn,$sql))
         {
             echo 'Not Inserted';
         }
@@ -18,14 +18,24 @@ $sql1 = "UPDATE gyms SET exraid='1',exraiddate='$exraiddate' WHERE gid='$gname'"
                 echo 'Inserted';
             }
 
+$sql1 = "UPDATE gyms SET exraid='1',exraiddate='$exraiddate' WHERE gid='$gname'";
+    if(!mysqli_query($conn,$sql1))
+        {
+            echo 'Not Updated';
+        }
+            else
+            {
+                echo 'Updated';
+            }
+
 	$gymquery = "SELECT gname,glatitude,glongitude FROM gyms WHERE gid = '$gname'";
 	if(!mysqli_query($conn,$gymquery))
 		{
-			echo 'Not Inserted';
+			echo 'Not Selected';
 		}
 			else
 			{
-				echo 'Inserted';
+				echo 'Selected';
 			}
 
 $resultgym = $conn->query($gymquery);
@@ -40,7 +50,6 @@ $gymlon = $row[2];
 		$hookObject = json_encode([
     "username" => "EX Raid Spotted!",
     "tts" => false,
-	"avatar_url" => "$viewurl/static/raids/$rboss.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -64,7 +73,7 @@ $gymlon = $row[2];
 $ch = curl_init();
 
 curl_setopt_array( $ch, [
-    CURLOPT_URL => $exraid_webhook_url,
+    CURLOPT_URL => $webhook_url,
     CURLOPT_POST => true,
     CURLOPT_POSTFIELDS => $hookObject,
     CURLOPT_HTTPHEADER => [
@@ -75,7 +84,6 @@ curl_setopt_array( $ch, [
 
 $response = curl_exec( $ch );
 curl_close( $ch );
-			
-    header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-
+	
+	header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
 ?>

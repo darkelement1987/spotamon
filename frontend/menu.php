@@ -35,7 +35,7 @@
             echo $titles[array_rand($titles)]; // Pick a random item from the array and output it
     ?> ">
         <meta property="og:description" content="spot a pokemon, raid, pokestop quest or more all in your local area! Dont forget to give us feedback to improve your experience and please let us know if you encounter any bugs. Welcome to spotamon.">
-        <meta property="og:image" content="https://www.rocketmapdrenthe.nl/spotamon/static/img/ultra-ball.png">
+        <meta property="og:image" content="<?php echo $viewurl;?>static/img/ultra-ball.png">
 
     <link rel="icon" href="static/img/favicon.ico" type="image/ico" sizes="16x16">
 

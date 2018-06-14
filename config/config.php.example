@@ -39,7 +39,6 @@ $egg_webhook_url = ""; // <-- Webhook URL of your Egg Discord channel
 $quest_webhook_url = ""; // <-- Webhook URL of your Quest Discord channel
 $exraid_webhook_url = ""; // <-- Webhook URL of your Ex-Raid Discord channel
 $gym_webhook_url = ""; // <-- Webhook URL of your Gym Discord channel	
-$viewurl = ""; // <-- Enter your FULL Spotamon url here including http:// or https:// example: https://www.mysite.com < NO BACKSLASH AT THE END!
 $viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
 
 // MOTD POPUP
@@ -51,6 +50,12 @@ $motdimage = ""; // Set URL for custom popup-image
 $motdalways = false; // Always show MOTD, even when logged  in? -> Set to -> 'true'. Only when NOT logged in? Set to -> 'false'
 
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
+
+// Auto detect site url
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$domainName = $_SERVER['HTTP_HOST'];
+$viewurl = $protocol.$domainName;
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 

@@ -35,9 +35,9 @@
             echo $titles[array_rand($titles)]; // Pick a random item from the array and output it
     ?> ">
         <meta property="og:description" content="spot a pokemon, raid, pokestop quest or more all in your local area! Dont forget to give us feedback to improve your experience and please let us know if you encounter any bugs. Welcome to spotamon.">
-        <meta property="og:image" content="./static/img/ultra-ball.png">
+        <meta property="og:image" content="https://www.rocketmapdrenthe.nl/spotamon/static/img/ultra-ball.png">
 
-    <link rel="icon" href="static/img/favicon.ico" type="image/ico" sizes="16x16">
+    <link rel="icon" href="./static/img/favicon.ico" type="image/ico" sizes="16x16">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -56,7 +56,7 @@
     <link rel="stylesheet" type="text/css" href="style.css"><link rel="stylesheet" type="text/css" href="style.css">
 
     </head>
-    <body>
+    <body onload="rndqu(n)">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <?php if ($disablemotd == true) {} elseif ($motdalways == true) {?>
         <script>swal({

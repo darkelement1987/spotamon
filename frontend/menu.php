@@ -56,7 +56,7 @@
     <link rel="stylesheet" type="text/css" href="style.css"><link rel="stylesheet" type="text/css" href="style.css">
 
     </head>
-    <body onload="rndqu(n)">
+    <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <?php if ($disablemotd == true) {} elseif ($motdalways == true) {?>
         <script>swal({

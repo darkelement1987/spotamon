@@ -50,7 +50,7 @@ $motdimage = ""; // Set URL for custom popup-image
 $motdalways = false; // Always show MOTD, even when logged  in? -> Set to -> 'true'. Only when NOT logged in? Set to -> 'false'
 
 // SUBFOLDER
-$subfolder = ""; // If your spotamon is installed in a subfolder, specify that here. Example "/subfolder1/subfolder2/spotamon/"
+$subfolder = ""; // If your spotamon is installed in a subfolder, specify that here. Example "/subfolder1/subfolder2/spotamon"
 
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
 

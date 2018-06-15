@@ -37,7 +37,7 @@ if (isset($_REQUEST['uname'])){
             <p><input type="text" name="uname" placeholder="Username" required /></p>
             <p><input type="email" name="email" placeholder="Email" required /></p>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                <input type="password" minlength="6" name="password" id="password" placeholder="password" onkeydown="" onkeyup="checkPass(); return false;"/>
+                <input type="password" minlength="6" name="password" id="password" placeholder="password" onkeydown="" onkeyup="checkPass(); return false;"/><br><br>
                 <input type="password" minlength="6" name="confirm_password" id="confirm_password" placeholder="confirm password" onkeydown="" onkeyup="checkPass(); return false;" />
                 <br><span id='message'></span>
                 <div id="error-nwl"></div>

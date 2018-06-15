@@ -448,7 +448,15 @@ INSERT IGNORE INTO `raidbosses` (`rid`, `rcp`, `rlvl`, `rboss`) VALUES
 (57, 11876, 2, 'Primeape'),
 (62, 24247, 4, 'Poliwrath'),
 (68, 18144, 3, 'Machamp'),
-(76, 30572, 4, 'Golem');
+(76, 30572, 4, 'Golem'),
+(121, 17384, 3, 'Starmie'),
+(134, 16696, 3, 'Vaporeon'),
+(159, 9019, 2, 'Croconaw'),
+(259, 8825, 2, 'Marshtomp'),
+(319, 13989, 3, 'Sharpedo'),
+(382, 51968, 5, 'Kyogre'),
+(73, 12190, 2, 'Tentacruel'),
+(90, 4340, 1, 'Shellder');
 COMMIT;
 
 INSERT IGNORE INTO `teams` (`tid`, `tname`) VALUES

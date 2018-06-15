@@ -46,4 +46,5 @@ require './config/config.php';
     }
     ?>
 
-    <footer></footer>
+    </body>
+	<footer></footer>

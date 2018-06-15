@@ -137,5 +137,4 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    </body>
 <?php } ?>

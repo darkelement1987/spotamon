@@ -67,7 +67,8 @@ $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVE
 $domainName = $_SERVER['HTTP_HOST'];
 $domain = $protocol.$domainName;
 $folder=(dirname($_SERVER['PHP_SELF']));
-$viewurl = $domain.$folder;
+$trim = $domain.$folder;
+$viewurl = rtrim($trim, '/');
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);

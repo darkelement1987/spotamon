@@ -54,7 +54,9 @@ $motdalways = false; // Always show MOTD, even when logged  in? -> Set to -> 'tr
 // Auto detect site url
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $domainName = $_SERVER['HTTP_HOST'];
-$viewurl = $protocol.$domainName;
+$domain = $protocol.$domainName;
+$folder=(dirname($_SERVER['PHP_SELF']));
+$viewurl = $domain.$folder;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);

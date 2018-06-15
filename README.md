@@ -37,9 +37,12 @@ $viewtitle = "View on Spotamon"; // <-- Text showing for the MAP-link @ Discord
 #### Cronjob Commands
 Set your Cronjob to check each minute:
 
-Pokemon spots: `/usr/bin/wget 'https://www.siteurl/frontend/spotscron.php'`<br>
-Raid spots: `/usr/bin/wget 'https://www.siteurl/frontend/raidcron.php'`<br>
-Egg spots: `/usr/bin/wget 'https://www.siteurl/frontend/eggcron.php'`
+Pokemon spots: `cd *path to spotamon*/frontend/ && php spotscron.php'`<br>
+Raid spots: `cd *path to spotamon*/frontend/ && php raidcron.php'`<br>
+Egg spots: `cd *path to spotamon*/frontend/ && php eggcron.php'` <br>
+
+### Set this Cronjob to check every day at 00:01 (AM):
+Quest spots: `cd *path to spotamon*/frontend/ && php questcron.php'`<br>
 
 #### Importing Gym/Stop CSV's
 

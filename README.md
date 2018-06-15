@@ -29,7 +29,12 @@ Password: admin
 
 ```ini
 //Webhook Setup
-$webhook_url = "https://www.yourwebhookurlgoeshere"; // <-- Webhook URL of your Discord channel
+$pokemon_webhook_url = ""; // <-- Webhook URL of your Pokemon Discord channel
+$raid_webhook_url = ""; // <-- Webhook URL of your Raid Discord channel
+$egg_webhook_url = ""; // <-- Webhook URL of your Egg Discord channel
+$quest_webhook_url = ""; // <-- Webhook URL of your Quest Discord channel
+$exraid_webhook_url = ""; // <-- Webhook URL of your Ex-Raid Discord channel
+$gym_webhook_url = ""; // <-- Webhook URL of your Gym Discord channel
 $viewurl = "https://www.spotamon.com"; // <-- Enter your FULL Spotamon url here including http:// or https:// example: https://www.mysite.com < NO BACKSLASH AT THE END!
 $viewtitle = "View on Spotamon"; // <-- Text showing for the MAP-link @ Discord
 ```

@@ -27,8 +27,9 @@
         $titles[] = "Spotamon, ask for the admin!";
         $titles[] = "Spotamon, we love you too <3";
         srand ((float) microtime() * 10000000); // Seed the random number generator
-
-        echo $titles[array_rand($titles)];?>// Pick a random item from the array and output it
+    
+// Pick a random item from the array and output it
+        echo $titles[array_rand($titles)];?>
         </title>
 
         <meta property="og:title" content="<?php

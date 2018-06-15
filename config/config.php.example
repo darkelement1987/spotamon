@@ -49,15 +49,14 @@ $motdtext = "";
 $motdimage = ""; // Set URL for custom popup-image
 $motdalways = false; // Always show MOTD, even when logged  in? -> Set to -> 'true'. Only when NOT logged in? Set to -> 'false'
 
-// SUBFOLDER
-$subfolder = ""; // If your spotamon is installed in a subfolder, specify that here. Example "/subfolder1/subfolder2/spotamon"
-
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
 
 // Auto detect site url
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $domainName = $_SERVER['HTTP_HOST'];
-$viewurl = $protocol.$domainName.$subfolder;
+$domain = $protocol.$domainName;
+$folder=(dirname($_SERVER['PHP_SELF']));
+$viewurl = $domain.$folder;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);

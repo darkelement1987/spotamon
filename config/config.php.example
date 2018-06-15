@@ -58,9 +58,6 @@ $mailuser = ""; // Login of SMTP
 $mailpass = ""; // Password of SMTP
 $mailauthtype = ""; // 'ssl', 'tls', or ''
 $mailemail = ""; // Enter email where you wish to receive messages sent through form
-
-// Feedback mailform
-
 $feedbacksubject = ""; // Subject of the feedbackmail you will receive
 
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\

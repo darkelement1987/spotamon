@@ -28,7 +28,7 @@ $sql1 = "UPDATE gyms SET exraid='1',exraiddate='$exraiddate' WHERE gid='$gname'"
                 echo 'Updated';
             }
 
-	$gymquery = "SELECT gname,glatitude,glongitude FROM gyms WHERE gid = '$gname'";
+	$gymquery = "SELECT gname,glatitude,glongitude,gteam FROM gyms WHERE gid = '$gname'";
 	if(!mysqli_query($conn,$gymquery))
 		{
 			echo 'Not Selected';
@@ -44,20 +44,32 @@ $row = $resultgym->fetch_array(MYSQLI_NUM);
 $gymname = $row[0];
 $gymlat = $row[1];
 $gymlon = $row[2];
+$gymteam = $row[3];
 		
 	$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
 		
 		$hookObject = json_encode([
     "username" => "EX Raid Spotted!",
     "tts" => false,
+	"avatar_url" => "$viewurl/static/gyms/".$gymteam."ex.png",
     "embeds" => [
         [
             "type" => "rich",
-            "description" => "$siteurl",
             "color" => hexdec( "FFFFFF" ),
+            "footer" => [
+                "text" => "Spotted by $spotter at $exraiddate",
+				"icon_url" => "$viewurl/static/gyms/".$gymteam."ex.png"
+            ],
+            
             "image" => [
 				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$gymlat,$gymlon&markers=$gymlat,$gymlon&zoom=17&size=400x400",
-            ],            
+            ],   
+            "author" => [
+                "name" => "Ex-Raid spotted by $spotter",
+            ],			
+            "thumbnail" => [
+				"url" => "$viewurl/static/gyms/".$gymteam."ex.png",
+            ],
             "fields" => [
                 [
                     "name" => "Gym",

@@ -113,6 +113,7 @@
                             <li><a href="./quests.php">Quest</a></li>
                         </ul>
                     </li>
+					<?php if($showformlink==true){echo "<li><a href=\"./feedback.php\"><span class=\"glyphicon glyphicon-envelope\"></span> Feedback</a></li>";} else {}?>
                     <li class="divider"></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

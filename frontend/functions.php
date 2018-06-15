@@ -1244,18 +1244,50 @@ $id = $usergroup = "";?>
 
 	<tr>
 	<form action="editpassword.php" method="post">
-	<?php echo "<th style='background-color:#fff;color:#000;'><center>Password: </center></th>";?>
-	<?php echo "<td><center><input type='password' name='upass' id='upass'><input type='password' name='confirm_password' id='confirm_password'><br><span id='message'></span><br><input id='button1' type='submit' value='Submit'></center></td></form>";?>
+	<?php echo "<th style='background-color:#fff;color:#000;'><center>Password: </center><br><br></th>";?>
+    <?php echo "<td><center><span id='message'></span><div id=\"error-nwl\"></div><input type=\"password\" minlength=\"6\" name=\"password\" id=\"password\" placeholder=\"password\" onkeydown=\"\" onkeyup=\"checkPass(); return false;\"/><input type=\"password\" minlength=\"6\" name=\"confirm_password\" id=\"confirm_password\" placeholder=\"confirm password\" onkeydown=\"\" onkeyup=\"checkPass(); return false;\" /><input type=\"submit\" name=\"submit\"  value=\"registration\"  id=\"submit\"/></td></form>";?>
 	</tr>
         <script>
-            $('input[id="button1"]').attr('disabled','disabled');
-            $('#upass, #confirm_password').on('keyup', function () {
-                if ($('#upass').val() == $('#confirm_password').val()) {
-                    $('#message').html('<br>Matching<br>').css('color', 'green');
-                    $('input[id="button1"]').removeAttr('disabled');
-                } else
-                    $('#message').html('<br>Not Matching<br>').css('color', 'red');
-            });
+            $('input[type="submit"]').attr('disabled','disabled');
+            function checkPass()
+            {
+                var pass1 = document.getElementById('password');
+                var pass2 = document.getElementById('confirm_password');
+                var message = document.getElementById('error-nwl');
+                var goodColor = "#66cc66";
+                var badColor = "#ff6666";
+
+                if(pass1.value.length > 5)
+                {
+                    pass1.style.backgroundColor = goodColor;
+                    message.style.color = goodColor;
+                    $('input[type="submit"]').attr('disabled','disabled');
+                    message.innerHTML = "character number ok!"
+                }
+                else
+                {
+                    pass1.style.backgroundColor = badColor;
+                    message.style.color = badColor;
+                    $('input[type="submit"]').attr('disabled','disabled');
+                    message.innerHTML = "<br>You have to enter at least 6 digit!"
+                    return;
+                }
+
+                if(pass1.value == pass2.value)
+                {
+                    pass2.style.backgroundColor = goodColor;
+                    message.style.color = goodColor;
+                    message.innerHTML = "<br>Ready to go!"
+                    $('input[type="submit"]').removeAttr('disabled');
+                }
+                else
+                {
+                    pass2.style.backgroundColor = badColor;
+                    message.style.color = badColor;
+                    $('input[type="submit"]').attr('disabled','disabled');
+                    message.innerHTML = "<br>These passwords don't match!"
+                }
+            }
         </script>
         <?php echo "</table>";?>
 	<h2 style="text-align:center;"><strong>Upload profile picture:</strong></h2>

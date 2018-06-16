@@ -113,7 +113,17 @@
                             <li><a href="./quests.php">Quest</a></li>
                         </ul>
                     </li>
-					<?php if($showformlink==true){echo "<li><a href=\"./feedback.php\"><span class=\"glyphicon glyphicon-envelope\"></span> Feedback</a></li>";} else {}?>
+					
+					<?php
+					if(isset($_SESSION["uname"])){if($showformlink==true){
+						echo "<li><a href=\"./feedback.php\"><span class=\"glyphicon glyphicon-envelope\"></span> Feedback</a></li>";} else {}
+						} else {
+							if($showformlink==true){
+								echo "<li><a href=\"javascript:swal({ title: 'Login please', text: 'Login to use the feedback form'})\"><span class=\"glyphicon glyphicon-envelope\"></span> Feedback</a></li>";
+								} else {}
+								}
+								?>
+								
                     <li class="divider"></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

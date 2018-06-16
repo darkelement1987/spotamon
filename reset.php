@@ -84,13 +84,13 @@ if (!$useremail) {
 		$mail->Username = $mailuser;					//Sets SMTP username
 		$mail->Password = $mailpass;					//Sets SMTP password
 		$mail->SMTPSecure = $mailauthtype;							//Sets connection prefix. Options are "", "ssl" or "tls"
-		$mail->From = $_POST["email"];					//Sets the From email address for the message
-		$mail->FromName = '';				//Sets the From name of the message
+		$mail->From = $resetsendermail;					//Sets the From email address for the message
+		$mail->FromName = $resetsendername;				//Sets the From name of the message
 		$mail->AddAddress($mailemail, 'Name');		//Adds a "To" address
 		$mail->AddCC($_POST["email"], '');	//Adds a "Cc" address
 		$mail->WordWrap = 50;							//Sets word wrapping on the body of the message to a given number of characters
 		$mail->IsHTML(true);							//Sets message type to HTML				
-		$mail->Subject = 'Password reset';				//Sets the Subject of the message
+		$mail->Subject = $resetsubject;				//Sets the Subject of the message
 		$mail->Body = 'You requested a password reset<br>Reset password using this link: '.$viewurl.'/reset.php?token='.$token;				//An HTML or plain text message body
 		if($mail->Send())								//Send an Email. Return true on success or false on error
 		{

@@ -21,13 +21,23 @@ if (isset($_REQUEST['uname'])){
     $upass = stripslashes($_REQUEST['password']);
     $upass = mysqli_real_escape_string($conn,$upass);
     $usergroup = 1;
-    $trn_date = date("Y-m-d H:i:s");
-    $query = "INSERT into `users` (uname, upass, email, usergroup, trn_date, url, lastUpload) VALUES ('$uname', '".md5($upass)."', '$email', '$usergroup', '$trn_date', '', '')";
-    $result = mysqli_query($conn,$query);
-    if($result){
-        echo "<div class='form'><h3>Registration was Successful.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
-    }
-}else{
+		$trn_date  = date("Y-m-d H:i:s");
+		
+		$checkuserquery = "SELECT * FROM users WHERE uname='$uname'";
+		$userresult     = $conn->query($checkuserquery);
+		$row_cnt        = $userresult->num_rows;
+		if ($row_cnt == 1) {
+			echo "<div class='form'><h3>Username already taken</h3><br/>You will be brought back to the registration page...</div>";
+			echo "<meta http-equiv=\"refresh\" content=\"3;url=".$_SERVER['HTTP_REFERER']."\"/>";
+		} else {
+			
+			$query  = "INSERT into `users` (uname, upass, email, usergroup, trn_date, url, lastUpload) VALUES ('$uname', '" . md5($upass) . "', '$email', '$usergroup', '$trn_date', '', '')";
+			$result = mysqli_query($conn, $query);
+			if ($result) {
+				echo "<div class='form'><h3>Registration was Successful.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+			}
+		}
+	} else {
     ?>
 <center><div class="form">
 <h1>Registration</h1>

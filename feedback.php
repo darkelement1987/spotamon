@@ -107,21 +107,21 @@ if(isset($_POST["submit"]))
 					<center>
 					<h3 align="center">Feedback</h3>
 					<br />
-					<form method="post" style="width: 30%; border : 1px solid #b0b0b0;padding: 15px;">
+					<form method="post" id="feedback">
 						<div class="form-group">
-							<label>Enter Name</label>
+							<label>Name</label>
 							<input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $name; ?>" />
 						</div>
 						<div class="form-group">
-							<label>Enter Email</label>
+							<label>Email</label>
 							<input type="text" name="email" class="form-control" placeholder="Enter Email" value="<?php echo $email; ?>" />
 						</div>
 						<div class="form-group">
 							<input type="hidden" name="subject" class="form-control" placeholder="Enter Subject" value="<?php echo $feedbacksubject; ?>" />
 						</div>
 						<div class="form-group">
-							<label>Enter Message</label>
-							<textarea name="message" class="form-control" placeholder="Enter Message"><?php echo $message; ?></textarea>
+							<label>Message</label>
+							<textarea name="message" class="form-control" placeholder="Enter Message" rows="5"><?php echo $message; ?></textarea>
 						</div>
 						<div class="form-group" align="center">
 							<input type="submit" name="submit" value="Submit" class="btn btn-info" />

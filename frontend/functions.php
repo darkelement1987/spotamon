@@ -1245,7 +1245,7 @@ $id = $usergroup = "";?>
 	<tr>
 	<form action="editpassword.php" method="post">
 	<?php echo "<th style='background-color:#fff;color:#000;'><center>Password: </center><br><br></th>";?>
-    <?php echo "<td><center><span id='message'></span><div id='error-nwl' style='font-size:10px;float:left;'></div><input type='password' minlength='6' name='password' id='password' placeholder='password' onkeyup='checkPass(); return false;' style='float:left;'><br><br><input type='password' minlength='6' name='confirm_password' id='confirm_password' placeholder='confirm password' onkeyup='checkPass(); return false;' style='float:left;'><br><br><input type='submit' name='submit'  value='Submit' id='submit_pass' style='float:left;'></td></form>";?>
+    <?php echo "<td><center><span id='error-nwl' style='font-size:10px;float:left;'></span><br><input type='password' minlength='6' name='password' id='password' placeholder='password' onkeyup='checkPass(); return false;' style='float:left;'><br><br><input type='password' minlength='6' name='confirm_password' id='confirm_password' placeholder='confirm password' onkeyup='checkPass(); return false;' style='float:left;'><br><br><input type='submit' name='submit'  value='Submit' id='submit_pass' style='float:left;'></td></form>";?>
 	</tr>
         <script>
             $('input[id="submit_pass"]').attr('disabled','disabled');
@@ -1262,14 +1262,14 @@ $id = $usergroup = "";?>
                     pass1.style.backgroundColor = goodColor;
                     message.style.color = goodColor;
                     $('input[type="submit"]').attr('disabled','disabled');
-                    message.innerHTML = "character number ok!"
+                    message.innerHTML = "Character number ok!<br>"
                 }
                 else
                 {
                     pass1.style.backgroundColor = badColor;
                     message.style.color = badColor;
                     $('input[type="submit"]').attr('disabled','disabled');
-                    message.innerHTML = "<br>You have to enter at least 6 digit!"
+                    message.innerHTML = "You have to enter at least 6 digit!<br>"
                     return;
                 }
 
@@ -1277,15 +1277,15 @@ $id = $usergroup = "";?>
                 {
                     pass2.style.backgroundColor = goodColor;
                     message.style.color = goodColor;
-                    message.innerHTML = "<br>Ready to go!"
                     $('input[type="submit"]').removeAttr('disabled');
+					message.innerHTML = "Ready to go!<br>"
                 }
                 else
                 {
                     pass2.style.backgroundColor = badColor;
                     message.style.color = badColor;
                     $('input[type="submit"]').attr('disabled','disabled');
-                    message.innerHTML = "<br>These passwords don't match!"
+                    message.innerHTML = "These passwords don't match!<br>"
                 }
             }
         </script>

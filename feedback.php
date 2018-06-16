@@ -1,6 +1,6 @@
 <?php
-include './frontend/menu.php';
-include_once './config/config.php';
+include 'frontend/menu.php';
+include_once 'config/config.php';
 ?>
 
 <head>
@@ -102,7 +102,7 @@ if(isset($_POST["submit"]))
 	}
 }
 
-?>
+if(isset($_SESSION["uname"])){?>
 					<!DOCTYPE html>
 					<center>
 					<h3 align="center">Feedback</h3>
@@ -128,7 +128,11 @@ if(isset($_POST["submit"]))
 						</div>
 						<?php echo $error; ?>
 					</form>
-					</center>
+</center><?php } else {
+	echo "<center><div style='margin-top:10px;'>";
+	echo "Login to use the feedback form";
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
+echo "</div></center>";}?>
 
 <footer></footer>
 

@@ -1233,22 +1233,22 @@ $id = $usergroup = "";?>
 	<tr>
 	<form action="editusername.php" method="post">
 	<?php echo "<th style='background-color:#fff;color:#000;width:10%;'><center>Username: </center></th>";?>
-	<?php echo "<td><center><input type='text' name='uname' id='uname'><input type='submit' value='Submit'></center></td></form>";?>	
+	<?php echo "<td><center><input type='text' name='uname' id='uname'><br><br><input type='submit' value='Submit' id='submit_name' style='float:left;'></center></td></form>";?>	
 	</tr>
 	
 	<tr>
 	<form action="editemail.php" method="post">
 	<?php echo "<th style='background-color:#f9f9f9;color:#000;'><center>Email: </center></th>";?>
-	<?php echo "<td><center><input type='text' name='email' id='email' pattern=\"[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\"><input type='submit' value='Submit'></center></td></form>";?>
+	<?php echo "<td><center><input type='text' name='email' id='email' pattern=\"[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\"><br><br><input type='submit' value='Submit' id='submit_email' style='float:left;'></center></td></form>";?>
 	</tr>
 
 	<tr>
 	<form action="editpassword.php" method="post">
 	<?php echo "<th style='background-color:#fff;color:#000;'><center>Password: </center><br><br></th>";?>
-    <?php echo "<td><center><span id='message'></span><div id=\"error-nwl\"></div><input type=\"password\" minlength=\"6\" name=\"password\" id=\"password\" placeholder=\"password\" onkeydown=\"\" onkeyup=\"checkPass(); return false;\"/><input type=\"password\" minlength=\"6\" name=\"confirm_password\" id=\"confirm_password\" placeholder=\"confirm password\" onkeydown=\"\" onkeyup=\"checkPass(); return false;\" /><input type=\"submit\" name=\"submit\"  value=\"registration\"  id=\"submit\"/></td></form>";?>
+    <?php echo "<td><center><span id='message'></span><div id='error-nwl' style='font-size:10px;float:left;'></div><input type='password' minlength='6' name='password' id='password' placeholder='password' onkeyup='checkPass(); return false;' style='float:left;'><br><br><input type='password' minlength='6' name='confirm_password' id='confirm_password' placeholder='confirm password' onkeyup='checkPass(); return false;' style='float:left;'><br><br><input type='submit' name='submit'  value='Submit' id='submit_pass' style='float:left;'></td></form>";?>
 	</tr>
         <script>
-            $('input[type="submit"]').attr('disabled','disabled');
+            $('input[id="submit_pass"]').attr('disabled','disabled');
             function checkPass()
             {
                 var pass1 = document.getElementById('password');

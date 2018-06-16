@@ -2,7 +2,7 @@
 require './config/config.php';
 include'frontend/functions.php';
 include'login/auth.php';
-$upass = $conn->real_escape_string($_POST['upass']);
+$upass = $conn->real_escape_string($_POST['password']);
 // attempt insert query execution
 if(!empty($upass)){
 $sql = "UPDATE users SET upass='".md5($upass)."' WHERE uname='".$_SESSION['uname']."'";

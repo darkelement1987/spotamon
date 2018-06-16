@@ -68,7 +68,7 @@ $domainName = $_SERVER['HTTP_HOST'];
 $domain = $protocol.$domainName;
 $folder=(dirname($_SERVER['PHP_SELF']));
 $trim = $domain.$folder;
-$viewurl = rtrim($trim, '/');
+$viewurl = rtrim($trim, '\/');
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
@@ -197,7 +197,13 @@ groupname VARCHAR(20) NOT NULL)";
 $version = "CREATE TABLE IF NOT EXISTS `version` (
 version INT(3) NOT NULL)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version];
+$reset = "CREATE TABLE IF NOT EXISTS `reset` (
+resetid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+uname VARCHAR(100) NOT NULL UNIQUE,
+email VARCHAR(100) NOT NULL UNIQUE,
+token VARCHAR(100) NOT NULL)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

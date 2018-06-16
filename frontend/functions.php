@@ -1233,13 +1233,13 @@ $id = $usergroup = "";?>
 	<tr>
 	<form action="editusername.php" method="post">
 	<?php echo "<th style='background-color:#fff;color:#000;width:10%;'><center>Username: </center></th>";?>
-	<?php echo "<td><center><input type='text' name='uname' id='uname'><br><br><input type='submit' value='Submit' id='submit_name' style='float:left;'></center></td></form>";?>	
+	<?php echo "<td><center><input type='text' name='uname' id='uname' style='float:left;'><br><br><input type='submit' value='Submit' id='submit_name' style='float:left;'></center></td></form>";?>	
 	</tr>
 	
 	<tr>
 	<form action="editemail.php" method="post">
 	<?php echo "<th style='background-color:#f9f9f9;color:#000;'><center>Email: </center></th>";?>
-	<?php echo "<td><center><input type='text' name='email' id='email' pattern=\"[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\"><br><br><input type='submit' value='Submit' id='submit_email' style='float:left;'></center></td></form>";?>
+	<?php echo "<td><center><input type='text' name='email' id='email' style='float:left;' pattern=\"[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\"><br><br><input type='submit' value='Submit' id='submit_email' style='float:left;'></center></td></form>";?>
 	</tr>
 
 	<tr>

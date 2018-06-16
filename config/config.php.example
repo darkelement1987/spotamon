@@ -59,6 +59,9 @@ $mailpass = ""; // Password of SMTP
 $mailauthtype = ""; // 'ssl', 'tls', or ''
 $mailemail = ""; // Enter email where you wish to receive messages sent through form
 $feedbacksubject = ""; // Subject of the feedbackmail you will receive
+$resetsubject = ""; // Subject of the reset mail
+$resetsendername = ""; // Name of the sender of the reset mail
+$resetsendermail = ""; // Mail-address of the sender of the reset mail
 
 ///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
 

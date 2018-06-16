@@ -1484,8 +1484,11 @@ while($row = mysqli_fetch_array($result)) {
 	///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
 	echo "
 	<tr>
+	<td>"?><center><?php echo $exid;?><center><?php echo"</td>
 	<td>"?><a href="./?loc=<?php echo "".$glatitude,",".$glongitude.""?>&zoom=19"><?php echo $gname;?></a><?php echo "</td>
 	<td>".$exraiddate."</td>
+	<td>"?><center><?php echo $spotter;?><center><?php echo "</td>
+	<td>"?><center><form action='attendance.php' method='post'><input type='hidden' name='exidr' value="<?php echo $exid; ?>" /><input type='image' name='att' style='width:25px;height:auto;align:middle;' src='static/voting/up.png' value="<?php echo $_SESSION['uname']?>" /></form><a href='./ex-attendance.php' style='display:inline;'>View</a></center><?php echo "</td>
 	</tr>";
 	
 }}

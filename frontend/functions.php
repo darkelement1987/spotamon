@@ -1245,7 +1245,7 @@ $id = $usergroup = "";?>
 	<tr>
 	<form action="editpassword.php" method="post">
 	<?php echo "<th style='background-color:#fff;color:#000;'><center>Password: </center><br><br></th>";?>
-    <?php echo "<td><center><span id='message'></span><div id='error-nwl'></div><input type='password' minlength='6' name='password' id='password' placeholder='password' onkeyup='checkPass(); return false;'/><input type='password' minlength='6' name='confirm_password' id='confirm_password' placeholder='confirm password' onkeyup='checkPass(); return false;' /><input type='submit' name='submit'  value='registration' id='submit'/></td></form>";?>
+    <?php echo "<td><center><span id='message'></span><div id='error-nwl'></div><input type='password' minlength='6' name='password' id='password' placeholder='password' onkeyup='checkPass(); return false;'/><input type='password' minlength='6' name='confirm_password' id='confirm_password' placeholder='confirm password' onkeyup='checkPass(); return false;' /><input type='submit' name='submit'  value='Submit' id='submit'/></td></form>";?>
 	</tr>
         <script>
             $('input[type="submit"]').attr('disabled','disabled');

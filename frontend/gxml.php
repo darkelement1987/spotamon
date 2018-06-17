@@ -74,7 +74,7 @@ if ($row_cnt2==0){ $egguserurl = ''; } else if (!$eggurlresult) {$egguserurl = '
 if ($row_cnt3==0){ $exraiduserurl = ''; } else if (!$exraidurlresult) {$exraiduserurl = 'nopic.png';} else { $exraiduserurl = $exraidurlresult; }
 
 // DEFINE teamby SPOTTER PIC-URL
-if ($row_cnt4==0){ $teambyuserurl = ''; } else if (!$teambyurlresult) {$teambyuserurl = 'nopic.png';} else { $teambyuserurl = $teambyurlresult; }
+if ($row_cnt4==0){ $teambyuserurl = 'question.png'; } else if (!$teambyurlresult) {$teambyuserurl = 'nopic.png';} else { $teambyuserurl = $teambyurlresult; }
 
 // END OF DEFINES
   

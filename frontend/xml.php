@@ -9,8 +9,15 @@ $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
-$query = "SELECT * FROM spots,pokedex WHERE 1 AND spots.pokemon = pokedex.id";
+$query = "SELECT * FROM users,spots,pokedex WHERE 1 AND spots.pokemon = pokedex.id AND users.uname = spotter";
 $result = mysqli_query($conn,$query)or die(mysqli_error($conn));
+
+$getuserurl = $conn->query($query);
+
+$row = $getuserurl->fetch_array(MYSQLI_NUM);
+$picresult = $row[6];
+
+if (!$picresult){ $userpic = 'nopic.png'; } else { $userpic = $picresult; }
 
 //////////////////// MAP XML \\\\\\\\\\\\\\\\\\\\\
 
@@ -40,6 +47,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'good="' . $row['good'] . '" ';
   echo 'bad="' . $row['bad'] . '" ';
   echo 'spotter="' . $row['spotter'] . '" ';  
+  echo 'spotterpic="' . $userpic . '" ';  
   echo '/>';
   $ind = $ind + 1;
 }

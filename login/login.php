@@ -54,11 +54,10 @@
 <p><input type="text" name="uname" placeholder="Username" required /></p>
 <p><input type="password" name="upass" placeholder="Password" required /></p>
 <p><input name="submit" type="submit" value="Login" /></p>
+<p><a href="../reset.php">Forgot password</a></p>
 </form>
 <br />
-<p>Not registered yet? <a href='registration.php'>Register Here</a></p>
-<br />
-<p>Back to <a href='../'>home</a></p>
+<b>Not registered yet?</b><p> <a href='registration.php'>Register Here</a> / <a href='../'>Back home</a></p>
 </div></center>
 </body>
 </html>

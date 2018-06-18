@@ -9,6 +9,10 @@ Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/
 - cURL extension
 - Google Maps API key (for reverse geocoding and Javascript API)
 
+#### Optional Requirements
+
+- Mailserver
+
 #### Discord
 
 - Join us <a href="https://discordapp.com/invite/spU9p7v">here</a>

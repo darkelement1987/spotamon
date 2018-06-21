@@ -80,6 +80,10 @@ html, body {
     font-family: tahoma;
 }
 
+body {
+	background-image: url("./static/img/pokecenter.jpg");
+}
+
 h2 {
     font-family: tahoma;
 }
@@ -167,6 +171,7 @@ form#feedback {
 	width: 30%;
 	border : 1px solid #b0b0b0;
 	padding: 15px;
+	background-color: rgba(255, 255, 255, 0.4);
 }
 
 @media only screen and (max-width: 480px) {

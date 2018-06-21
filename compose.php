@@ -35,7 +35,7 @@ if(isset($_POST["submit"]))
     $touser = $row[0];
 
 if (!$touser) {
-	$error .= '<p><label class="text-danger">User with this email does not exist</label></p>';
+	$error .= '<p><label class="text-danger">User does not exist</label></p>';
 }
 
 	  $to_user = $_POST['to_user'];

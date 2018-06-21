@@ -3,7 +3,6 @@ include 'frontend/menu.php';
 include_once 'config/config.php';
 menu();
 $error='';
-$back = $_SERVER['HTTP_REFERER'];
 
 	if(isset($_POST["markread"]))
 {

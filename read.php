@@ -126,9 +126,9 @@ if ($row){
 </td></tr>
 
 <tr><td colspan="2" align="right">
-<input type="submit" name="submit" value="Send Message">
-<?php if(isset($error)){ echo '<center><p><label class="text-danger">'.$error.'</label></p></center>';}?>
-</td></tr>
+<center><input type="submit" name="submit" value="Send Message">
+<?php if(isset($error)){ echo '<p><label class="text-danger">'.$error.'</label></p>';}?>
+</center></td></tr>
 </table>
 </form>
 

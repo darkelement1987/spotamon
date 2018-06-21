@@ -32,6 +32,9 @@ else if(isset($_SESSION["uname"], $_GET['del'], $_SERVER['HTTP_REFERER'])){
 }
 
 else if(isset($_SESSION["uname"], $_GET['id'])){
+
+	
+
 	
 	    $query = "SELECT * from messages WHERE to_user='".$_SESSION["uname"]."' AND id='".$_GET['id']."'";
     if(!mysqli_query($conn,$query))
@@ -47,8 +50,25 @@ else if(isset($_SESSION["uname"], $_GET['id'])){
     $msgid = $row[0];
 	$subject = $row[1];
 	$from = $row[3];
+	$to = $row[4];
 	$message = $row[5];
 	$date = $row[6];
+	
+		// Begin of reply
+	if (isset($_POST['submit'])){ 
+	
+	
+	
+	$reply = "INSERT INTO messages (subject, to_user, message, from_user, unread) VALUES ('RE: ".$subject."', '".$from."', '".$_POST['message']."', '".$_SESSION["uname"]."', '1')";
+			
+			if ($_POST['message'] == ''){ $error .=  'Message cannot be empty';}
+			
+			else if(mysqli_query($conn,$reply))
+			{
+				$error .= '<p><label class="text-succes">Reply sent to '.$from.'</label></p>';
+				}
+}
+// End of reply
 	
 if ($row){
 	?>
@@ -81,10 +101,38 @@ if ($row){
 </table>
 	<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 <input type="submit" name="markread" value="Mark as read">
-<p><?php echo $error;?></p>
 </form>
+
+<h3>Reply:</h3><form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $msgid;?>" method="post" style="width:50%;">
+<table class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
+
+<tr><td colspan=2><h3>Send PM:</h3></td></tr>
+<input type="hidden" name="from_user" maxlength="32" value = <?php echo $_SESSION['uname']; ?>>
+</td></tr>
+
+<tr><td>To User: </td><td>
+<input type="text" name="to_user" maxlength="32" value="<?php echo $from;?>" style="width:100%;" disabled>
+<p><?php if (isset($usrerror)){echo $usrerror;}?></p>
+</td></tr>
+
+<tr><td>Subject: </td><td>
+<input type="text" name="subject" maxlength="255" value="RE: <?php echo $subject;?>" style="width:100%;" disabled>
+<p><?php if (isset($suberror)){echo $suberror;}?></p>
+</td></tr>
+
+<tr><td>Message: </td><td>
+<TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;"></TEXTAREA>
+<p><?php if (isset($msgerror)){echo $msgerror;}?></p>
+</td></tr>
+
+<tr><td colspan="2" align="right">
+<input type="submit" name="submit" value="Send Message">
+<?php if(isset($error)){ echo '<center><p><label class="text-danger">'.$error.'</label></p></center>';}?>
+</td></tr>
+</table>
+</form>
+
 </div>
-<?php if(isset($error)){ echo $error;}?>
 </center>
 </body>
 <?php // else for 'if row'

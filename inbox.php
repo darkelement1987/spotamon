@@ -24,7 +24,9 @@ echo $_SESSION["uname"].'\'s inbox';
 ?></h3>
 <script>
 $(document).ready(function() {
-    $('#inbox').DataTable();
+    $('#inbox').DataTable({
+        "order": [[ 2, "desc" ]]
+    });
 } );
 </script>
 <table id="inbox" class="table table-striped table-bordered" style="width:100%;	background-color: rgba(255, 255, 255, 0.4);">

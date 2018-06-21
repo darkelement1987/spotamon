@@ -59,11 +59,6 @@ if (!$touser) {
 				}
 ?>
 <center>
-<script>
-$(document).ready(function() {
-    $('#messages').DataTable();
-} );
-</script>
 <?php if(isset($_SESSION["uname"])){?><h3>Messages:</h3><form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" style="width:30%;">
 <table class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
 
@@ -87,9 +82,8 @@ $(document).ready(function() {
 </td></tr>
 
 <tr><td colspan="2" align="right">
-<input type="submit" name="submit" value="Send Message">
+<center><input type="submit" name="submit" value="Send Message"><p><?php echo $error;?></center></p>
 </td></tr>
-<?php echo $error;?>
 </table>
 </form>
 

@@ -47,8 +47,8 @@ else if(isset($_SESSION["uname"], $_GET['id'])){
     $msgid = $row[0];
 	$subject = $row[1];
 	$from = $row[3];
-	$message = $row[7];
-	$date = $row[8];
+	$message = $row[5];
+	$date = $row[6];
 	
 if ($row){
 	?>

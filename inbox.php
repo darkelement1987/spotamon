@@ -27,7 +27,7 @@ $(document).ready(function() {
     $('#inbox').DataTable({
         "order": [[ 2, "desc" ]],
 		"language": {
-    "emptyTable": "No email in inbox",
+    "emptyTable": "No messages in inbox",
 	"lengthMenu":     "Show _MENU_ messages",
 	"info":           "Showing _START_ to _END_ of _TOTAL_ messages",
 	"infoEmpty":      "Showing 0 to 0 of 0 messages"

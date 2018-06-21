@@ -17,9 +17,27 @@ $error='';
 $usrerror='';
 $msgerror='';
 $unread='';
+$suberror='';
 
 if(isset($_POST["submit"]))
 {
+    $checkquery = "SELECT * from users WHERE uname='".$_POST["to_user"]."'";
+    if(!mysqli_query($conn,$checkquery))
+    	{
+    		$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
+    	}
+    		else
+    		{}
+    
+    $checkuser = $conn->query($checkquery);
+    
+    $row = $checkuser->fetch_array(MYSQLI_NUM);
+    $touser = $row[0];
+
+if (!$touser) {
+	$error .= '<p><label class="text-danger">User with this email does not exist</label></p>';
+}
+
 	  $to_user = $_POST['to_user'];
   $from_user = $_POST['from_user'];
   $subject = $_POST['subject'];
@@ -28,6 +46,7 @@ if(isset($_POST["submit"]))
 //Check empty fields
 	if ($_POST['to_user'] == '') {$usrerror = "<label class=\"text-danger\">\"To user\" cannot be empty</label>";$error = "<label class=\"text-danger\">An error occured, please check input.</label>";}
 	if ($_POST['message'] == '') {$msgerror = "<label class=\"text-danger\">\"Message\" cannot be empty</label>";$error = "<label class=\"text-danger\">An error occured, please check input.</label>";}
+	if ($_POST['subject'] == '') {$suberror = "<label class=\"text-danger\">\"Subject\" cannot be empty</label>";$error = "<label class=\"text-danger\">An error occured, please check input.</label>";}
 	if (!$error)
 	{
 			$error .= '<p><label class="text-success">Message sent</label></p>';
@@ -70,9 +89,8 @@ $(document).ready(function() {
 <tr><td colspan="2" align="right">
 <input type="submit" name="submit" value="Send Message">
 </td></tr>
-
-</table>
 <?php echo $error;?>
+</table>
 </form>
 
 <?php } else {

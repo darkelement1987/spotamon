@@ -8,7 +8,7 @@ if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
 <form id="usersubmit" method="post" action="./spotpokemon.php">
-<center><table id="t01">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 
@@ -126,7 +126,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 if(isset($_SESSION["uname"])){
 echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th><th>VOTING</th></tr>";
 } else {
@@ -492,7 +492,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
 <form id="usersubmit" method="post" action="./spotraid.php">
-<center><table id="t03">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 
@@ -595,7 +595,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$rid = $row['rid'];
@@ -669,7 +669,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Submit a Quest:</strong></h2>
 <form id="usersubmit" method="post" action="./spotquest.php">
-<center><table id="t03">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 
@@ -798,7 +798,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>ID</th><th>QUEST</th><th>REWARD</th><th>SPOTTED</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$questname = $row['qname'];
@@ -887,7 +887,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>GYM ID</th><th>EGG LVL</th><th>HATCHES</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$gid = $row['gid'];
@@ -958,7 +958,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Gym team:</strong></h2>
 <form id="usersubmit" method="post" action="./gymteam.php">
-<center><table id="t04">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 <!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
@@ -1018,7 +1018,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Spot Egg:</strong></h2>
 <form id="usersubmit" method="post" action="./spotegg.php">
-<center><table id="t04">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 <!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
@@ -1127,7 +1127,7 @@ $id = $usergroup = "";?>
 	$versionresult = $conn->query($versionquery);
 	$rowversion = $versionresult->fetch_array(MYSQLI_NUM);
 	$version = $rowversion[0];
-	echo "<center><table id=\"t02\" class=\"spotted\">";
+	echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
 	echo "<tr><th>Pic<th>User</th><th>Email</th><th>Usergroup</th></tr>";
 	while ($row = $result->fetch_assoc()) {
 	$id = $row['id'];
@@ -1147,7 +1147,7 @@ $id = $usergroup = "";?>
 	</tr>
 	</table>
 	<?php echo "<br /><center><a href='./edit-profile.php'>Edit Profile</a></center><br>"; ?>
-	<center><table id="t02" class="spotted">
+	<center><table id="spotted" class="table table-bordered">
 	<tr>
         <th colspan="2"><strong><center>Trades</strong></th>
         </tr>
@@ -1183,7 +1183,7 @@ $id = $usergroup = "";?>
 		
 		<h2 style="text-align:center;"><strong>Database overview</strong></h2>
 		
-		<center><table id="t02" class="spotted">
+		<center><table id="spotted" class="table table-bordered">
         <tbody>
         <tr>
         <th colspan="2"><strong><center>Database</strong></th>
@@ -1251,7 +1251,7 @@ $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='".$_SESSION['
 $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Edit Your Profile:</strong></h2>
 <?php
-	echo "<center><table style='width:20%;' id=\"t05\" class=\"profile\">";
+	echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
 	
 	while ($row = $result->fetch_assoc()) {
 	$id = $row['id'];
@@ -1413,7 +1413,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add EX Raid:</strong></h2>
 <form id="usersubmit" method="post" action="./spotexraid.php">
-<center><table id="t03">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 <tr>
@@ -1485,7 +1485,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>EX ID</th><th>GYM</th><th>Date and Time</th><th>Spotter</th><th>Attendance</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$exid = $row['exid'];
@@ -1544,7 +1544,7 @@ require('./config/config.php');
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>ID</th><th>Gym</th><th>Date and Time</th><th>Attending</th></tr>";
 $results_per_page = 15;
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
@@ -1606,7 +1606,7 @@ if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Offer a Trade:</strong></h2>
 <form id="usersubmit" method="post" action="./offertrade.php">
-<center><table id="t01">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 <!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
@@ -1705,7 +1705,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 if(isset($_SESSION["uname"])){
 echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th><th>STATUS</th></tr>";
 } else {
@@ -1733,7 +1733,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$offerby."</td>
 	"; if($accepted == 0) { echo "
 	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='image' name='accepted' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$accepted' /><p style='color:green'>AVAILABLE</p></form></span><br>
+	<span style='display:inline-block;'><form action='./trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='image' name='accepted' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$accepted' /><p style='color:green'>AVAILABLE</p></form></span><br>
 	"; } else { echo " 
 	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS 
 	<br>
@@ -1785,7 +1785,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 if(isset($_SESSION["uname"])){
 echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>ACCEPTED BY</th><th>DATE</th></tr>";
 } else {
@@ -1856,7 +1856,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 if(isset($_SESSION["uname"])){
 echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>DATE</th></tr>";
 } else {
@@ -1925,7 +1925,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 if(isset($_SESSION["uname"])){
 echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>OFFERED BY</th><th>DATE</th></tr>";
 } else {

@@ -11,7 +11,8 @@ $error='';
 			{
 				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
 				} else {
-					$error .= '<p><label class="text-success">All messages marked as "read"</label></p>';
+					echo '<center><p><label class="text-success">Message marked as "read"</label></p></center>';
+					echo "<meta http-equiv=\"refresh\" content=\"1;url='./inbox.php'\"/>";
 				}
 }
 

@@ -6,7 +6,7 @@ $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $iv = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter ="";
 if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
+<h3 style="text-align:center;"><strong>Add Pokémon:</strong></h3>
 <form id="usersubmit" method="post" action="./spotpokemon.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
@@ -119,7 +119,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Spotted Pokemon:</strong></h2>
+<h3 style="text-align:center;"><strong>Spotted Pokemon:</strong></h3>
 
 <center>
 
@@ -490,7 +490,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
+<h3 style="text-align:center;"><strong>Add Raid:</strong></h3>
 <form id="usersubmit" method="post" action="./spotraid.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
@@ -589,7 +589,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Spotted Raids:</strong></h2>
+<h3 style="text-align:center;"><strong>Spotted Raids:</strong></h3>
 
 <center>
 
@@ -667,7 +667,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Submit a Quest:</strong></h2>
+<h3 style="text-align:center;"><strong>Submit a Quest:</strong></h3>
 <form id="usersubmit" method="post" action="./spotquest.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
@@ -791,7 +791,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Spotted Quests:</strong></h2>
+<h3 style="text-align:center;"><strong>Spotted Quests:</strong></h3>
 
 <center>
 
@@ -880,7 +880,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Spotted Eggs:</strong></h2>
+<h3 style="text-align:center;"><strong>Spotted Eggs:</strong></h3>
 
 <center>
 
@@ -956,7 +956,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Gym team:</strong></h2>
+<h3 style="text-align:center;"><strong>Gym team:</strong></h3>
 <form id="usersubmit" method="post" action="./gymteam.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
@@ -1016,7 +1016,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Spot Egg:</strong></h2>
+<h3 style="text-align:center;"><strong>Spot Egg:</strong></h3>
 <form id="usersubmit" method="post" action="./spotegg.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
@@ -1121,7 +1121,7 @@ $questcountresult = mysqli_num_rows($questcountquery);
 $totalspots = $eggcountresult + $raidcountresult + $teamcountresult + $moncountresult + $questcountresult;
 
 $id = $usergroup = "";?>
-<h2 style="text-align:center;"><strong>Your Profile:</strong></h2>
+<h3 style="text-align:center;"><strong>Your Profile:</strong></h3>
 <?php
 	$versionquery = "SELECT version FROM version";
 	$versionresult = $conn->query($versionquery);
@@ -1176,12 +1176,12 @@ $id = $usergroup = "";?>
 		if ("$usergroup" == 'admin'){
 		?>
 		
-		<h2 style="text-align:center;"><strong>Admin Panel:</strong></h2>
+		<h3 style="text-align:center;"><strong>Admin Panel:</strong></h3>
 		<center>
 		<a href="gymcsv.php">Upload Gym .CSV</a><br />
 		<a href="stopcsv.php">Upload Stop .CSV</a><br />
 		
-		<h2 style="text-align:center;"><strong>Database overview</strong></h2>
+		<h3 style="text-align:center;"><strong>Database overview</strong></h3>
 		
 		<center><table id="spotted" class="table table-bordered">
         <tbody>
@@ -1249,7 +1249,7 @@ if(isset($_SESSION["uname"])){
 require('config/config.php');
 $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='".$_SESSION['uname']."' AND users.usergroup = usergroup.id LIMIT 1  "); 
 $id = $usergroup = "";?>
-<h2 style="text-align:center;"><strong>Edit Your Profile:</strong></h2>
+<h3 style="text-align:center;"><strong>Edit Your Profile:</strong></h3>
 <?php
 	echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
 	
@@ -1320,7 +1320,7 @@ $id = $usergroup = "";?>
             }
         </script>
         <?php echo "</table>";?>
-	<h2 style="text-align:center;"><strong>Upload profile picture:</strong></h2>
+	<h3 style="text-align:center;"><strong>Upload profile picture:</strong></h3>
 	<?php
 	}
 	
@@ -1411,7 +1411,7 @@ if(isset($_SESSION["uname"])){
 ?>
 
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Add EX Raid:</strong></h2>
+<h3 style="text-align:center;"><strong>Add EX Raid:</strong></h3>
 <form id="usersubmit" method="post" action="./spotexraid.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
@@ -1479,7 +1479,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Spotted EX Raids:</strong></h2>
+<h3 style="text-align:center;"><strong>Spotted EX Raids:</strong></h3>
 
 <center>
 
@@ -1538,7 +1538,7 @@ require('./config/config.php');
 ?>
 
 
-<h2 style="text-align:center;"><strong>EX Raid Attendance:</strong></h2>
+<h3 style="text-align:center;"><strong>EX Raid Attendance:</strong></h3>
 
 <center>
 
@@ -1604,7 +1604,7 @@ $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $iv = $monster = $spotter ="";
 if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Offer a Trade:</strong></h2>
+<h3 style="text-align:center;"><strong>Offer a Trade:</strong></h3>
 <form id="usersubmit" method="post" action="./offertrade.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
@@ -1652,7 +1652,7 @@ while ($row = $result->fetch_assoc()) {
 <?php
 require('./config/config.php');
 $result1 = $conn->query("SELECT * FROM pokedex");
-echo "<select id='pokesearch2' name='reqmon'>";
+echo "<select id='pokesearch3' name='reqmon'>";
 while ($row = $result1->fetch_assoc()) {
     unset($id, $monster);
         $id = $row['id'];
@@ -1698,7 +1698,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
 
-<h2 style="text-align:center;"><strong>Available Trades:</strong></h2>
+<h3 style="text-align:center;"><strong>Available Trades:</strong></h3>
 
 <center>
 
@@ -1778,7 +1778,7 @@ $row = $resultcnt->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
-<h2 style="text-align:center;"><strong>My Active Trades:</strong></h2>
+<h3 style="text-align:center;"><strong>My Active Trades:</strong></h3>
 
 <center>
 
@@ -1849,7 +1849,7 @@ $row = $resultcnt->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
-<h2 style="text-align:center;"><strong>My Available Trades:</strong></h2>
+<h3 style="text-align:center;"><strong>My Available Trades:</strong></h3>
 
 <center>
 
@@ -1918,7 +1918,7 @@ $row = $resultcnt->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
-<h2 style="text-align:center;"><strong>My Accepted Trades:</strong></h2>
+<h3 style="text-align:center;"><strong>My Accepted Trades:</strong></h3>
 
 <center>
 
@@ -1975,4 +1975,3 @@ for ($i=1; $i<=$total_pages; $i++) {
 }
 
 ?>
-

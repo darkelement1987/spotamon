@@ -93,6 +93,11 @@ td, th {
 	font-size:14px;
 }
 
+th {
+	font-size: 16px !important;
+	background-color: rgba(255, 255, 255, 0.3);	
+}
+
 table#readpm{
 	width:100%;
 }
@@ -144,6 +149,11 @@ height: 18px;
 td, th {
 	padding: 10px;
 	font-size:10px;
+}
+
+th {
+	font-size: 12px !important;
+	background-color: rgba(255, 255, 255, 0.3);	
 }
 
 table#readpm{

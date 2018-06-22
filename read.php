@@ -49,8 +49,9 @@ else if(isset($_SESSION["uname"], $_GET['id'])){
     $row = $result->fetch_array(MYSQLI_NUM);
     $msgid = $row[0];
 	$subject = $row[1];
+	$to = $row[2];
 	$from = $row[3];
-	$to = $row[4];
+	$unread = $row[4];
 	$message = $row[5];
 	$date = $row[6];
 	
@@ -100,7 +101,7 @@ if ($row){
 </tbody>
 </table>
 	<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<input type="submit" name="markread" value="Mark as read">
+<?php if($unread=='1'){ ?><input type="submit" name="markread" value="Mark as read"><?php }?>
 </form>
 
 <h3>Reply:</h3><form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $msgid;?>" method="post" style="width:50%;">

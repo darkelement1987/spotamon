@@ -15,6 +15,8 @@ include 'config/dbbuilding.php';
 menu();
 
 mytrades();
+
+mynatrades();
 ?>
 
 </body>

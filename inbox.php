@@ -31,6 +31,7 @@ $(document).ready(function() {
     "emptyTable": "No messages in inbox",
 	"lengthMenu":     "Show _MENU_ messages",
 	"info":           "Showing _START_ to _END_ of _TOTAL_ messages",
+	"zeroRecords":    "No messages found",
 	"infoEmpty":      "Showing 0 to 0 of 0 messages"
   }
     });

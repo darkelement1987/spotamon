@@ -1153,11 +1153,11 @@ $id = $usergroup = "";?>
         </tr>
 		<tr>
         <td><strong>My Created Trades:</strong></td>
-        <td><a href="/my-trades.php">Created Trades</a></td>
+        <td><a href="./my-trades.php">Created Trades</a></td>
         </tr>
 		<tr>
         <td><strong>My Accepted Trades:</strong></td>
-        <td><a href="/accepted-trades.php">Accepted Trades</a></td>
+        <td><a href="./accepted-trades.php">Accepted Trades</a></td>
         </tr>
 		<tr>
         <td><strong>Offered:</strong></td>
@@ -1733,7 +1733,7 @@ while($row = mysqli_fetch_array($result)) {
 	<td>".$offerby."</td>
 	"; if($accepted == 0) { echo "
 	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='image' name='accepted' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$accepted' /><p style='color:green'>AVAILABLE</p></form></span><br>
+	<span style='display:inline-block;'><form action='./trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='image' name='accepted' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$accepted' /><p style='color:green'>AVAILABLE</p></form></span><br>
 	"; } else { echo " 
 	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS 
 	<br>

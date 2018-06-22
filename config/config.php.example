@@ -191,7 +191,9 @@ upass VARCHAR(100) NOT NULL,
 usergroup VARCHAR(1) NOT NULL,
 trn_date datetime NOT NULL,
 url TEXT NOT NULL,
-lastUpload VARCHAR(200) NOT NULL)";
+lastUpload VARCHAR(200) NOT NULL,
+offtrades INT(9) NOT NULL,
+reqtrades INT(9) NOT NULL)";
 
 $usergroup = "CREATE TABLE IF NOT EXISTS `usergroup` (
 id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -206,6 +208,26 @@ uname VARCHAR(100) NOT NULL UNIQUE,
 email VARCHAR(100) NOT NULL UNIQUE,
 token VARCHAR(100) NOT NULL)";
 
+$offers = "CREATE TABLE IF NOT EXISTS `offers` (
+oid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+offmon VARCHAR(30) NOT NULL,
+cp INT(6) NOT NULL,
+iv INT(3) NOT NULL,
+tradeloc VARCHAR(100) NOT NULL,
+reqmon VARCHAR(30) NOT NULL,
+tname VARCHAR(100) NOT NULL,
+accepted INT(1) NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+$trades = "CREATE TABLE IF NOT EXISTS `trades` (
+tid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+tradeloc VARCHAR(100) NOT NULL,
+tname VARCHAR(100) NOT NULL,
+rname VARCHAR(100) NOT NULL,
+offmon VARCHAR(30) NOT NULL,
+reqmon VARCHAR(30) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
 $messages = "CREATE TABLE IF NOT EXISTS `messages` (
  id INT(6) PRIMARY KEY AUTO_INCREMENT NOT NULL,
  subject VARCHAR(255),
@@ -215,7 +237,7 @@ $messages = "CREATE TABLE IF NOT EXISTS `messages` (
  message VARCHAR(1000),
  date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $messages];
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $offers, $trades, $messages];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

@@ -51,17 +51,6 @@ $(document).ready(function() {
 	$unread = $row['unread'];
 	$message = $row['message'];
 	$date = $row['date'];
-
-	if ($unread==1){
-	echo "
-            <tr>
-                <td><b><a href=\"sent.php?id=$id\">".$from."</a></b></td>
-                <td><b><a href=\"sent.php?id=$id\">".$to."</a></b></td>				
-                <td><b><a href=\"sent.php?id=$id\">".$subject."</a></b></td>
-                <td><b><a href=\"sent.php?id=$id\">".$date."</a></b></td>
-            </tr>
-	";
-	} else {
 		
 	echo "
             <tr>
@@ -70,7 +59,7 @@ $(document).ready(function() {
                 <td><a href=\"sent.php?id=$id\">".$subject."</a></td>
                 <td><a href=\"sent.php?id=$id\">".$date."</a></td>
             </tr>
-	";}	
+	";	
 		
 		
 

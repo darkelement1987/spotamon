@@ -1,12 +1,19 @@
 <?php
 include 'frontend/menu.php';
-include_once 'config/config.php';
+include_once 'config/config.php';?>
+
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<?php
 menu();
 if(isset($_SESSION["uname"])){
 $sql = "SELECT * FROM messages WHERE to_user = '".$_SESSION["uname"]."'";
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));?>
 <center>
-<div style="width:50%;margin:10px;padding:10px;">
+<div id="pm">
 <h3>
 <?php
 $error='';
@@ -37,7 +44,7 @@ $(document).ready(function() {
     });
 } );
 </script>
-<table id="inbox" class="table table-striped table-bordered" style="width:100%;	background-color: rgba(255, 255, 255, 0.4);">
+<table id="inbox" class="table table-striped table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
         <thead>
             <tr>
                 <th>From</th>

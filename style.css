@@ -95,6 +95,14 @@ td {
     font-size:14px;
 }
 
+table#readpm{
+	width:100%;
+}
+
+table#inbox{
+	width:100%;
+}
+
 table {
 table-layout: auto;
     
@@ -172,6 +180,10 @@ form#feedback {
 	border : 1px solid #b0b0b0;
 	padding: 15px;
 	background-color: rgba(255, 255, 255, 0.4);
+}
+
+div#pm{
+	width:50%
 }
 
 @media only screen and (max-width: 480px) {
@@ -363,6 +375,10 @@ form#feedback {
 	width: 85%;
 	border : 1px solid #b0b0b0;
 	padding: 15px;
+}
+
+div#pm{
+	width:85%
 }
 
 }

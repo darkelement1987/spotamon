@@ -60,7 +60,8 @@ if (!$touser) {
 				}
 ?>
 <center>
-<?php if(isset($_SESSION["uname"])){?><h3>Messages:</h3><form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" style="width:30%;">
+<div id="pm">
+<?php if(isset($_SESSION["uname"])){?><h3>Messages:</h3><form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 <table class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
 
 <tr><td colspan=2><h3>Send PM:</h3></td></tr>
@@ -93,5 +94,5 @@ if (!$touser) {
 	echo "Login to read your messages";
 		?><br /><br /><a href="./login/login.php">Login Here</a><?php
 echo "</div>";}?>
-
+</div>
 </center>

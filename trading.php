@@ -31,11 +31,6 @@ $sql1 = "UPDATE offers SET accepted='$accepted' WHERE oid='$oid'";
         {
             echo 'Not Inserted';
         }
-            else
-            {
-					   
-			   
-            }
 
 $sql2 = "SELECT * FROM offers WHERE oid='$oid'";
 $result = mysqli_query($conn,$sql2)or die(mysqli_error($conn));
@@ -57,5 +52,19 @@ else
 {
     header('Location:/active-trades.php');
 }		
+
+$sql4 = "SELECT * FROM users WHERE uname='".$_SESSION['uname']."'";
+$result = mysqli_query($conn,$sql4)or die(mysqli_error($conn));	
+				while($row = mysqli_fetch_array($result)) {
+					$reqtrades = $row['reqtrades'];					
+				}	
+			$reqtrades = ++$reqtrades;
+
+$sql5 = "UPDATE users SET reqtrades='$reqtrades' WHERE uname='".$_SESSION['uname']."'";
+    if(!mysqli_query($conn,$sql5))
+        {
+            echo 'Not Inserted';
+        }
+
 
 ?>

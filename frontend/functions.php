@@ -1135,15 +1135,37 @@ $id = $usergroup = "";?>
     $email = $row['email'];
 	$usergroup = $row['groupname'];
 	$url = $row['url'];
+	$offtrades = $row['offtrades'];
+	$reqtrades = $row['reqtrades'];
+	$tradetotal = $offtrades + $reqtrades;
+	
 	echo "<tr>"; ?>
 	<td><?php if ($url !== ''){?><img src="./userpics/<?php echo $url; ?>" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php }?></td>
 	<td><?php echo $uname; ?></td>
 	<td><?php echo $email; ?></td>
 	<td><?php echo $usergroup; ?></td>
-	<?php echo "</tr>";
-	echo "</table></center>";
-	echo "<br /><center><a href='./edit-profile.php'>Edit Profile</a></center>";
-	if ("$usergroup" == 'admin'){
+	</tr>
+	</table>
+	<?php echo "<br /><center><a href='./edit-profile.php'>Edit Profile</a></center><br>"; ?>
+	<center><table id="t02" class="spotted">
+	<tr>
+        <th colspan="2"><strong><center>Trades</strong></th>
+        </tr>
+		<tr>
+        <td><strong>Offered:</strong></td>
+        <td><?php echo $offtrades?></td>
+        </tr>
+		<tr>
+        <td><strong>Requested:</strong></td>
+        <td><?php echo $reqtrades?></td>
+        </tr>
+		<tr>
+        <td><strong>Total:</strong></td>
+        <td><strong><?php echo $tradetotal?></strong></td>
+        </tr>
+<?php echo "</table></center>";
+		
+		if ("$usergroup" == 'admin'){
 		?>
 		
 		<h2 style="text-align:center;"><strong>Admin Panel:</strong></h2>
@@ -1199,7 +1221,7 @@ $id = $usergroup = "";?>
         </tr>			
 		<tr>
 		<td colspan="2"><a href="./droptables.php" onclick="return confirm('Are you sure?');"><center>Drop database</center></a></td>
-		<tr>
+		</tr>
         </tbody>
         </table></center>
 		<?php

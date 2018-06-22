@@ -33,7 +33,7 @@ $(document).ready(function() {
     });
 } );
 </script>
-<table id="inbox" class="table table-striped table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
+<table id="inbox" class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
         <thead>
             <tr>
                 <th>From</th>

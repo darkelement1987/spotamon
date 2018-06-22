@@ -55,6 +55,7 @@ if (!$touser) {
 			{
 				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
 				}
+				echo "<meta http-equiv=\"refresh\" content=\"1;url='./compose.php'\"/>";
 				}
 				}
 ?>

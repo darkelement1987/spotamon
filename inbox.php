@@ -18,6 +18,7 @@ $error='';
 				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
 				} else {
 					$error .= '<p><label class="text-success">All messages marked as "read"</label></p>';
+					echo "<meta http-equiv=\"refresh\" content=\"1;url='./inbox.php'\"/>";
 				}
 }
 echo $_SESSION["uname"].'\'s inbox';
@@ -52,13 +53,28 @@ $(document).ready(function() {
 	$unread = $row['unread'];
 	$message = $row['message'];
 	$date = $row['date'];
-echo "
+
+	if ($unread==1){
+	echo "
+            <tr>
+                <td><b><a href=\"read.php?id=$id\">".$from."</a></b></td>
+                <td><b><a href=\"read.php?id=$id\">".$subject."</a></b></td>
+                <td><b><a href=\"read.php?id=$id\">".$date."</a></b></td>
+            </tr>
+	";
+	} else {
+		
+	echo "
             <tr>
                 <td><a href=\"read.php?id=$id\">".$from."</a></td>
-                <td>".$subject."</td>
-                <td>".$date."</td>
+                <td><a href=\"read.php?id=$id\">".$subject."</a></td>
+                <td><a href=\"read.php?id=$id\">".$date."</a></td>
             </tr>
-";}?>
+	";}	
+		
+		
+
+}?>
         </tbody>
     </table>
 	

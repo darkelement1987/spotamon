@@ -106,7 +106,6 @@
                             <li><a href="./submit-team.php">Team</a></li>
                             <li><a href="./submit-egg.php">Egg</a></li>
                             <li><a href="./submit-quest.php">Quest</a></li>
-							<li><a href="./offer-trade.php">Trading</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -118,7 +117,6 @@
                             <li><a href="./exraids.php">EX Raids</a></li>
                             <li><a href="./eggs.php">Egg</a></li>
                             <li><a href="./quests.php">Quest</a></li>
-							<li><a href="./active-trades.php">Open Trades</a></li>
                         </ul>
                     </li>
 					<?php if($showformlink==true){echo "<li><a href=\"./feedback.php\"><span class=\"glyphicon glyphicon-envelope\"></span> Feedback</a></li>";} else {}?>
@@ -146,6 +144,7 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="./inbox.php">Inbox</a></li>
+							<li><a href="./outbox.php">Outbox</a></li>
                             <li><a href="./compose.php">Send message</a></li>
                         </ul>
                     </li>

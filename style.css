@@ -88,6 +88,10 @@ h2 {
     font-family: tahoma;
 }
 
+td, th {
+	padding: 10px;
+}
+
 table#readpm{
 	width:100%;
 }

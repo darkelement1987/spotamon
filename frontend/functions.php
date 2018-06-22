@@ -8,7 +8,7 @@ if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Pokémon:</strong></h2>
 <form id="usersubmit" method="post" action="./spotpokemon.php">
-<center><table id="t01">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 
@@ -126,7 +126,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 if(isset($_SESSION["uname"])){
 echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th><th>VOTING</th></tr>";
 } else {
@@ -492,7 +492,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add Raid:</strong></h2>
 <form id="usersubmit" method="post" action="./spotraid.php">
-<center><table id="t03">
+<center><table class="table table-bordered" id="added">
 <tbody>
 
 
@@ -595,7 +595,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$rid = $row['rid'];
@@ -669,7 +669,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Submit a Quest:</strong></h2>
 <form id="usersubmit" method="post" action="./spotquest.php">
-<center><table id="t03">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 
@@ -798,7 +798,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>ID</th><th>QUEST</th><th>REWARD</th><th>SPOTTED</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$questname = $row['qname'];
@@ -887,7 +887,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>GYM ID</th><th>EGG LVL</th><th>HATCHES</th><th>LOCATION</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$gid = $row['gid'];
@@ -958,7 +958,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Gym team:</strong></h2>
 <form id="usersubmit" method="post" action="./gymteam.php">
-<center><table id="t04">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 <!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
@@ -1018,7 +1018,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Spot Egg:</strong></h2>
 <form id="usersubmit" method="post" action="./spotegg.php">
-<center><table id="t04">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 <!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
@@ -1127,7 +1127,7 @@ $id = $usergroup = "";?>
 	$versionresult = $conn->query($versionquery);
 	$rowversion = $versionresult->fetch_array(MYSQLI_NUM);
 	$version = $rowversion[0];
-	echo "<center><table id=\"t02\" class=\"spotted\">";
+	echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
 	echo "<tr><th>Pic<th>User</th><th>Email</th><th>Usergroup</th></tr>";
 	while ($row = $result->fetch_assoc()) {
 	$id = $row['id'];
@@ -1135,45 +1135,15 @@ $id = $usergroup = "";?>
     $email = $row['email'];
 	$usergroup = $row['groupname'];
 	$url = $row['url'];
-	$offtrades = $row['offtrades'];
-	$reqtrades = $row['reqtrades'];
-	$tradetotal = $offtrades + $reqtrades;
-	
 	echo "<tr>"; ?>
 	<td><?php if ($url !== ''){?><img src="./userpics/<?php echo $url; ?>" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php }?></td>
 	<td><?php echo $uname; ?></td>
 	<td><?php echo $email; ?></td>
 	<td><?php echo $usergroup; ?></td>
-	</tr>
-	</table>
-	<?php echo "<br /><center><a href='./edit-profile.php'>Edit Profile</a></center><br>"; ?>
-	<center><table id="t02" class="spotted">
-	<tr>
-        <th colspan="2"><strong><center>Trades</strong></th>
-        </tr>
-		<tr>
-        <td><strong>My Created Trades:</strong></td>
-        <td><a href="./my-trades.php">Created Trades</a></td>
-        </tr>
-		<tr>
-        <td><strong>My Accepted Trades:</strong></td>
-        <td><a href="./accepted-trades.php">Accepted Trades</a></td>
-        </tr>
-		<tr>
-        <td><strong>Offered:</strong></td>
-        <td><?php echo $offtrades?></td>
-        </tr>
-		<tr>
-        <td><strong>Requested:</strong></td>
-        <td><?php echo $reqtrades?></td>
-        </tr>
-		<tr>
-        <td><strong>Total:</strong></td>
-        <td><strong><?php echo $tradetotal?></strong></td>
-        </tr>
-<?php echo "</table></center>";
-		
-		if ("$usergroup" == 'admin'){
+	<?php echo "</tr>";
+	echo "</table></center>";
+	echo "<br /><center><a href='./edit-profile.php'>Edit Profile</a></center>";
+	if ("$usergroup" == 'admin'){
 		?>
 		
 		<h2 style="text-align:center;"><strong>Admin Panel:</strong></h2>
@@ -1183,7 +1153,7 @@ $id = $usergroup = "";?>
 		
 		<h2 style="text-align:center;"><strong>Database overview</strong></h2>
 		
-		<center><table id="t02" class="spotted">
+		<center><table id="spotted" class="table table-bordered">
         <tbody>
         <tr>
         <th colspan="2"><strong><center>Database</strong></th>
@@ -1229,7 +1199,7 @@ $id = $usergroup = "";?>
         </tr>			
 		<tr>
 		<td colspan="2"><a href="./droptables.php" onclick="return confirm('Are you sure?');"><center>Drop database</center></a></td>
-		</tr>
+		<tr>
         </tbody>
         </table></center>
 		<?php
@@ -1251,7 +1221,7 @@ $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='".$_SESSION['
 $id = $usergroup = "";?>
 <h2 style="text-align:center;"><strong>Edit Your Profile:</strong></h2>
 <?php
-	echo "<center><table style='width:20%;' id=\"t05\" class=\"profile\">";
+	echo "<center><table style='width:20%;' id=\"spotted\" class=\"table table-bordered\">";
 	
 	while ($row = $result->fetch_assoc()) {
 	$id = $row['id'];
@@ -1413,7 +1383,7 @@ if(isset($_SESSION["uname"])){
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h2 style="text-align:center;"><strong>Add EX Raid:</strong></h2>
 <form id="usersubmit" method="post" action="./spotexraid.php">
-<center><table id="t03">
+<center><table id="added" class="table table-bordered">
 <tbody>
 
 <tr>
@@ -1485,7 +1455,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>EX ID</th><th>GYM</th><th>Date and Time</th><th>Spotter</th><th>Attendance</th></tr>";
 while($row = mysqli_fetch_array($result)) {
 	$exid = $row['exid'];
@@ -1544,7 +1514,7 @@ require('./config/config.php');
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-echo "<table id=\"t02\" class=\"spotted\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
 echo "<tr><th>ID</th><th>Gym</th><th>Date and Time</th><th>Attending</th></tr>";
 $results_per_page = 15;
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
@@ -1591,382 +1561,6 @@ while($row = mysqli_fetch_array($result)) {
 }}
 echo "</table></center><p id='pages'>";
 ?><center><?php
-///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
-for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
-}; 
-?></center><?php
-}
-
-function offertrade(){
-require('./config/config.php');
-$result = $conn->query("SELECT * FROM pokedex");
-$id = $pokemon = $cp = $iv = $monster = $spotter ="";
-if(isset($_SESSION["uname"])){ ?>
-<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h2 style="text-align:center;"><strong>Offer a Trade:</strong></h2>
-<form id="usersubmit" method="post" action="./offertrade.php">
-<center><table id="t01">
-<tbody>
-
-<!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
-<tr>
-<td style="width: 5%;">Offer Pokemon</td>
-<td style="width: 10%;">
-<?php
-echo "<select id='pokesearch' name='offmon'>";
-while ($row = $result->fetch_assoc()) {
-    unset($id, $monster);
-        $id = $row['id'];
-            $monster= $row['monster'];
-				echo '<option value="'.$id.'">'.$id.' - '.$monster.'</option>';
-					}					
-						echo "</select>";
-							mysqli_close($conn);
-?>
-</td>
-</tr>
-
-<!--///////////////////// Cp enter \\\\\\\\\\\\\\\\\\\\\-->
-<tr>
-<td style="width: 5%;">CP</td>
-<td style="width: 10%;">
-	<input type="number" name="cp" min="10" max="4760" value="10" class="cpinput"><span id="cpoutput"></span>
-</td>
-</tr>
-<tr>
-<td style="width: 5%;">IV in %</td>
-<td style="width: 10%;">
-<input type="number" name="iv" min="1" max="100" value="1" class="cpinput"><span id="cpoutput"></span>
-</td>
-</tr>
-<tr>
-<td style="width: 5%;">Preferred Trade City</td>
-<td style="width: 10%;">
-	<input type="text" name="tradeloc" placeholder="City" class="tradeloc"><span id="tradeloc"></span>
-</td>
-</tr>
-<tr>
-<td style="width: 5%;">Request Pokemon</td>
-<td style="width: 10%;">
-<?php
-require('./config/config.php');
-$result1 = $conn->query("SELECT * FROM pokedex");
-echo "<select id='pokesearch2' name='reqmon'>";
-while ($row = $result1->fetch_assoc()) {
-    unset($id, $monster);
-        $id = $row['id'];
-            $monster= $row['monster'];
-				echo '<option value="'.$id.'">'.$id.' - '.$monster.'</option>';
-					}					
-						echo "</select>";
-							mysqli_close($conn);
-?>
-</td>
-</tr>
-
-<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
-<center><td style="width:10%;"><input type="submit" id="offtrade" value="OFFER!"></td></center>
-
-</tbody>
-</table></center>
-</form>
-
-<?php } else {
-	
-	echo "<center><whoa wtdiv style='margin-top:10px;'>";
-	echo "Login to spot a pokemon";
-		?><br /><br /><a href="./login/login.php">Login Here</a><?php
-	echo "</div></center>";
-	}
-} 
-
-function activetrades(){
-require('./config/config.php');
-$results_per_page = 10;
-
-if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-$start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM offers,pokedex WHERE offers.offmon = pokedex.id ORDER BY oid DESC LIMIT $start_from,".$results_per_page;
-$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
-
-
-$sqlcnt = "SELECT COUNT(OID) AS total FROM offers"; 
-$resultcnt = $conn->query($sqlcnt);
-$row = $resultcnt->fetch_assoc();
-$total_pages = ceil($row["total"] / $results_per_page);
-?>
-
-
-<h2 style="text-align:center;"><strong>Available Trades:</strong></h2>
-
-<center>
-
-<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
-<?php
-
-echo "<table id=\"t02\" class=\"spotted\">";
-if(isset($_SESSION["uname"])){
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th><th>STATUS</th></tr>";
-} else {
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th></tr>";
-}
-
-while($row = mysqli_fetch_array($result)) {
-	$oid = $row['oid'];
-	$offmon = $row['offmon'];
-    $cp = $row['cp'];
-    $iv = $row['iv'];
-	$tradeloc = $row['tradeloc'];	
-	$reqmon = $row['reqmon'];
-	$accepted = $row['accepted'];
-	$offerby = $row['tname'];
-	if(isset($_SESSION["uname"])){
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$oid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>".$cp."</td>
-	<td>".$iv."%</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td>".$offerby."</td>
-	"; if($accepted == 0) { echo "
-	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='image' name='accepted' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$accepted' /><p style='color:green'>AVAILABLE</p></form></span><br>
-	"; } else { echo " 
-	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS 
-	<br>
-	"; } echo "
-	</td>
-	</tr>";
-	} else {
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$oid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>".$cp."</td>
-	<td>".$iv."%</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td>".$offerby."</td>
-	</tr>";
-	}
-}
-echo "</table></center><p id='pages'>";
-?><center><?php
-
-///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
-for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
-}; 
-?></center><?php
-}
-
-function mytrades(){
-require('./config/config.php');
-$results_per_page = 10;
-
-if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-$start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM trades WHERE trades.tname = '".$_SESSION['uname']."' ORDER BY tid DESC LIMIT $start_from,".$results_per_page;
-$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
-
-$sqlcnt = "SELECT COUNT(TID) AS total FROM trades"; 
-$resultcnt = $conn->query($sqlcnt);
-$row = $resultcnt->fetch_assoc();
-$total_pages = ceil($row["total"] / $results_per_page);
-?>
-
-<h2 style="text-align:center;"><strong>My Active Trades:</strong></h2>
-
-<center>
-
-<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
-<?php
-
-echo "<table id=\"t02\" class=\"spotted\">";
-if(isset($_SESSION["uname"])){
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>ACCEPTED BY</th><th>DATE</th></tr>";
-} else {
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>ACCEPTED BY</th><th>DATE</th></tr>";
-}
-
-while($row = mysqli_fetch_array($result)) {
-	$tid = $row['tid'];
-	$offmon = $row['offmon'];
-	$reqmon = $row['reqmon'];
-	$tradeloc = $row['tradeloc'];	
-	$rname = $row['rname'];
-	$date = $row['date'];
-	$tname = $row['tname'];
-	if(isset($_SESSION["uname"])){
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$tid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS</td>
-	<td>".$rname."</td>
-	<td>".$date."</td>
-	</tr>";
-	} else {
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$tid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS</td>
-	<td>".$rname."</td>
-	<td>".$date."</td>
-	</tr>";
-	}
-}
-echo "</table></center><p id='pages'>";
-?><center><?php
-
-///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
-for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
-}; 
-?></center><?php
-}
-
-function mynatrades(){
-require('./config/config.php');
-$results_per_page = 10;
-
-if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-$start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM offers WHERE offers.tname = '".$_SESSION['uname']."' AND accepted = 0 ORDER BY oid DESC LIMIT $start_from,".$results_per_page;
-$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
-
-$sqlcnt = "SELECT COUNT(OID) AS total FROM offers"; 
-$resultcnt = $conn->query($sqlcnt);
-$row = $resultcnt->fetch_assoc();
-$total_pages = ceil($row["total"] / $results_per_page);
-?>
-
-<h2 style="text-align:center;"><strong>My Available Trades:</strong></h2>
-
-<center>
-
-<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
-<?php
-
-echo "<table id=\"t02\" class=\"spotted\">";
-if(isset($_SESSION["uname"])){
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>DATE</th></tr>";
-} else {
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>DATE</th></tr>";
-}
-
-while($row = mysqli_fetch_array($result)) {
-	$oid = $row['oid'];
-	$offmon = $row['offmon'];
-	$reqmon = $row['reqmon'];
-	$tradeloc = $row['tradeloc'];	
-	$date = $row['date'];
-	$tname = $row['tname'];
-	if(isset($_SESSION["uname"])){
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$oid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td style='text-align:center; color:green;'>AVAILABLE</td>
-	<td>".$date."</td>
-	</tr>";
-	} else {
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$tid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS</td>
-	<td>".$rname."</td>
-	<td>".$date."</td>
-	</tr>";
-	}
-}
-echo "</table></center><p id='pages'>";
-?><center><?php
-
-///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
-for ($i=1; $i<=$total_pages; $i++) { 
-    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
-}; 
-?></center><?php
-}
-
-
-function acceptedtrades(){
-require('./config/config.php');
-$results_per_page = 10;
-
-if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-$start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM trades WHERE trades.rname = '".$_SESSION['uname']."' ORDER BY tid DESC LIMIT $start_from,".$results_per_page;
-$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
-$sqlcnt = "SELECT COUNT(TID) AS total FROM trades"; 
-$resultcnt = $conn->query($sqlcnt);
-$row = $resultcnt->fetch_assoc();
-$total_pages = ceil($row["total"] / $results_per_page);
-?>
-
-<h2 style="text-align:center;"><strong>My Accepted Trades:</strong></h2>
-
-<center>
-
-<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
-<?php
-
-echo "<table id=\"t02\" class=\"spotted\">";
-if(isset($_SESSION["uname"])){
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>OFFERED BY</th><th>DATE</th></tr>";
-} else {
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>OFFERED BY</th><th>DATE</th></tr>";
-}
-
-while($row = mysqli_fetch_array($result)) {
-	$tid = $row['tid'];
-	$offmon = $row['offmon'];
-	$reqmon = $row['reqmon'];
-	$tradeloc = $row['tradeloc'];	
-	$rname = $row['rname'];
-	$tname = $row['tname'];
-	$date = $row['date'];
-	if(isset($_SESSION["uname"])){
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$tid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS</td>
-	<td>".$tname."</td>
-	<td>".$date."</td>
-	</tr>";
-	} else {
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$tid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS</td>
-	<td>".$tname."</td>
-	<td>".$date."</td>
-	</tr>";
-	}
-}
-echo "</table></center><p id='pages'>";
-?><center><?php
-
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
 for ($i=1; $i<=$total_pages; $i++) { 
     echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 

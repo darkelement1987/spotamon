@@ -228,7 +228,16 @@ offmon VARCHAR(30) NOT NULL,
 reqmon VARCHAR(30) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $offers, $trades];
+$messages = "CREATE TABLE IF NOT EXISTS `messages` (
+ id INT(6) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+ subject VARCHAR(255),
+ to_user VARCHAR(30),
+ from_user VARCHAR(30),
+ unread INT(10) NOT NULL,
+ message VARCHAR(1000),
+ date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $offers, $trades, $messages];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

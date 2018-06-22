@@ -191,7 +191,9 @@ upass VARCHAR(100) NOT NULL,
 usergroup VARCHAR(1) NOT NULL,
 trn_date datetime NOT NULL,
 url TEXT NOT NULL,
-lastUpload VARCHAR(200) NOT NULL)";
+lastUpload VARCHAR(200) NOT NULL,
+offtrades INT(9) NOT NULL,
+reqtrades INT(9) NOT NULL)";
 
 $usergroup = "CREATE TABLE IF NOT EXISTS `usergroup` (
 id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,

@@ -70,7 +70,7 @@ background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
 }
 
 #map {
-    height: 93%;
+    height: 94%;
 }
 
 html, body {
@@ -176,7 +176,7 @@ table#added{
 }
 
 #map {
-    height: 100%;
+    height: 94.6%;
 }
 
 form#feedback {

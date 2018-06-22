@@ -90,6 +90,7 @@ h2 {
 
 td, th {
 	padding: 10px;
+	font-size:10px;
 }
 
 table#readpm{
@@ -172,6 +173,10 @@ form#feedback {
 
 div#pm{
 	width:85%;
+}
+
+h3 {
+	font-size: 18px;
 }
 
 }

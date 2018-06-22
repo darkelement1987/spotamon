@@ -42,7 +42,6 @@ include 'config/dbbuilding.php';
   return $state;
  }
 </script>
-</head>
 
 <?php
 menu();

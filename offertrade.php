@@ -33,5 +33,5 @@ $sql2 = "UPDATE users SET offtrades='$offtrades' WHERE uname='".$_SESSION['uname
         {
             echo 'Not Inserted';
         }
-    header('Location:/active-trades.php');
+    header('Location:./active-trades.php');
 ?>

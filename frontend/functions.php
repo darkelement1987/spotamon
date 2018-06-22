@@ -1568,5 +1568,170 @@ for ($i=1; $i<=$total_pages; $i++) {
 ?></center><?php
 }
 
+function offertrade(){
+require('./config/config.php');
+$result = $conn->query("SELECT * FROM pokedex");
+$id = $pokemon = $cp = $iv = $monster = $spotter ="";
+if(isset($_SESSION["uname"])){ ?>
+<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+<h2 style="text-align:center;"><strong>Offer a Trade:</strong></h2>
+<form id="usersubmit" method="post" action="./offertrade.php">
+<center><table id="t01">
+<tbody>
+
+<!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">Offer Pokemon</td>
+<td style="width: 10%;">
+<?php
+echo "<select id='pokesearch' name='offmon'>";
+while ($row = $result->fetch_assoc()) {
+    unset($id, $monster);
+        $id = $row['id'];
+            $monster= $row['monster'];
+				echo '<option value="'.$id.'">'.$id.' - '.$monster.'</option>';
+					}					
+						echo "</select>";
+							mysqli_close($conn);
+?>
+</td>
+</tr>
+
+<!--///////////////////// Cp enter \\\\\\\\\\\\\\\\\\\\\-->
+<tr>
+<td style="width: 5%;">CP</td>
+<td style="width: 10%;">
+	<input type="number" name="cp" min="10" max="4760" value="10" class="cpinput"><span id="cpoutput"></span>
+</td>
+</tr>
+<tr>
+<td style="width: 5%;">IV in %</td>
+<td style="width: 10%;">
+<input type="number" name="iv" min="1" max="100" value="1" class="cpinput"><span id="cpoutput"></span>
+</td>
+</tr>
+<tr>
+<td style="width: 5%;">Preferred Trade City</td>
+<td style="width: 10%;">
+	<input type="text" name="tradeloc" placeholder="City" class="tradeloc"><span id="tradeloc"></span>
+</td>
+</tr>
+<tr>
+<td style="width: 5%;">Request Pokemon</td>
+<td style="width: 10%;">
+<?php
+require('./config/config.php');
+$result1 = $conn->query("SELECT * FROM pokedex");
+echo "<select id='pokesearch2' name='reqmon'>";
+while ($row = $result1->fetch_assoc()) {
+    unset($id, $monster);
+        $id = $row['id'];
+            $monster= $row['monster'];
+				echo '<option value="'.$id.'">'.$id.' - '.$monster.'</option>';
+					}					
+						echo "</select>";
+							mysqli_close($conn);
+?>
+</td>
+</tr>
+
+<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+<center><td style="width:10%;"><input type="submit" id="offtrade" value="OFFER!"></td></center>
+
+</tbody>
+</table></center>
+</form>
+
+<?php } else {
+	
+	echo "<center><whoa wtdiv style='margin-top:10px;'>";
+	echo "Login to spot a pokemon";
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
+	echo "</div></center>";
+	}
+} 
+
+function activetrades(){
+require('./config/config.php');
+$results_per_page = 10;
+
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$start_from = ($page-1) * $results_per_page;
+$sql = "SELECT * FROM offers,pokedex WHERE offers.offmon = pokedex.id ORDER BY oid DESC LIMIT $start_from,".$results_per_page;
+$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
+
+
+$sqlcnt = "SELECT COUNT(OID) AS total FROM offers"; 
+$resultcnt = $conn->query($sqlcnt);
+$row = $resultcnt->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page);
+?>
+
+
+<h2 style="text-align:center;"><strong>Available Trades:</strong></h2>
+
+<center>
+
+<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
+<?php
+
+echo "<table id=\"t02\" class=\"spotted\">";
+if(isset($_SESSION["uname"])){
+echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th><th>ACCEPT</th></tr>";
+} else {
+echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th></tr>";
+}
+
+while($row = mysqli_fetch_array($result)) {
+	$oid = $row['oid'];
+	$offmon = $row['offmon'];
+    $cp = $row['cp'];
+    $iv = $row['iv'];
+	$tradeloc = $row['tradeloc'];	
+	$reqmon = $row['reqmon'];
+	$accepted = $row['accepted'];
+	$offerby = $row['tname'];
+	if(isset($_SESSION["uname"])){
+	echo "
+	<tr>
+	<td style='text-align:center;'>".$oid."</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
+	<td>".$cp."</td>
+	<td>".$iv."%</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
+	<td>".$tradeloc."</td>
+	<td>".$offerby."</td>
+	"; if($accepted == 0) { echo "
+	<td style='text-align:center;'>
+	<span style='display:inline-block;'><form action='trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='image' name='accepted' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$accepted' /></form></span><br>
+	"; } else { echo " 
+	<td style='text-align:center; color:green;'> ACCEPTED / IN PROGRESS 
+	<br>
+	"; } echo "
+	</td>
+	</tr>";
+	} else {
+	echo "
+	<tr>
+	<td style='text-align:center;'>".$oid."</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
+	<td>".$cp."</td>
+	<td>".$iv."%</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
+	<td>".$tradeloc."</td>
+	<td>".$offerby."</td>
+	</tr>";
+	}
+}
+echo "</table></center><p id='pages'>";
+?><center><?php
+
+///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
+for ($i=1; $i<=$total_pages; $i++) { 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+}; 
+?></center><?php
+}
+
 ?>
 

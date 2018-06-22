@@ -72,7 +72,7 @@ $update4.= "DROP TABLE old_users;";
 				echo '- \"uname\" is now UNIQUE';
 			}
 					
-    header("Refresh: 5; url= index.php");
+    header("Refresh: 5; url= ./index.php");
 	
 	echo '<br><hr>';
 	
@@ -99,7 +99,7 @@ $update5 = "ALTER TABLE `users` ADD `offtrades` INT(9) NOT NULL DEFAULT '0' AFTE
 				echo '- Added columns \'offtrades\' and \'reqtrades\' to `users`';
 			}
 					
-    header("Refresh: 5; url= index.php");
+    header("Refresh: 5; url= ./index.php");
 	
 	echo '<br><hr>';
 	echo '<br><b>Back to index in 5 seconds..</b>';	

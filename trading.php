@@ -50,7 +50,7 @@ if(!mysqli_query($conn,$sql3))
 }
 else
 {
-    header('Location:/active-trades.php');
+    header('Location:active-trades.php');
 }		
 
 $sql4 = "SELECT * FROM users WHERE uname='".$_SESSION['uname']."'";

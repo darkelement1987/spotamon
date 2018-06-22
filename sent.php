@@ -43,7 +43,7 @@ else if(isset($_SESSION["uname"], $_GET['id'])){
 	
 
 	
-	    $query = "SELECT * from messages WHERE to_user='".$_SESSION["uname"]."' AND id='".$_GET['id']."'";
+	    $query = "SELECT * from messages WHERE from_user='".$_SESSION["uname"]."' AND id='".$_GET['id']."'";
     if(!mysqli_query($conn,$query))
     	{
     		$error .= '<p><label class="text-danger">SQL ERROR</label></p>';

@@ -11,9 +11,9 @@ include_once 'config/config.php';?>
 menu();
 $error='';
 
-	if(isset($_POST["markread"]))
+	if(isset($_POST["markread"],$_GET['id']))
 {
-			$clear = "UPDATE messages SET unread=0 WHERE unread=1 AND to_user='".$_SESSION['uname']."'";
+			$clear = "UPDATE messages SET unread=0 WHERE unread=1 AND to_user='".$_SESSION['uname']."' AND id='".$_GET['id']."'";
 			if(!mysqli_query($conn,$clear))
 			{
 				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
@@ -107,7 +107,7 @@ if ($row){
 </tr>
 </tbody>
 </table>
-	<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+	<form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $_GET['id'];?>" method="post">
 <?php if($unread=='1'){ ?><input type="submit" name="markread" value="Mark as read"><?php }?>
 </form>
 

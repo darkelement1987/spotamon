@@ -112,7 +112,7 @@ if ($row){
 </form>
 
 <h3>Reply:</h3><form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $msgid;?>" method="post" style="width:100%;">
-<table class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
+<table id="readpm" class="table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
 
 <tr><td colspan=2><h3>Send PM:</h3></td></tr>
 <input type="hidden" name="from_user" maxlength="32" value = <?php echo $_SESSION['uname']; ?>>

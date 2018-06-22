@@ -20,6 +20,8 @@ if (isset($_REQUEST['uname'])){
     $email = mysqli_real_escape_string($conn,$email);
     $upass = stripslashes($_REQUEST['password']);
     $upass = mysqli_real_escape_string($conn,$upass);
+	$offtrades = 0;
+	$reqtrades = 0;
     $usergroup = 1;
 		$trn_date  = date("Y-m-d H:i:s");
 		
@@ -31,7 +33,7 @@ if (isset($_REQUEST['uname'])){
 			echo "<meta http-equiv=\"refresh\" content=\"3;url=".$_SERVER['HTTP_REFERER']."\"/>";
 		} else {
 			
-			$query  = "INSERT into `users` (uname, upass, email, usergroup, trn_date, url, lastUpload) VALUES ('$uname', '" . md5($upass) . "', '$email', '$usergroup', '$trn_date', '', '')";
+			$query  = "INSERT into `users` (uname, upass, email, usergroup, trn_date, url, lastUpload, offtrades, reqtrades) VALUES ('$uname', '" . md5($upass) . "', '$email', '$usergroup', '$trn_date', '', '', '$offtrades', '$reqtrades')";
 			$result = mysqli_query($conn, $query);
 			if ($result) {
 				echo "<div class='form'><h3>Registration was Successful.</h3><br/>Click here to <a href='login.php'>Login</a></div>";

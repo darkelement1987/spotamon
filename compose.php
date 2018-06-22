@@ -69,17 +69,20 @@ if (!$touser) {
 </td></tr>
 
 <tr><td>To User: </td><td>
-<input type="text" name="to_user" maxlength="32" value="" style="width:100%;">
+<?php if(isset($_GET['user'])){?><input type="text" name="to_user" maxlength="32" value="<?php echo $_GET['user'];?>" style="width:100%;" disabled><?php }?>
+<?php if(!isset($_GET['user'])){?><input type="text" name="to_user" maxlength="32" value="" style="width:100%;"><?php }?>
 <p><?php if (isset($usrerror)){echo $usrerror;}?></p>
 </td></tr>
 
 <tr><td>Subject: </td><td>
-<input type="text" name="subject" maxlength="255" value="" style="width:100%;">
+<?php if(isset($_GET['subject'])){?><input type="text" name="subject" maxlength="255" value="<?php echo $_GET['subject'];?>" style="width:100%;" disabled><?php }?>
+<?php if(!isset($_GET['subject'])){?><input type="text" name="subject" maxlength="255" value="" style="width:100%;"><?php }?>
 <p><?php if (isset($suberror)){echo $suberror;}?></p>
 </td></tr>
 
 <tr><td>Message: </td><td>
-<TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;"></TEXTAREA>
+<?php if(isset($_GET['message'])){?><TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;" disabled><?php echo $_GET['message'];?></TEXTAREA><?php }?>
+<?php if(!isset($_GET['message'])){?><TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;"></TEXTAREA><?php }?>
 <p><?php if (isset($msgerror)){echo $msgerror;}?></p>
 </td></tr>
 

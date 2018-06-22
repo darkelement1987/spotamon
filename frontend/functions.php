@@ -1153,11 +1153,11 @@ $id = $usergroup = "";?>
         </tr>
 		<tr>
         <td><strong>My Created Trades:</strong></td>
-        <td><a href="/my-trades.php">Created Trades</a></td>
+        <td><a href="./my-trades.php">Created Trades</a></td>
         </tr>
 		<tr>
         <td><strong>My Accepted Trades:</strong></td>
-        <td><a href="/accepted-trades.php">Accepted Trades</a></td>
+        <td><a href="./accepted-trades.php">Accepted Trades</a></td>
         </tr>
 		<tr>
         <td><strong>Offered:</strong></td>

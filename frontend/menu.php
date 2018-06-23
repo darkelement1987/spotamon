@@ -69,14 +69,20 @@
         <script>swal({
                 title: '<?php echo $motdtitle;?>',
                 html: '<?php echo $motdtext;?>',
-                imageUrl: '<?php echo $motdimage;?>'
+                imageUrl: '<?php echo $motdimage;?>',
+				imageHeight: '<?php echo $imageheight;?>',
+				imageWidth: '<?php echo $imagewidth;?>',
+				width: '<?php echo $motdwidth;?>'
             })</script><?php } elseif ($motdalways == false){?>
 
     <?php if(!isset($_SESSION["uname"])){?>
         <script>swal({
                 title: '<?php echo $motdtitle;?>',
                 html: '<?php echo $motdtext;?>',
-                imageUrl: '<?php echo $motdimage;?>'
+                imageUrl: '<?php echo $motdimage;?>',
+				imageHeight: '<?php echo $imageheight;?>',
+				imageWidth: '<?php echo $imagewidth;?>',
+				width: '<?php echo $motdwidth;?>'
             })</script><?php }?><?php }?>
     <nav class="navbar navbar-inverse" style="margin-bottom:0px;">
         <div class="container-fluid">

@@ -1738,7 +1738,7 @@ while($row = mysqli_fetch_array($result)) {
 	"; if($accepted == 0) { echo "
 
 	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='./trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='image' name='accepted' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$accepted' /><p style='color:green'>AVAILABLE</p></form></span><br>
+	<span style='display:inline-block;'><form action='./trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='hidden' name='accepted' value='$accepted' /><input type='submit' name='accepted' value='Lets Trade' style='color:green' /></form></span><br>
 	
 	"; } else { echo " 
 	

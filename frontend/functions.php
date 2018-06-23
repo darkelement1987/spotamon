@@ -1722,6 +1722,7 @@ while($row = mysqli_fetch_array($result)) {
 	$accepted = $row['accepted'];
 	$offerby = $row['tname'];
 	if(isset($_SESSION["uname"])){
+	
 	echo "
 	<tr>
 	<td style='text-align:center;'>".$oid."</td>
@@ -1731,16 +1732,25 @@ while($row = mysqli_fetch_array($result)) {
 	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
 	<td>".$tradeloc."</td>
 	<td>".$offerby."</td>
+	
+	"; if($offerby == $_SESSION["uname"]) { echo "<td style='text-align:center;'>Your Trade</td>"; } else { echo "
+	
 	"; if($accepted == 0) { echo "
+
 	<td style='text-align:center;'>
 	<span style='display:inline-block;'><form action='./trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='image' name='accepted' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$accepted' /><p style='color:green'>AVAILABLE</p></form></span><br>
+	
 	"; } else { echo " 
+	
 	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS 
 	<br>
+	
 	"; } echo "
+	
 	</td>
 	</tr>";
-	} else {
+	
+	}} else {
 	echo "
 	<tr>
 	<td style='text-align:center;'>".$oid."</td>

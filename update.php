@@ -107,8 +107,8 @@ $update5 = "ALTER TABLE `users` ADD `offtrades` INT(9) NOT NULL DEFAULT '0' AFTE
 		
 // Create new column @ messages for reports	
 
-$update5 = "ALTER TABLE `messages` ADD `report` INT(10) NOT NULL DEFAULT '0' AFTER `message`;";
-	if(!mysqli_query($conn,$update5))
+$update6 = "ALTER TABLE `messages` ADD `report` INT(10) NOT NULL DEFAULT '0' AFTER `message`;";
+	if(!mysqli_query($conn,$update6))
 		{
 			echo '- Not updated, report column already exist :-)';
 		}

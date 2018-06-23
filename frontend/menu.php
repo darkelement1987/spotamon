@@ -68,14 +68,14 @@
     <?php if ($disablemotd == true) {} elseif ($motdalways == true) {?>
         <script>swal({
                 title: '<?php echo $motdtitle;?>',
-                text: '<?php echo $motdtext;?>',
+                html: '<?php echo $motdtext;?>',
                 imageUrl: '<?php echo $motdimage;?>'
             })</script><?php } elseif ($motdalways == false){?>
 
     <?php if(!isset($_SESSION["uname"])){?>
         <script>swal({
                 title: '<?php echo $motdtitle;?>',
-                text: '<?php echo $motdtext;?>',
+                html: '<?php echo $motdtext;?>',
                 imageUrl: '<?php echo $motdimage;?>'
             })</script><?php }?><?php }?>
     <nav class="navbar navbar-inverse" style="margin-bottom:0px;">

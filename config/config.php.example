@@ -6,6 +6,10 @@ $username = "username";
 $password = "password";
 $database = "database";
 
+// GOOGLE ANALYTICS TRACKING ID
+
+$analytics = '';
+
 // Privacy policy contact info
 
 $polsite = ""; // Website url to show in policy

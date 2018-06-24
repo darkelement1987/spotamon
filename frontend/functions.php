@@ -1470,7 +1470,13 @@ require('./config/config.php');
 $results_per_page = 10;
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
 $start_from = ($page-1) * $results_per_page;
-$sql = "SELECT * FROM exraids, gyms WHERE exraids.gname = gyms.gid ORDER BY exraids.exraiddate ASC LIMIT $start_from,".$results_per_page;
+
+if ($clock=="true"){
+$sql = "SELECT exid, DATE_FORMAT(`gyms`.`exraiddate`, '%d-%m-%Y %H:%m:%s') as exraiddate , gyms.gname, spotter, glatitude, glongitude FROM exraids, gyms WHERE exraids.gname = gyms.gid ORDER BY exraids.exraiddate ASC LIMIT $start_from,".$results_per_page;
+} else {
+$sql = "SELECT exid, DATE_FORMAT(`gyms`.`exraiddate`, '%Y-%m-%d %h:%m:%s %p') as exraiddate , gyms.gname, spotter, glatitude, glongitude FROM exraids, gyms WHERE exraids.gname = gyms.gid ORDER BY exraids.exraiddate ASC LIMIT $start_from,".$results_per_page;
+}
+
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 $sqlcnt = "SELECT COUNT(EXID) AS total FROM exraids";
 $resultcnt = $conn->query($sqlcnt);

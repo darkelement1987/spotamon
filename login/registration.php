@@ -7,13 +7,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="./css/style.css" />
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 
 <?php
 require('../config/config.php');
 // If form submitted, insert values into the database.
-if (isset($_REQUEST['uname'])){
+$post_data = http_build_query(
+    array(
+        'secret' => $captcha_secret_key,
+        'response' => $_POST['g-recaptcha-response'],
+        'remoteip' => $_SERVER['REMOTE_ADDR']
+    )
+);
+$opts = array('http' =>
+    array(
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
+        'content' => $post_data
+    )
+);
+$context  = stream_context_create($opts);
+$response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+$result = json_decode($response);
+// if (!$result->success) {
+    // echo 'captcha kut deed kut';
+// }
+if ($result->success && isset($_REQUEST['uname'])){
+	
     $uname = stripslashes($_REQUEST['uname']); // removes backslashes
     $uname = mysqli_real_escape_string($conn,$uname); //escapes special characters in a string
     $email = stripslashes($_REQUEST['email']);
@@ -53,6 +75,7 @@ if (isset($_REQUEST['uname'])){
                 <input type="password" minlength="6" name="confirm_password" id="confirm_password" placeholder="confirm password" onkeydown="" onkeyup="checkPass(); return false;" />
                 <br><span id='message'></span>
                 <div id="error-nwl"></div>
+			<br><div class="g-recaptcha" data-sitekey=<?php echo $captcha_site_key; ?>></div>
             <br><a href="../policy.php">Read our privacy policy</a>
             <p>I've read the privacy policy and agree to share my personal information</p>
             <p>By registering an account I agree with the privacy policy</p>

@@ -36,7 +36,6 @@ $(document).ready(function() {
 <table id="inbox" class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
         <thead>
             <tr>
-                <th>From</th>
                 <th>To</th>				
                 <th>Subject</th>
                 <th>Date</th>
@@ -47,14 +46,12 @@ $(document).ready(function() {
 	$id = $row['id'];
 	$subject = $row['subject'];
 	$to = $row['to_user'];
-	$from = $row['from_user'];
 	$unread = $row['unread'];
 	$message = $row['message'];
 	$date = $row['date'];
 		
 	echo "
             <tr>
-                <td><a href=\"sent.php?id=$id\">".$from."</a></td>
                 <td><a href=\"sent.php?id=$id\">".$to."</a></td>				
                 <td><a href=\"sent.php?id=$id\">".$subject."</a></td>
                 <td><a href=\"sent.php?id=$id\">".$date."</a></td>

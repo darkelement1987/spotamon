@@ -19,6 +19,10 @@ $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));?>
 $error='';
 	if(isset($_POST["markreadall"]))
 {
+			$countunread = "SELECT * FROM messages WHERE unread='1' AND to_user='".$_SESSION['uname']."'";
+			$countresult = mysqli_query($conn,$countunread)or die(mysqli_error($conn));
+			$unreadcount=mysqli_num_rows($countresult);
+			if ($unreadcount !==0){
 			$clear = "UPDATE messages SET unread=0 WHERE unread=1 AND to_user='".$_SESSION['uname']."'";
 			if(!mysqli_query($conn,$clear))
 			{
@@ -27,7 +31,26 @@ $error='';
 					$error .= '<p><label class="text-success">All messages marked as "read"</label></p>';
 					echo "<meta http-equiv=\"refresh\" content=\"1;url='./inbox.php'\"/>";
 				}
+			} else { $error .= '<p><label class="text-danger">No new messages to mark</label></p>'; }
 }
+
+	if(isset($_POST["deleteall"]))
+{
+			$delcountquery = "SELECT * FROM messages WHERE to_user='".$_SESSION['uname']."'";
+			$delcountresult = mysqli_query($conn,$delcountquery)or die(mysqli_error($conn));
+			$delcount=mysqli_num_rows($delcountresult);
+			if ($delcount !==0){
+			$clear = "DELETE FROM messages WHERE to_user='".$_SESSION['uname']."'";
+			if(!mysqli_query($conn,$clear))
+			{
+				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
+				} else {
+					$error .= '<p><label class="text-success">All messages deleted</label></p>';
+					echo "<meta http-equiv=\"refresh\" content=\"1;url='./inbox.php'\"/>";
+				}
+			} else { $error .= '<p><label class="text-danger">No messages to delete</label></p>'; }
+}
+
 echo $_SESSION["uname"].'\'s inbox';
 ?></h3>
 <script>
@@ -87,7 +110,7 @@ $(document).ready(function() {
     </table>
 	
 	<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<input type="submit" name="markreadall" value="Mark all as read">
+<input type="submit" name="markreadall" value="Mark all as read"> / <input type="submit" name="deleteall" value="Delete all">
 <p><?php echo $error;?></p>
 </form>
 	

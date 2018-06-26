@@ -19,6 +19,11 @@ $context  = stream_context_create($opts);
 $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
 $result = json_decode($response);
     // If form submitted, insert values into the database.
+	
+	if (!empty($_POST)){
+if ($result->success==true) {} else {$error .= '<label class="text-danger">Captcha wrong</label>';}
+}
+	
     if ($result->success && isset($_POST['uname'])){
 		
 		$uname = stripslashes($_REQUEST['uname']); // removes backslashes
@@ -74,6 +79,7 @@ $result = json_decode($response);
 <p><input type="password" name="upass" placeholder="Password" required /></p>
 <p><div class="g-recaptcha" data-sitekey=<?php echo $captcha_site_key; ?>></div></p>
 <p><input name="submit" type="submit" value="Login" /></p>
+<p><label style="color:red;"><b><?php echo $error;?></b></label></p>
 <p><a href="../reset.php">Forgot password</a></p>
 </form>
 <br />

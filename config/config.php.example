@@ -224,6 +224,9 @@ tradeloc VARCHAR(100) NOT NULL,
 reqmon VARCHAR(30) NOT NULL,
 tname VARCHAR(100) NOT NULL,
 accepted INT(1) NULL,
+opentrade INT(1) NOT NULL,
+shiny INT(1) NOT NULL,
+alolan INT(1) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
 $trades = "CREATE TABLE IF NOT EXISTS `trades` (

@@ -36,6 +36,10 @@ $clock = "";
 //Google Maps key
 $gmaps= "";
 
+//Google reCaptcha keys
+$captcha_secret_key = "";
+$captcha_site_key = "";
+
 //Webhook Setup
 $pokemon_webhook_url = ""; // <-- Webhook URL of your Pokemon Discord channel
 $raid_webhook_url = ""; // <-- Webhook URL of your Raid Discord channel

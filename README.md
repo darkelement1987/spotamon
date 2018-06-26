@@ -38,6 +38,15 @@ $viewurl = "https://www.spotamon.com"; // <-- Enter your FULL Spotamon url here 
 $viewtitle = "View on Spotamon"; // <-- Text showing for the MAP-link @ Discord
 ```
 
+#### Google reCaptcha key instructions
+1. Go to https://www.google.com/recaptcha/admin
+2. Under "Label" fill in your site name.
+3. Choose "reCaptcha V2" under "Choose the type of reCAPTCHA"
+4. Fill in your domain under "Domains"
+5. Accept the reCAPTCHA Terms of Service.
+6. Click Register
+7. Copy and paste The site key and the secret key in to your config.php 
+
 #### Cronjob Commands
 Set your Cronjob to check each minute:
 

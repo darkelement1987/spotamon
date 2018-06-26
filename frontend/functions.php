@@ -1607,7 +1607,8 @@ for ($i=1; $i<=$total_pages; $i++) {
 function offertrade(){
 require('./config/config.php');
 $result = $conn->query("SELECT * FROM pokedex");
-$id = $pokemon = $cp = $iv = $monster = $spotter ="";
+$id = $pokemon = $cp = $iv = $monster = $spotter = $opentrade = "";
+
 if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h3 style="text-align:center;"><strong>Offer a Trade:</strong></h3>
@@ -1647,18 +1648,39 @@ while ($row = $result->fetch_assoc()) {
 </td>
 </tr>
 <tr>
+<td style="width: 5%;">Variance:</td>
+<td style="width: 10%;">
+Shiny: <input type="checkbox" id="shiny" name="shiny"><span id="shiny"></span>
+Alolan: <input type="checkbox" id="alolan" name="alolan"><span id="alolan"></span>
+</td>
+</tr>
+</tr>
+<tr>
 <td style="width: 5%;">Preferred Trade City</td>
 <td style="width: 10%;">
 	<input type="text" name="tradeloc" placeholder="City" class="tradeloc"><span id="tradeloc"></span>
 </td>
 </tr>
+
 <tr>
 <td style="width: 5%;">Request Pokemon</td>
 <td style="width: 10%;">
+
+<center>
+
+Open to Trades: <input type="checkbox" id="myCheck" name="opentrade" onclick="myFunction()">
+
+<div id="textbox">
+<small>** Lets users make offers **</small>
+</div>
+
+</center>
+
+<div id="opendefine">
 <?php
 require('./config/config.php');
 $result1 = $conn->query("SELECT * FROM pokedex");
-echo "<select id='pokesearch3' name='reqmon'>";
+echo "<select id='pokesearch2' name='reqmon'>";
 while ($row = $result1->fetch_assoc()) {
     unset($id, $monster);
         $id = $row['id'];
@@ -1667,9 +1689,37 @@ while ($row = $result1->fetch_assoc()) {
 					}					
 						echo "</select>";
 							mysqli_close($conn);
-?>
+							?>
+</div>
+
 </td>
 </tr>
+
+<script>
+function myFunction() {
+  // Get the checkbox
+  var checkBox = document.getElementById("myCheck");
+  // Get the output text
+  var text = document.getElementById("opendefine");
+
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    text.style.display = "none";
+	
+  } else {
+    text.style.display = "block";
+  }
+
+  var text = document.getElementById("textbox");
+
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+    text.style.display = "none";
+  }
+}
+</script>
 
 <!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
 <center><td style="width:10%;"><input type="submit" id="offtrade" value="OFFER!"></td></center>
@@ -1713,9 +1763,9 @@ $total_pages = ceil($row["total"] / $results_per_page);
 
 echo "<table id=\"spotted\" class=\"table table-bordered\">";
 if(isset($_SESSION["uname"])){
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th><th>STATUS</th></tr>";
+echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>SHINY</th><th>ALOLAN</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th><th>STATUS</th></tr>";
 } else {
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th></tr>";
+echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>S</th><th>A</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th></tr>";
 }
 
 while($row = mysqli_fetch_array($result)) {
@@ -1727,45 +1777,73 @@ while($row = mysqli_fetch_array($result)) {
 	$reqmon = $row['reqmon'];
 	$accepted = $row['accepted'];
 	$offerby = $row['tname'];
+	$opentrade = $row['opentrade'];
+	$shiny = $row['shiny'];
+	$alolan = $row['alolan'];
 	if(isset($_SESSION["uname"])){
 	
 	echo "
+	
 	<tr>
-	<td style='text-align:center;'>".$oid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>".$cp."</td>
-	<td>".$iv."%</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td>".$offerby."</td>
+	
+	<td>"?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type='submit' name='oid' value='<?php echo $oid;?>' /></form><center><?php echo "</td>
+	
+	<td>"?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type='image' name='offmon' style='width:45px;height:auto;display:inline;' src='static/icons/<?php echo $offmon;?>' value='<?php echo $offmon;?>' /></form><center><?php echo "</td>
+	
+	<td>"; if($shiny == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/star.png' title='star' height='24' width='28'></span><center>";} echo "</td>	
+	
+	<td>";if($alolan == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/alolan.png' title='star' height='24' width='28'></span><center>";} echo "</td>
+	
+	<td style='text-align:center;'>".$cp."</td>
+	
+	<td style='text-align:center;'>".$iv."%</td>
+	
+	<td>"?><center><img style="padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="40" width="45"><center><?php echo "</td>
+	
+	<td style='text-align:center;'>".$tradeloc."</td>
+	
+	<td style='text-align:center;'>".$offerby."</td>
 	
 	"; if($offerby == $_SESSION["uname"]) { echo "<td style='text-align:center;'>Your Trade</td>"; } else { echo "
 	
 	"; if($accepted == 0) { echo "
-
+	
+	"; if($opentrade == 0) { echo "
+	
 	<td style='text-align:center;'>
+	
 	<span style='display:inline-block;'><form action='./trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='hidden' name='accepted' value='$accepted' /><input type='submit' name='accepted' value='Lets Trade' style='color:green' /></form></span><br>
 	
-	"; } else { echo " 
+	"; } else { echo "
+	<td style='text-align:center;'>
+	
+	<span style='display:inline-block;'><form action='./make-offer.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='submit' name='makeoffer' value='Make Offer' style='color:blue' /></form></span><br>
+	
+	"; }} else { echo " 
 	
 	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS 
+	
 	<br>
 	
 	"; } echo "
 	
 	</td>
+	
 	</tr>";
 	
 	}} else {
 	echo "
 	<tr>
 	<td style='text-align:center;'>".$oid."</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>".$cp."</td>
-	<td>".$iv."%</td>
-	<td>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
-	<td>".$tradeloc."</td>
-	<td>".$offerby."</td>
+	<td style='text-align:center;'>"?><center><img style="padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="50" width="55"><?php echo "</td>
+	<td style='text-align:center;'>"; if($shiny == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/star.png' title='star' height='24' width='28'></span><center>";} echo "</td>	
+	<td style='text-align:center;'>"; if($alolan == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/alolan.png' title='star' height='24' width='28'></span><center>";} echo "</td>
+	
+	<td style='text-align:center;'>".$cp."</td>
+	<td style='text-align:center;'>".$iv."%</td>
+	<td style='text-align:center;'>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="50" width="55"><?php echo "</td>
+	<td style='text-align:center;'>".$tradeloc."</td>
+	<td style='text-align:center;'>".$offerby."</td>
 	</tr>";
 	}
 }
@@ -1990,4 +2068,290 @@ for ($i=1; $i<=$total_pages; $i++) {
 ?></center><?php
 }
 
+function counteroffer(){
+require('./config/config.php');
+if (isset($_GET['oid'])) {
+$oid = $_GET['oid'];
+$selectquery = "SELECT * FROM offers WHERE oid='$oid'";
+$selectresult = $conn->query($selectquery);
+$row = $selectresult->fetch_array(MYSQLI_NUM);	
+} else {
+$oid = $conn->real_escape_string($_POST['oid']);
+}
+
+$sql2 = "SELECT * FROM offers WHERE oid='$oid'";
+$result = mysqli_query($conn,$sql2)or die(mysqli_error($conn));
+
+while($row = mysqli_fetch_array($result)) {			
+	$oid = $row['oid'];
+	$offmon = $row['offmon'];
+	$tradeloc = $row['tradeloc'];
+	$cp = $row['cp'];
+	$iv = $row['iv'];
+	$offerby = $row['tname'];
+	$shiny = $row['shiny'];
+	$alolan = $row['alolan'];
+	$rname = $_SESSION["uname"];
+}
+?> 
+
+<h3 style="text-align:center;"><strong>Make an Offer:</strong></h3>
+<form id="usersubmit" method="post" action="./trading/makeoffer.php">
+<center><table id="added" class="table table-bordered">
+<tbody>
+
+<tr>
+<td style="width: 5%; text-align:center;">ID:</td>
+<td style="width: 10%; text-align:center;">
+<?php
+echo $oid;
 ?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;">Offered By:</td>
+<td style="width: 10%; text-align:center;">
+<?php
+echo $offerby;
+?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;">Location Preference :</td>
+<td style="width: 10%; text-align:center;">
+<?php
+echo $tradeloc;
+?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;vertical-align:middle;">Offered Pokemon:</td>
+<td style="width: 10%; text-align:center;vertical-align:middle;">
+<img src="./static/icons/<?php echo $offmon;?>.png" height=50; width=55;>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;vertical-align:middle;">Stats:</td>
+<td style="width: 10%; text-align:center;vertical-align:middle;">
+CP:<?php echo " $cp";?>&nbsp;&nbsp;&nbsp;
+IV:<?php echo " $iv";?> %
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;vertical-align:middle;">Variance:</td>
+<td style="width: 10%; text-align:center;vertical-align:middle;">
+Shiny:<?php if($shiny == 1 ){ echo " Yes"; } else { echo " No"; }?>&nbsp;&nbsp;&nbsp;
+Alolan:<?php if($alolan == 1 ){ echo " Yes"; } else { echo " No"; }?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;vertical-align:middle;">Counter offer:</td>
+<td style="width: 10%; text-align:center;vertical-align:middle;">
+
+<?php
+require('./config/config.php');
+$result1 = $conn->query("SELECT * FROM pokedex");
+echo "<select id='pokesearch2' name='coffmon'>";
+while ($row = $result1->fetch_assoc()) {
+    unset($id, $monster);
+        $id = $row['id'];
+            $monster= $row['monster'];
+				echo '<option value="'.$id.'"><img src="./static/icons/'.$id.'.png">'.$id.' - '.$monster.'</option>';
+					}					
+						echo "</select>";
+							mysqli_close($conn);
+?>
+
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%;text-align:center;">CP</td>
+<td style="width: 10%;text-align:center;">
+<input type="number" name="ccp" min="10" max="4760" value="10" class="cpinput"><span id="cpoutput"></span>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%;text-align:center;">IV in %</td>
+<td style="width: 10%;text-align:center;">
+<input type="number" name="civ" min="1" max="100" value="1" class="cpinput"><span id="cpoutput"></span>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;">Variance:</td>
+<td style="width: 10%; text-align:center;">
+Shiny: <input type="checkbox" id="cshiny" name="cshiny"><span id="cshiny"></span>
+Alolan: <input type="checkbox" id="calolan" name="calolan"><span id="calolan"></span>
+</td>
+</tr>
+
+<tr>
+<td></td>
+<td style="width:10%;"><center><input type='hidden' name='offerby' value='<?php echo $offerby;?>' /><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type="submit" id="coffer" value="OFFER!"></center></td>
+</tr>
+</tbody>
+</table></center>
+</form>
+
+<?php 
+} 
+
+function actoffer(){
+require('./config/config.php');
+if (isset($_GET['oid'])) {
+$oid = $_GET['oid'];
+$selectquery = "SELECT * FROM offers WHERE oid='$oid'";
+$selectresult = $conn->query($selectquery);
+$row = $selectresult->fetch_array(MYSQLI_NUM);	
+} else {
+$oid = $conn->real_escape_string($_POST['oid']);
+}
+
+$sql2 = "SELECT * FROM offers WHERE oid='$oid'";
+$result = mysqli_query($conn,$sql2)or die(mysqli_error($conn));
+
+while($row = mysqli_fetch_array($result)) {			
+	$oid = $row['oid'];
+	$offmon = $row['offmon'];
+	$tradeloc = $row['tradeloc'];
+	$cp = $row['cp'];
+	$iv = $row['iv'];
+	$offerby = $row['tname'];
+	$shiny = $row['shiny'];
+	$alolan = $row['alolan'];
+	$rname = $_SESSION["uname"];
+}
+?> 
+
+<h3 style="text-align:center;"><strong>View Offers:</strong></h3>
+<form id="usersubmit" method="post" action="make-offer.php">
+<center><table id="added" class="table table-bordered">
+<tbody>
+
+<tr>
+<td style="width: 5%; text-align:center;">ID:</td>
+<td style="width: 10%; text-align:center;">
+<?php
+echo $oid;
+?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;">Offered By:</td>
+<td style="width: 10%; text-align:center;">
+<?php
+echo $offerby;
+?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;">Location Preference :</td>
+<td style="width: 10%; text-align:center;">
+<?php
+echo $tradeloc;
+?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;vertical-align:middle;">Offered Pokemon:</td>
+<td style="width: 10%; text-align:center;vertical-align:middle;">
+<img src="./static/icons/<?php echo $offmon;?>.png" height=50; width=55;>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;vertical-align:middle;">Stats:</td>
+<td style="width: 10%; text-align:center;vertical-align:middle;">
+CP:<?php echo " $cp";?>&nbsp;&nbsp;&nbsp;
+IV:<?php echo " $iv";?> %
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;vertical-align:middle;">Variance:</td>
+<td style="width: 10%; text-align:center;vertical-align:middle;">
+Shiny:<?php if($shiny == 1 ){ echo " Yes"; } else { echo " No"; }?>&nbsp;&nbsp;&nbsp;
+Alolan:<?php if($alolan == 1 ){ echo " Yes"; } else { echo " No"; }?>
+</td>
+</tr>
+<tr>
+<td></td>
+<td style="width:10%;"><center><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type="submit" id="coffer" value="OFFER!"></center></td>
+</tr>
+</tbody>
+</table></center>
+</form>
+</tbody>
+</table>
+<?php
+require('./config/config.php');
+$results_per_page = 10;
+
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$start_from = ($page-1) * $results_per_page;
+$sql = "SELECT * FROM tradeoffers WHERE oid='$oid' ORDER BY date DESC LIMIT $start_from,".$results_per_page;
+$result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
+
+$sqlcnt = "SELECT COUNT(OID) AS total FROM tradeoffers"; 
+$resultcnt = $conn->query($sqlcnt);
+$row = $resultcnt->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page);
+?>
+
+<h3 style="text-align:center;"><strong>Counter Offers:</strong></h3>
+<center>
+<!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
+<?php
+
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
+if(isset($_SESSION["uname"])){
+echo "<tr><th>#</th><th>OFFERED BY</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>SHINY</th><th>ALOLAN</th><th>DATE</th></tr>";
+} else {
+echo "<tr><th>#</th><th>OFFERED BY</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>SHINY</th><th>ALOLAN</th><th>DATE</th></tr>";
+}
+
+while($row = mysqli_fetch_array($result)) {
+	$toid = $row['toid'];
+	$oid = $row['oid'];
+	$coffer = $row['coffer'];
+	$cofferby = $row['cofferby'];
+	$ccp = $row['ccp'];	
+	$civ = $row['civ'];
+	$cshiny = $row['cshiny'];
+	$calolan = $row['calolan'];
+	$date = $row['date'];
+	if(isset($_SESSION["uname"])){
+	echo "
+	<tr>
+	<td style='text-align:center;'>".$toid."</td>
+	<td style='text-align:center;'>".$cofferby."</td>
+	<td>"?><center><img style="padding-right:5px;" src="./static/icons/<?php echo $coffer?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer?>)" height="50" width="55"></center><?php echo "</td>
+	<td>".$ccp."</td>
+	<td>".$civ."</td>
+	<td>"; if($cshiny == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/star.png' title='star' height='24' width='28'></span><center>";} echo "</td>	
+	<td>"; if($calolan == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/alolan.png' title='star' height='24' width='28'></span><center>";} echo "</td>
+	<td>".$date."</td>
+	</tr>";
+	} 
+}
+echo "</table></center><p id='pages'>";
+for ($i=1; $i<=$total_pages; $i++) { 
+    echo "<a href='".basename($_SERVER['PHP_SELF'])."?oid=".$oid."?page=".$i."'>".$i."</a> "; 
+}; 
+?><center>
+</center>
+</form>
+
+<?php 
+} ?>

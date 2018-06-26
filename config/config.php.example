@@ -244,7 +244,19 @@ $messages = "CREATE TABLE IF NOT EXISTS `messages` (
  message VARCHAR(1000),
  date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $offers, $trades, $messages];
+$tradeoffers = "CREATE TABLE IF NOT EXISTS `tradeoffers` (
+toid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+oid INT(10) NOT NULL,
+coffer INT(10) NOT NULL,
+offerby VARCHAR(255) NOT NULL,
+cofferby VARCHAR(255) NOT NULL,
+ccp INT(10) NOT NULL,
+civ INT(10) NOT NULL,
+cshiny INT(1) NOT NULL,
+calolan INT(1) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $offers, $trades, $messages, $tradeoffers];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

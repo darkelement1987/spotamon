@@ -9,6 +9,24 @@ include_once 'config/config.php';?>
 
 <?php
 menu();
+	
+	if(isset($_POST["deleteall"]))
+{
+			$delcountquery = "SELECT * FROM messages WHERE from_user='".$_SESSION['uname']."'";
+			$delcountresult = mysqli_query($conn,$delcountquery)or die(mysqli_error($conn));
+			$delcount=mysqli_num_rows($delcountresult);
+			if ($delcount !==0){
+			$clear = "DELETE FROM messages WHERE from_user='".$_SESSION['uname']."'";
+			if(!mysqli_query($conn,$clear))
+			{
+				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
+				} else {
+					$error .= '<p><label class="text-success">All messages deleted</label></p>';
+					echo "<meta http-equiv=\"refresh\" content=\"1;url='./inbox.php'\"/>";
+				}
+			} else { $error .= '<p><label class="text-danger">No messages to delete</label></p>'; }
+}
+	
 if(isset($_SESSION["uname"])){
 	
 $setgroup = "SELECT groupname FROM users,usergroup WHERE uname='".$_SESSION['uname']."' AND users.usergroup = usergroup.id LIMIT 1";
@@ -115,7 +133,7 @@ $(document).ready(function() {
     </table>
 	
 	<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<input type="submit" name="markreadall" value="Mark all as read">
+<input type="submit" name="markreadall" value="Mark all as read"> / <input type="submit" name="deleteall" value="Delete all">
 <p><?php echo $error;?></p>
 </form>
 	

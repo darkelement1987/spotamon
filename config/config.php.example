@@ -228,15 +228,19 @@ tradeloc VARCHAR(100) NOT NULL,
 reqmon VARCHAR(30) NOT NULL,
 tname VARCHAR(100) NOT NULL,
 accepted INT(1) NULL,
+opentrade INT(1) NOT NULL,
+shiny INT(1) NOT NULL,
+alolan INT(1) NOT NULL,
+notes VARCHAR(255) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
 $trades = "CREATE TABLE IF NOT EXISTS `trades` (
 tid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+oid INT(10) NOT NULL,
 tradeloc VARCHAR(100) NOT NULL,
 tname VARCHAR(100) NOT NULL,
 rname VARCHAR(100) NOT NULL,
 offmon VARCHAR(30) NOT NULL,
-reqmon VARCHAR(30) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
 $messages = "CREATE TABLE IF NOT EXISTS `messages` (
@@ -247,8 +251,21 @@ $messages = "CREATE TABLE IF NOT EXISTS `messages` (
  unread INT(10) NOT NULL,
  message VARCHAR(1000),
  date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+ 
+$tradeoffers = "CREATE TABLE IF NOT EXISTS `tradeoffers` (
+toid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+oid INT(10) NOT NULL,
+coffer INT(10) NOT NULL,
+offerby VARCHAR(255) NOT NULL,
+cofferby VARCHAR(255) NOT NULL,
+ccp INT(10) NOT NULL,
+civ INT(10) NOT NULL,
+cshiny INT(1) NOT NULL,
+calolan INT(1) NOT NULL,
+accepted INT(1) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $offers, $trades, $messages];
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $offers, $trades, $messages, $tradeoffers];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);

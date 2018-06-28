@@ -38,7 +38,7 @@ if (!$touser) {
 	$error .= '<p><label class="text-danger">User does not exist</label></p>';
 }
 
-	  $to_user = $_POST['to_user'];
+  $to_user = $_POST['to_user'];
   $from_user = $_POST['from_user'];
   $subject = $_POST['subject'];
   $message = $_POST['message'];

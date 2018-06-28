@@ -11,11 +11,34 @@ $iv = $conn->real_escape_string($_POST['iv']);
 $tradeloc = $conn->real_escape_string($_POST['tradeloc']);
 $reqmon = $conn->real_escape_string($_POST['reqmon']);
 $uname = $conn->real_escape_string($_SESSION['uname']);
+$notes = $conn->real_escape_string($_POST['notes']);
 $accepted = "0";
 
-// Start queries
+if(isset($_POST['shiny'])){
+	$shiny = $conn->real_escape_string($_POST['shiny']);
+	$shiny = 1;
+} else {
+	$shiny = 0;	
+}
 
-$sql = "INSERT INTO offers (offmon, cp, iv, tradeloc, reqmon, tname, accepted) VALUES ('$offmon','$cp','$iv','$tradeloc','$reqmon','$uname','$accepted')";
+if(isset($_POST['alolan'])){
+	$alolan = $conn->real_escape_string($_POST['alolan']);
+	$alolan = 1;
+} else {
+	$alolan = 0;	
+}
+
+if(isset($_POST['opentrade'])){
+	$opentrade = $conn->real_escape_string($_POST['opentrade']);
+	$opentrade = 1;
+	$reqmon = 0;
+} else {
+	$opentrade = 0;
+}
+
+
+// Start queries
+$sql = "INSERT INTO offers (offmon, cp, iv, tradeloc, reqmon, tname, accepted, opentrade, shiny, alolan, notes) VALUES ('$offmon','$cp','$iv','$tradeloc','$reqmon','$uname','$accepted','$opentrade','$shiny','$alolan','$notes')";
 if(!mysqli_query($conn,$sql))
 {
     echo 'Not Inserted';
@@ -33,5 +56,6 @@ $sql2 = "UPDATE users SET offtrades='$offtrades' WHERE uname='".$_SESSION['uname
         {
             echo 'Not Inserted';
         }
-    header('Location:active-trades.php');
+		
+header('Location:active-trades.php');
 ?>

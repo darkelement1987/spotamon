@@ -29,29 +29,35 @@ $sql = "SELECT accepted FROM offers WHERE oid='$oid'";
 $sql1 = "UPDATE offers SET accepted='$accepted' WHERE oid='$oid'";
     if(!mysqli_query($conn,$sql1))
         {
-            echo 'Not Inserted';
+            echo 'Not Inserted4';
         }
 
 $sql2 = "SELECT * FROM offers WHERE oid='$oid'";
 $result = mysqli_query($conn,$sql2)or die(mysqli_error($conn));
 while($row = mysqli_fetch_array($result)) {			
-	
+	$oid = $row['oid'];
 	$offmon = $row['offmon'];
-	$tradeloc = $row['tradeloc'];	
-	$reqmon = $row['reqmon'];
+	$tradeloc = $row['tradeloc'];
 	$offerby = $row['tname'];
 	$rname = $_SESSION["uname"];
-}
+	$coffer = $row['reqmon'];
+	$ccp = 0;
+    $civ = 0;
+	$shiny = 0;
+	$alolan = 0;
+	
+	}
 
-$sql3 = "INSERT INTO trades (tradeloc, tname, rname, offmon, reqmon) VALUES ('$tradeloc','$offerby','$rname','$offmon','$reqmon')";
+$sql3 = "INSERT INTO trades (oid, tradeloc, tname, rname, offmon) VALUES ('$oid','$tradeloc','$offerby','$rname','$offmon')";
 if(!mysqli_query($conn,$sql3))
 {
-    echo 'Not Inserted';
-}
-else
-{
-    header('Location:active-trades.php');
+    echo 'Not Inserted1';
 }		
+
+$sql6 = "INSERT INTO tradeoffers (oid, coffer, offerby, cofferby, ccp, civ, cshiny, calolan, accepted) VALUES ('$oid','$coffer','$offerby','$rname','$ccp','$civ','$shiny','$alolan','$accepted')";
+if(!mysqli_query($conn,$sql6)){
+    echo 'Not Inserted2';
+}
 
 $sql4 = "SELECT * FROM users WHERE uname='".$_SESSION['uname']."'";
 $result = mysqli_query($conn,$sql4)or die(mysqli_error($conn));	
@@ -63,8 +69,9 @@ $result = mysqli_query($conn,$sql4)or die(mysqli_error($conn));
 $sql5 = "UPDATE users SET reqtrades='$reqtrades' WHERE uname='".$_SESSION['uname']."'";
     if(!mysqli_query($conn,$sql5))
         {
-            echo 'Not Inserted';
+            echo 'Not Inserted3';
         }
 
+header('Location:../active-offers.php?oid='.$oid.'');
 
 ?>

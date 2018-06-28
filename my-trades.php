@@ -15,7 +15,6 @@ menu();
 
 mytrades();
 
-mynatrades();
 ?>
 
 </body>

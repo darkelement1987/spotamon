@@ -11,7 +11,7 @@ $ccp = $conn->real_escape_string($_POST['ccp']);
 $civ = $conn->real_escape_string($_POST['civ']);
 $offerby = $conn->real_escape_string($_POST['offerby']);
 $cofferby = $conn->real_escape_string($_SESSION['uname']);
-
+$accepted = 0;
 if(isset($_POST['cshiny'])){
 	$cshiny = $conn->real_escape_string($_POST['cshiny']);
 	$cshiny = 1;
@@ -31,10 +31,17 @@ $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 while($row = mysqli_fetch_array($result)) {			
 	$oid = $row['oid'];
 	$offmon = $row['offmon'];
+	$tradeloc = $row['tradeloc'];
 	$offerby = $row['tname'];
 }
 
-$sql1 = "INSERT INTO tradeoffers (oid, coffer, offerby, cofferby, ccp, civ, cshiny, calolan) VALUES ('$oid','$coffmon','$offerby','$cofferby','$ccp','$civ','$cshiny','$calolan')";
+$sql3 = "INSERT INTO trades (oid, tradeloc, tname, rname, offmon) VALUES ('$oid','$tradeloc','$offerby','$cofferby','$coffmon')";
+if(!mysqli_query($conn,$sql3))
+{
+    echo 'Not Inserted';
+}
+
+$sql1 = "INSERT INTO tradeoffers (oid, coffer, offerby, cofferby, ccp, civ, cshiny, calolan, accepted) VALUES ('$oid','$coffmon','$offerby','$cofferby','$ccp','$civ','$cshiny','$calolan','$accepted')";
 if(!mysqli_query($conn,$sql1)){
     echo 'Not Inserted';
 }

@@ -142,7 +142,7 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                        
-							<li><a href="./offer-trade.php">Trading</a></li>
+							<li><a href="./offer-trade.php">Create Trade</a></li>
 							<li><a href="./active-trades.php">Open Trades</a></li>
                         </ul>
                     </li>

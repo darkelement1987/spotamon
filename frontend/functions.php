@@ -1650,6 +1650,12 @@ while ($row = $result->fetch_assoc()) {
 </td>
 </tr>
 <tr>
+<td style="width: 5%;">Pokemon Catch Location</td>
+<td style="width: 10%;">
+<input type="text" name="cloc" placeholder="City" class="cloc"><span id="cloc"></span>
+</td>
+</tr>
+<tr>
 <td style="width: 5%;">Variance:</td>
 <td style="width: 10%;">
 Shiny: <input type="checkbox" id="shiny" name="shiny"><span id="shiny"></span>
@@ -1772,9 +1778,9 @@ $total_pages = ceil($row["total"] / $results_per_page);
 
 echo "<table id=\"spotted\" class=\"table table-bordered\">";
 if(isset($_SESSION["uname"])){
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>SHINY</th><th>ALOLAN</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th><th>STATUS</th></tr>";
+echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>SHINY</th><th>ALOLAN</th><th>CP</th><th>IV</th><th>CATCH LOCATION</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th><th>STATUS</th></tr>";
 } else {
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>S</th><th>A</th><th>CP</th><th>IV</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th></tr>";
+echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>S</th><th>A</th><th>CP</th><th>IV</th><th>CATCH LOCATION</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th></tr>";
 }
 
 while($row = mysqli_fetch_array($result)) {
@@ -1789,6 +1795,7 @@ while($row = mysqli_fetch_array($result)) {
 	$opentrade = $row['opentrade'];
 	$shiny = $row['shiny'];
 	$alolan = $row['alolan'];
+	$cloc = $row['cloc'];
 	if(isset($_SESSION["uname"])){
 	
 	echo "
@@ -1806,6 +1813,8 @@ while($row = mysqli_fetch_array($result)) {
 	<td style='text-align:center;'>".$cp."</td>
 	
 	<td style='text-align:center;'>".$iv."%</td>
+	
+	<td style='text-align:center;'>".$cloc."</td>
 	
 	<td>"?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type='image' name='reqmon' style='width:45px;height:auto;display:inline;' src='static/icons/<?php echo $reqmon;?>' value='<?php echo $reqmon;?>' /></form><center><?php echo "</td>
 	
@@ -1856,6 +1865,9 @@ while($row = mysqli_fetch_array($result)) {
 	</tr>";
 	}
 }
+
+
+
 echo "</table></center><p id='pages'>";
 ?><center><?php
 
@@ -2244,6 +2256,7 @@ while($row = mysqli_fetch_array($result)) {
 	$notes= $row['notes'];
 	$rname = $_SESSION["uname"];
 	$complete = $row['complete'];
+	$cloc = $row['cloc'];
 }
 ?> 
 
@@ -2265,16 +2278,7 @@ echo $oid;
 <td style="width: 5%; text-align:center;">Offered By:</td>
 <td style="width: 10%; text-align:center;">
 <?php
-echo "<a href='./compose.php?user=".$offerby."&subject=Trade Number ".$oid."'>".$offerby."</a>"
-?>
-</td>
-</tr>
-
-<tr>
-<td style="width: 5%; text-align:center;">Location Preference :</td>
-<td style="width: 10%; text-align:center;">
-<?php
-echo $tradeloc;
+echo "User:&nbsp;<a href='./compose.php?user=".$offerby."&subject=Trade Number ".$oid."'>".$offerby."</a>&nbsp;(".$tradeloc.")"
 ?>
 </td>
 </tr>
@@ -2299,6 +2303,13 @@ IV:<?php echo " $iv";?> %
 <td style="width: 10%; text-align:center;vertical-align:middle;">
 Shiny:<?php if($shiny == 1 ){ echo " Yes"; } else { echo " No"; }?>&nbsp;&nbsp;&nbsp;
 Alolan:<?php if($alolan == 1 ){ echo " Yes"; } else { echo " No"; }?>
+</td>
+</tr>
+
+<tr>
+<td style="width: 5%; text-align:center;vertical-align:middle;">Catch Location:</td>
+<td style="width: 10%; text-align:center;vertical-align:middle;">
+<?php echo " $cloc"; ?> 
 </td>
 </tr>
 

@@ -12,6 +12,7 @@ $tradeloc = $conn->real_escape_string($_POST['tradeloc']);
 $reqmon = $conn->real_escape_string($_POST['reqmon']);
 $uname = $conn->real_escape_string($_SESSION['uname']);
 $notes = $conn->real_escape_string($_POST['notes']);
+$cloc = $conn->real_escape_string($_POST['cloc']);
 $accepted = "0";
 $complete = "0";
 if(isset($_POST['shiny'])){
@@ -38,7 +39,7 @@ if(isset($_POST['opentrade'])){
 
 
 // Start queries
-$sql = "INSERT INTO offers (offmon, cp, iv, tradeloc, reqmon, tname, accepted, opentrade, shiny, alolan, notes, complete) VALUES ('$offmon','$cp','$iv','$tradeloc','$reqmon','$uname','$accepted','$opentrade','$shiny','$alolan','$notes','$complete')";
+$sql = "INSERT INTO offers (offmon, cp, iv, tradeloc, reqmon, tname, accepted, opentrade, shiny, alolan, notes, complete, cloc) VALUES ('$offmon','$cp','$iv','$tradeloc','$reqmon','$uname','$accepted','$opentrade','$shiny','$alolan','$notes','$complete','$cloc')";
 if(!mysqli_query($conn,$sql))
 {
     echo 'Not Inserted';

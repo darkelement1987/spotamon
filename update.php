@@ -102,6 +102,54 @@ $update5 = "ALTER TABLE `users` ADD `offtrades` INT(9) NOT NULL DEFAULT '0' AFTE
     header("Refresh: 5; url= ./index.php");
 	
 	echo '<br><hr>';
+	
+// Create new columns @ users for trading	
+
+$update5 = "ALTER TABLE `users` ADD `offtrades` INT(9) NOT NULL DEFAULT '0' AFTER `lastUpload`, ADD `reqtrades` INT(9) NOT NULL DEFAULT '0' AFTER `offtrades`;";
+	if(!mysqli_query($conn,$update5))
+		{
+			echo '- Not updated, trading columns already exist :-)';
+		}
+			else
+			{
+				echo '- Added columns \'offtrades\' and \'reqtrades\' to `users`';
+			}
+					
+    header("Refresh: 5; url= ./index.php");
+	
+	echo '<br><hr>';
+	
+// Create new columns @ users for trading part 2	
+
+$update6 = "ALTER TABLE `offers` ADD `opentrade` INT(1) NOT NULL AFTER `accepted`, ADD `shiny` INT(1) NOT NULL AFTER `opentrade`, ADD `alolan` INT(1) NOT NULL AFTER `shiny`, ADD `notes` INT(255) NOT NULL AFTER `alolan`, ADD `complete` INT(1) NOT NULL AFTER `notes`, ADD `cloc` INT(255) NOT NULL AFTER `complete`;";
+	if(!mysqli_query($conn,$update6))
+		{
+			echo '- Not updated, trading columns already exist :-)';
+		}
+			else
+			{
+				echo '- Added columns \'opentrades, shiny, alolan, notes, complete, cloc\' to `offers`';
+			}
+					
+    header("Refresh: 5; url= ./index.php");
+	
+	echo '<br><hr>';	
+	
+// Create new columns @ users for trading part 3	
+
+$update7 = "ALTER TABLE `trades` ADD `oid` INT(10) NOT NULL AFTER `tid`;";
+	if(!mysqli_query($conn,$update7))
+		{
+			echo '- Not updated, trading columns already exist :-)';
+		}
+			else
+			{
+				echo '- Added columns \'oid\' to `trades`';
+			}
+					
+    header("Refresh: 5; url= ./index.php");
+	
+	echo '<br><hr>';	
 	echo '<br><b>Back to index in 5 seconds..</b>';	
 		
 		// End make columns for trading

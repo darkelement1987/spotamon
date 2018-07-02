@@ -50,7 +50,14 @@ if (!$touser) {
 	if (!$error)
 	{
 			$error .= '<p><label class="text-success">Message sent</label></p>';
-			$query = "INSERT INTO messages (subject, to_user, message, from_user, unread) VALUES ('$subject', '$to_user', '$message', '$from_user', '$unread')";
+			
+			
+			if(isset($_GET['report'])){
+			$query = "INSERT INTO messages (subject, to_user, message, from_user, unread, report) VALUES ('$subject', '$to_user', '$message', '$from_user', '$unread', '1')";
+			} else {
+			$query = "INSERT INTO messages (subject, to_user, message, from_user, unread, report) VALUES ('$subject', '$to_user', '$message', '$from_user', '$unread', '0')";	
+			}
+			
 			if(!mysqli_query($conn,$query))
 			{
 				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
@@ -61,7 +68,11 @@ if (!$touser) {
 ?>
 <center>
 <div id="pm">
-<?php if(isset($_SESSION["uname"])){?><h3>Messages:</h3><form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+<?php if(isset($_SESSION["uname"])){?>
+
+<?php if(isset($_GET['report'])){echo '<h3>Send report:</h3>';} else { echo '<h3>Send message:</h3>';}?>
+
+<form action="<?php echo $_SERVER['REQUEST_URI']?>" method="post">
 <table class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
 
 <tr><td colspan=2><h3>Send PM:</h3></td></tr>
@@ -69,19 +80,26 @@ if (!$touser) {
 </td></tr>
 
 <tr><td>To User: </td><td>
-<?php if(isset($_GET['user'])){?><input type="text" name="to_user" maxlength="32" value="<?php echo $_GET['user'];?>" style="width:100%;" disabled><?php }?>
-<?php if(!isset($_GET['user'])){?><input type="text" name="to_user" maxlength="32" value="" style="width:100%;"><?php }?>
+
+<?php
+if(isset($_GET['user'])){$setvalue=$_GET['user'];$setreadonly='readonly';}
+else if(isset($_GET['report'])){$setvalue='admin';$setreadonly='readonly';}
+else {$setvalue='';$setreadonly='';}
+?>
+
+<input type="text" name="to_user" maxlength="32" value="<?php echo $setvalue;?>" style="width:100%;" <?php echo $setreadonly;?>>
+
 <p><?php if (isset($usrerror)){echo $usrerror;}?></p>
 </td></tr>
 
 <tr><td>Subject: </td><td>
-<?php if(isset($_GET['subject'])){?><input type="text" name="subject" maxlength="255" value="<?php echo $_GET['subject'];?>" style="width:100%;" disabled><?php }?>
+<?php if(isset($_GET['subject'])){?><input type="text" name="subject" maxlength="255" value="<?php echo $_GET['subject'];?>" style="width:100%;" readonly><?php }?>
 <?php if(!isset($_GET['subject'])){?><input type="text" name="subject" maxlength="255" value="" style="width:100%;"><?php }?>
 <p><?php if (isset($suberror)){echo $suberror;}?></p>
 </td></tr>
 
 <tr><td>Message: </td><td>
-<?php if(isset($_GET['message'])){?><TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;" disabled><?php echo $_GET['message'];?></TEXTAREA><?php }?>
+<?php if(isset($_GET['message'])){?><TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;" readonly><?php echo $_GET['message'];?></TEXTAREA><?php }?>
 <?php if(!isset($_GET['message'])){?><TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;"></TEXTAREA><?php }?>
 <p><?php if (isset($msgerror)){echo $msgerror;}?></p>
 </td></tr>

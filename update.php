@@ -101,6 +101,24 @@ $update5 = "ALTER TABLE `users` ADD `offtrades` INT(9) NOT NULL DEFAULT '0' AFTE
 					
     header("Refresh: 5; url= ./index.php");
 	
+	echo '<br><hr>';	
+		
+		// End make columns for trading
+		
+// Create new column @ messages for reports	
+
+$update6 = "ALTER TABLE `messages` ADD `report` INT(10) NOT NULL DEFAULT '0' AFTER `message`;";
+	if(!mysqli_query($conn,$update6))
+		{
+			echo '- Not updated, report column already exist :-)';
+		}
+			else
+			{
+				echo '- Added columns \'report\' to `messages`';
+			}
+					
+    header("Refresh: 5; url= ./index.php");
+	
 	echo '<br><hr>';
 	
 // Create new columns @ users for trading	
@@ -152,7 +170,7 @@ $update7 = "ALTER TABLE `trades` ADD `oid` INT(10) NOT NULL AFTER `tid`;";
 	echo '<br><hr>';	
 	echo '<br><b>Back to index in 5 seconds..</b>';	
 		
-		// End make columns for trading
+		// End make column for reports
 
 ?>
 

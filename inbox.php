@@ -9,8 +9,52 @@ include_once 'config/config.php';?>
 
 <?php
 menu();
+	
+	if(isset($_POST["deleteall"]))
+{
+			$delcountquery = "SELECT * FROM messages WHERE from_user='".$_SESSION['uname']."'";
+			$delcountresult = mysqli_query($conn,$delcountquery)or die(mysqli_error($conn));
+			$delcount=mysqli_num_rows($delcountresult);
+			if ($delcount !==0){
+			$clear = "DELETE FROM messages WHERE from_user='".$_SESSION['uname']."'";
+			if(!mysqli_query($conn,$clear))
+			{
+				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';
+				} else {
+					$error .= '<p><label class="text-success">All messages deleted</label></p>';
+					echo "<meta http-equiv=\"refresh\" content=\"1;url='./inbox.php'\"/>";
+				}
+			} else { $error .= '<p><label class="text-danger">No messages to delete</label></p>'; }
+}
+	
 if(isset($_SESSION["uname"])){
-$sql = "SELECT * FROM messages WHERE to_user = '".$_SESSION["uname"]."'";
+	
+$setgroup = "SELECT groupname FROM users,usergroup WHERE uname='".$_SESSION['uname']."' AND users.usergroup = usergroup.id LIMIT 1";
+	if(!mysqli_query($conn,$setgroup))
+		{
+			echo 'Not Inserted';
+		}
+
+$groupresult = $conn->query($setgroup);
+
+$grouprow = $groupresult->fetch_array(MYSQLI_NUM);
+$usergroup = $grouprow[0];
+$reportlink='';
+
+if(isset($_GET['viewreports'])){
+	
+if ($usergroup=='admin'){ // makes reports show
+$sql = "SELECT * FROM messages WHERE report='1'";} else {
+$sql = "SELECT * FROM messages WHERE to_user = '".$_SESSION["uname"]."' AND report=0";
+$reportlink='';
+}
+
+} else if($usergroup=='admin'){ $reportlink='<p><a href=\'inbox.php?viewreports\'>View reports</a></p>'; }
+
+if(!isset($_GET['viewreports'])){
+$sql = "SELECT * FROM messages WHERE to_user = '".$_SESSION["uname"]."' AND report=0";	
+}
+
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));?>
 <center>
 <div id="pm">
@@ -53,6 +97,8 @@ $error='';
 
 echo $_SESSION["uname"].'\'s inbox';
 ?></h3>
+<?php echo $reportlink;?>
+<?php if(isset($_GET['viewreports'])){?><h4>Reports <small>(<a href='./inbox.php'>Back</a>)</small></h4><?php }?>
 <script>
 $(document).ready(function() {
     $('#inbox').DataTable({

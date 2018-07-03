@@ -129,6 +129,137 @@ div#pm{
 	width:50%
 }
 
+.activelisting {
+	width:50%;
+	margin-left:25%;
+	height:100px;
+	background-color: rgba(0, 0, 0, .4);
+	margin-bottom:15px;
+	border-radius: 15px 15px 15px 15px;
+}
+.actid {
+	width:30px;
+	height:auto;
+	margin-bottom:5px;
+	margin-right:15px;
+	float: right;
+	display:inline-block;
+}
+.actid a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:9px;
+	display:inline-block;
+}
+.offerby {
+	width:150px;
+	height:100%;
+	background-color: rgba(0, 130, 30, .4);
+	margin-bottom:5px;
+	padding-top:15px;
+	border-radius: 15px 5px 5px 15px;
+	display:inline-block;
+	color:#fff;
+}
+.offerby a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:14px;
+	text-align:middle;
+	display:inline-block;
+	color:#fff;
+}
+.offmon {
+	width:65px;
+	height:60px;
+	display:inline-block;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	
+}
+.offmon img {
+	width:66px;
+	height:auto;
+	padding-bottom:40px;
+	display:inline-block;
+}
+.monvars {
+	width:25px;
+	height:auto;
+	display:inline-block;
+}
+.monvars img {
+	width:20px;
+	height:auto;
+	padding-bottom:10px;
+	display:inline-block;
+}
+.reqmon {
+	margin-left:10px;
+	width:65px;
+	height:60px;
+	display:inline-block;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+}
+.reqmon img {
+	width:66px;
+	height:auto;
+	padding-bottom:40px;
+	display:inline-block;
+}
+.stats {
+	padding: 0px 5px 0px 5px;
+	width:225px;
+	height:auto;
+	display:inline-block;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	color:#fff;
+}
+.control {
+	margin-top:40px;
+	padding: 0px 5px 0px 5px;
+	width:auto;
+	height:auto;
+	display:inline-block;
+	border-radius: 10px 10px 10px 10px;
+	float:right;
+}
+.btn {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #91123f;
+    border: none;
+    border-radius: 8px;
+    margin: 4px;
+}
+.btn1 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00821e;
+    border: none;
+    border-radius: 8px;
+}
+.btn2 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00c931;
+    border: none;
+    border-radius: 8px;
+}
+.btn3 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #1b00ef;
+    border: none;
+    border-radius: 8px;
+}
+
 @media only screen and (max-width: 480px) {
 
 .select2-results__options {

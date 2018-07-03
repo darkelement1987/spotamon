@@ -44,8 +44,10 @@ $opts = array('http' =>
 $context  = stream_context_create($opts);
 $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
 $result = json_decode($response);
-	
-}	
+
+if (!empty($_POST)){
+	if ($result->success==true) {} else {$error .= '<label class="text-danger">Captcha wrong</label>';}
+	}
 	
 if(isset($_POST["submit"]))
 {

@@ -1761,27 +1761,19 @@ $start_from = ($page-1) * $results_per_page;
 $sql = "SELECT * FROM offers,pokedex WHERE offers.offmon = pokedex.id AND complete = 0 ORDER BY oid DESC LIMIT $start_from,".$results_per_page;
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
 
-
+if(isset($_SESSION["uname"])){ 
 $sqlcnt = "SELECT COUNT(OID) AS total FROM offers"; 
 $resultcnt = $conn->query($sqlcnt);
 $row = $resultcnt->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page);
 ?>
 
-
 <h3 style="text-align:center;"><strong>Available Trades:</strong></h3>
 
-<center>
+
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
-echo "<table id=\"spotted\" class=\"table table-bordered\">";
-if(isset($_SESSION["uname"])){
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>SHINY</th><th>ALOLAN</th><th>CP</th><th>IV</th><th>CATCH LOCATION</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th><th>STATUS</th></tr>";
-} else {
-echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>S</th><th>A</th><th>CP</th><th>IV</th><th>CATCH LOCATION</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>OFFERED BY</th></tr>";
-}
 
 while($row = mysqli_fetch_array($result)) {
 	$oid = $row['oid'];
@@ -1796,86 +1788,115 @@ while($row = mysqli_fetch_array($result)) {
 	$shiny = $row['shiny'];
 	$alolan = $row['alolan'];
 	$cloc = $row['cloc'];
-	if(isset($_SESSION["uname"])){
 	
-	echo "
+?>
 	
-	<tr>
+	<div id="<?php echo $oid;?>" class="activelisting">
 	
-	<td>"?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type='submit' name='oid' value='<?php echo $oid;?>' /></form><center><?php echo "</td>
+	<div id="<?php echo $oid;?>" class="actid">
 	
-	<td>"?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type='image' name='offmon' style='width:45px;height:auto;display:inline;' src='static/icons/<?php echo $offmon;?>' value='<?php echo $offmon;?>' /></form><center><?php echo "</td>
+		<a href='./active-offers.php?oid=<?php echo $oid;?>'>ID:<?php echo $oid;?></a>
 	
-	<td>"; if($shiny == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/star.png' title='star' height='24' width='28'></span><center>";} echo "</td>	
+		</div>
 	
-	<td>";if($alolan == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/alolan.png' title='star' height='24' width='28'></span><center>";} echo "</td>
+	<div class="offerby">
+	<?php
+		$urlquery = "SELECT url FROM users WHERE uname = '".$offerby."'";
+        $resulturl = $conn->query($urlquery);
+        $rowurl = $resulturl->fetch_array(MYSQLI_NUM);
+        $url = $rowurl[0];
+
+	?>
+
+		<center><a href='./compose.php?user=<?php echo $offerby;?>&subject=Trade Number <?php echo $oid;?>'><?php echo $offerby;?></a><br>
+	<?php if ($url !=='') {?><a href='./compose.php?user=<?php echo $offerby;?>&subject=Trade Number <?php echo $oid;?>'><img src="./userpics/<?php echo $url; ?>" height="25px" width="25px" alt="logo"  style="border:1px solid black"></a><?php } else {?><a href='./compose.php?user=<?php echo $offerby;?>&subject=Trade Number <?php echo $oid;?>'><img src="./userpics/nopic.png" height="25px" width="25px" alt="logo"  style="border:1px solid black"></a><?php }?>
 	
-	<td style='text-align:center;'>".$cp."</td>
+		<?php echo "<p style='font-weight:600;'>$tradeloc</p>";?></center>
+		
+		</div>
+		
+	<div class="offmon">
 	
-	<td style='text-align:center;'>".$iv."%</td>
+		<a href='./active-offers.php?oid=<?php echo $oid;?>'><img src='static/icons/<?php echo $offmon;?>.png'></a>
+			
+		</div>
 	
-	<td style='text-align:center;'>".$cloc."</td>
+	<div class="monvars">
+			
+			<?php if($shiny == 1){ ?><img src='./static/img/star.png' title='shiny'></br><?php }
 	
-	<td>"?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type='image' name='reqmon' style='width:45px;height:auto;display:inline;' src='static/icons/<?php echo $reqmon;?>' value='<?php echo $reqmon;?>' /></form><center><?php echo "</td>
+				if($alolan == 1){?><img src='./static/img/alolan.png' title='alolan'><?php }?>
+				
+		</div>
 	
-	<td style='text-align:center;'>".$tradeloc."</td>
+	<div class="stats">
 	
-	<td style='text-align:center;'><a href='./compose.php?user=".$offerby."&subject=Trade Number ".$oid."'>".$offerby."</td>
+		CP:&nbsp;<?php echo $cp;?><br>
+		IV:&nbsp;<?php echo $iv;?><br>
+		CAUGHT:&nbsp;<?php echo $cloc;?>
+		
+		</div>
 	
-	"; if($offerby == $_SESSION["uname"]) { echo "<td style='text-align:center;'>Your Trade</td>"; } else { echo "
+	<a href='./active-offers.php?oid=<?php echo $oid;?>'><img style="height:30px;width:30px;margin-left:10px;margin-bottom:40px;" src='./static/img/swap.png' title='swap'></a>
 	
-	"; if($accepted == 0) { echo "
+	<div class="reqmon">
 	
-	"; if($opentrade == 0) { echo "
+	<a href='./active-offers.php?oid=<?php echo $oid;?>'><img src='static/icons/<?php echo $reqmon;?>.png'></a>
 	
-	<td style='text-align:center;'>
+		</div>
 	
-	<span style='display:inline-block;'><form action='./trading.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='hidden' name='accepted' value='$accepted' /><input type='submit' name='accepted' value='Lets Trade' style='color:green' /></form></span><br>
+	<div class="control">
 	
-	"; } else { echo "
-	<td style='text-align:center;'>
+	<?php
+		
+	if($offerby == $_SESSION["uname"]) {?><a href='./active-offers.php?oid=<?php echo $oid;?>'><?php echo "<input type='button' name='makeoffer' class='btn3' value='Your Trade' />"; ?></a><?php } else {
 	
-	<span style='display:inline-block;'><form action='./make-offer.php' method='post'><input type='hidden' name='oid' value='$oid' /><input type='submit' name='makeoffer' value='Make Offer' style='color:blue' /></form></span><br>
+	if($accepted == 0) { 
 	
-	"; }} else { echo " 
+	if($opentrade == 0) { 
 	
-	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS 
+	?>
 	
-	<br>
+	<form action='./trading.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type='hidden' name='accepted' value='<?php echo $accepted;?>' /><input type='submit' class='btn1' name='accepted' value='Lets Trade' /></form>
 	
-	"; } echo "
+	<?php } else { ?>
+
+	<form action='./make-offer.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid;?>' /><input type='submit' name='makeoffer' class='btn' value='Make Offer' /></form>
 	
-	</td>
+	<?php }} else { ?>
+		<a href='./active-offers.php?oid=<?php echo $oid;?>'>
+	<?php
 	
-	</tr>";
-	
-	}} else {
-	echo "
-	<tr>
-	<td style='text-align:center;'>".$oid."</td>
-	<td style='text-align:center;'>"?><center><img style="padding-right:5px;" src="./static/icons/<?php echo $offmon?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon?>)" height="50" width="55"><?php echo "</td>
-	<td style='text-align:center;'>"; if($shiny == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/star.png' title='star' height='24' width='28'></span><center>";} echo "</td>	
-	<td style='text-align:center;'>"; if($alolan == 1){echo "<center><span><img style='padding-right:3px;' src='./static/img/alolan.png' title='star' height='24' width='28'></span><center>";} echo "</td>
-	
-	<td style='text-align:center;'>".$cp."</td>
-	<td style='text-align:center;'>".$iv."%</td>
-	<td style='text-align:center;'>"?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon?>)" height="50" width="55"><?php echo "</td>
-	<td style='text-align:center;'>".$tradeloc."</td>
-	<td style='text-align:center;'>".$offerby."</td>
-	</tr>";
-	}
+	echo "<input type='button' name='makeoffer' class='btn2' value='In Progress' />"; 
+	?></a><?php	
+	}}
+	?>
+		</div>
+</div>
+<?php
+
 }
 
+echo "<p id='pages'>";
 
-
-echo "</table></center><p id='pages'>";
 ?><center><?php
-
+ 
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
+
 for ($i=1; $i<=$total_pages; $i++) { 
+
     echo "<a href='".basename($_SERVER['PHP_SELF'])."?page=".$i."'>".$i."</a> "; 
+	
 }; 
+} else {
+	
+	echo "<center><whoa wtdiv style='margin-top:10px;'>";
+	echo "Login to spot a pokemon";
+		?><br /><br /><a href="./login/login.php">Login Here</a><?php
+	echo "</div></center>";
+	}
 ?></center><?php
+
 }
 
 ///////////////////// MY TRADES \\\\\\\\\\\\\\\\\\\\\

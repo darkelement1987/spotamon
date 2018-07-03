@@ -323,5 +323,134 @@ div#pm{
 h3 {
 	font-size: 18px;
 }
+.activelisting {
+	width:97%;
+	margin-left:1.5%;
+	height:70px;
+	background-color: rgba(0, 0, 0, .4);
+	margin-bottom:15px;
+	border-radius: 15px 15px 15px 15px;
+}
+.actid {
+display:none;
+}
+p{
+	font-size:9px;
+}
+.actid a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:9px;
+}
+.offerby {
+	width:100px;
+	height:100%;
+	background-color: rgba(0, 130, 30, .4);
+	border-radius: 15px 5px 5px 15px;
+	color:#fff;
+	padding-top:5px !important;
+	float:left;
+}
+.offerby a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:10px;
+	color:#fff;
+}
+.offmon {
+	margin-top:15px;
+	width:35px;
+	height:30px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+}
+.offmon img {
+	width:36px;
+	height:auto;
+}
+.monvars {
+	width:10px;
+	height:auto;
+	padding-top:5px;
+	float:left;
+	margin-top:15px;
+}
+.monvars img {
+	width:10px;
+	height:auto;
+	padding-bottom:10px;
+}
 
+.reqmon {
+	margin-left:5px;
+	width:35px;
+	height:30px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+	margin-top:15px;
+}
+.reqmon img {
+	width:36px;
+	height:auto;
+	padding-bottom:40px;
+
+}
+.swapimg {
+	display:none;
+}
+.stats {
+	padding: 0px 5px 0px 5px;
+	width:auto;
+	height:auto;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	color:#fff;
+	font-size:9px;
+	float:left;
+	margin-top:15px;
+}
+.control {
+	width:auto;
+	height:auto;
+	border-radius: 10px 10px 10px 10px;
+	margin-top:15px;
+}
+.btn {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #91123f;
+    border: none;
+    border-radius: 8px;
+	font-size:10px;
+}
+.btn1 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00821e;
+    border: none;
+    border-radius: 8px;
+	font-size:10px;
+}
+.btn2 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00c931;
+    border: none;
+    border-radius: 8px;
+	font-size:10px;
+}
+.btn3 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #1b00ef;
+    border: none;
+    border-radius: 8px;
+	font-size:10px;
+}
 }

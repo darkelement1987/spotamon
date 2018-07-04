@@ -129,137 +129,6 @@ div#pm{
 	width:50%
 }
 
-.activelisting {
-	width:50%;
-	margin-left:25%;
-	height:100px;
-	background-color: rgba(0, 0, 0, .4);
-	margin-bottom:15px;
-	border-radius: 15px 15px 15px 15px;
-}
-.actid {
-	width:30px;
-	height:auto;
-	margin-bottom:5px;
-	margin-right:15px;
-	float: right;
-	display:inline-block;
-}
-.actid a{
-	color: #000;
-	margin-bottom:5px;
-	font-size:9px;
-	display:inline-block;
-}
-.offerby {
-	width:150px;
-	height:100%;
-	background-color: rgba(0, 130, 30, .4);
-	margin-bottom:5px;
-	padding-top:15px;
-	border-radius: 15px 5px 5px 15px;
-	display:inline-block;
-	color:#fff;
-}
-.offerby a{
-	color: #000;
-	margin-bottom:5px;
-	font-size:14px;
-	text-align:middle;
-	display:inline-block;
-	color:#fff;
-}
-.offmon {
-	width:65px;
-	height:60px;
-	display:inline-block;
-	background-color: rgba(0,0,0, .6);
-	border-radius: 10px 10px 10px 10px;
-	
-}
-.offmon img {
-	width:66px;
-	height:auto;
-	padding-bottom:40px;
-	display:inline-block;
-}
-.monvars {
-	width:25px;
-	height:auto;
-	display:inline-block;
-}
-.monvars img {
-	width:20px;
-	height:auto;
-	padding-bottom:10px;
-	display:inline-block;
-}
-.reqmon {
-	margin-left:10px;
-	width:65px;
-	height:60px;
-	display:inline-block;
-	background-color: rgba(0,0,0, .6);
-	border-radius: 10px 10px 10px 10px;
-}
-.reqmon img {
-	width:66px;
-	height:auto;
-	padding-bottom:40px;
-	display:inline-block;
-}
-.stats {
-	padding: 0px 5px 0px 5px;
-	width:225px;
-	height:auto;
-	display:inline-block;
-	background-color: rgba(0,0,0, .6);
-	border-radius: 10px 10px 10px 10px;
-	color:#fff;
-}
-.control {
-	margin-top:40px;
-	padding: 0px 5px 0px 5px;
-	width:auto;
-	height:auto;
-	display:inline-block;
-	border-radius: 10px 10px 10px 10px;
-	float:right;
-}
-.btn {
-    font: 14px 'Fira Sans', sans-serif;
-	color:#fff;
-    padding: 5px 5px 5px 5px;
-    background: #91123f;
-    border: none;
-    border-radius: 8px;
-    margin: 4px;
-}
-.btn1 {
-    font: 14px 'Fira Sans', sans-serif;
-	color:#fff;
-    padding: 5px 5px 5px 5px;
-    background: #00821e;
-    border: none;
-    border-radius: 8px;
-}
-.btn2 {
-    font: 14px 'Fira Sans', sans-serif;
-	color:#fff;
-    padding: 5px 5px 5px 5px;
-    background: #00c931;
-    border: none;
-    border-radius: 8px;
-}
-.btn3 {
-    font: 14px 'Fira Sans', sans-serif;
-	color:#fff;
-    padding: 5px 5px 5px 5px;
-    background: #1b00ef;
-    border: none;
-    border-radius: 8px;
-}
-
 @media only screen and (max-width: 480px) {
 
 .select2-results__options {
@@ -323,6 +192,10 @@ div#pm{
 h3 {
 	font-size: 18px;
 }
+.acttrade{
+	 background-image: url("./static/img/tradebackground.jpg");
+	 margin-top: -20px;
+}
 .activelisting {
 	width:97%;
 	margin-left:1.5%;
@@ -330,6 +203,7 @@ h3 {
 	background-color: rgba(0, 0, 0, .4);
 	margin-bottom:15px;
 	border-radius: 15px 15px 15px 15px;
+	border:3px solid #fff;
 }
 .actid {
 display:none;
@@ -416,6 +290,8 @@ p{
 	height:auto;
 	border-radius: 10px 10px 10px 10px;
 	margin-top:15px;
+	margin-right:5px;
+	float:right;
 }
 .btn {
     font: 14px 'Fira Sans', sans-serif;
@@ -453,4 +329,595 @@ p{
     border-radius: 8px;
 	font-size:10px;
 }
+
+}
+
+@media only screen and (max-width: 768px) and (min-width:481px){
+.acttrade{
+	 background-image: url("./static/img/tradebackground.jpg");
+	 margin-top: -20px;
+}
+
+.activelisting {
+	width:80%;
+	margin-left:10%;
+	height:70px;
+	background-color: rgba(0, 0, 0, .4);
+	margin-bottom:15px;
+	border-radius: 15px 15px 15px 15px;
+	border:3px solid #fff;
+}
+.actid {
+display:none;
+}
+p{
+	font-size:9px;
+}
+.actid a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:9px;
+}
+.offerby {
+	width:100px;
+	height:100%;
+	background-color: rgba(0, 130, 30, .4);
+	border-radius: 15px 5px 5px 15px;
+	color:#fff;
+	padding-top:5px !important;
+	float:left;
+}
+.offerby a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:10px;
+	color:#fff;
+}
+.offmon {
+	margin-top:10px;
+	margin-left:10px;
+	width:45px;
+	height:40px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+}
+.offmon img {
+	width:46px;
+	height:auto;
+}
+.monvars {
+	width:5px;
+	height:auto;
+	padding-top:5px;
+	float:left;
+	margin-top:20px;
+	margin-left:5px;
+}
+.monvars img {
+	width:10px;
+	height:auto;
+	padding-bottom:10px;
+}
+
+.reqmon {
+	margin-left:10px;
+	width:45px;
+	height:40px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+	margin-top:10px;
+}
+.reqmon img {
+	width:46px;
+	height:auto;
+	padding-bottom:40px;
+
+}
+.swapimg {
+	display:none;
+}
+.stats {
+	padding: 0px 5px 0px 5px;
+	width:auto;
+	height:auto;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	color:#fff;
+	font-size:10px;
+	float:left;
+	margin-top:10px;
+	margin-left:10px;
+}
+.control {
+	width:auto;
+	height:auto;
+	border-radius: 10px 10px 10px 10px;
+	margin-top:20px;
+	margin-right:5px;
+	float:right;
+}
+.btn {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #91123f;
+    border: none;
+    border-radius: 8px;
+	font-size:10px;
+}
+.btn1 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00821e;
+    border: none;
+    border-radius: 8px;
+	font-size:10px;
+}
+.btn2 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00c931;
+    border: none;
+    border-radius: 8px;
+	font-size:10px;
+}
+.btn3 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #1b00ef;
+    border: none;
+    border-radius: 8px;
+	font-size:10px;
+}
+
+}
+@media only screen and (max-width: 1080px) and (min-width:769px) {
+.acttrade{
+	 background-image: url("./static/img/tradebackground.jpg");
+	 margin-top: -20px;
+}
+.activelisting {
+	width:80%;
+	margin-left:10%;
+	height:100px;
+	background-color: rgba(0, 0, 0, .4);
+	margin-bottom:15px;
+	border-radius: 15px 15px 15px 15px;
+	border:3px solid #fff;
+}
+.actid {
+display:none;
+}
+p{
+	font-size:9px;
+}
+.actid a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:9px;
+}
+.offerby {
+	width:120px;
+	height:100%;
+	background-color: rgba(0, 130, 30, .4);
+	border-radius: 15px 5px 5px 15px;
+	color:#fff;
+	padding-top:5px !important;
+	float:left;
+}
+.offerby a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:11px;
+	color:#fff;
+}
+.offmon {
+	margin-top:15px;
+	margin-left:25px;
+	width:65px;
+	height:60px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+}
+.offmon img {
+	width:66px;
+	height:auto;
+}
+.monvars {
+	width:10px;
+	height:auto;
+	padding-top:10px;
+	float:left;
+	margin-top:15px;
+	margin-left:10px;
+}
+.monvars img {
+	width:10px;
+	height:auto;
+	padding-bottom:10px;
+}
+
+.reqmon {
+	margin-left:25px;
+	width:65px;
+	height:60px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+	margin-top:15px;
+}
+.reqmon img {
+	width:66px;
+	height:auto;
+	padding-bottom:40px;
+}
+.swapimg img{
+	margin-left:20px;
+	margin-top:35px;
+	width:30px;
+	height:auto;
+	float:left;
+}
+.stats {
+	padding: 0px 5px 0px 5px;
+	width:auto;
+	height:auto;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	color:#fff;
+	font-size:12px;
+	float:left;
+	margin-top:15px;
+	margin-left:25px;
+}
+.control {
+	width:auto;
+	height:auto;
+	border-radius: 10px 10px 10px 10px;
+	margin-top:35px;
+	margin-right:25px;
+	float:right;
+}
+.btn {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #91123f;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn1 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00821e;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn2 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00c931;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn3 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #1b00ef;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+
+}
+
+@media only screen and (max-width: 1440px) and (min-width:1080px) {
+.acttrade{
+	 background-image: url("./static/img/tradebackground.jpg");
+	 margin-top: -20px;
+}
+
+.activelisting {
+	width:80%;
+	margin-left:10%;
+	height:100px;
+	background-color: rgba(0, 0, 0, .4);
+	margin-bottom:15px;
+	border-radius: 15px 15px 15px 15px;
+	border:3px solid #fff;
+	
+}
+.actid {
+display:none;
+}
+p{
+	font-size:9px;
+}
+.actid a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:9px;
+}
+.offerby {
+	width:120px;
+	height:100%;
+	background-color: rgba(0, 130, 30, .4);
+	border-radius: 15px 5px 5px 15px;
+	color:#fff;
+	padding-top:5px !important;
+	float:left;
+}
+.offerby a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:11px;
+	color:#fff;
+}
+.offmon {
+	margin-top:10px;
+	margin-left:40px;
+	width:75px;
+	height:70px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+}
+.offmon img {
+	width:76px;
+	height:auto;
+}
+.monvars {
+	width:10px;
+	height:auto;
+	padding-top:5px;
+	float:left;
+	margin-top:15px;
+	margin-left:15px;
+}
+.monvars img {
+	width:15px;
+	height:auto;
+	padding-bottom:10px;
+}
+
+.reqmon {
+	margin-top:10px;
+	margin-left:40px;
+	width:75px;
+	height:70px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+}
+.reqmon img {
+	width:76px;
+	height:auto;
+	padding-bottom:40px;
+}
+.swapimg img{
+	margin-left:20px;
+	margin-top:35px;
+	width:30px;
+	height:auto;
+	float:left;
+}
+.stats {
+	padding: 0px 5px 0px 5px;
+	width:auto;
+	height:auto;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	color:#fff;
+	font-size:12px;
+	float:left;
+	margin-top:10px;
+	margin-left:40px;
+}
+.control {
+	width:auto;
+	height:auto;
+	border-radius: 10px 10px 10px 10px;
+	margin-top:35px;
+	margin-right:25px;
+	float:right;
+}
+.btn {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #91123f;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn1 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00821e;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn2 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00c931;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn3 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #1b00ef;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+
+}
+@media only screen and (max-width: 2880px) and (min-width:1441px) {
+.acttrade{
+	 background-image: url("./static/img/tradebackground.jpg");
+	 margin-top: -20px;
+}
+
+.activelisting {
+	width:70%;
+	margin-left:15%;
+	height:100px;
+	background-color: rgba(0, 0, 0, .4);
+	margin-bottom:15px;
+	border-radius: 15px 15px 15px 15px;
+	border:3px solid #fff;
+}
+.actid {
+display:none;
+}
+p{
+	font-size:9px;
+}
+.actid a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:9px;
+}
+.offerby {
+	width:120px;
+	height:100%;
+	background-color: rgba(0, 130, 30, .4);
+	border-radius: 15px 5px 5px 15px;
+	color:#fff;
+	padding-top:5px !important;
+	float:left;
+}
+.offerby a{
+	color: #000;
+	margin-bottom:5px;
+	font-size:11px;
+	color:#fff;
+}
+.offmon {
+	margin-top:10px;
+	margin-left:60px;
+	margin-right:20px;
+	width:75px;
+	height:70px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	float:left;
+}
+.offmon img {
+	width:76px;
+	height:auto;
+}
+.monvars {
+	width:10px;
+	height:auto;
+	padding-top:5px;
+	float:left;
+	margin-top:15px;
+	margin-right:10px;
+}
+.monvars img {
+	width:15px;
+	height:auto;
+	padding-bottom:10px;
+}
+
+.reqmon {
+	margin-top:10px;
+	margin-left:60px;
+	width:75px;
+	height:70px;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	display:inline-block;
+}
+.reqmon img {
+	width:76px;
+	height:auto;
+	padding-bottom:40px;
+}
+
+
+.swapimg img{
+	margin-left:60px;
+	margin-bottom:60px;
+	width:30px;
+	height:auto;
+}
+
+.stats {
+	padding: 0px 5px 0px 5px;
+	width:auto;
+	height:auto;
+	background-color: rgba(0,0,0, .6);
+	border-radius: 10px 10px 10px 10px;
+	color:#fff;
+	font-size:12px;
+	float:left;
+	margin-top:10px;
+	margin-left:60px;
+}
+.control {
+	width:auto;
+	height:auto;
+	border-radius: 10px 10px 10px 10px;
+	margin-top:35px;
+	margin-right:25px;
+	float:right;
+}
+.btn {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #91123f;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn1 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00821e;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn2 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #00c931;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+.btn3 {
+    font: 14px 'Fira Sans', sans-serif;
+	color:#fff;
+    padding: 5px 5px 5px 5px;
+    background: #1b00ef;
+    border: none;
+    border-radius: 8px;
+	font-size:12px;
+}
+
 }

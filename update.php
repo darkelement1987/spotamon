@@ -150,6 +150,22 @@ $update7 = "ALTER TABLE `trades` ADD `oid` INT(10) NOT NULL AFTER `tid`;";
     header("Refresh: 5; url= ./index.php");
 	
 	echo '<br><hr>';	
+	
+// Create new columns @ messages for pm deletion	
+
+$update8 = "ALTER TABLE `messages` ADD `del_in` INT(1) NOT NULL DEFAULT '0' AFTER `from_user`, ADD `del_out` INT(1) NOT NULL DEFAULT '0' AFTER `del_in`;";
+	if(!mysqli_query($conn,$update8))
+		{
+			echo '- Not updated, columns already exist :-)';
+		}
+			else
+			{
+				echo '- Added columns \'del_in\' and \'del_out\' to `messages`';
+			}
+					
+    header("Refresh: 5; url= ./index.php");
+	
+	echo '<br><hr>';
 	echo '<br><b>Back to index in 5 seconds..</b>';	
 		
 		// End make columns for trading

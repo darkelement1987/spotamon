@@ -10,7 +10,7 @@ include_once 'config/config.php';?>
 <?php
 menu();
 if(isset($_SESSION["uname"])){
-$sql = "SELECT * FROM messages WHERE to_user = '".$_SESSION["uname"]."'";
+$sql = "SELECT * FROM messages WHERE to_user = '".$_SESSION["uname"]."' AND del_in='0'";
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));?>
 <center>
 <div id="pm">
@@ -40,7 +40,7 @@ $error='';
 			$delcountresult = mysqli_query($conn,$delcountquery)or die(mysqli_error($conn));
 			$delcount=mysqli_num_rows($delcountresult);
 			if ($delcount !==0){
-			$clear = "DELETE FROM messages WHERE to_user='".$_SESSION['uname']."'";
+			$clear = "UPDATE messages SET del_in='1' WHERE to_user='".$_SESSION['uname']."' AND del_in='0'";
 			if(!mysqli_query($conn,$clear))
 			{
 				$error .= '<p><label class="text-danger">SQL ERROR</label></p>';

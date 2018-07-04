@@ -162,7 +162,7 @@
                         ?>
                         <?php
                     	if(isset($_SESSION["uname"])){
-                    	$countquery = $conn->query("SELECT * FROM `messages` WHERE unread=1 AND to_user = '".$_SESSION["uname"]."'");
+                    	$countquery = $conn->query("SELECT * FROM `messages` WHERE unread=1 AND to_user = '".$_SESSION["uname"]."' AND del_in='0'");
                         $msgcount = mysqli_num_rows($countquery);
                     	}
                     	?>						

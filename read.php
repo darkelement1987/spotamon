@@ -25,7 +25,7 @@ $error='';
 
 else if(isset($_SESSION["uname"], $_GET['del'], $_SERVER['HTTP_REFERER'])){
 	
-	    $delquery = "DELETE FROM messages WHERE id='".$_GET['del']."' AND to_user='".$_SESSION["uname"]."'";
+	    $delquery = "UPDATE messages SET del_in='1' WHERE id='".$_GET['del']."' AND to_user='".$_SESSION["uname"]."' AND del_in='0'";
 
     if(!mysqli_query($conn,$delquery))
     	{

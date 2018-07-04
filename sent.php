@@ -25,7 +25,7 @@ $error='';
 
 else if(isset($_SESSION["uname"], $_GET['del'], $_SERVER['HTTP_REFERER'])){
 	
-	    $delquery = "DELETE FROM messages WHERE id='".$_GET['del']."' AND to_user='".$_SESSION["uname"]."'";
+	    $delquery = "UPDATE messages SET del_out='1' WHERE id='".$_GET['del']."' AND to_user='".$_SESSION["uname"]."'";
 
     if(!mysqli_query($conn,$delquery))
     	{
@@ -90,7 +90,7 @@ if ($row){
 </tr>
 <tr>
 <td></td>
-<td><a href="read.php?del=<?php echo $_GET['id'];?>">Delete message</a></td>
+<td><a href="sent.php?del=<?php echo $_GET['id'];?>">Delete message</a></td>
 </tr>
 </tbody>
 </table>

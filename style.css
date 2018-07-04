@@ -494,7 +494,7 @@ p{
 display:none;
 }
 p{
-	font-size:9px;
+	font-size:10px;
 }
 .actid a{
 	color: #000;
@@ -507,13 +507,13 @@ p{
 	background-color: rgba(0, 130, 30, .4);
 	border-radius: 15px 5px 5px 15px;
 	color:#fff;
-	padding-top:5px !important;
+	padding-top:15px !important;
 	float:left;
 }
 .offerby a{
 	color: #000;
 	margin-bottom:5px;
-	font-size:11px;
+	font-size:12px;
 	color:#fff;
 }
 .offmon {
@@ -643,7 +643,7 @@ p{
 display:none;
 }
 p{
-	font-size:9px;
+	font-size:11px;
 }
 .actid a{
 	color: #000;
@@ -656,13 +656,13 @@ p{
 	background-color: rgba(0, 130, 30, .4);
 	border-radius: 15px 5px 5px 15px;
 	color:#fff;
-	padding-top:5px !important;
+	padding-top:15px !important;
 	float:left;
 }
 .offerby a{
 	color: #000;
 	margin-bottom:5px;
-	font-size:11px;
+	font-size:14px;
 	color:#fff;
 }
 .offmon {
@@ -790,7 +790,7 @@ p{
 display:none;
 }
 p{
-	font-size:9px;
+	font-size:10px;
 }
 .actid a{
 	color: #000;
@@ -803,13 +803,13 @@ p{
 	background-color: rgba(0, 130, 30, .4);
 	border-radius: 15px 5px 5px 15px;
 	color:#fff;
-	padding-top:5px !important;
+	padding-top:15px !important;
 	float:left;
 }
 .offerby a{
 	color: #000;
 	margin-bottom:5px;
-	font-size:11px;
+	font-size:14px;
 	color:#fff;
 }
 .offmon {

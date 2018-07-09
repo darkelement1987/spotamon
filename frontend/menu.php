@@ -1,6 +1,13 @@
 <?php function menu(){
     include("login/auth.php");
     require 'config/config.php';
+	
+	$gcountquery = $conn->query("SELECT * FROM `gyms`");
+$gcountresult = mysqli_num_rows($gcountquery);
+
+$scountquery = $conn->query("SELECT * FROM `stops`");
+$scountresult = mysqli_num_rows($scountquery);  
+	
     ?>
 <?php if($analytics!==''){?>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -117,12 +124,15 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="./submit-pokemon.php">Pokémon</a></li>
+							<?php if (empty($gcountresult)){} else {?>
                             <li><a href="./submit-raid.php">Raid</a></li>
                             <li><a href="./submit-ex-raid.php">EX Raid</a></li>
                             <li><a href="./submit-team.php">Team</a></li>
                             <li><a href="./submit-egg.php">Egg</a></li>
+							<?php }?>
+							<?php if (empty($scountresult)){} else {?>
                             <li><a href="./submit-quest.php">Quest</a></li>
-						
+							<?php }?>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -130,11 +140,14 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="./pokemon.php">Pokémon</a></li>
+							<?php if (empty($gcountresult)){} else {?>
                             <li><a href="./raids.php">Raid</a></li>
                             <li><a href="./exraids.php">EX Raids</a></li>
                             <li><a href="./eggs.php">Egg</a></li>
+							<?php }?>
+							<?php if (empty($scountresult)){} else {?>
                             <li><a href="./quests.php">Quest</a></li>
-						
+							<?php }?>
                         </ul>
                     </li>
 					<li class="dropdown">

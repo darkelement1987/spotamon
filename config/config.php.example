@@ -223,6 +223,8 @@ $messages = "CREATE TABLE IF NOT EXISTS `messages` (
  id INT(6) PRIMARY KEY AUTO_INCREMENT NOT NULL,
  subject VARCHAR(255),
  to_user VARCHAR(30),
+ del_in INT(1) NOT NULL DEFAULT '0',
+ del_out INT(1) NOT NULL DEFAULT '0',
  from_user VARCHAR(30),
  unread INT(10) NOT NULL,
  message VARCHAR(1000),

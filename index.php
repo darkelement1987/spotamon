@@ -44,6 +44,10 @@ require './config/config.php';
         echo "<meta http-equiv='refresh' content='1;url=update.php'>";
     }
     ?>
-
+    <script>
+    $( document ).ready(function() {
+        initMap()
+    })
+    </script>
     </body>
 	<footer></footer>

@@ -252,26 +252,31 @@ var customLabel = {
 };
 
   function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(<?php
+   map = L.map('map', {
+        center: [
+
+<?php
 if (isset($_GET['loc'])) {
     echo $_GET['loc'];
 } else {
 echo $mapcenter;
-}?>),
-    zoom: <?php
+}?>
+
+],
+        zoom:
+
+<?php
 if (isset($_GET['zoom'])) {
     echo $_GET['zoom'];
 } else {
 echo 15;
 }?>,
-    gestureHandling: 'greedy',
-    fullscreenControl: true,
-    streetViewControl: false,
-    mapTypeControl: false,
-    clickableIcons: false
-  });
-  var infoWindow = new google.maps.InfoWindow;
+        maxZoom: 18,
+        zoomControl: false
+    })
+
+map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}))
+
 
     // Change this depending on the name of your PHP or XML file
     downloadUrl('./frontend/xml.php', function(data) {
@@ -290,16 +295,16 @@ echo 15;
 		var good = markerElem.getAttribute('good');
 		var bad = markerElem.getAttribute('bad');
 		var spotter = markerElem.getAttribute('spotter');
-        var point = new google.maps.LatLng(
+        var point = (
             parseFloat(markerElem.getAttribute('latitude')),
             parseFloat(markerElem.getAttribute('longitude')));
 
 
         var icon = customLabel[type] || {};
-        var image = {
-            url: './static/icons/' + id + '.png',
-            scaledSize: new google.maps.Size(32, 32)
-        };
+        var image = new L.Icon({
+            iconUrl: './static/icons/' + id + '.png',
+            iconSize: [32, 32]
+        });
 		
 		var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>' 
 		+ pokemon + ' (#' + id + ')</b><br>CP: ' + cp + '<br>IV: '+ iv + '%<br>Found: ' + hour + ':' + min + ' ' + ampm +
@@ -307,16 +312,13 @@ echo 15;
 		' x Found<br><a href =\"./bad.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"./static/voting/down.png\" height=\"25\" width=\"25\"></img></a>' + bad + ' x Not found<?php }?><br><hr><a href=\"http://maps.google.com/maps?q=' + 
 		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr>Spotted by: <b>' + spotter + '</b><?php }?></center></div>';
 		
-        var marker = new google.maps.Marker({
-          map: map,
-          position: point,
-          label: icon.label,
+        var marker = new L.marker([parseFloat(markerElem.getAttribute('latitude')), parseFloat(markerElem.getAttribute('longitude'))],{
           icon: image
+        }).bindPopup(html);
+        marker.on('click', function() {
+          marker.openPopup();
         });
-        marker.addListener('click', function() {
-          infoWindow.setContent(html);
-          infoWindow.open(map, marker);
-        });
+        map.addLayer(marker)
       });
     });
 	
@@ -341,72 +343,64 @@ echo 15;
 		var bosscp = markerElem.getAttribute('bosscp');
 		var exraid = markerElem.getAttribute('exraid');
 		var exraiddate = markerElem.getAttribute('exraiddate');
-		var point = new google.maps.LatLng(
-            parseFloat(markerElem.getAttribute('glatitude')),
-            parseFloat(markerElem.getAttribute('glongitude')));
 			
 
 		if (actraid === "0" && egg === "0"){
 			if (exraid === "1"){
 			var html = '<div class=\"maplabel\"><center><img src=\"./static/gyms/' + gteam + 'ex.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if(!isset($_SESSION["uname"])){?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
 			var icon = customLabel[type] || {};
-			var image = {
-            url: './static/gyms/' + gteam + 'ex.png',
-            scaledSize: new google.maps.Size(50, 50)
-			};
+			var image = new L.Icon({
+            iconUrl: './static/gyms/' + gteam + 'ex.png',
+            iconSize: [55, 55]
+			});
 			} else if (exraid === "0"){
 			var html = '<div class=\"maplabel\"><center><img src=\"./static/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if(!isset($_SESSION["uname"])){?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
 			var icon = customLabel[type] || {};
-			var image = {
-            url: './static/gyms/' + gteam + '.png',
-            scaledSize: new google.maps.Size(50, 50)
-			};
+			var image = new L.Icon({
+            iconUrl: './static/gyms/' + gteam + '.png',
+            iconSize: [55, 55]
+			});
 			}
 		} else if (actraid !== "0" && egg === "0"){
 			if (exraid === "0"){
 			var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if(!isset($_SESSION["uname"])){?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr><b>Spotted by: </b>' + raidby + '<?php }?></center></div>';
 			var icon = customLabel[type] || {};
-			var image = {
-            url: './static/raids/' + actboss + '.png',
-            scaledSize: new google.maps.Size(75, 75)
-			};
+			var image = new L.Icon({
+            iconUrl: './static/raids/' + actboss + '.png',
+            iconSize: [55, 55]
+			});
 			} else if (exraid === "1"){
 			var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if(!isset($_SESSION["uname"])){?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr><b>Spotted by: </b>' + raidby + '<?php }?></center></div>';
 			var icon = customLabel[type] || {};
-			var image = {
-            url: './static/raids/' + actboss + '.png',
-            scaledSize: new google.maps.Size(75, 75)
-			};
+			var image = new L.Icon({
+            iconUrl: './static/raids/' + actboss + '.png',
+            iconSize: [75, 75]
+			});
 			}
 		} else if (actraid === "0" && egg !== "0"){
 			if (exraid === "0"){
 			var html = '<div class=\"maplabel\"><center><img src=\"./static/eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if(!isset($_SESSION["uname"])){?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr><b>Spotted by: </b>' + eggby + '<?php }?></center></div>';		
 			var icon = customLabel[type] || {};
-			var image = {
-            url: './static/eggs/' + egg + '.png',
-            scaledSize: new google.maps.Size(55, 55)
-			};
+			var image = new L.Icon({
+            iconUrl: './static/eggs/' + egg + '.png',
+            iconSize: [55, 55]
+			});
 			} else if (exraid === "1"){
 			var html = '<div class=\"maplabel\"><center><img src=\"./static/eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if(!isset($_SESSION["uname"])){?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr><b>Spotted by: </b>' + eggby + '<?php }?></center></div>';		
 			var icon = customLabel[type] || {};
-			var image = {
-            url: './static/eggs/' + egg + '.png',
-            scaledSize: new google.maps.Size(55, 55)			
-			};
+			var image = new L.Icon({
+            iconUrl: './static/eggs/' + egg + '.png',
+            iconSize: [55, 55]			
+			});
 			}
-		} 
-		
-        var marker = new google.maps.Marker({
-          map: map,
-          position: point,
-          label: icon.label,
-          icon: image,
-		  title: gname + ' held by ' + tid
+		}
+        var marker = new L.marker([parseFloat(markerElem.getAttribute('glatitude')), parseFloat(markerElem.getAttribute('glongitude'))],{
+          icon: image
+        }).bindPopup(html);
+        marker.on('click', function() {
+          marker.openPopup();
         });
-        marker.addListener('click', function() {
-          infoWindow.setContent(html);
-          infoWindow.open(map, marker);
-        });
+        map.addLayer(marker)
       });
     });
 	
@@ -421,37 +415,30 @@ echo 15;
         var reward = markerElem.getAttribute('reward');
 		var type = markerElem.getAttribute('type');
         var questby = markerElem.getAttribute('questby');
-		var point = new google.maps.LatLng(
-            parseFloat(markerElem.getAttribute('slatitude')),
-            parseFloat(markerElem.getAttribute('slongitude')));
 		
 		if (quested === "1"){
 		
 		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if(!isset($_SESSION["uname"])){?><br>(<b><span class="text-success">Quested</span></b>)<br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php };?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a><?php if(isset($_SESSION["uname"])){?><br><hr><b>Spotted by: </b>' + questby + '<?php }?></center></div>';
         var icon = customLabel[type] || {};
-        var image = {
-            url: './static/stops/queststop.png',
-            scaledSize: new google.maps.Size(30, 30)
-			};
+        var image = new L.Icon({
+            iconUrl: './static/stops/queststop.png',
+            iconSize: [30, 30]
+			});
 		} else if (quested === ""){
 		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if(!isset($_SESSION["uname"])){?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php }?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
-        var image = {
-            url: './static/stops/stops.png',
-            scaledSize: new google.maps.Size(30, 30)
-			};				
-		} 
-		
-        var marker = new google.maps.Marker({
-          map: map,
-          position: point,
-          label: icon.label,
-          icon: image,
+        var image = new L.Icon({
+            iconUrl: './static/stops/stops.png',
+            iconSize: [30, 30]
+			});				
+		}
+        var marker = new L.marker([parseFloat(markerElem.getAttribute('slatitude')), parseFloat(markerElem.getAttribute('slongitude'))],{
+          icon: image
+        }).bindPopup(html);
+        marker.on('click', function() {
+          marker.openPopup();
         });
-        marker.addListener('click', function() {
-          infoWindow.setContent(html);
-          infoWindow.open(map, marker);
-        });
+        map.addLayer(marker)
       });
     });
 	
@@ -475,7 +462,6 @@ function downloadUrl(url, callback) {
 
 function doNothing() {}
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo $gmaps;?>&callback=initMap"></script>
 
 <?php
 }

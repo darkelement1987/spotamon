@@ -24,34 +24,11 @@ function clean_text($string)
 	$string = stripslashes($string);
 	$string = htmlspecialchars($string);
 	return $string;
-
 }
-	
-$post_data = http_build_query(
-    array(
-        'secret' => $captcha_secret_key,
-        'response' => $_POST['g-recaptcha-response'],
-        'remoteip' => $_SERVER['REMOTE_ADDR']
-    )
-);
-$opts = array('http' =>
-    array(
-        'method'  => 'POST',
-        'header'  => 'Content-type: application/x-www-form-urlencoded',
-        'content' => $post_data
-    )
-);
-$context  = stream_context_create($opts);
-$response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
-$result = json_decode($response);
 
-if (!empty($_POST)){
-	if ($result->success==true) {} else {$error .= '<label class="text-danger">Captcha wrong</label>';}
-	}
-	
 if(isset($_POST["submit"]))
 {
-	if($result->success && empty($_POST["name"]))
+	if(empty($_POST["name"]))
 	{
 		$error .= '<p><label class="text-danger">Please Enter your Name</label></p>';
 	}
@@ -127,9 +104,6 @@ if(isset($_POST["submit"]))
 
 if(isset($_SESSION["uname"])){?>
 					<!DOCTYPE html>
-					<head>
-					<script src='https://www.google.com/recaptcha/api.js'></script>
-					</head>
 					<center>
 					<h3 align="center">Feedback</h3>
 					<br />
@@ -149,7 +123,6 @@ if(isset($_SESSION["uname"])){?>
 							<label>Message</label>
 							<textarea name="message" class="form-control" placeholder="Enter Message" rows="5"><?php echo $message; ?></textarea>
 						</div>
-						<div class="g-recaptcha" data-sitekey=<?php echo $captcha_site_key; ?>></div>
 						<div class="form-group" align="center">
 							<input type="submit" name="submit" value="Submit" class="btn btn-info" />
 						</div>

@@ -75,7 +75,7 @@ function showPosition(position) {
                     }
                 }
             });
-    x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "' style='width:100%' readonly></input><input name='longitude' value='" + position.coords.longitude + "' style='width:100%' readonly></input><input id='addressinput' value='' style='width:100%'></input> ";
+    x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "' style='width:100%' readonly></input><input name='longitude' value='" + position.coords.longitude + "' style='width:100%' readonly></input><input name='addressinput' id='addressinput' value='' style='width:100%'></input> ";
 
 
 }

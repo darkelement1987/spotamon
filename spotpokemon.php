@@ -19,23 +19,10 @@ $min = date('i');
 
 $latitude = $conn->real_escape_string($_POST['latitude']);
 $longitude = $conn->real_escape_string($_POST['longitude']);
-$url  = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false&key=".$gmaps;
-$json = @file_get_contents($url);
-$data = json_decode($json);
-$status = $data->status;
-$address = '';
+$address = $conn->real_escape_string($_POST['addressinput']);
 $good = 0;
 $bad = 0;
 $spotter = $conn->real_escape_string($_SESSION['uname']);
-if($status == "OK")
-{
-    $address = $conn->real_escape_string($data->results[0]->formatted_address);
-}
-else
-{
-    $address = "Cannot retrieve address";
-}
-echo $address;
 
 // Start queries
 
@@ -103,7 +90,7 @@ $hookObject = json_encode([
             ],
             
             "image" => [
-				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&markers=$latitude,$longitude&zoom=17&size=400x400",
+				"url" => "http://staticmap.openstreetmap.de/staticmap.php?center=".$latitude.",".$longitude."&zoom=17&size=400x400&maptype=mapnik&markers=".$latitude.",".$longitude.",red-pushpin",
             ],
             
             "thumbnail" => [

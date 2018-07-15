@@ -62,7 +62,7 @@ $gymteam = $row[3];
             ],
             
             "image" => [
-				"url" => "https://maps.googleapis.com/maps/api/staticmap?center=$gymlat,$gymlon&markers=$gymlat,$gymlon&zoom=17&size=400x400",
+				"url" => "http://staticmap.openstreetmap.de/staticmap.php?center=".$gymlat.",".$gymlon."&zoom=17&size=400x400&maptype=mapnik&markers=".$gymlat.",".$gymlon.",red-pushpin",
             ],   
             "author" => [
                 "name" => "Ex-Raid spotted by $spotter",

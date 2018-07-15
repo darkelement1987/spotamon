@@ -79,6 +79,8 @@ $scountresult = mysqli_num_rows($scountquery);
     <link rel="stylesheet" type="text/css" href="style.css"><link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
     </head>
     <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

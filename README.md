@@ -7,7 +7,6 @@ Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/
 - PHP 5.x or above
 - MySQL database
 - cURL extension
-- Google Maps API key (for reverse geocoding and Javascript API)
 
 #### Optional Requirements
 
@@ -67,29 +66,6 @@ https://documentation.cpanel.net/display/68Docs/Cron+Jobs
 
 https://www.setcronjob.com<br>
 https://cron-job.org/en/
-
-#### Configuration
-
-`config.php`
-```php
-// Connect to Database
-$servername = "";
-$username = "";
-$password = "";
-$database = "";
-// Set maps default location example: 
-// Example:
-// $mapcenter = "51.9720526, 6.7202572";
-$mapcenter = "";
-//24HR-Clock (default = false = 12HR) 
-$clock = "";
-//Google Maps key
-$gmaps= "";
-//Webhook Setup
-$webhook_url = ""; // <-- Webhook URL of your Discord channel
-$viewurl = ""; // <-- Enter your FULL Spotamon url here including http:// or https:// example: https://www.mysite.com < NO BACKSLASH AT THE END!
-$viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
-```
 
 #### Notes
 - Scan location is intended for mobile use. Location on PC might be wrong!

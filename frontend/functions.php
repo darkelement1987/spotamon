@@ -2,7 +2,9 @@
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function pokesubmission(){
 require('./config/config.php');
+
 $result = $conn->query("SELECT * FROM pokedex");
+
 $id = $pokemon = $cp = $iv = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter ="";
 if(isset($_SESSION["uname"])){ ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
@@ -245,6 +247,92 @@ function maps(){
 <div id="map"></div>
 
 <script>
+$('#myModal').on('show.bs.modal', function (e) {
+    var loadurl = $(e.relatedTarget).data('load-url');
+    $(this).find('.modal-body').load(loadurl);
+});
+</script>
+
+<script>
+ $(document).ready(function(){
+  $("#questsearch").select2({
+   templateResult: formatState1,
+   width:'100%'
+  });
+ });
+ 
+ function formatState1 (state) {
+  if (!state.id) { return state.text; }
+  var $state = $(
+   '<span ><img style="display: inline-block;" src="static/quests/' + state.element.label.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+  );
+  return $state;
+ }
+ $(document).ready(function(){
+  $("#pokestopsearch").select2({
+   templateResult: formatState2,
+   width:'100%'
+  });
+ });
+ 
+ function formatState2 (state) {
+  if (!state.id) { return state.text; }
+  var $state = $(
+   '<span ><img style="display: inline-block;" src="static/stops/stops.png" heigth="24" width="24"/> ' + state.text + '</span>'
+  );
+  return $state;
+ }
+  $(document).ready(function(){
+  $("#rewardsearch").select2({
+   templateResult: formatState3,
+   sorter: sortresults,
+   width:'100%'
+  });
+ });
+ 
+   function sortresults (state) {
+    return state.sort(function (a, b) {
+        if (a.text > b.text) {
+            return 1;
+        }
+        if (a.text < b.text) {
+            return -1;
+        }
+        return 0;
+    });
+}
+ 
+ function formatState3 (state) {
+  if (!state.id) { return state.text; }
+  var $state = $(
+   '<span ><img style="display: inline-block;" src="static/rewards/' + state.element.label.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+  );
+  return $state;
+ }
+</script>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <iframe src="submit-quest.php?stopid=<?php echo $_GET['stopid'];?>"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
 var customLabel = {
   monster: {
     label: 'pokemon'
@@ -276,7 +364,6 @@ echo 15;
     })
 
 map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}))
-
 
     // Change this depending on the name of your PHP or XML file
     downloadUrl('./frontend/xml.php', function(data) {
@@ -425,7 +512,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             iconSize: [30, 30]
 			});
 		} else if (quested === ""){
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if(!isset($_SESSION["uname"])){?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php }?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if(!isset($_SESSION["uname"])){?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php }?><?php if(isset($_SESSION["uname"])){?><br><hr><a href=\"./submit-quest.php?stopid=' + sid + '\" data-toggle=\"modal\" data-target=\"#myModal\">Add Quest</a><?php }?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
         var image = new L.Icon({
             iconUrl: './static/stops/stops.png',
@@ -726,7 +813,11 @@ foreach($array2 as $key=>$value){
 <td style="width: 5%;">At Pokestop</td>
 <td style="width: 10%;">
 <?php
+if(isset($_GET['stopid'])){
+	$result = $conn->query("SELECT * FROM stops WHERE sid =" . $_GET['stopid']);
+} else {
 $result = $conn->query("SELECT * FROM stops");
+}
 $sid = $sname = $sname = "";
 echo "<select id='pokestopsearch' name='sname'>";
 while ($row = $result->fetch_assoc()) {

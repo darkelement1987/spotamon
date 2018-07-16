@@ -103,7 +103,8 @@ $scountresult = mysqli_num_rows($scountquery);
 				imageWidth: '<?php echo $imagewidth;?>',
 				width: '<?php echo $motdwidth;?>'
             })</script><?php }?><?php }?>
-    <nav class="navbar navbar-inverse" style="margin-bottom:0px;">
+    <?php if(isset($_GET['stopid'])){} else {?>
+	<nav class="navbar navbar-inverse" style="margin-bottom:0px;">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -199,5 +200,5 @@ $scountresult = mysqli_num_rows($scountquery);
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
-    </nav>
+    </nav><?php }?>
 <?php } ?>

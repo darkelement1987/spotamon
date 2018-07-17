@@ -76,7 +76,9 @@ $scountresult = mysqli_num_rows($scountquery);
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css"><link rel="stylesheet" type="text/css" href="style.css">
+    <?php if(isset($_GET['stopid'])){} else {?>
+	<link rel="stylesheet" type="text/css" href="style.css"><link rel="stylesheet" type="text/css" href="style.css">
+	<?php }?>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css">
@@ -103,6 +105,7 @@ $scountresult = mysqli_num_rows($scountquery);
 				imageWidth: '<?php echo $imagewidth;?>',
 				width: '<?php echo $motdwidth;?>'
             })</script><?php }?><?php }?>
+			<?php if(isset($_GET['stopid'])){} else {?>
     <nav class="navbar navbar-inverse" style="margin-bottom:0px;">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -200,4 +203,5 @@ $scountresult = mysqli_num_rows($scountquery);
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+			<?php }?>
 <?php } ?>

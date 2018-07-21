@@ -28,9 +28,13 @@ $config    = S_ROOT . 'config/';
 $pages     = S_ROOT . 'core/pages/';
 $functions = S_ROOT . 'core/functions/';
 $assets    = $viewurl . 'core/assets/';
+$css = W_ROOT . 'core/css/';
+$js = W_ROOT . 'core/js/';
 define("S_CONFIG", $config);
 define("S_ASSETS", $assets);
 define("S_FUNCTIONS", $functions);
 define("S_PAGES", $pages);
 define("W_ROOT", $wroot);
+define("W_CSS", $css);
+define("W_JS", $js);
 ?>

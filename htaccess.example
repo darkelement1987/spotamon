@@ -1,0 +1,223 @@
+###########################################
+###              HTACCESS               ###
+###########################################
+###  Some sections have areas commented ###
+###  out, this is for differences in    ###
+###  configuration between Apache 2.4   ###
+###  and 2.2 and under.  Please comment ###
+###  or uncomment as necessary.  Default###
+###  is set up for Apache 2.4           ###
+###########################################
+###########################################
+
+
+###########################################
+####         GENERAL SETTINGS           ###
+###########################################
+
+#            disable indexes             #
+Options All -Indexes
+
+#  hard set index.html/php as index file #
+DirectoryIndex index.html index.php
+
+# Custom error pages.
+ErrorDocument 400 /core/pages/404.php
+ErrorDocument 500 /core/pages/404.php
+
+# ensures utf-8 for compatability        #
+AddDefaultCharset utf-8
+AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
+
+#     Force IE to use Edge rendering     #
+BrowserMatch MSIE is-msie
+Header set X-UA-Compatible IE=edge env=is-msie
+
+
+#      Prevent Iframe if not local       #
+Header set X-Frame-Options SAMEORIGIN  
+
+RewriteRule ^core/(css|js)/(.+)\.(\d{3})\.(css|js)$ core/$1/$2.$4 [NC,L]
+
+##########################################
+####     Performance Settings          ###
+##########################################
+
+
+###        Enable Compression          ###
+
+
+<IfModule mod_deflate.c>
+
+    # Force compression for mangled headers.
+    <IfModule mod_setenvif.c>
+        <IfModule mod_headers.c>
+            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+        </IfModule>
+    </IfModule>
+
+#   Compress all output labeled with one  #
+#       of the following MIME-types       #
+## For Apache versions below 2.3.7, you  ##
+## don't need to enable `mod_filter` and ##
+##can remove the `<IfModule mod_filter.c>`#
+## and `</IfModule>` lines               ##
+
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE application/atom+xml \
+                                      application/javascript \
+                                      application/json \
+                                      application/rss+xml \
+                                      application/vnd.ms-fontobject \
+                                      application/x-font-ttf \
+                                      application/x-web-app-manifest+json \
+                                      application/xhtml+xml \
+                                      application/xml \
+                                      font/opentype \
+                                      image/svg+xml \
+                                      image/x-icon \
+                                      text/css \
+                                      text/html \
+                                      text/plain \
+                                      text/x-component \
+                                      text/xml
+    </IfModule>
+
+</IfModule>
+
+###        Set Header Exiration         ###
+
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresDefault                                      "access plus 0 month"
+
+  # CSS
+    ExpiresByType text/css                              "access plus 0 year"
+
+  # Data interchange
+    ExpiresByType application/json                      "access plus 0 seconds"
+    ExpiresByType application/xml                       "access plus 0 seconds"
+    ExpiresByType text/xml                              "access plus 0 seconds"
+
+  # Favicon (cannot be renamed!)
+    ExpiresByType image/x-icon                          "access plus 1 week"
+
+  # HTML components (HTCs)
+    ExpiresByType text/x-component                      "access plus 0 month"
+
+  # HTML
+    ExpiresByType text/html                             "access plus 0 seconds"
+
+  # JavaScript
+    ExpiresByType application/javascript                "access plus 0 year"
+
+  # Manifest files
+    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
+    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
+
+  # Media
+    ExpiresByType audio/ogg                             "access plus 1 month"
+    ExpiresByType image/gif                             "access plus 1 month"
+    ExpiresByType image/jpeg                            "access plus 1 month"
+    ExpiresByType image/png                             "access plus 1 month"
+    ExpiresByType video/mp4                             "access plus 1 month"
+    ExpiresByType video/ogg                             "access plus 1 month"
+    ExpiresByType video/webm                            "access plus 1 month"
+
+  # Web feeds
+    ExpiresByType application/atom+xml                  "access plus 1 hour"
+    ExpiresByType application/rss+xml                   "access plus 1 hour"
+
+  # Web fonts
+    ExpiresByType application/font-woff2                "access plus 1 month"
+    ExpiresByType application/font-woff                 "access plus 1 month"
+    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
+    ExpiresByType application/x-font-ttf                "access plus 1 month"
+    ExpiresByType font/opentype                         "access plus 1 month"
+    ExpiresByType image/svg+xml                         "access plus 1 month"
+</IfModule>
+
+
+### Disables browsers ability to cache files ###
+### Forces reliance on update script         ###
+Header unset ETag
+
+FileETag None
+
+
+###        Allow cross domain fonts           ###
+<FilesMatch "\.(eot|otf|ttc|ttf|woff|woff2)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+#################################################
+###               Rewrite Rules               ###
+#################################################
+
+
+# upEnable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+###  uncomment if you want to force no WWW    ###
+#  RewriteCond %{HTTP_HOST} ^www\.
+#  RewriteCond %{HTTPS}s ^on(s)|off
+#  RewriteCond http%1://%{HTTP_HOST} ^(https?://)(www\.)?(.+)$
+#  RewriteRule ^ %1%3%{REQUEST_URI} [R=301,L]
+
+
+###     Protects Hidden Files     ###
+RewriteCond %{SCRIPT_FILENAME} -d [OR]
+RewriteCond %{SCRIPT_FILENAME} -f
+RewriteRule "(^|/)\." - [F]
+
+
+###    Uncomment for Https only    ###
+#   RewriteCond %{HTTPS} !on
+#   RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+#   
+#   # Note: It’s also recommended to enable HTTP Strict Transport Security (HSTS)
+#   # on your HTTPS website to help prevent man-in-the-middle attacks.
+#   # See https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
+#   <IfModule mod_headers.c>
+#       # Remove "includeSubDomains" if you don't want to enforce HSTS on all subdomains
+#       Header always set Strict-Transport-Security "max-age=31536000;includeSubDomains"
+#   </IfModule>
+
+
+###      Force Trailing /          ###
+
+RewriteCond %{REQUEST_URI} /+[^\.]+$
+RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
+
+###  And Then Allow Files that are ###
+###         Actually There         ###
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [R=301,L]
+
+###Protect Hidden and System Files ###
+
+<FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$">
+    ### Apache 2.2
+    #Order allow,deny
+    #Deny from all
+    #Satisfy All
+
+    # Apache 2.4
+    Require all denied
+</FilesMatch>
+
+### Protect your Update.php file  ###
+# Uncomment if Mod_Auth is enabled  #
+# Through Apache.  Strongly Advised #
+#edit path and create .htpasswd file#
+###                               ###
+# <Files "update.php">
+#  AuthName "Username and password required"
+#  AuthUserFile "Full Path To File "C:/etc/etc"
+#  Require valid-user
+#  AuthType Basic
+# </Files>

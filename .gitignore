@@ -1,1 +1,5 @@
 config/config.php
+
+\.htaccess
+
+\.htpasswd

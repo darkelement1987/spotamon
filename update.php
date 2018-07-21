@@ -2,7 +2,22 @@
 ob_start();
 require './config/config.php';
 require './config/version.php';
-include'frontend/functions.php';
+include 'frontend/functions.php';
+
+
+If (isset($_GET['cssupdate']) && $_GET['cssupdate'] == 1) {
+	$cssVersion = $conn->query("Select minor_v from version;");
+	$cssVersion = $cssVersion->fetch_assoc();
+	$cssVersion = $cssVersion['minor_v'] + 1;
+	$cssVersion = str_pad((string)$cssVersion, '3', "0", STR_PAD_LEFT);
+	$cssquery = "update version set minor_v ='" . $cssVersion."';";
+	if ($conn->query($cssquery) === true){
+
+		echo "CSS was succesfully updated";
+	} else {
+		echo "There seems to have been an error";
+}
+} else {
 
 echo '<h2><strong>Database Update was necessary:</strong></h2>';
 echo '<h4>Version is now: "'.$lastversion.'"<br><br><hr>';
@@ -162,6 +177,20 @@ $update8 = "ALTER TABLE `messages` ADD `del_in` INT(1) NOT NULL DEFAULT '0' AFTE
 			{
 				echo '- Added columns \'del_in\' and \'del_out\' to `messages`';
 			}
+			header("Refresh: 5; url= ./index.php");
+	
+			echo '<br><hr>';
+
+$update9 = "ALTER TABLE `version`
+			ADD COLUMN `minor_v` INT(3) UNSIGNED ZEROFILL NULL AFTER `version`;";
+if(!mysqli_query($conn,$update9))
+	{
+		echo '- Not updated, columns already exist :-)';
+	}
+		else
+		{
+			echo '- Added CSS Versioning for Cache Busting and dynamic Updates';
+		}
 					
     header("Refresh: 5; url= ./index.php");
 	
@@ -169,6 +198,6 @@ $update8 = "ALTER TABLE `messages` ADD `del_in` INT(1) NOT NULL DEFAULT '0' AFTE
 	echo '<br><b>Back to index in 5 seconds..</b>';	
 		
 		// End make columns for trading
-
+	}
 ?>
 

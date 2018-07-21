@@ -1,7 +1,7 @@
 <?php
 require_once 'login/auth.php';
 require_once 'config/config.php';
-
+$conn->close();
 // returns the url of the current page (does not account for rewrites or includes)
 $protocol   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $domainName = $_SERVER['HTTP_HOST'];
@@ -28,9 +28,13 @@ $config    = S_ROOT . 'config/';
 $pages     = S_ROOT . 'core/pages/';
 $functions = S_ROOT . 'core/functions/';
 $assets    = $viewurl . 'core/assets/';
+$css = W_ROOT . 'core/css/';
+$js = W_ROOT . 'core/js/';
 define("S_CONFIG", $config);
 define("S_ASSETS", $assets);
 define("S_FUNCTIONS", $functions);
 define("S_PAGES", $pages);
 define("W_ROOT", $wroot);
+define("W_CSS", $css);
+define("W_JS", $js);
 ?>

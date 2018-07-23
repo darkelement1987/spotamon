@@ -117,8 +117,9 @@ function dump_debug($input, $collapse=false) {
 
     call_user_func($recursive, $input);
 }
-$Var1able = get_defined_vars();
-
+$ignore = array('GLOBALS', '_ENV', 'ignore');
+$Var1able = array_diff_key(get_defined_vars() + array_flip($ignore), array_flip($ignore));
 ?>
-<div class="row" style="max-height:500px; max-width:100%;">
-<?php dump_debug($var1able, true); ?></div>
+<div class="container-fluid" style="background-color:white; position:static; bottom:0px; display: block; overflow:scroll; max-height:500px; max-width:100%;">
+<div class="row">
+<?php dump_debug($Var1able, true); ?></div></div>

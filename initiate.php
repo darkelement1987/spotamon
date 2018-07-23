@@ -10,7 +10,7 @@ $folder     = (dirname($_SERVER['PHP_SELF']));
 $trim       = $domain . $folder;
 $viewurl    = rtrim($trim, '\/');
 
-// Returns the webroot in relativity to any subflders ###
+// Returns the webroot in relativity to any subflders 
 function directory()
 {
     return substr(str_replace('\\', '/', realpath(dirname(__FILE__))), strlen(str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']))) + 1);
@@ -22,19 +22,19 @@ if (directory() != '') {
 }
 
 // Defines constants for includes and references
-$root = __DIR__;
+$root = __DIR__ . '/';
 define("S_ROOT", $root);
 $config    = S_ROOT . 'config/';
 $pages     = S_ROOT . 'core/pages/';
 $functions = S_ROOT . 'core/functions/';
 $assets    = $viewurl . 'core/assets/';
+define("W_ROOT", $wroot);
 $css = W_ROOT . 'core/css/';
 $js = W_ROOT . 'core/js/';
 define("S_CONFIG", $config);
 define("S_ASSETS", $assets);
 define("S_FUNCTIONS", $functions);
 define("S_PAGES", $pages);
-define("W_ROOT", $wroot);
 define("W_CSS", $css);
 define("W_JS", $js);
 ?>

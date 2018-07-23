@@ -120,5 +120,5 @@ function dump_debug($input, $collapse=false) {
 $Var1able = get_defined_vars();
 
 ?>
-<div class="row" style="max-height:500px; max-width:100%;">
+<div class="row" style="max-height:500px; max-width:100%; display: block; overflow:scroll;">
 <?php dump_debug($var1able, true); ?></div>

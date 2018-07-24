@@ -169,21 +169,21 @@ function spottedpokemon()
 	<tr>
 	<td style='text-align:center;'>" . $spotid . "</td>
 	<td style='text-align:center;'>" . $pokemon . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>" . $cp . "</td>
 	<td>" . $iv . "%</td>
 	<td style='text-align:center;'>" . $hour . ":" . $minutes . " " . $ampm . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
 	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>" . $good . "<br>
-	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
+	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='".W_ASSETS."voting/up.png' value='$good' /></form></span>" . $good . "<br>
+	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='".W_ASSETS."voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
 	</tr>";
             } else {
                 echo "
 	<tr>
 	<td style='text-align:center;'>" . $spotid . "</td>
 	<td style='text-align:center;'>" . $pokemon . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>" . $cp . "</td>
 	<td>" . $iv . "%</td>
 	<td style='text-align:center;'>" . $hour . ":" . $minutes . " " . $ampm . "</td>
@@ -206,21 +206,21 @@ function spottedpokemon()
 	<tr>
 	<td style='text-align:center;'>" . $spotid . "</td>
 	<td>" . $pokemon . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>" . $cp . "</td>
 	<td>" . $iv . "%</td>
 	<td>" . $hr . ":" . $minutes . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
 	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='static/voting/up.png' value='$good' /></form></span>" . $good . "<br>
-	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='static/voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
+	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='".W_ASSETS."voting/up.png' value='$good' /></form></span>" . $good . "<br>
+	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='".W_ASSETS."voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
 	</tr>";
             } else {
                 echo "
 	<tr>
 	<td style='text-align:center;'>" . $spotid . "</td>
 	<td>" . $pokemon . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
 	<td>" . $cp . "</td>
 	<td>" . $iv . "%</td>
 	<td>" . $hr . ":" . $minutes . "</td>
@@ -305,14 +305,14 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
         var icon = customLabel[type] || {};
         var image = new L.Icon({
-            iconUrl: './static/icons/' + id + '.png',
+            iconUrl: '<?=W_ASSETS?>icons/' + id + '.png',
             iconSize: [32, 32]
         });
 
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>'
+		var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>'
 		+ pokemon + ' (#' + id + ')</b><br>CP: ' + cp + '<br>IV: '+ iv + '%<br>Found: ' + hour + ':' + min + ' ' + ampm +
-		'<?php if (isset($_SESSION["uname"])) { ?><br><hr><a href =\"./good.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"./static/voting/up.png\" height=\"25\" width=\"25\"></img></a>' + good +
-		' x Found<br><a href =\"./bad.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"./static/voting/down.png\" height=\"25\" width=\"25\"></img></a>' + bad + ' x Not found<?php } ?><br><hr><a href=\"http://maps.google.com/maps?q=' +
+		'<?php if (isset($_SESSION["uname"])) { ?><br><hr><a href =\"./good.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"<?=W_ASSETS?>voting/up.png\" height=\"25\" width=\"25\"></img></a>' + good +
+		' x Found<br><a href =\"./bad.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"<?=W_ASSETS?>voting/down.png\" height=\"25\" width=\"25\"></img></a>' + bad + ' x Not found<?php } ?><br><hr><a href=\"http://maps.google.com/maps?q=' +
 		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr>Spotted by: <b>' + spotter + '</b><?php } ?></center></div>';
 
         var marker = new L.marker([parseFloat(markerElem.getAttribute('latitude')), parseFloat(markerElem.getAttribute('longitude'))],{
@@ -350,55 +350,55 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 		if (actraid === "0" && egg === "0"){
 			if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src=\"./static/gyms/' + gteam + 'ex.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php }
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>gyms/' + gteam + 'ex.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
     ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
-            iconUrl: './static/gyms/' + gteam + 'ex.png',
+            iconUrl: '<?=W_ASSETS?>/gyms/' + gteam + 'ex.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"./static/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php }
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
     ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
-            iconUrl: './static/gyms/' + gteam + '.png',
+            iconUrl: '<?=W_ASSETS?>/gyms/' + gteam + '.png',
             iconSize: [55, 55]
 			});
 			}
 		} else if (actraid !== "0" && egg === "0"){
 			if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php }
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
     ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + raidby + '<?php } ?></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
-            iconUrl: './static/raids/' + actboss + '.png',
+            iconUrl: '<?=W_ASSETS?>raids/' + actboss + '.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src=\"./static/icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php }
+			var html = '<div class=\"maplabel\"><center><img src="<?=W_ASSETS?>icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
     ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + raidby + '<?php } ?></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
-            iconUrl: './static/raids/' + actboss + '.png',
+            iconUrl: '<?=W_ASSETS?>raids/' + actboss + '.png',
             iconSize: [75, 75]
 			});
 			}
 		} else if (actraid === "0" && egg !== "0"){
 			if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"./static/eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php }
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
     ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + eggby + '<?php } ?></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
-            iconUrl: './static/eggs/' + egg + '.png',
+            iconUrl: '<?=W_ASSETS?>eggs/' + egg + '.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src=\"./static/eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="./static/teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="./static/teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="./static/teams/4.png" width="25" height="25"></a><?php }
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
     ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + eggby + '<?php } ?></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
-            iconUrl: './static/eggs/' + egg + '.png',
+            iconUrl: '<?=W_ASSETS?>eggs/' + egg + '.png',
             iconSize: [55, 55]
 			});
 			}
@@ -427,18 +427,18 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 		if (quested === "1"){
 
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) { ?><br>(<b><span class="text-success">Quested</span></b>)<br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php }
+		var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) { ?><br>(<b><span class="text-success">Quested</span></b>)<br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php }
     ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + questby + '<?php } ?></center></div>';
         var icon = customLabel[type] || {};
         var image = new L.Icon({
-            iconUrl: './static/stops/queststop.png',
+            iconUrl: '<?=W_ASSETS?>stops/queststop.png',
             iconSize: [30, 30]
 			});
 		} else if (quested === ""){
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) { ?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php } ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
+		var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) { ?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php } ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
         var image = new L.Icon({
-            iconUrl: './static/stops/stops.png',
+            iconUrl: '<?=W_ASSETS?>stops/stops.png',
             iconSize: [30, 30]
 			});
 		}
@@ -622,7 +622,7 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
             echo "
 	<tr>
 	<td>" . $rid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid ?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $rid ?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>" . $rlvl . " / " . $rcp . "</td>
 	<td>" . $hour . ":" . $minutes . " " . $ampm . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
@@ -639,7 +639,7 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
             echo "
 	<tr>
 	<td>" . $rid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $rid ?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $rid ?>.png" title="<?php echo $rid; ?> (#<?php echo $rboss ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $rboss; ?></p><?php echo "</td>
 	<td>" . $rlvl . " / " . $rcp . "</td>
 	<td>" . $hr . ":" . $minutes . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
@@ -914,7 +914,7 @@ function spottedeggs()
             echo "
 	<tr>
 	<td>" . $gid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/eggs/<?php echo $egg ?>.png" title="<?php echo $egg; ?>" height="24" width="24"><p style="padding-top:6%;"><?php echo $egg; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>/eggs/<?php echo $egg ?>.png" title="<?php echo $egg; ?>" height="24" width="24"><p style="padding-top:6%;"><?php echo $egg; ?></p><?php echo "</td>
 	<td>" . $hour . ":" . $minutes . " " . $ampm . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	</tr>";
@@ -931,7 +931,7 @@ function spottedeggs()
             echo "
 	<tr>
 	<td>" . $gid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/eggs/<?php echo $egg ?>.png" title="<?php echo $egg; ?>" height="24" width="24"><p style="padding-top:6%;"><?php echo $egg; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>/eggs/<?php echo $egg ?>.png" title="<?php echo $egg; ?>" height="24" width="24"><p style="padding-top:6%;"><?php echo $egg; ?></p><?php echo "</td>
 	<td>" . $hr . ":" . $minutes . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	</tr>";
@@ -1512,7 +1512,7 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	<td>" . $exraiddate . "</td>
 	<td>" ?><center><?php echo $spotter; ?><center><?php echo "</td>
-	<td>" ?><center><form action='attendance.php' method='post'><input type='hidden' name='exidr' value="<?php echo $exid; ?>" /><input type='image' name='att' style='width:25px;height:auto;align:middle;' src='static/voting/up.png' value="<?php echo $_SESSION['uname'] ?>" /></form><a href='./ex-attendance.php' style='display:inline;'>View</a></center><?php echo "</td>
+	<td>" ?><center><form action='attendance.php' method='post'><input type='hidden' name='exidr' value="<?php echo $exid; ?>" /><input type='image' name='att' style='width:25px;height:auto;align:middle;' src='<?=W_ASSETS?>voting/up.png' value="<?php echo $_SESSION['uname'] ?>" /></form><a href='./ex-attendance.php' style='display:inline;'>View</a></center><?php echo "</td>
 	</tr>";
 
         } else {
@@ -1525,7 +1525,7 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	<td>" . $exraiddate . "</td>
 	<td>" ?><center><?php echo $spotter; ?><center><?php echo "</td>
-	<td>" ?><center><form action='attendance.php' method='post'><input type='hidden' name='exidr' value="<?php echo $exid; ?>" /><input type='image' name='att' style='width:25px;height:auto;align:middle;' src='static/voting/up.png' value="<?php echo $_SESSION['uname'] ?>" /></form><a href='./ex-attendance.php' style='display:inline;'>View</a></center><?php echo "</td>
+	<td>" ?><center><form action='attendance.php' method='post'><input type='hidden' name='exidr' value="<?php echo $exid; ?>" /><input type='image' name='att' style='width:25px;height:auto;align:middle;' src='<?=W_ASSETS?>voting/up.png' value="<?php echo $_SESSION['uname'] ?>" /></form><a href='./ex-attendance.php' style='display:inline;'>View</a></center><?php echo "</td>
 	</tr>";
 
         }}
@@ -1824,15 +1824,15 @@ $urlquery  = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
 
 	<div class="offmon">
 
-		<a href='./active-offers.php?oid=<?php echo $oid; ?>'><img src='static/icons/<?php echo $offmon; ?>.png'></a>
+		<a href='./active-offers.php?oid=<?php echo $oid; ?>'><img src="<?=W_ASSETS?>icons/<?php echo $offmon; ?>.png'></a>
 
 		</div>
 
 	<div class="monvars">
 
-			<?php if ($shiny == 1) { ?><img src='./static/img/star.png' title='shiny'></br><?php }
+			<?php if ($shiny == 1) { ?><img src='<?-W_ASSETS?>/img/star.png' title='shiny'></br><?php }
 
-            if ($alolan == 1) { ?><img src='./static/img/alolan.png' title='alolan'><?php } ?>
+            if ($alolan == 1) { ?><img src='<?-W_ASSETS?>/img/alolan.png' title='alolan'><?php } ?>
 
 		</div>
 
@@ -1844,11 +1844,11 @@ $urlquery  = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
 
 		</div>
 
-	<a href='./active-offers.php?oid=<?php echo $oid; ?>'><img style="height:30px;width:30px;margin-left:10px;margin-bottom:40px;" src='./static/img/swap.png' title='swap'></a>
+	<a href='./active-offers.php?oid=<?php echo $oid; ?>'><img style="height:30px;width:30px;margin-left:10px;margin-bottom:40px;" src='<?-W_ASSETS?>/img/swap.png' title='swap'></a>
 
 	<div class="reqmon">
 
-	<a href='./active-offers.php?oid=<?php echo $oid; ?>'><img src='static/icons/<?php echo $reqmon; ?>.png'></a>
+	<a href='./active-offers.php?oid=<?php echo $oid; ?>'><img src="<?=W_ASSETS?>icons/<?php echo $reqmon; ?>.png'></a>
 
 		</div>
 
@@ -1951,8 +1951,8 @@ function mytrades()
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $oid . "</td>
-	<td>" ?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid; ?>' /><input type='image' name='offmon' style='width:45px;height:auto;display:inline;' src='static/icons/<?php echo $offmon; ?>' value='<?php echo $offmon; ?>' /></form><center><?php echo "</td>
-	<td>" ?><center><img style=" padding-right:5px;" src="./static/icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="50" width="55"></center><?php echo "</td>
+	<td>" ?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid; ?>' /><input type='image' name='offmon' style='width:45px;height:auto;display:inline;' src="<?=W_ASSETS?>icons/<?php echo $offmon; ?>' value='<?php echo $offmon; ?>' /></form><center><?php echo "</td>
+	<td>" ?><center><img style=" padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="50" width="55"></center><?php echo "</td>
 	<td>" . $tradeloc . "</td>
 
 	<td>" . $date . "</td>
@@ -1961,8 +1961,8 @@ function mytrades()
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $oid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
 	<td>" . $tradeloc . "</td>
 
 	<td>" . $rname . "</td>
@@ -2025,8 +2025,8 @@ function mynatrades()
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $oid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
 	<td>" . $tradeloc . "</td>
 	<td style='text-align:center; color:green;'>AVAILABLE</td>
 	<td>" . $date . "</td>
@@ -2035,8 +2035,8 @@ function mynatrades()
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $tid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
 	<td>" . $tradeloc . "</td>
 	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS</td>
 	<td>" . $rname . "</td>
@@ -2098,7 +2098,7 @@ function acceptedtrades()
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $tid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
 	<td>" . $tradeloc . "</td>
 	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS</td>
 	<td style='text-align:center;'><a href='./compose.php?user=" . $tname . "&subject=Counter Offer Number " . $tid . "'>" . $tname . "</td>
@@ -2108,8 +2108,8 @@ function acceptedtrades()
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $tid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="./static/icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
+	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
 	<td>" . $tradeloc . "</td>
 	<td style='text-align:center; color:orange;'> ACCEPTED / IN PROGRESS</td>
 	<td>" . $tname . "</td>
@@ -2193,7 +2193,7 @@ echo $tradeloc;
 <tr>
 <td style="width: 5%; text-align:center;vertical-align:middle;">Offered Pokemon:</td>
 <td style="width: 10%; text-align:center;vertical-align:middle;">
-<img src="./static/icons/<?php echo $offmon; ?>.png" height=50; width=55;>
+<img src="<?=W_ASSETS?>icons/<?php echo $offmon; ?>.png" height=50; width=55;>
 </td>
 </tr>
 
@@ -2225,7 +2225,7 @@ require './config/config.php';
         unset($id, $monster);
         $id      = $row['id'];
         $monster = $row['monster'];
-        echo '<option value="' . $id . '"><img src="./static/icons/' . $id . '.png">' . $id . ' - ' . $monster . '</option>';
+        echo '<option value="' . $id . '"><img src="<?=W_ASSETS?>icons/' . $id . '.png">' . $id . ' - ' . $monster . '</option>';
     }
     echo "</select>";
     mysqli_close($conn);
@@ -2326,7 +2326,7 @@ echo "User:&nbsp;<a href='./compose.php?user=" . $offerby . "&subject=Trade Numb
 <tr>
 <td style="width: 5%; text-align:center;vertical-align:middle;">Offered Pokemon:</td>
 <td style="width: 10%; text-align:center;vertical-align:middle;">
-<img src="./static/icons/<?php echo $offmon; ?>.png" height=50; width=55;>
+<img src="<?=W_ASSETS?>icons/<?php echo $offmon; ?>.png" height=50; width=55;>
 </td>
 </tr>
 
@@ -2437,12 +2437,12 @@ require './config/config.php';
 	<tr>
 	<td style='text-align:center;'>" . $toid . "</td>
 	<td style='text-align:center;'><a href='./compose.php?user=" . $cofferby . "&subject=Counter Offer Number " . $toid . "'>" . $cofferby . "</td>
-	<td style='text-align:center;'>" ?><center><img style="padding-right:5px;" src="./static/icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
+	<td style='text-align:center;'>" ?><center><img style="padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
 	<td style='text-align:center;'>" . $ccp . "</td>
 	<td style='text-align:center;'>" . $civ . "</td>
-	<td style='text-align:center;'>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='./static/img/star.png' title='star' height='24' width='28'></span><center>";}
+	<td style='text-align:center;'>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";}
                 echo "</td>
-	<td style='text-align:center;'>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='./static/img/alolan.png' title='star' height='24' width='28'></span><center>";}
+	<td style='text-align:center;'>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";}
                 echo "</td>
 	<td style='text-align:center;'>" . $date . "</td>
 
@@ -2471,12 +2471,12 @@ require './config/config.php';
 	<tr>
 	<td style='text-align:center;'>" . $toid . "</td>
 	<td style='text-align:center;'><a href='./compose.php?user=" . $cofferby . "&subject=Trade Number " . $oid . "'>" . $cofferby . "</td>
-	<td>" ?><center><img style="padding-right:5px;" src="./static/icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
+	<td>" ?><center><img style="padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
 	<td>" . $ccp . "</td>
 	<td>" . $civ . "</td>
-	<td>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='./static/img/star.png' title='star' height='24' width='28'></span><center>";}
+	<td>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";}
                 echo "</td>
-	<td>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='./static/img/alolan.png' title='star' height='24' width='28'></span><center>";}
+	<td>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";}
                 echo "</td>
 	<td>" . $date . "</td>
 	</tr>";
@@ -2487,12 +2487,12 @@ require './config/config.php';
 	<tr>
 	<td style='text-align:center;'>" . $toid . "</td>
 	<td style='text-align:center;'>" . $cofferby . "</td>
-	<td>" ?><center><img style="padding-right:5px;" src="./static/icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
+	<td>" ?><center><img style="padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
 	<td>" . $ccp . "</td>
 	<td>" . $civ . "</td>
-	<td>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='./static/img/star.png' title='star' height='24' width='28'></span><center>";}
+	<td>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";}
             echo "</td>
-	<td>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='./static/img/alolan.png' title='star' height='24' width='28'></span><center>";}
+	<td>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";}
             echo "</td>
 	<td>" . $date . "</td>
 	</tr>";

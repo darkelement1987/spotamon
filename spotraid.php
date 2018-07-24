@@ -162,7 +162,7 @@ if ($clock=="false"){
 $hookObject = json_encode([
     "username" => "Raid Spotted!",
     "tts" => false,
-	"avatar_url" => "$viewurl/static/raids/$rboss.png",
+	"avatar_url" => W_ASSETS  . "raids/$rboss.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -170,7 +170,7 @@ $hookObject = json_encode([
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $spotter at $date",
-				"icon_url" => "$viewurl/static/raids/$rboss.png"
+				"icon_url" => W_ASSETS  . "raids/$rboss.png"
             ],
             
             "image" => [
@@ -178,7 +178,7 @@ $hookObject = json_encode([
             ],
             
             "thumbnail" => [
-				"url" => "$viewurl/static/raids/$rboss.png",
+				"url" => W_ASSETS  . "raids/$rboss.png",
             ],
             
             "author" => [

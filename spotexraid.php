@@ -51,14 +51,14 @@ $gymteam = $row[3];
 		$hookObject = json_encode([
     "username" => "EX Raid Spotted!",
     "tts" => false,
-	"avatar_url" => "$viewurl/static/gyms/".$gymteam."ex.png",
+	"avatar_url" => W_ASSETS  . "gyms/".$gymteam."ex.png",
     "embeds" => [
         [
             "type" => "rich",
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $spotter at $exraiddate",
-				"icon_url" => "$viewurl/static/gyms/".$gymteam."ex.png"
+				"icon_url" => W_ASSETS  . "gyms/".$gymteam."ex.png"
             ],
             
             "image" => [
@@ -68,7 +68,7 @@ $gymteam = $row[3];
                 "name" => "Ex-Raid spotted by $spotter",
             ],			
             "thumbnail" => [
-				"url" => "$viewurl/static/gyms/".$gymteam."ex.png",
+				"url" => W_ASSETS  . "gyms/".$gymteam."ex.png",
             ],
             "fields" => [
                 [

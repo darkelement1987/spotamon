@@ -22,7 +22,7 @@ include 'config/dbbuilding.php';
  function formatState1 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
-   '<span ><img style="display: inline-block;" src="static/quests/' + state.element.label.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+   '<span ><img style="display: inline-block;" src="<?=W_ASSETS?>quests/' + state.element.label.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
   );
   return $state;
  }
@@ -36,7 +36,7 @@ include 'config/dbbuilding.php';
  function formatState2 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
-   '<span ><img style="display: inline-block;" src="static/stops/stops.png" heigth="24" width="24"/> ' + state.text + '</span>'
+   '<span ><img style="display: inline-block;" src="<?=W_ASSETS?>stops/stops.png" heigth="24" width="24"/> ' + state.text + '</span>'
   );
   return $state;
  }
@@ -63,7 +63,7 @@ include 'config/dbbuilding.php';
  function formatState3 (state) {
   if (!state.id) { return state.text; }
   var $state = $(
-   '<span ><img style="display: inline-block;" src="static/rewards/' + state.element.label.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
+   '<span ><img style="display: inline-block;" src="<?=W_ASSETS?>rewards/' + state.element.label.toLowerCase() + '.png" heigth="24" width="24"/> ' + state.text + '</span>'
   );
   return $state;
  }

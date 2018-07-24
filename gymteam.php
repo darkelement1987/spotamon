@@ -63,7 +63,7 @@ if ($clock=="false"){
 $hookObject = json_encode([
     "username" => "Gym taken!",
     "tts" => false,
-	"avatar_url" => "$viewurl/static/teams/$tname.png",
+	"avatar_url" => W_ASSETS . "teams/$tname.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -71,7 +71,7 @@ $hookObject = json_encode([
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $teamby at $date",
-				"icon_url" => "$viewurl/static/teams/$tname.png"
+				"icon_url" => W_ASSETS . "teams/$tname.png"
             ],
             
             "image" => [
@@ -79,7 +79,7 @@ $hookObject = json_encode([
             ],
             
             "thumbnail" => [
-				"url" => "$viewurl/static/teams/$tname.png",
+				"url" => W_ASSETS . "teams/$tname.png",
             ],
             
             "author" => [

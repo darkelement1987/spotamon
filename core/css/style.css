@@ -79,11 +79,10 @@ html, body {
     margin: 0;
     padding: 0;
 	font-family: tahoma;
-	overflow:hidden;
 }
 
 body {
-	background-image: url("./static/img/pokecenter.jpg");
+	background-image: url("/core/assets/img/pokecenter.jpg");
 }
 
 h2 {
@@ -195,7 +194,7 @@ h3 {
 	font-size: 18px;
 }
 .acttrade{
-	 background-image: url("./static/img/tradebackground.jpg");
+	 background-image: url("/core/assets/img/tradebackground.jpg");
 	 margin-top: -20px;
 }
 .activelisting {
@@ -336,7 +335,7 @@ p{
 
 @media only screen and (max-width: 768px) and (min-width:481px){
 .acttrade{
-	 background-image: url("./static/img/tradebackground.jpg");
+	 background-image: url("/core/assets/img/tradebackground.jpg");
 	 margin-top: -20px;
 }
 
@@ -480,7 +479,7 @@ p{
 }
 @media only screen and (max-width: 1080px) and (min-width:769px) {
 .acttrade{
-	 background-image: url("./static/img/tradebackground.jpg");
+	 background-image: url("/core/assets/img/tradebackground.jpg");
 	 margin-top: -20px;
 }
 .activelisting {
@@ -627,7 +626,7 @@ p{
 
 @media only screen and (max-width: 1440px) and (min-width:1080px) {
 .acttrade{
-	 background-image: url("./static/img/tradebackground.jpg");
+	 background-image: url("/core/assets/img/tradebackground.jpg");
 	 margin-top: -20px;
 }
 
@@ -775,7 +774,7 @@ p{
 }
 @media only screen and (max-width: 2880px) and (min-width:1441px) {
 .acttrade{
-	 background-image: url("./static/img/tradebackground.jpg");
+	 background-image: url("/core/assets/img/tradebackground.jpg");
 	 margin-top: -20px;
 }
 

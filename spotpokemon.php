@@ -77,7 +77,7 @@ if ($clock=="false"){
 $hookObject = json_encode([
     "username" => "$monname spotted!",
     "tts" => false,
-	"avatar_url" => "$viewurl/static/icons/$pokemon.png",
+	"avatar_url" => W_ASSETS . "icons/$pokemon.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -85,7 +85,7 @@ $hookObject = json_encode([
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted by $spotter at $date",
-				"icon_url" => "$viewurl/static/icons/$pokemon.png"
+				"icon_url" => W_ASSETS . "icons/$pokemon.png"
             ],
             
             "image" => [
@@ -93,7 +93,7 @@ $hookObject = json_encode([
             ],
             
             "thumbnail" => [
-				"url" => "$viewurl/static/icons/$pokemon.png",
+				"url" => W_ASSETS . "icons/$pokemon.png",
             ],
             
             "author" => [

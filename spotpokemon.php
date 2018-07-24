@@ -1,9 +1,8 @@
 <?php
 $curl = curl_init();
 ob_start();
-require './config/config.php';
-include'frontend/functions.php';
-include("login/auth.php");
+require_once 'initiate.php';
+include S_FUNCTIONS . 'functions.php';
 $pokemon = $conn->real_escape_string($_POST['pokemon']);
 $cp = $conn->real_escape_string($_POST['cp']);
 $iv = $conn->real_escape_string($_POST['moniv']);

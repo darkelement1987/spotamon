@@ -1,5 +1,5 @@
 <?php
-require '../config/config.php';
+require_once 'initiate.php';
 
 if (empty($delmon)) {
 	$delvalue = 5;

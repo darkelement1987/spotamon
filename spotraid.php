@@ -1,9 +1,8 @@
 <?php
 $curl = curl_init();
 ob_start();
-require './config/config.php';
-include'frontend/functions.php';
-include("login/auth.php");
+require_once 'initiate.php';
+include S_FUNCTIONS . 'functions.php';
 $rboss = $conn->real_escape_string($_POST['rboss']);
 $minutes = $conn->real_escape_string($_POST['rtime']);
 $pulltime = date('H:i:s');

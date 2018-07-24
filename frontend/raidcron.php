@@ -1,5 +1,5 @@
 <?php
-require '../config/config.php';
+require_once 'initiate.php';
 $sql = "DELETE FROM spotraid WHERE rdate < (NOW() - INTERVAL 1 MINUTE)";
 if(!mysqli_query($conn,$sql))
 {

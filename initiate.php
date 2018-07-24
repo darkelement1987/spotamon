@@ -1,7 +1,7 @@
 <?php
-require_once 'login/auth.php';
 require_once 'config/config.php';
-$conn->close();
+require_once 'login/auth.php';
+
 // returns the url of the current page (does not account for rewrites or includes)
 $protocol   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $domainName = $_SERVER['HTTP_HOST'];
@@ -10,7 +10,7 @@ $folder     = (dirname($_SERVER['PHP_SELF']));
 $trim       = $domain . $folder;
 $viewurl    = rtrim($trim, '\/');
 
-// Returns the webroot in relativity to any subflders 
+// Returns the webroot in relativity to any subflders
 function directory()
 {
     return substr(str_replace('\\', '/', realpath(dirname(__FILE__))), strlen(str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']))) + 1);
@@ -30,7 +30,7 @@ $functions = S_ROOT . 'core/functions/';
 $assets    = $viewurl . 'core/assets/';
 define("W_ROOT", $wroot);
 $css = W_ROOT . 'core/css/';
-$js = W_ROOT . 'core/js/';
+$js  = W_ROOT . 'core/js/';
 define("S_CONFIG", $config);
 define("S_ASSETS", $assets);
 define("S_FUNCTIONS", $functions);

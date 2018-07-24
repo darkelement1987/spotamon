@@ -1,3 +1,3 @@
 <?php
-$lastversion='7';
+$lastversion='8';
 ?>

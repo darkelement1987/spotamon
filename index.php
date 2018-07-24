@@ -1,8 +1,7 @@
 <?php
-include './frontend/functions.php';
-include './frontend/menu.php';
-include './config/dbbuilding.php';
-require './config/config.php';
+require_once 'initiate.php';
+include  S_FUNCTIONS . 'functions.php';
+include S_FUNCTIONS . 'menu.php';
 ?>
 
 <head>

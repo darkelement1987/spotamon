@@ -1,7 +1,6 @@
 <?php
-require './config/config.php';
-include'frontend/functions.php';
-include'login/auth.php';
+require_once 'initiate.php';
+include S_FUNCTIONS . 'functions.php';
 $email = $conn->real_escape_string($_POST['email']);
 // attempt insert query execution
 if(!empty($email)){

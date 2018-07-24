@@ -1,6 +1,6 @@
 <?php
-require 'config/config.php';
-include 'frontend/functions.php';
+require_once 'initiate.php';
+include  S_FUNCTIONS . 'functions.php';
 include("login/auth.php");
 if (isset($_GET['oid'])) {
 	

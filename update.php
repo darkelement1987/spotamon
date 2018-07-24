@@ -1,8 +1,9 @@
 <?php
 ob_start();
-require './config/config.php';
+require_once 'initiate.php';
 require './config/version.php';
-include 'frontend/functions.php';
+include  S_FUNCTIONS . 'functions.php';
+include_once S_ROOT . 'core/protected/create_db.php';
 
 
 If (isset($_GET['cssupdate']) && $_GET['cssupdate'] == 1) {

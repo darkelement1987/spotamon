@@ -1,5 +1,5 @@
 <?php
-require 'config/config.php';
+require_once 'initiate.php';
 ?>
 <style>
    #ppBody

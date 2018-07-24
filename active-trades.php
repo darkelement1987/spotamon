@@ -1,6 +1,6 @@
 <?php
-include 'frontend/functions.php';
-include 'frontend/menu.php';
+include  S_FUNCTIONS . 'functions.php';
+include S_FUNCTIONS . 'menu.php';
 include 'config/dbbuilding.php';
 ?>
 

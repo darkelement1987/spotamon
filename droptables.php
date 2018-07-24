@@ -1,8 +1,7 @@
 <?php
 ob_start();
-require './config/config.php';
-include 'frontend/functions.php';
-include("login/auth.php");
+require_once 'initiate.php';
+include  S_FUNCTIONS . 'functions.php';
 
 if (isset($_SESSION["uname"])) {
     
@@ -85,4 +84,5 @@ Click here to <a href='./login/login.php'>Login</a>
 </html>
 <?php
 }
+ob_end_flush();
 ?>

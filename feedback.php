@@ -71,7 +71,7 @@ if(isset($_POST["submit"]))
 	}
 	if($error == '')
 	{
-		require 'static/scripts/class.phpmailer.php';
+		require S_FUNCTIONS . 'class.phpmailer.php';
 		$mail = new PHPMailer;
 		$mail->IsSMTP();								//Sets Mailer to send message using SMTP
 		$mail->Host = $mailhost;		//Sets the SMTP hosts of your Email hosting, this for Godaddy
@@ -136,4 +136,3 @@ if(isset($_SESSION["uname"])){?>
 echo "</div></center>";}?>
 
 <footer></footer>
-

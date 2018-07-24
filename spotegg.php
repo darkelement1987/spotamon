@@ -102,7 +102,7 @@ if ($clock=="false"){
 $hookObject = json_encode([
     "username" => "Egg spotted!",
     "tts" => false,
-	"avatar_url" => "$viewurl/static/eggs/$egg.png",
+	"avatar_url" => W_ASSETS . "eggs/$egg.png",
     "embeds" => [
         [
             "type" => "rich",
@@ -110,7 +110,7 @@ $hookObject = json_encode([
             "color" => hexdec( "FFFFFF" ),
             "footer" => [
                 "text" => "Spotted at by $eggby at $date",
-				"icon_url" => "$viewurl/static/eggs/$egg.png"
+				"icon_url" => W_ASSETS . "eggs/$egg.png"
             ],
             
             "image" => [
@@ -118,7 +118,7 @@ $hookObject = json_encode([
             ],
             
             "thumbnail" => [
-				"url" => "$viewurl/static/eggs/$egg.png",
+				"url" => W_ASSETS . "eggs/$egg.png",
             ],
             
             "author" => [

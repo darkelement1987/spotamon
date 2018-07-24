@@ -53,9 +53,9 @@ $titles   = array();
         <meta property="og:title" content="<?php
 echo $titles[array_rand($titles)]; // Pick a random item from the array and output it ?> ">
         <meta property="og:description" content="spot a pokemon, raid, pokestop quest or more all in your local area! Dont forget to give us feedback to improve your experience and please let us know if you encounter any bugs. Welcome to spotamon.">
-        <meta property="og:image" content="<?php echo $viewurl; ?>/static/img/ultra-ball.png">
+        <meta property="og:image" content="<?=W_ASSETS?>img/ultra-ball.png">
 
-    <link rel="icon" href="static/img/favicon.ico" type="image/ico" sizes="16x16">
+    <link rel="icon" href="<?=W_ASSETS?>img/favicon.ico" type="image/ico" sizes="16x16">
 
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -68,8 +68,8 @@ echo $titles[array_rand($titles)]; // Pick a random item from the array and outp
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script src="./static/scripts/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="./static/scripts/sweetalert2.min.css">
+    <script src="<?=W_JS?>sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="<?=W_CSS?>sweetalert2.min.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">

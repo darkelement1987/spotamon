@@ -68,7 +68,7 @@ if (!$useremail) {
 	}
 	if($error == '')
 	{
-		require 'static/scripts/class.phpmailer.php';
+		require S_FUNCTIONS . 'class.phpmailer.php';
 		$token = password_generate(7);
 		
 		    $storetoken = "INSERT IGNORE INTO reset (uname, email, token) VALUES ('$username','$useremail','$token') ON DUPLICATE KEY UPDATE uname='$username', email='$useremail', token='$token';";
@@ -158,4 +158,3 @@ if (!isset($_GET['token'])) {?>
 }?>
 
 <footer></footer>
-

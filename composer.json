@@ -1,0 +1,8 @@
+{
+    "require": {
+        "restcord/restcord": "^0.2.2",
+        "wohali/oauth2-discord-new": "^1.0",
+        "paragonie/anti-csrf": "^2.2",
+        "voku/anti-xss": "^4.1"
+    }
+}

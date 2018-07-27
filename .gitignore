@@ -5,3 +5,5 @@ config/config.php
 \.htpasswd
 
 test\.php
+vendor\*
+composer.lock

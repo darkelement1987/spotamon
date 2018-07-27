@@ -282,7 +282,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
     // Change this depending on the name of your PHP or XML file
-    downloadUrl('./frontend/xml.php', function(data) {
+    downloadUrl('/frontend/xml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -325,7 +325,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       });
     });
 
-	downloadUrl('./frontend/gxml.php', function(data) {
+	downloadUrl('/frontend/gxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -413,7 +413,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       });
     });
 
-	downloadUrl('./frontend/sxml.php', function(data) {
+	downloadUrl('/frontend/sxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -2159,7 +2159,7 @@ function counteroffer()
     ?>
 
 <h3 style="text-align:center;"><strong>Make an Offer:</strong></h3>
-<form id="usersubmit" method="post" action="./trading/makeoffer.php">
+<form id="usersubmit" method="post" action="<?=S_ROOT?>trading/makeoffer.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
 
@@ -2450,11 +2450,11 @@ require './config/config.php';
 
 
 	<td style='text-align:center;'>
-	";if ($accepted == 1) {echo "<p style='color:green;font-weight:700;'>Accepted</p><span style='display:inline-block;'><form action='./trading/complete.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='complete' style='color:blue;font-size:9px' value='Complete' /></form></span>";} else {echo "<span style='display:inline-block;'><form action='./trading/accept.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='accepted' style='color:green;font-size:9px' value='Accept' /></form></span>";}
+	";if ($accepted == 1) {echo "<p style='color:green;font-weight:700;'>Accepted</p><span style='display:inline-block;'><form action='<?=S_ROOT?>trading/complete.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='complete' style='color:blue;font-size:9px' value='Complete' /></form></span>";} else {echo "<span style='display:inline-block;'><form action='<?=S_ROOT?>trading/accept.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='accepted' style='color:green;font-size:9px' value='Accept' /></form></span>";}
                     echo "</td>
 
 	<td style='text-align:center;'>
-	";if ($accepted == 2) {echo "<p style='color:red;font-weight:700;'>Declined</p>";} else {echo "<span style='display:inline-block;'><form action='./trading/decline.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='declined' style='color:red;font-size:9px' value='Decline' /></form></span>";}
+	";if ($accepted == 2) {echo "<p style='color:red;font-weight:700;'>Declined</p>";} else {echo "<span style='display:inline-block;'><form action='<?=S_ROOT?>trading/decline.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='declined' style='color:red;font-size:9px' value='Decline' /></form></span>";}
                     echo "</td>
 
 	";} elseif ($complete == 1) {echo "

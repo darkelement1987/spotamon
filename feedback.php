@@ -6,12 +6,12 @@ include S_FUNCTIONS . 'menu.php';
 
 <head>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<?php
-menu();
+	<?php
+include_once S_FUNCTIONS . 'menu.php';;
 
 $error = '';
 $name = '';
@@ -104,35 +104,42 @@ if(isset($_POST["submit"]))
 }
 
 if(isset($_SESSION["uname"])){?>
-					<!DOCTYPE html>
-					<center>
-					<h3 align="center">Feedback</h3>
-					<br />
-					<form method="post" id="feedback">
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $name; ?>" />
-						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input type="text" name="email" class="form-control" placeholder="Enter Email" value="<?php echo $email; ?>" />
-						</div>
-						<div class="form-group">
-							<input type="hidden" name="subject" class="form-control" placeholder="Enter Subject" value="<?php echo $feedbacksubject; ?>" />
-						</div>
-						<div class="form-group">
-							<label>Message</label>
-							<textarea name="message" class="form-control" placeholder="Enter Message" rows="5"><?php echo $message; ?></textarea>
-						</div>
-						<div class="form-group" align="center">
-							<input type="submit" name="submit" value="Submit" class="btn btn-info" />
-						</div>
-						<?php echo $error; ?>
-					</form>
-</center><?php } else {
+	<!DOCTYPE html>
+	<center>
+		<h3 align="center">Feedback</h3>
+		<br />
+		<form method="post" id="feedback">
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $name; ?>"
+				/>
+			</div>
+			<div class="form-group">
+				<label>Email</label>
+				<input type="text" name="email" class="form-control" placeholder="Enter Email" value="<?php echo $email; ?>"
+				/>
+			</div>
+			<div class="form-group">
+				<input type="hidden" name="subject" class="form-control" placeholder="Enter Subject" value="<?php echo $feedbacksubject; ?>"
+				/>
+			</div>
+			<div class="form-group">
+				<label>Message</label>
+				<textarea name="message" class="form-control" placeholder="Enter Message" rows="5"><?php echo $message; ?></textarea>
+			</div>
+			<div class="form-group" align="center">
+				<input type="submit" name="submit" value="Submit" class="btn btn-info" />
+			</div>
+			<?php echo $error; ?>
+		</form>
+	</center>
+	<?php } else {
 	echo "<center><div style='margin-top:10px;'>";
 	echo "Login to use the feedback form";
-		?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";}?>
+		?>
+	<br />
+	<br />
+	<a href="./login/login.php">Login Here</a>
+	</div></center>
+	<?php } ?>
 
-<footer></footer>

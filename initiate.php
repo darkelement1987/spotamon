@@ -1,6 +1,7 @@
 <?php
 require_once 'config/config.php';
-require_once 'login/auth.php';
+require_once 'vendor/autoload.php';
+require 'config/version.php';
 
 // returns the url of the current page (does not account for rewrites or includes)
 $protocol   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
@@ -27,14 +28,31 @@ define("S_ROOT", $root);
 $config    = S_ROOT . 'config/';
 $pages     = S_ROOT . 'core/pages/';
 $functions = S_ROOT . 'core/functions/';
-$assets    = $viewurl . '/core/assets/';
+$classes   = $functions . 'classes/';
 define("W_ROOT", $wroot);
 $css = W_ROOT . 'core/css/';
 $js  = W_ROOT . 'core/js/';
+$assets = W_ROOT . 'core/assets/';
+$wpages = W_ROOT . 'core/pages/';
+$wfunctions = W_ROOT . 'core/functions/';
 define("S_CONFIG", $config);
-define("W_ASSETS", $assets);
 define("S_FUNCTIONS", $functions);
 define("S_PAGES", $pages);
+define("S_CLASSES", $classes);
+define("W_ASSETS", $assets);
+define("W_PAGES", $wpages);
 define("W_CSS", $css);
 define("W_JS", $js);
+define("W_FUNCTIONS", $wfunctions);
+//  Create, check and restrict _SESSION
 ?>
+<?php
+
+if (session_status() == PHP_SESSION_NONE) {
+
+Spotamon\Session::sessionStart('Spotamon', 0, W_ROOT, $domainName);
+}
+use \ParagonIE\AntiCSRF\Reusable;
+$csrf = New Reusable;
+use \Spotamon\Validate;
+$Validate = New Validate;

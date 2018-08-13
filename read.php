@@ -5,11 +5,11 @@ include S_FUNCTIONS . 'menu.php';
 
 <head>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<?php
-menu();
+	<?php
+include_once S_FUNCTIONS . 'menu.php';;
 $error='';
 
 	if(isset($_POST["markread"],$_GET['id']))
@@ -81,71 +81,113 @@ else if(isset($_SESSION["uname"], $_GET['id'])){
 	
 if ($row){
 	?>
-<center>
-<div id="pm">
-<h3>Message from "<?php echo $from;?>"</h3>
-<table id="readpm" class="table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
-<tbody>
-<tr>
-<td>Subject</td>
-<td><?php echo $subject;?></td>
-</tr>
-<tr>
-<td>Date</td>
-<td><?php echo $date;?></td>
-</tr>
-<tr>
-<td>From</td>
-<td><?php echo $from;?></td>
-</tr>
-<tr>
-<td>Message</td>
-<td style="word-break:break-word;"><?php echo $message;?></td>
-</tr>
-<tr>
-<td></td>
-<td><a href="read.php?del=<?php echo $_GET['id'];?>">Delete message</a></td>
-</tr>
-</tbody>
-</table>
-	<form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $_GET['id'];?>" method="post">
-<?php if($unread=='1'){ ?><input type="submit" name="markread" value="Mark as read"><?php }?>
-</form>
+	<center>
+		<div id="pm">
+			<h3>Message from "
+				<?php echo $from;?>"</h3>
+			<table id="readpm" class="table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
+				<tbody>
+					<tr>
+						<td>Subject</td>
+						<td>
+							<?php echo $subject;?>
+						</td>
+					</tr>
+					<tr>
+						<td>Date</td>
+						<td>
+							<?php echo $date;?>
+						</td>
+					</tr>
+					<tr>
+						<td>From</td>
+						<td>
+							<?php echo $from;?>
+						</td>
+					</tr>
+					<tr>
+						<td>Message</td>
+						<td style="word-break:break-word;">
+							<?php echo $message;?>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<a href="read.php?del=<?php echo $_GET['id'];?>">Delete message</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $_GET['id'];?>"
+			 method="post">
+				<?php if($unread=='1'){ ?>
+				<input type="submit" name="markread" value="Mark as read">
+				<?php }?>
+			</form>
 
-<h3>Reply:</h3><form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $msgid;?>" method="post" style="width:100%;">
-<table id="readpm" class="table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
+			<h3>Reply:</h3>
+			<form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $msgid;?>"
+			 method="post" style="width:100%;">
+				<table id="readpm" class="table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
 
-<tr><td colspan=2><h3>Send PM:</h3></td></tr>
-<input type="hidden" name="from_user" maxlength="32" value = <?php echo $_SESSION['uname']; ?>>
-</td></tr>
+					<tr>
+						<td colspan=2>
+							<h3>Send PM:</h3>
+						</td>
+					</tr>
+					<input type="hidden" name="from_user" maxlength="32" value=< !--%fhip-comment-start#<?php echo $_SESSION[ 'uname']; ?>>
+					</td>
+					</tr>
 
-<tr><td>To User: </td><td>
-<input type="text" name="to_user" maxlength="32" value="<?php echo $from;?>" style="width:100%;" disabled>
-<p><?php if (isset($usrerror)){echo $usrerror;}?></p>
-</td></tr>
+					<tr>
+						<td>To User: </td>
+						<td>
+							<input type="text" name="to_user" maxlength="32" value="<?php echo $from;?>"
+							 style="width:100%;" disabled>
+							<p>
+								<?php if (isset($usrerror)){echo $usrerror;}?>
+							</p>
+						</td>
+					</tr>
 
-<tr><td>Subject: </td><td>
-<input type="text" name="subject" maxlength="255" value="RE: <?php echo $subject;?>" style="width:100%;" disabled>
-<p><?php if (isset($suberror)){echo $suberror;}?></p>
-</td></tr>
+					<tr>
+						<td>Subject: </td>
+						<td>
+							<input type="text" name="subject" maxlength="255" value="RE: <?php echo $subject;?>"
+							 style="width:100%;" disabled>
+							<p>
+								<?php if (isset($suberror)){echo $suberror;}?>
+							</p>
+						</td>
+					</tr>
 
-<tr><td>Message: </td><td>
-<TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;"></TEXTAREA>
-<p><?php if (isset($msgerror)){echo $msgerror;}?></p>
-</td></tr>
+					<tr>
+						<td>Message: </td>
+						<td>
+							<TEXTAREA NAME="message" COLS=50 ROWS=10 WRAP=SOFT style="width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;resize: none;"></TEXTAREA>
+							<p>
+								<?php if (isset($msgerror)){echo $msgerror;}?>
+							</p>
+						</td>
+					</tr>
 
-<tr><td colspan="2" align="right">
-<center><input type="submit" name="submit" value="Send Message">
-<?php if(isset($error)){ echo '<p><label class="text-danger">'.$error.'</label></p>';}?>
-</center></td></tr>
-</table>
-</form>
+					<tr>
+						<td colspan="2" align="right">
+							<center>
+								<input type="submit" name="submit" value="Send Message">
+								<?php if(isset($error)){ echo '<p><label class="text-danger">'.$error.'</label></p>';}?>
+							</center>
+						</td>
+					</tr>
+				</table>
+			</form>
 
-</div>
-</center>
-</body>
-<?php // else for 'if row'
+		</div>
+	</center>
+	</body>
+	<?php // else for 'if row'
  } else { echo "<center><p><label class=\"text-danger\">Invalid ID or not allowed to view</label></p></center>";}?>
- 
-<?php // else for 'if(isset($_SESSION["uname"], $_GET['id'])){'
-} else  { echo "<center><p><label class=\"text-danger\">You are not allowed to view this page</label></p></center>";} ?>
+
+	<?php // else for 'if(isset($_SESSION["uname"], $_GET['id'])){'
+} else  { echo "<center><p><label class=\"text-danger\">You are not allowed to view this page</label></p></center>";} 

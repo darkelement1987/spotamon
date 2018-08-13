@@ -1,5 +1,5 @@
 <?php
-
+require 'initiate.php';
 // sql to create spoting table
 $spot = "CREATE TABLE IF NOT EXISTS `spots` (
 spotid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -103,16 +103,40 @@ rname VARCHAR(255) NOT NULL,
 type VARCHAR(8) NOT NULL)";
 
 $users = "CREATE TABLE IF NOT EXISTS `users` (
-id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-email VARCHAR(100) NOT NULL,
-uname VARCHAR(100) NOT NULL,
-upass VARCHAR(100) NOT NULL,
-usergroup VARCHAR(1) NOT NULL,
-trn_date datetime NOT NULL,
-url TEXT NOT NULL,
-lastUpload VARCHAR(200) NOT NULL,
-offtrades INT(9) NOT NULL,
-reqtrades INT(9) NOT NULL)";
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`email` VARCHAR(100) NOT NULL,
+	`uname` VARCHAR(100) NOT NULL,
+	`upass` VARCHAR(100) NOT NULL,
+	`usergroup` VARCHAR(1) NOT NULL DEFAULT '1',
+	`trn_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`url` TEXT NULL DEFAULT NULL,
+	`lastUpload` VARCHAR(200) NULL DEFAULT NULL,
+	`offtrades` INT(9) NOT NULL DEFAULT '0',
+	`reqtrades` INT(9) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `email` (`email`),
+	UNIQUE INDEX `uname` (`uname`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=1";
+
+$extendeduser = "CREATE TABLE IF NOT EXISTS `user_extended` (
+	`email` VARCHAR(100) NOT NULL,
+	`discord_id` VARCHAR(50) NULL DEFAULT NULL,
+	`silph_name` VARCHAR(50) NULL DEFAULT NULL,
+	`discord_uname` VARCHAR(50) NULL DEFAULT NULL,
+	`token` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`discord_profile` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`silph_profile` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`avatar` VARCHAR(100) NULL DEFAULT NULL,
+	UNIQUE INDEX `email` (`email`),
+	UNIQUE INDEX `discord_id` (`discord_id`),
+	CONSTRAINT `FK_user_extended_users` FOREIGN KEY (`Email`) REFERENCES `users` (`email`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COMMENT='additional user rescources'
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB";
 
 $usergroup = "CREATE TABLE IF NOT EXISTS `usergroup` (
 id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -178,10 +202,11 @@ accepted INT(1) NOT NULL,
 complete INT(1) NOT NULL,
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
-$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $usergroup, $version, $reset, $messages, $offers, $trades, $tradeoffers];
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $extendeduser, $usergroup, $version, $reset, $messages, $offers, $trades, $tradeoffers];
 
 foreach($tables as $k => $sql){
     $query = @$conn->query($sql);
 }
 
 ?>
+<p> Your database has been successfully created, please check core/functions/protected/update.php for any database updates </p>

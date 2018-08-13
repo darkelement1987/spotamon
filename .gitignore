@@ -5,5 +5,8 @@ config/config.php
 \.htpasswd
 
 test\.php
-vendor\*
+vendor/
+vendor/*
 composer.lock
+
+\.vscode/

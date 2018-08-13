@@ -5,18 +5,18 @@ include S_FUNCTIONS . 'menu.php';
 
 <head>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<?php
-menu();
+	<?php
+include_once S_FUNCTIONS . 'menu.php';
 if(isset($_SESSION["uname"])){
 $sql = "SELECT * FROM messages WHERE to_user = '".$_SESSION["uname"]."' AND del_in='0'";
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));?>
-<center>
-<div id="pm">
-<h3>
-<?php
+	<center>
+		<div id="pm">
+			<h3>
+				<?php
 $error='';
 	if(isset($_POST["markreadall"]))
 {
@@ -53,31 +53,35 @@ $error='';
 }
 
 echo $_SESSION["uname"].'\'s inbox';
-?></h3>
-<script>
-$(document).ready(function() {
-    $('#inbox').DataTable({
-        "order": [[ 2, "desc" ]],
-		"language": {
-    "emptyTable": "No messages in inbox",
-	"lengthMenu":     "Show _MENU_ messages",
-	"info":           "Showing _START_ to _END_ of _TOTAL_ messages",
-	"zeroRecords":    "No messages found",
-	"infoEmpty":      "Showing 0 to 0 of 0 messages"
-  }
-    });
-} );
-</script>
-<table id="inbox" class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
-        <thead>
-            <tr>
-                <th>From</th>
-                <th>Subject</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-		<?php while($row = mysqli_fetch_array($result)) {
+?>
+			</h3>
+			<script>
+				$(document).ready(function() {
+					$('#inbox').DataTable({
+						"order": [
+							[2, "desc"]
+						],
+						"language": {
+							"emptyTable": "No messages in inbox",
+							"lengthMenu": "Show _MENU_ messages",
+							"info": "Showing _START_ to _END_ of _TOTAL_ messages",
+							"zeroRecords": "No messages found",
+							"infoEmpty": "Showing 0 to 0 of 0 messages"
+						}
+					});
+				});
+
+			</script>
+			<table id="inbox" class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">
+				<thead>
+					<tr>
+						<th>From</th>
+						<th>Subject</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php while($row = mysqli_fetch_array($result)) {
 	$id = $row['id'];
 	$subject = $row['subject'];
 	$to = $row['to_user'];
@@ -107,19 +111,26 @@ $(document).ready(function() {
 		
 
 }?>
-        </tbody>
-    </table>
-	
-	<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<input type="submit" name="markreadall" value="Mark all as read"> / <input type="submit" name="deleteall" value="Delete all">
-<p><?php echo $error;?></p>
-</form>
-	
-	</div>
+				</tbody>
+			</table>
 
-</center>
-<?php } else {
+			<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+				<input type="submit" name="markreadall" value="Mark all as read"> /
+				<input type="submit" name="deleteall" value="Delete all">
+				<p>
+					<?php echo $error;?>
+				</p>
+			</form>
+
+		</div>
+
+	</center>
+	<?php } else {
 	echo "<div style='margin-top:10px;'>";
 	echo "Login to read your messages";
-		?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div>";}?>
+		?>
+	<br />
+	<br />
+	<a href="./login/login.php">Login Here</a>
+	<?php
+echo "</div>";}

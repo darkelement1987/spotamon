@@ -1,42 +1,57 @@
 <?php
+namespace Spotamon;
+
 class Oauth2
 {
 
     public $provider;
     public $token;
     public $user;
+    private $sesh;
 
     public function __construct()
     {
-        $this->provider = $this->provider();
-        if (!isset($_SESSION['token'])) {
-            if (!isset($_GET['code']) || empty($_GET['code'])) {
-                $this->oauthToken();
-            }
-            $this->token       = $this->token();
-            $_SESSION['token'] = $this->token;
-        } else {
-            $this->token = $_SESSION['token'];
-        }
+        global $Validate;
 
-        $this->user = $this->discordUser($this->token);
+        $checktoken = $Validate->getSession('token');
+        $checkstate  = $Validate->getGet('state');
+
+        $this->provider = $this->provider();
+        if ($checktoken === null && $checkstate === null) {
+            $this->oauthToken();
+        } else if ($checkstate !== null && $checktoken === null) {
+            $this->token = $this->token();
+            $Validate->setSession('token', $this->token);
+            unset($_GET['state']);
+        }
+        $seshtoken = $Validate->getSession('token');
+        if ($seshtoken || isset($this->token)){
+            $this->token = $seshtoken;
+            $this->user = $this->discordUser($this->token);
+        }
         return $this;
     }
 
     private function provider()
     {
+        global $clientId;
+        global $clientSecret;
+        global $domain;
+
         $provider = new \Wohali\OAuth2\Client\Provider\Discord([
-            'clientId'     => '459992855109173258',
-            'clientSecret' => 'dEuXk-UQRvdRZUipFjeCS2qarflHLyQ0',
-            'redirectUri'  => 'https://testing.whgpogo.com/test.php',
+            'clientId'     => $clientId,
+            'clientSecret' => $clientSecret,
+            'redirectUri'  => $domain . "/core/functions/auth.php",
         ]);
         return $provider;
     }
 
     private function oauthToken()
     {
+        global $Validate;
+
         $options = [
-            'state' => session_id(),
+            'state' => $this->sesh,
             'scope' => [
                 'connections',
                 'email',
@@ -47,24 +62,18 @@ class Oauth2
         ];
         $authUrl = $this->provider->getAuthorizationUrl($options);
 
-        $_SESSION['oauth2state'] = session_id();
-
         header('Location: ' . $authUrl);
     }
     public function token()
     {
-        global $validation;
-        if (isset($_GET['state'])) {
-            $state  = $validation->getGET('state');
-            $oauth2 = $validation->getSession('oauth2state');
-        }
-        if ($state !== $oauth2) {
-            unset($_SESSION['oauth2state']);
-            die('INVALID STATE');
-        }
+        global $Validate;
+        global $conn;
+
+        $code  = $Validate->getGet('code', null, false);
         $token = $this->provider->getAccessToken('authorization_code', [
-            'code' => $_GET['code'],
+            'code' => $code,
         ]);
+
         return $token;
     }
 

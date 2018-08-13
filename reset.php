@@ -6,12 +6,12 @@ include S_FUNCTIONS . 'menu.php';
 
 <head>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<?php
-menu();
+	<?php
+include_once S_FUNCTIONS . 'menu.php';;
 
 $error = '';
 $name = '';
@@ -107,23 +107,25 @@ if (!$useremail) {
 		$message = '';
 	}
 }?>
-<?php
+	<?php
 if (!isset($_GET['token'])) {?>
-					<!DOCTYPE html>
-					<center>
-					<h3 align="center">Reset password</h3>
-					<br />
-					<form method="post" id="feedback">
-						<div class="form-group">
-							<label>Email</label>
-							<input type="text" name="email" class="form-control" placeholder="Enter Email" value="<?php echo $email; ?>" />
-						</div>
-						<div class="form-group" align="center">
-							<input type="submit" name="submit" value="Reset" class="btn btn-info" />
-						</div>
-						<?php echo $error; ?>
-					</form>
-</center><?php } else {
+	<!DOCTYPE html>
+	<center>
+		<h3 align="center">Reset password</h3>
+		<br />
+		<form method="post" id="feedback">
+			<div class="form-group">
+				<label>Email</label>
+				<input type="text" name="email" class="form-control" placeholder="Enter Email" value="<?php echo $email; ?>"
+				/>
+			</div>
+			<div class="form-group" align="center">
+				<input type="submit" name="submit" value="Reset" class="btn btn-info" />
+			</div>
+			<?php echo $error; ?>
+		</form>
+	</center>
+	<?php } else {
 	// Get user/email from token
     $fetchtoken = "SELECT uname,email from reset WHERE token='".$_GET['token']."'";
     if(!mysqli_query($conn,$fetchtoken))
@@ -157,4 +159,4 @@ if (!isset($_GET['token'])) {?>
 	
 }?>
 
-<footer></footer>
+	<footer></footer>

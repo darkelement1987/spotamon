@@ -1,5 +1,7 @@
 <?php
 
+Namespace Spotamon;
+
 class Silph
 {
     public function __construct()

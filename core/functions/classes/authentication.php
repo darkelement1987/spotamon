@@ -43,7 +43,7 @@ class Authentication
         global $Validate;
         global $csrf;
         if (!$csrf->validateRequest() ) {
-            echo 'Validation Error';
+            $this->result = 'Validation Error';
             exit();
         }
         $userName = $Validate->getPost('username', 'username');
@@ -75,9 +75,10 @@ class Authentication
             $Validate->setSession($options, $values);
             $stmt->close();
             return true;
+            exit();
 
         }
-
+        $this->result = 'Password is incorrect';
         return false;
     }
 
@@ -155,6 +156,7 @@ class Authentication
         $exist->close();
         if ($data >= 1) {
             return true;
+            exit();
         }
         return false;
     }
@@ -171,6 +173,7 @@ class Authentication
         $exist->close();
         if ($data == 1) {
             return true;
+            exit();
         }
         return false;
     }

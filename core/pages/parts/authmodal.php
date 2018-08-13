@@ -10,7 +10,7 @@ $csrftoken = $csrf->insertToken($form, false);
                 <div class="modal-body p-0">
                     <div class="login-row row login-modal">
                         <div class="col-md-5 justify-content-center discord-modal" id="discordloginbody">
-                            <a href="<?=W_FUNCTIONS?>auth.php?form=discordlogin" class="d-flex justify-content-center">
+                            <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordlogin" class="d-flex justify-content-center">
                                 <img src="<?=W_ASSETS?>img/Discord_Logo.png" width="150px" alt="Discord" id="discord-logo-login" class="d-flex" />
                             </a>
                             <h5>or login with Discord!</h5>
@@ -69,7 +69,7 @@ $csrftoken = $csrf->insertToken($form, false);
                 </div>
                 <div class="register-row row login-modal">
                     <div class="col-md-5 justify-content-center discord-modal">
-                        <a href="<?=W_FUNCTIONS?>auth.php?form=discordregister" class="d-flex justify-content-center">
+                        <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordregister" class="d-flex justify-content-center">
                             <img src="<?=W_ASSETS?>img/discord_logo.png" alt="Discord" id="discord-logo-register" class="d-flex" />
                         </a>
                         <h5>or Register

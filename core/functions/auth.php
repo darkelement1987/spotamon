@@ -2,21 +2,33 @@
 require 'initiate.php';
 use \Spotamon\Authentication;
 
-parse_str($_SERVER['QUERY_STRING'], $form);
-if (isset($form['form']) && !empty($form['form'])) {
-    $Validate->setSession('form', $form['form']);
-} else if ($Validate->getPost('formtype') !== null) {
-    if ($csrf->validateRequest()) {
-        $Validate->setSession('form', $Validate->getPost('formtype'));
-    } else {
-        echo 'Validation error, please try again.';
-        exit();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $form = $Validate->getPost('formtype');
+    if ($form !== Null) {
+        $Validate-setSession('form', $form);
+        unset($form);
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    $form = $Validate->getGet('formtype');
+    if ($form !== Null) {
+        $Validate->setSession('form', $form);
+        unset($form);
     }
 }
 $form = $Validate->getSession('form');
-if ($form == 'discordlogin' || $form == 'discordregister' ) {
+
+if ($form == 'discordlogin' || $form == 'discordregister') {
     $Oauth2 = new \Spotamon\Oauth2;
-}else if ($form == 'login' || $form == 'register' || (isset($Oauth2->user) && !empty($Oauth2->user))) {
-    $Authenticate = new \Spotamon\Authentication();
 }
-header("location: " . W_ROOT . "index.php");
+
+$authenticated = new \Spotamon\Authentication;
+
+if (!empty($authenticated->result)) {
+    echo $authenticated->result;
+} else {
+echo $authenticated;
+}
+
+
+header('Location: '.W_ROOT.'index.php');

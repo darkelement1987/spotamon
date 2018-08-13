@@ -1,14 +1,18 @@
+<?php 
+require_once 'initiate.php';
+?>
+
+
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <?php 
-require_once 'initiate.php';
 
 
-    if ($analytics !== '') { ?>
+
+    <?php if ($analytics !== '') { ?>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?=$analytics?>">
 
@@ -165,7 +169,9 @@ echo $titles[array_rand($titles)]; // Pick a random item from the array and outp
     <!--end auth container -->
     <!--conatiner start -->
     <div class="container-fluid p-0" id="menu-container">
-        <?php include_once S_PAGES . 'parts/nav.php'; ?>
+        <?php 
+        include S_PAGES . 'parts/nav.php';
+        ?>
     </div>
     <!--container end -->
 

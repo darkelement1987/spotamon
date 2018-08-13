@@ -63,6 +63,7 @@ class Oauth2
         $authUrl = $this->provider->getAuthorizationUrl($options);
 
         header('Location: ' . $authUrl);
+        die();
     }
     public function token()
     {

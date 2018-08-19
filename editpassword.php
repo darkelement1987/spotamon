@@ -1,23 +1,47 @@
 <?php
 require_once 'initiate.php';
 include S_FUNCTIONS . 'functions.php';
-$upass = $conn->real_escape_string($_POST['password']);
+$pass = $Validate->getPost('password');
+$upass = $Validate->getPost('password', 'password');
 // attempt insert query execution
-if(!empty($upass)){
-$sql = "UPDATE users SET upass='".md5($upass)."' WHERE uname='".$_SESSION['uname']."'";
-if(mysqli_query($conn, $sql)){
-    echo "Records added successfully.";
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-}
- 
+$upass = password_hash($upass, PASSWORD_DEFAULT);
+$username = $Validate->getSession('uname');
+if (!empty($upass)) {
+    $password = $conn->prepare("UPDATE users SET upass= ? WHERE uname= ?;");
+    if (!$password) {
+        die("error preparing statement");
+
+    }
+    $result = $password->bind_param("ss", $upass, $username);
+    if (!$result) {
+        die('error binding variables');
+    }
+    $result = $password->execute();
+    if (!$result) {
+        die('error executing statement');
+    } else {
+        echo "Records added successfully.";
+    }
+
 // close connection
-mysqli_close($conn);
-echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
-} else {
-echo "<br /><center><img src='<?-W_ASSETS?>/img/oops2.png'></center>";
-echo "<br /><center>Can not insert a blank Password</center>";
-echo "<br /><center>You will be redirected back to <a href='edit-profile.php'>Edit Profile</a></center>";
-	echo "<meta http-equiv='refresh' content='3;url=edit-profile.php'>";
-}
-?>
+    $password->close();
+    echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
+} else if (!empty($pass)) {?>
+<br />
+<center><img src='<?-W_ASSETS?>/img/oops2.png'></center>
+<br />
+<center>Can not insert a blank Password</center>
+<br />
+<center>You will be redirected back to <a href='edit-profile.php'>Edit Profile</a></center>
+<meta http-equiv='refresh' content='3;url=edit-profile.php'>
+<?php } else {?>
+<br />
+<center><img src='<?-W_ASSETS?>/img/oops2.png'></center>
+<br />
+<center>
+    <?=$Validate->data?>
+</center>
+<br />
+<center>You will be redirected back to <a href='edit-profile.php'>Edit Profile</a></center>
+<meta http-equiv='refresh' content='3;url=edit-profile.php'>
+<?php }?>

@@ -76,10 +76,10 @@ cd "$BASEDIR" || exit 1
 # config.php
 readonly CONFIG_PHP_EX="${DIR}""/config/config.php.example"
 readonly CONFIG_PHP="${DIR}""/config/config.php"
-SYS_MYSQL_PATH="C:/Program Files/MARIADB 10.2/bin"
+SYS_MYSQL_PATH=""
 SYS_DB_NAME=""
 SYS_DB_USER=""
-SYS_DB_USER_HOST=""
+SYS_DB_USER_HOST="localhost"
 SYS_DB_PSWD=""
 SYS_DB_HOST="localhost"
 # .htaccess
@@ -118,7 +118,7 @@ until [ "$answer" == 'y' ]; do
     SYS_HTTPD_PATH=$(readinput "Apache bin folder: " "$SYS_HTTPD_PATH")
     if [ "$SYS_HTTPD_PATH" != "linux" ]; then
         until [ -s "${SYS_HTTPD_PATH}""/htpasswd.exe" ]; do
-            echo "Your Apache path seems to be incorrect, please enter again"
+            echo -e "\e[31mYour Apache path seems to be incorrect, please enter again\e[0m"
             SYS_HTTPD_PATH=$(readinput "Apache bin folder: " "$SYS_HTTPD_PATH")
         done
         echo "Please enter your MySQL bin folder"
@@ -127,7 +127,7 @@ until [ "$answer" == 'y' ]; do
         echo "(example: \"C:/Program Files/MARIADB 10.2/bin\")"
         SYS_MYSQL_PATH=$(readinput "MYSQL bin folder: " "$SYS_MYSQL_PATH")
         until [ -s "$SYS_MYSQL_PATH/mysql.exe" ]; do
-            echo "Your Mysql path seems to be incorrect, please enter agaim"
+            echo -e "\e[31mYour Mysql path seems to be incorrect, please enter again\e[0m"
             SYS_MYSQL_PATH=$(readinput "MYSQL bin folder: " "$SYS_MYSQL_PATH")
         done
     fi
@@ -144,6 +144,10 @@ until [ "$answer" == 'y' ]; do
     echo "such as '${SYS_DB_USER}'@'localhost' or '${SYS_DB_USER}'@'%'"
     SYS_DB_USER_HOST=$(readinput "MYSQL User Host: " "$SYS_DB_USER_HOST")
     SYS_DB_PSWD=$(readinput "MySQL Password: " "$SYS_DB_PSWD")
+    until [ $SYS_DB_PSWD != "" ]; do
+        echo -e "\e[31mSpotamon requires a database user with a password\e[0m"
+        SYS_DB_PSWD=$(readinput "MySQL Password: " "$SYS_DB_PSWD")
+    done
     SYS_DB_HOST=$(readinput "MySQL Host: " "$SYS_DB_HOST")
     echo
     clear

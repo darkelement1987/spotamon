@@ -270,6 +270,7 @@ SOURCE core/functions/protected/spotamon.sql;
 SOURCE core/functions/protected/update.sql;
 SOURCE core/functions/protected/pokedex.sql;
 MYSQL
+
 # Rename htaccess
 echo "creating .htaccess file"
 cp "${DIR}/htaccess" "${DIR}/.htaccess"

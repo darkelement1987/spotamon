@@ -31,7 +31,7 @@ class Authentication
         }
         if ($result === true ) {
             $result = 'true';
-        } else if ($result ===false ) {
+        } else if ($result === false ) {
             $result = 'false';
         }
         return $result;
@@ -64,8 +64,13 @@ class Authentication
             exit();
         }
         $pass = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        if (empty($pass)) {
+            $this->result = "Username does not exist";
+            return false;
+        }
         $user = $pass[0]['uname'];
         $pass = $pass[0]['upass'];
+
 
         if (password_verify($userPassword, $pass)) {
             unset($values);
@@ -77,6 +82,9 @@ class Authentication
             return true;
             exit();
 
+        } else if ( md5($userPassword) === $pass ) {
+            header("Location: " . W_PAGES . "temppass.php");
+            exit();
         }
         $this->result = 'Password is incorrect';
         return false;

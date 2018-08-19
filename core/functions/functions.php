@@ -7,7 +7,7 @@ function pokesubmission()
     $id     = $pokemon     = $cp     = $iv     = $hour     = $min     = $ampm     = $monster     = $latitude     = $longitude     = $fulladdress     = $spotter     = "";
     if (isset($_SESSION["uname"])) { ?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h3 style="text-align:center;"><strong>Add Pokémon:</strong></h3>
+<h3 style="text-align:center;"><strong>Add PokÃ©mon:</strong></h3>
 <form id="usersubmit" method="post" action="./spotpokemon.php">
 <center><table id="added" class="table table-bordered">
 <tbody>

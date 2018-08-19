@@ -33,21 +33,8 @@ include S_FUNCTIONS . 'menu.php';
 
     ?>
 
-	<?php
-    // Update map if needed
-    require './config/version.php';
-    $versionquery = "SELECT version FROM version";
-    $versionresult = $conn->query($versionquery);
-    $rowversion = $versionresult->fetch_array(MYSQLI_NUM);
-    $version = $rowversion[0];
-
-    if ($version =='') {
-        $conn->query("INSERT IGNORE INTO `version` (`version`) VALUES ('1')");
-    } else if ($version < $lastversion) {
-        $conn->query("UPDATE version SET version='".$lastversion."'");
-        echo "<meta http-equiv='refresh' content='1;url=update.php'>";
-    }
-    ?>
+	
+    
     <script>
     $( document ).ready(function() {
         initMap()

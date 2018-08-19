@@ -1,5 +1,5 @@
 <?php
-require('../config/config.php');
+require_once 'initiate.php';
 function parseToXML($htmlStr)
 {
 $xmlStr=str_replace('<','&lt;',$htmlStr);

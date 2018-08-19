@@ -1,17 +1,16 @@
 <?php
 require 'initiate.php';
-use \Spotamon\Authentication;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $Validate->getPost('formtype');
-    if ($form !== Null) {
-        $Validate-setSession('form', $form);
+    if ($form !== null) {
+        $Validate->setSession('form', $form);
         unset($form);
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $form = $Validate->getGet('formtype');
-    if ($form !== Null) {
+    if ($form !== null) {
         $Validate->setSession('form', $form);
         unset($form);
     }
@@ -26,9 +25,14 @@ $authenticated = new \Spotamon\Authentication;
 
 if (!empty($authenticated->result)) {
     echo $authenticated->result;
-} else {
-echo $authenticated;
 }
 
-
-header('Location: '.W_ROOT.'index.php');
+if ($authenticated == true) {
+    header('Location: ' . W_ROOT . 'index.php');
+} else {
+    ?>
+<br>
+<span><a href="<?=W_ROOT?>index.php">Click Here</a> to return to Spotamon and try again</span>
+<?php }
+exit();
+?>

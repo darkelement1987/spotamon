@@ -1,7 +1,8 @@
 <?php
 require_once 'config/config.php';
 require_once 'vendor/autoload.php';
-require 'config/version.php';
+require 'core/functions/protected/version.php';
+
 
 // returns the url of the current page (does not account for rewrites or includes)
 $protocol   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
@@ -10,7 +11,10 @@ $domain     = $protocol . $domainName;
 $folder     = (dirname($_SERVER['PHP_SELF']));
 $trim       = $domain . $folder;
 $viewurl    = rtrim($trim, '\/');
-
+if (!isset($subdir)) {
+    $subdir = $folder;
+    }
+    
 // Returns the webroot in relativity to any subflders
 function directory()
 {

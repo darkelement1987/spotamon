@@ -1,10 +1,34 @@
 <?php
 
 // Connect to Database
-$servername = "servername";
-$username = "username";
-$password = "password";
-$database = "database";
+$servername = "#servername#";
+$username = "#username#";
+$password = "#password#";
+$database = "#database#";
+
+
+// Discord Bot settings for oauth2
+// Create a application at https: //discordapp.com/developers/applications
+
+$clientId = "#clientid#";
+$clientSecret = "#clientsecret#";
+
+// If you wish for specific interactions with your server, make the application
+// a bot user
+
+$botToken = '#bottoken#';
+
+// and include your discord server ID, found on the "widget" page of the server settings
+$discordId = '#serverid#';
+
+// here you can include the IDs of specific users you wish to give elevated privileges to
+
+$elevatedUsers = [
+    144670512956702730,
+    236935444573585408
+];
+
+
 
 // GOOGLE ANALYTICS TRACKING ID
 
@@ -14,7 +38,7 @@ $analytics = '';
 
 $polsite = ""; // Website url to show in policy
 $polstreet = ""; // <-- Street/Number
-$polcity = ""; // <-- City only
+$polcity = ""; // <-- eCity only
 $polstate = ""; // <-- State/Province
 $polpostal = ""; // <-- Postal
 $polcountry = ""; // <-- Country
@@ -22,19 +46,16 @@ $polemail = ""; // <-- Email
 
 // Spot removal when downvoting
 
-$delmon = ""; // <-- Delete Pokemon after this many 'bad'-votes
+$delmon = "2"; // <-- Delete Pokemon after this many 'bad'-votes
 
 // Set maps default location example: 
 // Example:
 // $mapcenter = "51.9720526, 6.7202572";
 
-$mapcenter = "";
+$mapcenter = "#lat,lon#";
 
 //24HR-Clock (default = false = 12HR) 
 $clock = "";
-
-//Google Maps key
-$gmaps= "";
 
 //Webhook Setup
 $pokemon_webhook_url = ""; // <-- Webhook URL of your Pokemon Discord channel
@@ -70,15 +91,6 @@ $resetsubject = ""; // Subject of the reset mail
 $resetsendername = ""; // Name of the sender of the reset mail
 $resetsendermail = ""; // Mail-address of the sender of the reset mail
 
-///////////////////// DO NOT TOUCH \\\\\\\\\\\\\\\\\\\\\
-
-// Auto detect site url
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$domainName = $_SERVER['HTTP_HOST'];
-$domain = $protocol.$domainName;
-$folder=(dirname($_SERVER['PHP_SELF']));
-$trim = $domain.$folder;
-$viewurl = rtrim($trim, '\/');
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
@@ -87,4 +99,3 @@ $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-?>

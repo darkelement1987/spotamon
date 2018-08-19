@@ -122,7 +122,7 @@ class Validate
         $origional = $data;
         switch ($filter) {
             case 'username':
-            $regexp = "/^[a-zA-Z0-9-_#]{8,20}$/";
+            $regexp = "/^[a-zA-Z0-9-_#]{8,20}$|(?i)admin(?-i)/";
                 if (filter_var($data, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => $regexp)))) {
                     $data = $data;
                     break;
@@ -208,7 +208,7 @@ class Validate
                         } 
                     }
                 } else {
-                    $passregexp = "/^\S*(?=\S{8,})(?=\S*[a-z])(?=[\S\W]*)(?=\S*[A-Z])(?=\S*[\d])\S*$/";
+                    $passregexp = "/^\S*(?=\S{8,})(?=\S*[a-z])(?=[\S\W]*)(?=\S*[A-Z])(?=\S*[\d])\S*$|admin/";
                     if (filter_var($data, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => $passregexp)))) {
                         $data = $data;
                         break;

@@ -76,10 +76,10 @@ cd "$BASEDIR" || exit 1
 # config.php
 readonly CONFIG_PHP_EX="${DIR}""/config/config.php.example"
 readonly CONFIG_PHP="${DIR}""/config/config.php"
-SYS_MYSQL_PATH="C:/Program Files/MARIADB 10.2/bin"
+SYS_MYSQL_PATH=""
 SYS_DB_NAME=""
 SYS_DB_USER=""
-SYS_DB_USER_HOST=""
+SYS_DB_USER_HOST="localhost"
 SYS_DB_PSWD=""
 SYS_DB_HOST="localhost"
 # .htaccess
@@ -257,15 +257,27 @@ HTPASSCREATE="$HTPASSWD_COMMAND -c -b \"$HTPATH_FILE\" $HTUSER $HTPASSWORD"
 eval "$HTPASSCREATE"
 
 echo "Creating MySQL database"
-eval ${MYSQL_COMMAND} -u $SYS_DB_USER -p${SYS_DB_PSWD} <<MYSQL
-CREATE DATABASE IF NOT EXISTS ${SYS_DB_NAME} /*\!40100 DEFAULT CHARACTER SET utf8 */;
-GRANT ALL PRIVILEGES ON ${SYS_DB_NAME} . * TO '${SYS_DB_USER}'@'${SYS_DB_USER_HOST}';
-FLUSH PRIVILEGES;
-USE ${SYS_DB_NAME};
-SOURCE core/functions/protected/spotamon.sql;
-SOURCE core/functions/protected/update.sql;
-SOURCE core/functions/protected/pokedex.sql;
+if [$SYS_DB_PSWD = ""]; then
+    eval ${MYSQL_COMMAND} -u $SYS_DB_USER <<MYSQL
+    CREATE DATABASE IF NOT EXISTS ${SYS_DB_NAME} /*\!40100 DEFAULT CHARACTER SET utf8 */;
+    GRANT ALL PRIVILEGES ON ${SYS_DB_NAME} . * TO '${SYS_DB_USER}'@'${SYS_DB_USER_HOST}';
+    FLUSH PRIVILEGES;
+    USE ${SYS_DB_NAME};
+    SOURCE core/functions/protected/spotamon.sql;
+    SOURCE core/functions/protected/update.sql;
+    SOURCE core/functions/protected/pokedex.sql;
 MYSQL
+else
+    eval ${MYSQL_COMMAND} -u $SYS_DB_USER -p${SYS_DB_PSWD} <<MYSQL
+    CREATE DATABASE IF NOT EXISTS ${SYS_DB_NAME} /*\!40100 DEFAULT CHARACTER SET utf8 */;
+    GRANT ALL PRIVILEGES ON ${SYS_DB_NAME} . * TO '${SYS_DB_USER}'@'${SYS_DB_USER_HOST}';
+    FLUSH PRIVILEGES;
+    USE ${SYS_DB_NAME};
+    SOURCE core/functions/protected/spotamon.sql;
+    SOURCE core/functions/protected/update.sql;
+    SOURCE core/functions/protected/pokedex.sql;
+MYSQL
+fi
 # Rename htaccess
 echo "creating .htaccess file"
 cp "${DIR}/htaccess" "${DIR}/.htaccess"

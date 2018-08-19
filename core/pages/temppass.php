@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <center>
                         <span id='temppass-error' style='font-size:10px;float:left;'></span>
                         <br>
-                        <input type="text" pattern="/^\S*(?=\S{8,})(?=\S*[a-z])(?=[\S\W]*)(?=\S*[A-Z])(?=\S*[\d])\S*$/"
+                        <input type="text" pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=[\S\W]*)(?=\S*[A-Z])(?=\S*[\d])\S*$"
                             maxlength="18" minlength="8" required name="password" class="form-control" placeholder="Password" />
                         <br>
                         <br>

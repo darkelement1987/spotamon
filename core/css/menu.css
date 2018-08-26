@@ -1,0 +1,1100 @@
+/*
+ * Plugin: Web Slide Navigation System
+ * Demo Link: https://uxwing.com/webslide/
+ * Author: UXWing
+ * License: http://codecanyon.net/licenses/standard
+*/
+
+/* ======== Find Below Table of Content Points to Go Relevant Section  =========
+[Table of contents DESKTOP]
+Desktop Base CSS
+Desktop Main Menu CSS
+Desktop Drop Down Menu CSS
+Desktop Mega Menus CSS
+-> Desktop Half Menu CSS
+-> Desktop HTML Form Menu CSS
+Desktop Extra CSS
+
+[Table of contents MOBILE ]
+Mobile Menu Change Brake Point
+Mobile Base CSS
+Mobile Main Menu CSS
+Mobile Slide Down Links CSS
+Mobile Mega Menus CSS
+Mobile Header CSS
+ -> Mobile Search Bar
+ -> Mobile Toggle Menu icon (X ICON)
+Mobile Overlay/Drawer CSS
+Mobile Sub Menu Expander Arrows
+Mobile Extra CSS
+===============================================================================*/
+
+/* ================== Desktop Base CSS  ================== */
+
+.wsmenu html,
+.wsmenu body,
+.wsmenu iframe,
+.wsmenu h1,
+.wsmenu h2,
+.wsmenu h3,
+.wsmenu h4,
+.wsmenu h5,
+.wsmenu h6 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: 'Verela Round', sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-smoothing: antialiased;
+  font-smooth: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-smoothing: subpixel-antialiased;
+  font-smooth: subpixel-antialiased;
+}
+
+.wsmenu .cl {
+  clear: both;
+}
+
+.wsmenu img,
+object,
+embed,
+video {
+  border: 0 none;
+  max-width: 100%;
+}
+
+.wsmenu a:focus {
+  outline: none;
+}
+
+.wsmenu:before,
+.wsmenu:after {
+  content: "";
+  display: table;
+}
+
+.wsmenu:after {
+  clear: both;
+}
+
+/* ================== Desktop Main Menu CSS ================== */
+
+.wsmenu {
+  font-family: 'Verela Round', sans-serif;
+  color: #fff;
+  position: fixed;
+  font-size: 14px;
+  padding: 0;
+  width: 100%;
+  display: block;
+  background-color: #ffffff;
+  margin: 0px auto 0 auto;
+  max-width: 100%;
+  z-index: 1000;
+}
+
+.wsmenu>.wsmenu-list {
+  text-align: left;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  position: relative;
+  padding: 0;
+}
+
+.wsmenu>.wsmenu-list>li {
+  text-align: center;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.wsmenu>.wsmenu-list>li>a {
+  display: flex;
+  padding: 0 16px;
+  line-height: 50px;
+  text-decoration: none;
+  position: relative;
+}
+
+.wsmenu>.wsmenu-list>li:last-child>a {
+  border-right: 0px;
+}
+
+.wsmenu>.wsmenu-list>li>a .fa,
+.wsmenu>.wsmenu-list>li>a .far,
+.wsmenu>.wsmenu-list>li>a .fas {
+  display: inline-block;
+  font-size: 14px;
+  line-height: inherit;
+  margin-left: 5px;
+  margin-right: 5px;
+  vertical-align: top;
+}
+
+wsmenu>.wsmenu-list>li>a .pic {
+  display: inline-block;
+  font-size: 14px;
+  line-height: inherit;
+  margin-left: 5px;
+  margin-right: 5px;
+  vertical-align: top;
+}
+
+.wsmenu>.wsmenu-list>li>a .fa.fa-home {
+  margin-right: 0px;
+  font-size: 15px;
+}
+
+.wsmenu>.wsmenu-list>li>a .wsarrow {
+  margin-right: 10px;
+}
+
+.wsmenu>.wsmenu-list>li>a .wsarrow:after {
+  border-left: 4px solid rgba(0, 0, 0, 0);
+  border-right: 4px solid rgba(0, 0, 0, 0);
+  border-top: 4px solid;
+  content: "";
+  float: right;
+  height: 0;
+  margin: 0 0 0 9px;
+  position: absolute;
+  text-align: center;
+  top: 22px;
+  width: 0;
+}
+
+/* ================== Desktop Drop Down Menu CSS ================== */
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu {
+  position: absolute;
+  top: 50px;
+  z-index: 1000;
+  margin: 0px;
+  padding: 0px;
+  min-width: 190px;
+  background-color: #fff;
+  border: solid 1px #eeeeee;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li {
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  display: block;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>a {
+  background-image: none;
+  color: #666666;
+  border-right: 0 none;
+  text-align: left;
+  display: block;
+  line-height: 22px;
+  padding: 8px 12px;
+  text-transform: none;
+  font-size: 13px;
+  letter-spacing: normal;
+  border-right: 0px solid;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>a:hover {
+  text-decoration: none;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>a>.fa {
+  margin-right: 9px;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu {
+  min-width: 220px;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #fff;
+  border: solid 1px #eeeeee;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li {
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  display: block;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>a {
+  background-image: none;
+  color: #666666;
+  border-right: 0 none;
+  text-align: left;
+  display: block;
+  line-height: 22px;
+  padding: 8px 12px;
+  text-transform: none;
+  font-size: 13px;
+  letter-spacing: normal;
+  border-right: 0px solid;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>a:hover {
+  text-decoration: none;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>a>.fa {
+  margin-right: 9px;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu {
+  min-width: 220px;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin: 0px;
+  list-style: none;
+  padding: 0px;
+  background-color: #fff;
+  border: solid 1px #eeeeee;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li {
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  display: block;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li>a {
+  background-image: none;
+  color: #666666;
+  border-right: 0 none;
+  text-align: left;
+  display: block;
+  line-height: 22px;
+  padding: 8px 12px;
+  text-transform: none;
+  font-size: 13px;
+  letter-spacing: normal;
+  border-right: 0px solid;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li>a:hover {
+  text-decoration: none;
+}
+
+.wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li>a>.fa {
+  margin-right: 9px;
+}
+
+/* ================== Desktop Mega Menus CSS  ================== */
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu {
+  width: 100%;
+  left: 0px;
+  position: absolute;
+  top: 50px;
+  color: #000;
+  z-index: 1000;
+  margin: 0px;
+  text-align: left;
+  padding: 14px 5px;
+  font-size: 15px;
+  border: solid 1px #eeeeee;
+  background-color: #fff;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .title {
+  border-bottom: 1px solid #CCC;
+  font-size: 14px;
+  padding: 9px 5px 9px 0px;
+  font-size: 17px;
+  color: #424242;
+  margin: 0px 0px 7px 0px;
+  text-align: left;
+  height: 39px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .carousel-control-next {
+  opacity: 0.8;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .carousel-control-prev {
+  opacity: 0.8;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .carousel-caption {
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.7);
+  font-size: 13px;
+  height: 31px;
+  left: 0;
+  padding: 7px 0;
+  right: 0;
+  width: 100%;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .wsmwnutxt {
+  width: 100%;
+  font-size: 14px;
+  text-align: justify;
+  line-height: 22px;
+  color: #424242;
+  margin-top: 10px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .link-list li {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .link-list li a {
+  line-height: 18px;
+  border-right: none;
+  text-align: left;
+  padding: 6px 0px;
+  background: #fff;
+  background-image: none;
+  color: #666666;
+  border-right: 0 none;
+  display: block;
+  background-color: #fff;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu li .fa {
+  margin-right: 5px;
+  text-align: center;
+  width: 18px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu li a:hover {
+  background: transparent;
+  text-decoration: underline;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .link-list li .fa {
+  font-size: 11px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu li .fa {
+  margin-right: 5px;
+  text-align: center;
+  width: 18px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .mrgtop {
+  margin-top: 15px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .show-grid div {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: #dbdbdb;
+  border: 1px solid #e7e7e7;
+  color: #6a6a6a;
+  margin: 2px 0px;
+  font-size: 13px;
+}
+
+/*= Desktop Half Menu CSS =*/
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu.halfmenu {
+  width: 40%;
+  right: auto;
+  left: auto;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu.halfdiv {
+  width: 35%;
+  right: 0px;
+  left: auto;
+}
+
+/*= Desktop HTML Form Menu CSS =*/
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form {
+  width: 100%;
+  display: block;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form input[type="text"] {
+  width: 100%;
+  border: 1px solid #e2e2e2;
+  color: #000;
+  font-size: 13px;
+  padding: 8px 5px;
+  margin-bottom: 8px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form textarea {
+  width: 100%;
+  border: 1px solid #e2e2e2;
+  color: #000;
+  font-size: 13px;
+  padding: 8px 5px;
+  margin-bottom: 8px;
+  min-height: 122px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form input[type="submit"] {
+  width: 25%;
+  display: block;
+  height: 32px;
+  float: right;
+  border: none;
+  margin-right: 15px;
+  cursor: pointer;
+  background-color: #e1e1e1;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form input[type="button"] {
+  width: 25%;
+  display: block;
+  height: 32px;
+  float: right;
+  border: none;
+  cursor: pointer;
+  background-color: #e1e1e1;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .carousel-inner .item img {
+  width: 100%;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .carousel-caption {
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.7);
+  font-size: 13px;
+  height: 31px;
+  left: 0;
+  padding: 7px 0;
+  right: 0;
+  width: 100%;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .typography-text {
+  padding: 0px 0px;
+  font-size: 14px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .typography-text ul {
+  padding: 0px 0px;
+  margin: 0px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .typography-text p {
+  text-align: justify;
+  line-height: 24px;
+  color: #656565;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .typography-text ul li {
+  display: block;
+  padding: 2px 0px;
+  line-height: 22px;
+}
+
+.wsmenu>.wsmenu-list>li>.wsmegamenu .typography-text ul li a {
+  color: #656565;
+}
+
+/* ================== Desktop Extra CSS ================== */
+
+.wsmobileheader,
+.overlapblackbg {
+  display: none;
+}
+
+.wsmenu .wsmenu-click {
+  display: none;
+}
+
+.wsmenu .wsmenu-click02 {
+  display: none;
+}
+
+.hometext {
+  display: none;
+}
+
+@media only screen and (min-width: 992px) {
+  .wsmenu>.wsmenu-list>li>a {
+    max-width: 200px;
+  }
+}
+
+/*==============================================================================
+                              Start Mobile CSS
+===============================================================================*/
+
+/* ================== Mobile Menu Change Brake Point ================== */
+
+@media only screen and (max-width: 991px) {
+  /* ================== Mobile Base CSS ================== */
+  html {
+    overflow: hidden;
+    height: 100%;
+  }
+  body {
+    height: 100%;
+    overflow: auto;
+  }
+  body.wsactive {
+    overflow: hidden;
+  }
+  /* ================== Mobile Main Menu CSS ================== */
+  .wsmenu {
+    width: 100%;
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    left: 0;
+    overflow-y: hidden;
+    padding: 0;
+    top: 0;
+    visibility: hidden;
+    position: fixed;
+    margin: 0px;
+  }
+  .wsmenu>.wsmenu-list {
+    height: auto;
+    min-height: 100%;
+    width: 240px;
+    background: #fff;
+    padding-bottom: 0;
+    margin-left: -240px;
+    display: block;
+    text-align: center;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+  }
+  .wsmenu>.wsmenu-list>li {
+    width: 100%;
+    display: block;
+    float: none;
+    border-right: none;
+    background-color: transparent;
+    position: relative;
+    white-space: inherit;
+  }
+  .wsmenu>.wsmenu-list>li>a {
+    padding: 12px 32px 12px 17px;
+    font-size: 14px;
+    text-align: left;
+    border-right: solid 0px;
+    background-color: transparent;
+    color: #666666;
+    line-height: 25px;
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(0, 0, 0, 0.13);
+    position: static;
+  }
+  .wsmenu>.wsmenu-list>li>a>.fa {
+    font-size: 16px;
+    color: #bfbfbf;
+  }
+  .wsmenu>.wsmenu-list>li>a .wsarrow:after {
+    display: none;
+  }
+  .wsmenu>.wsmenu-list>li:hover>a {
+    background-color: rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+  }
+  .wsmenu>.wsmenu-list>li>a>.hometext {
+    display: inline-block;
+  }
+  /* ================== Mobile Slide Down Links CSS ================== */
+  .wsmenu>.wsmenu-list>li>ul.sub-menu {
+    display: none;
+    position: relative;
+    top: 0px;
+    background-color: #fff;
+    border: none;
+    padding: 0px;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    transition: inherit;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>a {
+    line-height: 20px;
+    font-size: 13px;
+    padding: 10px 0px 10px 16px;
+    color: #383838;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li span+a {
+    padding-right: 30px;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>a>.fa {
+    display: none;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>a:hover {
+    background-color: #e7e7e7;
+    color: #666666;
+    text-decoration: underline;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu li:hover>a {
+    background-color: #e7e7e7;
+    color: #666666;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu {
+    width: 100%;
+    position: static;
+    left: 100%;
+    top: 0;
+    display: none;
+    margin: 0px;
+    padding: 0px;
+    border: solid 0px;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    transition: inherit;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li {
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    position: relative;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>a {
+    line-height: 20px;
+    font-size: 13px;
+    padding: 10px 0px 10px 26px;
+    color: #383838;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li span+a {
+    padding-right: 30px;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>a>.fa {
+    display: none;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>a:hover {
+    background-color: #e7e7e7;
+    color: #666666;
+    text-decoration: underline;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>a.active {
+    color: #000;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li:hover>a {
+    color: #000;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu {
+    width: 100%;
+    position: static;
+    left: 100%;
+    top: 0;
+    display: none;
+    margin: 0px;
+    padding: 0px;
+    border: solid 0px;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    transition: inherit;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li {
+    margin: 0px 0px 0px 0px;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li>a {
+    line-height: 20px;
+    font-size: 13px;
+    padding: 10px 0px 10px 34px;
+    color: #383838;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li span+a {
+    padding-right: 30px;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li>a>.fa {
+    display: none;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li>a:hover {
+    background-color: #e7e7e7;
+    color: #666666;
+    text-decoration: underline;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li>ul.sub-menu>li>ul.sub-menu>li>a.active {
+    color: #000;
+  }
+  /* ================== Mobile Mega Menus CSS  ================== */
+  .wsmenu>.wsmenu-list>li>.wsmegamenu {
+    color: #666666;
+    display: none;
+    position: relative;
+    top: 0px;
+    padding: 10px 0px;
+    border: solid 0px;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    transition: inherit;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu.halfmenu {
+    width: 100%;
+    margin: 0px;
+    padding: 5px 0px 10px 0px;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu .title {
+    color: #666666;
+    font-size: 15px;
+    padding: 10px 8px 10px 0px;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu>ul {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-size: 13px;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu>ul>li>a {
+    padding: 9px 14px;
+    line-height: normal;
+    font-size: 13px;
+    background-color: #e7e7e7;
+    color: #666666;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu>ul>li>a:hover {
+    background-color: #000000;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu ul li.title {
+    line-height: 26px;
+    color: #666666;
+    margin: 0px;
+    font-size: 15px;
+    padding: 7px 0px;
+    background-color: transparent;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu.halfdiv {
+    width: 100%;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form {
+    padding: 5px 0px 62px 0px;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu .show-grid div {
+    margin: 0px;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form input[type="button"] {
+    width: 46%;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form input[type="submit"] {
+    width: 46%;
+  }
+  .wsmenu>.wsmenu-list>li>.wsmegamenu .menu_form textarea {
+    min-height: 100px;
+  }
+  /* ================== Mobile Header CSS ================== */
+  .wsmobileheader {
+    width: 100%;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10002;
+    height: 54px;
+    background-color: #eaecf0;
+    text-align: center;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .3);
+  }
+  .wsactive .wsmobileheader {
+    margin-left: 240px;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+  }
+  .wsmobileheader .smllogo {
+    display: inline-block;
+    margin-top: 12px;
+  }
+  /*Mobile Search Bar*/
+  .wsmobileheader .wssearch {
+    background-color: transparent;
+    z-index: 1000;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 14px 22px;
+    cursor: pointer;
+  }
+  .wsmobileheader .wssearch .fa {
+    font-size: 19px;
+    color: #727272;
+  }
+  .wsmobileheader .wssearchform {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    line-height: 44px;
+    top: 0px;
+    left: 0;
+    padding: 10px 15px;
+    cursor: default;
+  }
+  .wsmobileheader .wssearch.wsopensearch {
+    width: 100%;
+    background-color: #000;
+  }
+  .wsmobileheader .wssearch.wsopensearch .wssearchform {
+    display: block;
+  }
+  .wsmobileheader .wssearchform form {
+    width: calc((100% - 10px) - 45px);
+    display: block;
+    position: relative;
+  }
+  .wsmobileheader .wssearchform form:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    left: 12px;
+    position: absolute;
+    top: 0;
+    color: #777777;
+    height: 34px;
+    line-height: 33px;
+  }
+  .wsmobileheader .wssearchform input {
+    width: 100%;
+    height: 34px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: solid 0px;
+    text-indent: 33px;
+    margin: 0px;
+    line-height: 18px;
+    padding: 0px;
+    display: block;
+  }
+  .wsmobileheader .wssearch.wsopensearch {
+    left: 0px;
+    right: auto;
+    width: 100%;
+    height: 54px;
+  }
+  .wsmobileheader .wssearch .fa-times {
+    display: none;
+  }
+  .wsmobileheader .wssearch.wsopensearch .fa-times {
+    display: inline-block;
+    float: right;
+    margin-top: 3px;
+    font-size: 21px;
+  }
+  .wsmobileheader .wssearch.wsopensearch .fa-search {
+    display: none;
+  }
+  /* Mobile Toggle Menu icon (X ICON) */
+  .wsanimated-arrow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 102;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+  .wsanimated-arrow {
+    cursor: pointer;
+    padding: 16px 35px 16px 0px;
+    margin: 7px 0 0 15px;
+  }
+  .wsanimated-arrow span,
+  .wsanimated-arrow span:before,
+  .wsanimated-arrow span:after {
+    cursor: pointer;
+    height: 2px;
+    width: 17px;
+    background: #727272;
+    position: absolute;
+    display: block;
+    content: '';
+  }
+  .wsanimated-arrow span:before {
+    top: -7px;
+    width: 23px;
+  }
+  .wsanimated-arrow span:after {
+    bottom: -7px;
+    width: 17px;
+  }
+  .wsanimated-arrow span,
+  .wsanimated-arrow span:before,
+  .wsanimated-arrow span:after {
+    transition: all 500ms ease-in-out;
+  }
+  .wsactive .wsanimated-arrow span:after {
+    width: 23px;
+  }
+  .wsactive .wsanimated-arrow span {
+    background-color: transparent;
+  }
+  .wsactive .wsanimated-arrow span:before,
+  .wsactive .wsanimated-arrow.active span:after {
+    top: 7px;
+  }
+  .wsactive .wsanimated-arrow span:before {
+    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    bottom: 0px;
+  }
+  .wsactive .wsanimated-arrow span:after {
+    transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  /* ================== Mobile Overlay/Drawer CSS ================== */
+  .overlapblackbg {
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+  }
+  .wsactive .wsmenu .overlapblackbg {
+    display: block;
+  }
+  .wsmenucontainer {
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+  }
+  .wsactive .wsmenucontainer {
+    margin-left: 240px;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+  }
+  .wsactive .wsmenu {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    visibility: visible;
+    z-index: 1000;
+    top: 0;
+  }
+  .wsactive .wsmenu>.wsmenu-list {
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    margin-left: 0;
+  }
+  /* ================== Mobile Sub Menu Expander Arrows  ================== */
+  .wsmenu>.wsmenu-list>li>.wsmenu-click {
+    height: 49px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+  }
+  .wsmenu>.wsmenu-list>li .wsmenu-click.ws-activearrow>i {
+    transform: rotate(180deg);
+  }
+  .wsmenu>.wsmenu-list>li>.wsmenu-click>i {
+    display: block;
+    height: 23px;
+    width: 25px;
+    margin-top: 14px;
+    margin-right: 10px;
+    background-size: 25px;
+    font-size: 21px;
+    color: rgba(0, 0, 0, 0.50);
+    float: right;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li .wsmenu-click02 {
+    height: 41px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li .wsmenu-click02>i {
+    display: block;
+    height: 23px;
+    width: 25px;
+    margin: 8px 6px 8px 6px;
+    background-size: 25px;
+    font-size: 21px;
+    color: rgba(0, 0, 0, 0.25);
+    float: right;
+  }
+  .wsmenu>.wsmenu-list>li>ul.sub-menu>li .wsmenu-click02>i.wsmenu-rotate {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  /*End Media Query*/
+}

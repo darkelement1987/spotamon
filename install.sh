@@ -17,8 +17,12 @@ echo -e "\e[0m"
 
 # MAIN
 echo "Welcome to Spotamon installation"
+echo "This script will install the base settings for a Spotamon"
+echo "instalation.  Note, this script does require php's dependency"
+echo "manager \"composer\" to be installed and accessable from"
+echo "Spotamon's folder"
 
-if [ "$EUID" -ne 0 ]; then
+if [[ "$EUID" -ne 0 ]] ; then
     echo
     echo "Notice: Running script with other user than root might fail!"
     read -n1 -rsp $'Press any key to continue or Ctrl+C to exit...\r'
@@ -37,40 +41,26 @@ clear
 
 # This script will set all the config variables for you
 echo "Setting up your Environment"
-echo "Checking for PHP in your systems PATH"
-if hash php 2>/dev/null; then
-    echo "PHP is in PATH"
-    echo "Checking for Composer"
-    
-    COMPOSER_CMD=$(command -v composer)
-    if [[ "" == "$COMPOSER_CMD" ]]
-    then
-        echo "Installing Composer"
-        curl -sS https://getcomposer.org/installer | php -- --install-dir=bin
-        COMPOSER_CMD=$(command -v composer)
-    else
-        echo "Updating Composer"
-        $COMPOSER_CMD selfupdate
-    fi
-    echo "Running Composer"
+
+if hash composer 2>/dev/null; then
     cd "$DIR" || exit
-    $COMPOSER_CMD update
-    $COMPOSER_CMD s -o
+    echo "updating composer"
+    eval composer selfupdate
+    echo "Running Composer"
+    eval composer update
+    eval composer dump-autoload -o
     echo "Done.."
 else
-    echo
-    echo "PHP was not found in your path and Composer"
-    echo "has not been installed and updated please refer to documentation"
-    echo "at http://php.net/manual/en/install.php on how to install and include"
-    echo "in PATH on your system. After return to your Spotamon folder and run"
-    echo "\"composer install\""
-    echo
+    echo "It seems composer is not set up on your system"
+    echo "Please visit \"https://getcomposer.org/download/\""
+    echo "for information on how to download composer and"
+    echo "install on your system"
+    exit
 fi
+
+
 read -n1 -rsp $'Press any key to continue or Ctrl+C to exit...\n'
 clear
-# go to script dir
-BASEDIR=$(dirname "$0")
-cd "$BASEDIR" || exit 1
 
 # Set some defaults
 # config.php
@@ -109,15 +99,15 @@ readinput() {
 }
 
 # Loop until answer is yes
-until [ "$answer" == 'y' ]; do
+until [[ "$answer" == 'y' ]] ; do
     
     echo "- PATH Settings -"
     echo "If on a Linux system just type \"Linux\", If Windows enter the"
     echo "path to your Apache \"bin\" folder containing the htpasswd executable."
     echo "(example: c:/wamp64/bin/apache/apache2.4.33/bin)"
     SYS_HTTPD_PATH=$(readinput "Apache bin folder: " "$SYS_HTTPD_PATH")
-    if [ "$SYS_HTTPD_PATH" != "linux" ]; then
-        until [ -s "${SYS_HTTPD_PATH}""/htpasswd.exe" ]; do
+    if [[ "$SYS_HTTPD_PATH" != "linux" ]] ; then
+        until [[ -s "${SYS_HTTPD_PATH}""/htpasswd.exe" ]] ; do
             echo -e "\e[31mYour Apache path seems to be incorrect, please enter again\e[0m"
             SYS_HTTPD_PATH=$(readinput "Apache bin folder: " "$SYS_HTTPD_PATH")
         done
@@ -126,7 +116,7 @@ until [ "$answer" == 'y' ]; do
         echo "software\'s folder.  otherwish should be located in your \"Program Files\" folder"
         echo "(example: \"C:/Program Files/MARIADB 10.2/bin\")"
         SYS_MYSQL_PATH=$(readinput "MYSQL bin folder: " "$SYS_MYSQL_PATH")
-        until [ -s "$SYS_MYSQL_PATH/mysql.exe" ]; do
+        until [[ -s "$SYS_MYSQL_PATH/mysql.exe" ]] ; do
             echo -e "\e[31mYour Mysql path seems to be incorrect, please enter again\e[0m"
             SYS_MYSQL_PATH=$(readinput "MYSQL bin folder: " "$SYS_MYSQL_PATH")
         done
@@ -144,7 +134,7 @@ until [ "$answer" == 'y' ]; do
     echo "such as '${SYS_DB_USER}'@'localhost' or '${SYS_DB_USER}'@'%'"
     SYS_DB_USER_HOST=$(readinput "MYSQL User Host: " "$SYS_DB_USER_HOST")
     SYS_DB_PSWD=$(readinput "MySQL Password: " "$SYS_DB_PSWD")
-    until [ $SYS_DB_PSWD != "" ]; do
+    until [[ $SYS_DB_PSWD != "" ]] ; do
         echo -e "\e[31mSpotamon requires a database user with a password\e[0m"
         SYS_DB_PSWD=$(readinput "MySQL Password: " "$SYS_DB_PSWD")
     done
@@ -167,8 +157,8 @@ until [ "$answer" == 'y' ]; do
     echo "- Discord Settings -"
     CLIENT_ID=$(readinput "Discord Client Id: " "$CLIENT_ID")
     CLIENT_SECRET=$(readinput "Discord Client Secret: " "$CLIENT_SECRET")
-    BOT_TOKEN=$(readinput "Discord Bot Token: " "$BOT_TOKEN")
-    SERVER_ID=$(readinput "Discord Server ID: " "$SERVER_ID")
+    # BOT_TOKEN=$(readinput "Discord Bot Token: " "$BOT_TOKEN")
+    # SERVER_ID=$(readinput "Discord Server ID: " "$SERVER_ID")
     echo
     clear
     echo "--  PATH  Set  --"
@@ -193,7 +183,7 @@ until [ "$answer" == 'y' ]; do
     echo "You entered the following data:"
     echo
     echo -e "\e[1m\e[34m- PATH SETTINGS -\e[0m"
-    if [ "$SYS_HTTPD_PATH" = "linux" ]; then
+    if [[ "$SYS_HTTPD_PATH" = "linux" ]] ; then
         echo "You are on a Linux system"
     else
         echo "Your Apache bin folder is: " "$SYS_HTTPD_PATH"
@@ -212,8 +202,8 @@ until [ "$answer" == 'y' ]; do
     echo -e "\e[1m\e[34m- Discord Settings -\e[0m"
     echo "Client ID: $CLIENT_ID"
     echo "Client Secret: $CLIENT_SECRET"
-    echo "Bot Token: $BOT_TOKEN"
-    echo "Server ID: $SERVER_ID"
+    # echo "Bot Token: $BOT_TOKEN"
+    # echo "Server ID: $SERVER_ID"
     echo
     echo -e "\e[1m\e[34m- HTACCESS Settings -\e[0m"
     echo "Admin Username: $HTUSER"
@@ -223,7 +213,7 @@ until [ "$answer" == 'y' ]; do
     
     # yes or no
     read -r -n 1 -p "Is everything correct [y/n] " answer
-    if [ "$answer" != 'y' ]; then
+    if [[ "$answer" != 'y' ]] ; then
         echo
         echo "Do your edits:"
         echo
@@ -250,7 +240,7 @@ sed -e "s_#htpassword#_\"$HTPATH_FILE\"_" \
 "$PR_EXAMPLE" > "$PR_ACCESS"
 
 echo "Writing $HTPATH_FILE ..."
-if [ "$SYS_HTTPD_PATH" = "linux" ]; then
+if [[ "$SYS_HTTPD_PATH" = "linux" ]] ; then
     MYSQL_COMMAND="mysql"
     HTPASSWD_COMMAND="htpasswd"
 else
@@ -278,6 +268,6 @@ cp "${DIR}/htaccess" "${DIR}/.htaccess"
 echo
 echo "For even more settings have a look at config/config.php"
 echo
-echo "Everything is set up. Catch 'Em All!"
+echo "Everything is set up. Go Spot 'Em All!"
 echo
 

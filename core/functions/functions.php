@@ -1,13 +1,40 @@
 <?php
+/**
+ * Class and Function List:
+ * Function list:
+ * - pokesubmission()
+ * - spottedpokemon()
+ * - maps()
+ * - raidsubmission()
+ * - spottedraids()
+ * - questsubmission()
+ * - spottedquests()
+ * - spottedeggs()
+ * - gymsubmission()
+ * - eggsubmission()
+ * - profile()
+ * - editprofile()
+ * - exraidsubmission()
+ * - spottedexraids()
+ * - exatt()
+ * - offertrade()
+ * - activetrades()
+ * - mytrades()
+ * - mynatrades()
+ * - acceptedtrades()
+ * - counteroffer()
+ * - actoffer()
+ * Classes list:
+ */
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function pokesubmission()
 {
     require './config/config.php';
     $result = $conn->query("SELECT * FROM pokedex");
-    $id     = $pokemon     = $cp     = $iv     = $hour     = $min     = $ampm     = $monster     = $latitude     = $longitude     = $fulladdress     = $spotter     = "";
-    if (isset($_SESSION["uname"])) { ?>
+    $id = $pokemon = $cp = $iv = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter = "";
+    if (isset($_SESSION["uname"])) {?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
-<h3 style="text-align:center;"><strong>Add PokÃ©mon:</strong></h3>
+<h3 style="text-align:center;"><strong>Add Pokémon:</strong></h3>
 <form id="usersubmit" method="post" action="./spotpokemon.php">
 <center><table id="added" class="table table-bordered">
 <tbody>
@@ -21,7 +48,7 @@ function pokesubmission()
 echo "<select id='pokesearch' name='pokemon'>";
         while ($row = $result->fetch_assoc()) {
             unset($id, $monster);
-            $id      = $row['id'];
+            $id = $row['id'];
             $monster = $row['monster'];
             echo '<option value="' . $id . '">' . $id . ' - ' . $monster . '</option>';
         }
@@ -52,7 +79,7 @@ echo "<select id='pokesearch' name='pokemon'>";
 
 <p>Click the button to get your coordinates.</p>
 <p id="ScanLocation"></p>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=<?php echo $gmaps; ?>"></script>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=<?php //echo $gmaps; ?>"></script> -->
 <script>
 var x = document.getElementById("ScanLocation");
 
@@ -93,30 +120,38 @@ function showPosition(position) {
 </table></center>
 </form>
 
-<?php } else {
+<?php
+} else {?>
 
-        echo "<center><div style='margin-top:10px;'>";
-        echo "Login to spot a pokemon";
-        ?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";
-    }
+<center>
+    <div style='margin-top:10px;'>
+        Login to spot a pokemon
+        <br />
+        <br />
+        <a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+            <i class="fas fa-sign-in-alt"></i> Login/Register Here</a>
+    </div>
+</center>
+    <?php
 }
-
+}
 ///////////////////// SPOTTED MONSTER TABLE \\\\\\\\\\\\\\\\\\\\\
 function spottedpokemon()
 {
     require './config/config.php';
     $results_per_page = 10;
-
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
     $start_from = ($page - 1) * $results_per_page;
-	$sql        = "SELECT * FROM spots,pokedex WHERE spots.pokemon = pokedex.id ORDER BY spotid DESC LIMIT " . $start_from . ";";
-    $result     = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
-    $sqlcnt      = "SELECT COUNT(SPOTID) AS total FROM spots";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $sql = "SELECT * FROM spots,pokedex WHERE spots.pokemon = pokedex.id ORDER BY spotid DESC LIMIT " . $start_from . ";";
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(SPOTID) AS total FROM spots";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -127,43 +162,37 @@ function spottedpokemon()
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
-    echo "<table id=\"spotted\" class=\"table table-bordered\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
     if (isset($_SESSION["uname"])) {
         echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th><th>VOTING</th></tr>";
     } else {
         echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th></tr>";
     }
-
     while ($row = mysqli_fetch_array($result)) {
-        $spotid      = $row['spotid'];
-        $id          = $row['monster'];
-        $pokemon     = $row['pokemon'];
-        $cp          = $row['cp'];
-        $iv          = $row['iv'];
-        $hour        = $row['hour'];
-        $min         = $row['min'];
-        $ampm        = $row['ampm'];
-        $latitude    = $row['latitude'];
-        $longitude   = $row['longitude'];
-        $minutes     = $min;
-        $hr          = $hour;
+        $spotid = $row['spotid'];
+        $id = $row['monster'];
+        $pokemon = $row['pokemon'];
+        $cp = $row['cp'];
+        $iv = $row['iv'];
+        $hour = $row['hour'];
+        $min = $row['min'];
+        $ampm = $row['ampm'];
+        $latitude = $row['latitude'];
+        $longitude = $row['longitude'];
+        $minutes = $min;
+        $hr = $hour;
         $fulladdress = $row['fulladdress'];
         if (isset($_SESSION["uname"])) {
             $good = $row['good'];
-            $bad  = $row['bad'];
+            $bad = $row['bad'];
         }
-
         ///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
         if ($min < 10) {
             $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);
         }
-
         ///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
         if ($clock == "false") {
-
             ///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
-
             if (isset($_SESSION["uname"])) {
                 echo "
 	<tr>
@@ -175,8 +204,8 @@ function spottedpokemon()
 	<td style='text-align:center;'>" . $hour . ":" . $minutes . " " . $ampm . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
 	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='".W_ASSETS."voting/up.png' value='$good' /></form></span>" . $good . "<br>
-	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='".W_ASSETS."voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
+	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='" . W_ASSETS . "voting/up.png' value='$good' /></form></span>" . $good . "<br>
+	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='" . W_ASSETS . "voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
 	</tr>";
             } else {
                 echo "
@@ -190,17 +219,13 @@ function spottedpokemon()
 	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
 	";
             }
-
         } else {
             ///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
-
             ///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
             if ($hour < 10) {
                 $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);
             }
-
             ///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
-
             if (isset($_SESSION["uname"])) {
                 echo "
 	<tr>
@@ -212,8 +237,8 @@ function spottedpokemon()
 	<td>" . $hr . ":" . $minutes . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
 	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='".W_ASSETS."voting/up.png' value='$good' /></form></span>" . $good . "<br>
-	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='".W_ASSETS."voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
+	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='" . W_ASSETS . "voting/up.png' value='$good' /></form></span>" . $good . "<br>
+	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='" . W_ASSETS . "voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
 	</tr>";
             } else {
                 echo "
@@ -227,11 +252,10 @@ function spottedpokemon()
 	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
 	";
             }
-
-        }}
+        }
+    }
     echo "</table></center><p id='pages'>";
     ?><center><?php
-
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?page=" . $i . "'>" . $i . "</a> ";
@@ -239,7 +263,6 @@ function spottedpokemon()
     ;
     ?></center><?php
 }
-
 function maps()
 {
     require './config/config.php';
@@ -263,7 +286,7 @@ if (isset($_GET['loc'])) {
         echo $_GET['loc'];
     } else {
         echo $mapcenter;
-    } ?>
+    }?>
 
 ],
         zoom:
@@ -273,7 +296,7 @@ if (isset($_GET['zoom'])) {
         echo $_GET['zoom'];
     } else {
         echo 15;
-    } ?>,
+    }?>,
         maxZoom: 18,
         zoomControl: false
     })
@@ -311,9 +334,11 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 		var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>'
 		+ pokemon + ' (#' + id + ')</b><br>CP: ' + cp + '<br>IV: '+ iv + '%<br>Found: ' + hour + ':' + min + ' ' + ampm +
-		'<?php if (isset($_SESSION["uname"])) { ?><br><hr><a href =\"./good.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"<?=W_ASSETS?>voting/up.png\" height=\"25\" width=\"25\"></img></a>' + good +
-		' x Found<br><a href =\"./bad.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"<?=W_ASSETS?>voting/down.png\" height=\"25\" width=\"25\"></img></a>' + bad + ' x Not found<?php } ?><br><hr><a href=\"http://maps.google.com/maps?q=' +
-		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr>Spotted by: <b>' + spotter + '</b><?php } ?></center></div>';
+		'<?php if (isset($_SESSION["uname"])) {?><br><hr><a href =\"./good.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"<?=W_ASSETS?>voting/up.png\" height=\"25\" width=\"25\"></img></a>' + good +
+		' x Found<br><a href =\"./bad.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"<?=W_ASSETS?>voting/down.png\" height=\"25\" width=\"25\"></img></a>' + bad + ' x Not found<?php
+}?><br><hr><a href=\"http://maps.google.com/maps?q=' +
+		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) {?><br><hr>Spotted by: <b>' + spotter + '</b><?php
+}?></center></div>';
 
         var marker = new L.marker([parseFloat(markerElem.getAttribute('latitude')), parseFloat(markerElem.getAttribute('longitude'))],{
           icon: image
@@ -350,16 +375,20 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 		if (actraid === "0" && egg === "0"){
 			if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>gyms/' + gteam + 'ex.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
-    ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>gyms/' + gteam + 'ex.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) {?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
+}?><?php if (isset($_SESSION["uname"])) {?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php
+}
+    ;?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>/gyms/' + gteam + 'ex.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
-    ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) {?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
+}?><?php if (isset($_SESSION["uname"])) {?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php
+}
+    ;?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>/gyms/' + gteam + '.png',
@@ -368,16 +397,22 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			}
 		} else if (actraid !== "0" && egg === "0"){
 			if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
-    ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + raidby + '<?php } ?></center></div>';
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) {?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
+}?><?php if (isset($_SESSION["uname"])) {?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php
+}
+    ;?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) {?><br><hr><b>Spotted by: </b>' + raidby + '<?php
+}?></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>raids/' + actboss + '.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src="<?=W_ASSETS?>icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
-    ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + raidby + '<?php } ?></center></div>';
+			var html = '<div class=\"maplabel\"><center><img src="<?=W_ASSETS?>icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) {?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
+}?><?php if (isset($_SESSION["uname"])) {?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php
+}
+    ;?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) {?><br><hr><b>Spotted by: </b>' + raidby + '<?php
+}?></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>raids/' + actboss + '.png',
@@ -386,16 +421,22 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			}
 		} else if (actraid === "0" && egg !== "0"){
 			if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
-    ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + eggby + '<?php } ?></center></div>';
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) {?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
+}?><?php if (isset($_SESSION["uname"])) {?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php
+}
+    ;?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) {?><br><hr><b>Spotted by: </b>' + eggby + '<?php
+}?></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>eggs/' + egg + '.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php }
-    ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + eggby + '<?php } ?></center></div>';
+			var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) {?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
+}?><?php if (isset($_SESSION["uname"])) {?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?=W_ASSETS?>teams/4.png" width="25" height="25"></a><?php
+}
+    ;?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) {?><br><hr><b>Spotted by: </b>' + eggby + '<?php
+}?></center></div>';
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>eggs/' + egg + '.png',
@@ -427,15 +468,19 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 		if (quested === "1"){
 
-		var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) { ?><br>(<b><span class="text-success">Quested</span></b>)<br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php } ?><?php if (isset($_SESSION["uname"])) { ?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php }
-    ; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + questby + '<?php } ?></center></div>';
+		var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) {?><br>(<b><span class="text-success">Quested</span></b>)<br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php
+}?><?php if (isset($_SESSION["uname"])) {?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php
+}
+    ;?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) {?><br><hr><b>Spotted by: </b>' + questby + '<?php
+}?></center></div>';
         var icon = customLabel[type] || {};
         var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>stops/queststop.png',
             iconSize: [30, 30]
 			});
 		} else if (quested === ""){
-		var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) { ?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php } ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
+		var html = '<div class=\"maplabel\"><center><img src=\"<?=W_ASSETS?>stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) {?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php
+}?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
         var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>stops/stops.png',
@@ -475,14 +520,12 @@ function doNothing() {}
 
 <?php
 }
-
 ///////////////// SUBMIT RAIDS \\\\\\\\\\\\\\\\\
-
 function raidsubmission()
 {
     require './config/config.php';
     $result = $conn->query("SELECT * FROM raidbosses");
-    $rid    = $rboss    = $rlvl    = $rhour    = $rmin    = $rampm    = $spotter    = "";
+    $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $spotter = "";
     if (isset($_SESSION["uname"])) {
         ?>
 
@@ -501,7 +544,7 @@ function raidsubmission()
 echo "<select id='raidsearch' name='rboss'>";
         while ($row = $result->fetch_assoc()) {
             unset($rid, $rboss);
-            $rid   = $row['rid'];
+            $rid = $row['rid'];
             $rboss = $row['rboss'];
             echo '<option value="' . $rid . '">' . $rid . ' - ' . $rboss . '</option>';
         }
@@ -540,18 +583,17 @@ sliderraid.oninput = function() {
 <?php
 require './config/config.php';
         $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
-        $gid    = $gname    = $gteam    = "";
+        $gid = $gname = $gteam = "";
         echo "<select id='gymsearch' name='gname'>";
         while ($row = $result->fetch_assoc()) {
             unset($gid, $gname);
-            $gid   = $row['gid'];
-            $tid   = $row['tname'];
+            $gid = $row['gid'];
+            $tid = $row['tname'];
             $gname = $row['gname'];
             $gteam = $row['gteam'];
             echo '<option value="' . $gid . '" label="' . $gteam . '">' . $gname . '</option>';
         }
         echo "</select>";
-
         ?>
 
 </td>
@@ -563,27 +605,36 @@ require './config/config.php';
 </table></center>
 </form>
 
-<?php } else {
-
-        echo "<center><div style='margin-top:10px;'>";
-        echo "Login to spot a Raid";
-        ?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";
-
-    }}
+<?php
+} else {?>
+<center>
+    <div style='margin-top:10px;'>Login to spot a Raid
+        <br />
+        <br />
+        <a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+            <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+    </div>
+</center>
+<?php
+}
+}
 ////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
 function spottedraids()
 {
     require './config/config.php';
     $results_per_page = 10;
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
-    $start_from  = ($page - 1) * $results_per_page;
-    $sql         = "SELECT * FROM raidbosses,gyms WHERE gyms.actraid = '1' AND gyms.actboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude ORDER BY date DESC LIMIT $start_from," . $results_per_page;
-    $result      = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    $sqlcnt      = "SELECT COUNT(RID) AS total FROM spotraid";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $start_from = ($page - 1) * $results_per_page;
+    $sql = "SELECT * FROM raidbosses,gyms WHERE gyms.actraid = '1' AND gyms.actboss = raidbosses.rid  AND gyms.glatitude AND gyms.glongitude ORDER BY date DESC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(RID) AS total FROM spotraid";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -597,27 +648,24 @@ function spottedraids()
 echo "<table id=\"spotted\" class=\"table table-bordered\">";
     echo "<tr><th>ID</th><th>BOSS</th><th>LVL / CP</th><th>EXPIRES</th><th>LOCATION</th></tr>";
     while ($row = mysqli_fetch_array($result)) {
-        $rid        = $row['rid'];
-        $rboss      = $row['rboss'];
-        $rlvl       = $row['rlvl'];
-        $rcp        = $row['rcp'];
-        $hour       = $row['hour'];
-        $min        = $row['min'];
-        $ampm       = $row['ampm'];
-        $glatitude  = $row['glatitude'];
+        $rid = $row['rid'];
+        $rboss = $row['rboss'];
+        $rlvl = $row['rlvl'];
+        $rcp = $row['rcp'];
+        $hour = $row['hour'];
+        $min = $row['min'];
+        $ampm = $row['ampm'];
+        $glatitude = $row['glatitude'];
         $glongitude = $row['glongitude'];
-        $minutes    = $min;
-        $hr         = $hour;
-        $gname      = $row['gname'];
-
+        $minutes = $min;
+        $hr = $hour;
+        $gname = $row['gname'];
         ///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
         if ($min < 10) {
             $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);
         }
-
         ///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
         if ($clock == "false") {
-
             ///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
@@ -627,14 +675,12 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
 	<td>" . $hour . ":" . $minutes . " " . $ampm . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	</tr>";
-
         } else {
             ///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
             ///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
             if ($hour < 10) {
                 $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);
             }
-
             ///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
@@ -644,8 +690,8 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
 	<td>" . $hr . ":" . $minutes . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	</tr>";
-
-        }}
+        }
+    }
     echo "</table></center><p id='pages'>";
     ?><center><?php
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
@@ -655,14 +701,12 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
     ;
     ?></center><?php
 }
-
 ///////////////// SUBMIT QUESTS \\\\\\\\\\\\\\\\\
-
 function questsubmission()
 {
     require './config/config.php';
     $result = $conn->query("SELECT * FROM quests");
-    $qid    = $qname    = $spotter    = "";
+    $qid = $qname = $spotter = "";
     if (isset($_SESSION["uname"])) {
         ?>
 
@@ -681,11 +725,11 @@ function questsubmission()
 echo "<select id='questsearch' name='quest'>";
         while ($row = $result->fetch_assoc()) {
             unset($qid, $qname);
-            $qid                   = $row['qid'];
-            $qname                 = $row['qname'];
+            $qid = $row['qid'];
+            $qname = $row['qname'];
             $array[$row['type']][] = $row;
         }
-// loop the array to create optgroup
+        // loop the array to create optgroup
         foreach ($array as $key => $value) {
             // check if its an array
             if (is_array($value)) {
@@ -697,9 +741,7 @@ echo "<select id='questsearch' name='quest'>";
                 echo "</optgroup>";
             }
         }
-
         echo "</select>";
-
         ?>
 </td>
 </tr>
@@ -710,15 +752,15 @@ echo "<select id='questsearch' name='quest'>";
 <?php
 require './config/config.php';
         $result2 = $conn->query("SELECT * FROM rewards");
-        $reid    = $rname    = "";
+        $reid = $rname = "";
         echo "<select id='rewardsearch' name='reward'>";
         while ($row2 = $result2->fetch_assoc()) {
             unset($reid, $rname);
-            $reid                    = $row2['reid'];
-            $rname                   = $row2['rname'];
+            $reid = $row2['reid'];
+            $rname = $row2['rname'];
             $array2[$row2['type']][] = $row2;
         }
-// loop the array to create optgroup
+        // loop the array to create optgroup
         foreach ($array2 as $key => $value) {
             // check if its an array
             if (is_array($value)) {
@@ -730,7 +772,6 @@ require './config/config.php';
                 echo "</optgroup>";
             }
         }
-
         echo "</select>";
         ?>
 </td>
@@ -741,16 +782,15 @@ require './config/config.php';
 <td style="width: 10%;">
 <?php
 $result = $conn->query("SELECT * FROM stops");
-        $sid    = $sname    = $sname    = "";
+        $sid = $sname = $sname = "";
         echo "<select id='pokestopsearch' name='sname'>";
         while ($row = $result->fetch_assoc()) {
             unset($sid, $sname);
-            $sid   = $row['sid'];
+            $sid = $row['sid'];
             $sname = $row['sname'];
             echo '<option value="' . $sid . '">' . $sname . '</option>';
         }
         echo "</select>";
-
         ?>
 
 </td>
@@ -762,31 +802,38 @@ $result = $conn->query("SELECT * FROM stops");
 </table></center>
 </form>
 
-<?php } else {
+<?php
+} else {?>
 
-        echo "<center><div style='margin-top:10px;'>";
-        echo "Login to spot a Quest";
-        ?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";
-
-    }}
-
+<center>
+    <div style='margin-top:10px;'>
+        Login to spot a Quest
+        <br />
+        <br />
+        <a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+            <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+    </div>
+</center>
+<?php
+}
+}
 ////////////////////// SPOTTED QUESTS \\\\\\\\\\\\\\\\\\\\\\\\\
-
 function spottedquests()
 {
     require './config/config.php';
     $results_per_page = 10;
-
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
     $start_from = ($page - 1) * $results_per_page;
-    $sql        = "SELECT * from stops,quests,rewards WHERE quested='1' AND stops.actquest = quests.qid AND stops.actreward = rewards.reid ORDER BY date DESC LIMIT $start_from," . $results_per_page;
-    $result     = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
-    $sqlcnt      = "SELECT COUNT(SID) AS total FROM stops WHERE quested='1'";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $sql = "SELECT * from stops,quests,rewards WHERE quested='1' AND stops.actquest = quests.qid AND stops.actreward = rewards.reid ORDER BY date DESC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(SID) AS total FROM stops WHERE quested='1'";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -797,30 +844,26 @@ function spottedquests()
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
-    echo "<table id=\"spotted\" class=\"table table-bordered\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
     echo "<tr><th>ID</th><th>QUEST</th><th>REWARD</th><th>SPOTTED</th><th>LOCATION</th></tr>";
     while ($row = mysqli_fetch_array($result)) {
         $questname = $row['qname'];
-        $sname     = $row['sname'];
-        $reward    = $row['rname'];
-        $sid       = $row['sid'];
-        $slat      = $row['slatitude'];
-        $slon      = $row['slongitude'];
-        $hour      = $row['hour'];
-        $min       = $row['min'];
-        $ampm      = $row['ampm'];
-        $minutes   = $min;
-        $hr        = $hour;
-
+        $sname = $row['sname'];
+        $reward = $row['rname'];
+        $sid = $row['sid'];
+        $slat = $row['slatitude'];
+        $slon = $row['slongitude'];
+        $hour = $row['hour'];
+        $min = $row['min'];
+        $ampm = $row['ampm'];
+        $minutes = $min;
+        $hr = $hour;
         ///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
         if ($min < 10) {
             $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);
         }
-
         ///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
         if ($clock == "false") {
-
             ///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
@@ -830,15 +873,12 @@ function spottedquests()
 	<td>" . $hour . ":" . $minutes . " " . $ampm . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $slat, "," . $slon . "" ?>&zoom=19"><?php echo $sname; ?></a><?php echo "</td>
 	</tr>";
-
         } else {
             ///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
-
             ///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
             if ($hour < 10) {
                 $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);
             }
-
             ///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
@@ -848,11 +888,10 @@ function spottedquests()
 	<td>" . $hr . ":" . $minutes . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $slat, "," . $slon . "" ?>&zoom=19"><?php echo $sname; ?></a><?php echo "</td>
 	</tr>";
-
-        }}
+        }
+    }
     echo "</table></center><p id='pages'>";
     ?><center><?php
-
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?page=" . $i . "'>" . $i . "</a> ";
@@ -860,23 +899,23 @@ function spottedquests()
     ;
     ?></center><?php
 }
-
 ////////////////////// SPOTTED EGGS \\\\\\\\\\\\\\\\\\\\\\\\\
-
 function spottedeggs()
 {
     require './config/config.php';
     $results_per_page = 10;
-
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
     $start_from = ($page - 1) * $results_per_page;
-    $sql        = "SELECT * FROM gyms WHERE gyms.egg != '0' ORDER BY date DESC LIMIT $start_from," . $results_per_page;
-    $result     = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
-    $sqlcnt      = "SELECT COUNT(eggby) AS total FROM gyms WHERE egg !='0'";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $sql = "SELECT * FROM gyms WHERE gyms.egg != '0' ORDER BY date DESC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(eggby) AS total FROM gyms WHERE egg !='0'";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -887,29 +926,25 @@ function spottedeggs()
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
-    echo "<table id=\"spotted\" class=\"table table-bordered\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
     echo "<tr><th>GYM ID</th><th>EGG LVL</th><th>HATCHES</th><th>LOCATION</th></tr>";
     while ($row = mysqli_fetch_array($result)) {
-        $gid        = $row['gid'];
-        $hour       = $row['hour'];
-        $min        = $row['min'];
-        $ampm       = $row['ampm'];
-        $glatitude  = $row['glatitude'];
+        $gid = $row['gid'];
+        $hour = $row['hour'];
+        $min = $row['min'];
+        $ampm = $row['ampm'];
+        $glatitude = $row['glatitude'];
         $glongitude = $row['glongitude'];
-        $minutes    = $min;
-        $hr         = $hour;
-        $gname      = $row['gname'];
-        $egg        = $row['egg'];
-
+        $minutes = $min;
+        $hr = $hour;
+        $gname = $row['gname'];
+        $egg = $row['egg'];
         ///////////////////// ADDS "0" TO SIGNLE DIGIT MINUTE TIMES \\\\\\\\\\\\\\\\\\\\\
         if ($min < 10) {
             $minutes = str_pad($min, 2, "0", STR_PAD_LEFT);
         }
-
         ///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
         if ($clock == "false") {
-
             ///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
@@ -918,15 +953,12 @@ function spottedeggs()
 	<td>" . $hour . ":" . $minutes . " " . $ampm . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	</tr>";
-
         } else {
             ///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
-
             ///////////////////// ADDS "0" TO SIGNLE DIGIT HOUR TIMES \\\\\\\\\\\\\\\\\\\\\
             if ($hour < 10) {
                 $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);
             }
-
             ///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
@@ -935,11 +967,10 @@ function spottedeggs()
 	<td>" . $hr . ":" . $minutes . "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	</tr>";
-
-        }}
+        }
+    }
     echo "</table></center><p id='pages'>";
     ?><center><?php
-
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?page=" . $i . "'>" . $i . "</a> ";
@@ -947,13 +978,12 @@ function spottedeggs()
     ;
     ?></center><?php
 }
-
 ///////////////////// FORM SUBMISSION DATA \\\\\\\\\\\\\\\\\\\\\
 function gymsubmission()
 {
     require './config/config.php';
     $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
-    $gid    = $gname    = $gteam    = $teamby    = "";
+    $gid = $gname = $gteam = $teamby = "";
     if (isset($_SESSION["uname"])) {
         ?>
 
@@ -971,14 +1001,13 @@ function gymsubmission()
 echo "<select id='gymsearch' name='gname'>";
         while ($row = $result->fetch_assoc()) {
             unset($gid, $gname);
-            $gid   = $row['gid'];
-            $tid   = $row['tname'];
+            $gid = $row['gid'];
+            $tid = $row['tname'];
             $gname = $row['gname'];
             $gteam = $row['gteam'];
             echo '<option value="' . $gid . '" label="' . $gteam . '">' . $gname . '</option>';
         }
         echo "</select>";
-
         ?>
 </td>
 </tr>
@@ -1001,19 +1030,26 @@ echo "<select id='gymsearch' name='gname'>";
 </table></center>
 </form>
 
-<?php } else {
+<?php
+} else {?>
 
-        echo "<center><div style='margin-top:10px;'>";
-        echo "Login to spot a team";
-        ?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";
-    }}
-
+<center>
+    <div style='margin-top:10px;'>
+        Login to spot a team
+        <br />
+        <br />
+        <a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+            <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+    </div>
+</center>
+  <?php
+}
+}
 function eggsubmission()
 {
     require './config/config.php';
     $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
-    $gid    = $gname    = $gteam    = $eggby    = "";
+    $gid = $gname = $gteam = $eggby = "";
     if (isset($_SESSION["uname"])) {
         ?>
 
@@ -1031,14 +1067,13 @@ function eggsubmission()
 echo "<select id='gymsearch' name='gname'>";
         while ($row = $result->fetch_assoc()) {
             unset($gid, $gname);
-            $gid   = $row['gid'];
-            $tid   = $row['tname'];
+            $gid = $row['gid'];
+            $tid = $row['tname'];
             $gname = $row['gname'];
             $gteam = $row['gteam'];
             echo '<option value="' . $gid . '" label="' . $gteam . '">' . $gname . '</option>';
         }
         echo "</select>";
-
         ?>
 </td>
 </tr>
@@ -1086,70 +1121,64 @@ slideregg.oninput = function() {
 </table></center>
 </form>
 
-<?php } else {
-        echo "<center><div style='margin-top:10px;'>";
-        echo "Login to spot an Egg";
-        ?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";
-
-    }}
-
+<?php
+} else {?>
+        <center><div style='margin-top:10px;'>
+        Login to spot an Egg
+        <br /><br /><a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+                <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+</div></center>
+<?php
+}
+}
 function profile()
 {
     if (isset($_SESSION["uname"])) {
         require 'config/config.php';
         $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
-
-        $gcountquery  = $conn->query("SELECT * FROM `gyms`");
+        $gcountquery = $conn->query("SELECT * FROM `gyms`");
         $gcountresult = mysqli_num_rows($gcountquery);
-
-        $scountquery  = $conn->query("SELECT * FROM `stops`");
+        $scountquery = $conn->query("SELECT * FROM `stops`");
         $scountresult = mysqli_num_rows($scountquery);
-
-        $eggcountquery  = $conn->query("SELECT * FROM `gyms` WHERE egg != 0");
+        $eggcountquery = $conn->query("SELECT * FROM `gyms` WHERE egg != 0");
         $eggcountresult = mysqli_num_rows($eggcountquery);
-
-        $raidcountquery  = $conn->query("SELECT * FROM `gyms` WHERE actraid != 0");
+        $raidcountquery = $conn->query("SELECT * FROM `gyms` WHERE actraid != 0");
         $raidcountresult = mysqli_num_rows($raidcountquery);
-
-        $teamcountquery  = $conn->query("SELECT * FROM `gyms` WHERE gteam > 1");
+        $teamcountquery = $conn->query("SELECT * FROM `gyms` WHERE gteam > 1");
         $teamcountresult = mysqli_num_rows($teamcountquery);
-
-        $moncountquery  = $conn->query("SELECT * FROM `spots`");
+        $moncountquery = $conn->query("SELECT * FROM `spots`");
         $moncountresult = mysqli_num_rows($moncountquery);
-
-        $questcountquery  = $conn->query("SELECT * FROM `stops` WHERE quested != 0");
+        $questcountquery = $conn->query("SELECT * FROM `stops` WHERE quested != 0");
         $questcountresult = mysqli_num_rows($questcountquery);
-
         $totalspots = $eggcountresult + $raidcountresult + $teamcountresult + $moncountresult + $questcountresult;
-
-        $id = $usergroup = ""; ?>
+        $id = $usergroup = "";?>
 <h3 style="text-align:center;"><strong>Your Profile:</strong></h3>
 <?php
-$versionquery  = "SELECT version FROM version";
+$versionquery = "SELECT version FROM version";
         $versionresult = $conn->query($versionquery);
-        $rowversion    = $versionresult->fetch_array(MYSQLI_NUM);
-        $version       = $rowversion[0];
+        $rowversion = $versionresult->fetch_array(MYSQLI_NUM);
+        $version = $rowversion[0];
         echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
         echo "<tr><th>Pic<th>User</th><th>Email</th><th>Usergroup</th></tr>";
         while ($row = $result->fetch_assoc()) {
-            $id         = $row['id'];
-            $uname      = $row['uname'];
-            $email      = $row['email'];
-            $usergroup  = $row['groupname'];
-            $url        = $row['url'];
-            $offtrades  = $row['offtrades'];
-            $reqtrades  = $row['reqtrades'];
+            $id = $row['id'];
+            $uname = $row['uname'];
+            $email = $row['email'];
+            $usergroup = $row['groupname'];
+            $url = $row['url'];
+            $offtrades = $row['offtrades'];
+            $reqtrades = $row['reqtrades'];
             $tradetotal = $offtrades + $reqtrades;
-
-            echo "<tr>"; ?>
-	<td><?php if ($url !== '') { ?><img src="./userpics/<?php echo $url; ?>" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else { ?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } ?></td>
+            echo "<tr>";?>
+	<td><?php if ($url !== '') {?><img src="./userpics/<?php echo $url; ?>" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php
+} else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php
+}?></td>
 	<td><?php echo $uname; ?></td>
 	<td><?php echo $email; ?></td>
 	<td><?php echo $usergroup; ?></td>
 	</tr>
 	</table>
-	<?php echo "<br /><center><a href='./edit-profile.php'>Edit Profile</a></center><br>"; ?>
+	<br /><center><a href='./edit-profile.php'>Edit Profile</a></center><br>
 	<center><table id="spotted" class="table table-bordered">
 	<tr>
         <th colspan="2"><strong><center>Trades</strong></th>
@@ -1174,9 +1203,8 @@ $versionquery  = "SELECT version FROM version";
         <td><strong>Total:</strong></td>
         <td><strong><?php echo $tradetotal ?></strong></td>
         </tr>
-<?php echo "</table></center>";
-
-            if ("$usergroup" == 'admin') {
+</table></center><?php
+if ("$usergroup" == 'admin') {
                 ?>
 
 		<h3 style="text-align:center;"><strong>Admin Panel:</strong></h3>
@@ -1237,49 +1265,86 @@ $versionquery  = "SELECT version FROM version";
         </table></center>
 		<?php
 }
-
         }
-    } else {
-        echo "<center><div style='margin-top:10px;'>";
-        echo "Login to view your profile";
-        ?><br /><br /><a href="/login/login.php">Login Here</a><?php
-echo "</div></center></table></center>";
-    }}
-
+    } else {?>
+        <center><div style='margin-top:10px;'>
+        Login to view your profile
+        <br /><br /><a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+                <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+</div></center></table></center>
+   <?php
+}
+}
 function editprofile()
 {
     if (isset($_SESSION["uname"])) {
         require 'config/config.php';
         $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
-        $id     = $usergroup     = ""; ?>
+        $id = $usergroup = "";?>
 <h3 style="text-align:center;"><strong>Edit Your Profile:</strong></h3>
-<?php
-echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
-
-        while ($row = $result->fetch_assoc()) {
-            $id        = $row['id'];
-            $uname     = $row['uname'];
-            $email     = $row['email'];
+<center><table id="spotted" class="table table-bordered">
+    <?php
+while ($row = $result->fetch_assoc()) {
+            $id = $row['id'];
+            $uname = $row['uname'];
+            $email = $row['email'];
             $usergroup = $row['groupname'];
-            $url       = $row['url']; ?>
+            $url = $row['url'];?>
+<tr>
+    <form action="editusername.php" method="post">
+        <th style='background-color:#fff;color:#000;width:10%;'>
+            <center>Username: </center>
+        </th>
+        <td>
+            <center>
+                <input type='text' name='uname' id='uname' style='float:left;'>
+                <br>
+                <br>
+                <input type='submit' value='Submit' id='submit_name' style='float:left;'>
+            </center>
+        </td>
+    </form>
+</tr>
 
-	<tr>
-	<form action="editusername.php" method="post">
-	<?php echo "<th style='background-color:#fff;color:#000;width:10%;'><center>Username: </center></th>"; ?>
-	<?php echo "<td><center><input type='text' name='uname' id='uname' style='float:left;'><br><br><input type='submit' value='Submit' id='submit_name' style='float:left;'></center></td></form>"; ?>
-	</tr>
+<tr>
+    <form action="editemail.php" method="post">
+        <th style='background-color:#f9f9f9;color:#000;'>
+            <center>Email: </center>
+        </th>
+        <td>
+            <center>
+                <input type='email' name='email' id='email' style='float:left;'>
+                <br>
+                <br>
+                <input type='submit' value='Submit' id='submit_email' style='float:left;'>
+            </center>
+        </td>
+    </form>
+</tr>
 
-	<tr>
-	<form action="editemail.php" method="post">
-	<?php echo "<th style='background-color:#f9f9f9;color:#000;'><center>Email: </center></th>"; ?>
-	<?php echo "<td><center><input type='text' name='email' id='email' style='float:left;' pattern=\"[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\"><br><br><input type='submit' value='Submit' id='submit_email' style='float:left;'></center></td></form>"; ?>
-	</tr>
-
-	<tr>
-	<form action="editpassword.php" method="post">
-	<?php echo "<th style='background-color:#fff;color:#000;'><center>Password: </center><br><br></th>"; ?>
-    <?php echo "<td><center><span id='error-nwl' style='font-size:10px;float:left;'></span><br><input type='password' minlength='6' name='password' id='password' placeholder='password' onkeyup='checkPass(); return false;' style='float:left;'><br><br><input type='password' minlength='6' name='confirm_password' id='confirm_password' placeholder='confirm password' onkeyup='checkPass(); return false;' style='float:left;'><br><br><input type='submit' name='submit'  value='Submit' id='submit_pass' style='float:left;'></td></form>"; ?>
-	</tr>
+<tr>
+    <form action="editpassword.php" method="post">
+        <th style='background-color:#fff;color:#000;'>
+            <center>Password: </center>
+            <br>
+            <br>
+        </th>
+        <td>
+            <center>
+                <span id='error-nwl' style='font-size:10px;float:left;'></span>
+                <br>
+                <input type='password' minlength='6' name='password' id='password' placeholder='password' onkeyup='checkPass(); return false;'
+                    style='float:left;'>
+                <br>
+                <br>
+                <input type='password' minlength='6' name='confirm_password' id='confirm_password' placeholder='confirm password'
+                    onkeyup='checkPass(); return false;' style='float:left;'>
+                <br>
+                <br>
+                <input type='submit' name='submit' value='Submit' id='submit_pass' style='float:left;'>
+        </td>
+    </form>
+</tr>
         <script>
             $('input[id="submit_pass"]').attr('disabled','disabled');
             function checkPass()
@@ -1326,27 +1391,25 @@ echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
 	<h3 style="text-align:center;"><strong>Upload profile picture:</strong></h3>
 	<?php
 }
-
         if ($conn->connect_errno) {
             echo $conn->connect_error;
         }
         $pull = "select * from users where uname='" . $_SESSION['uname'] . "'";
-
-// Lookup id for user
-        $urlquery    = "SELECT id FROM users WHERE uname = '" . $_SESSION['uname'] . "'";
-        $resulturl   = $conn->query($urlquery);
-        $rowurl      = $resulturl->fetch_array(MYSQLI_NUM);
-        $userid      = $rowurl[0];
-        $allowedExts = array("jpg", "jpeg", "gif", "png", "JPG");
-        $extension   = @end(explode(".", $_FILES["file"]["name"]));
+        // Lookup id for user
+        $urlquery = "SELECT id FROM users WHERE uname = '" . $_SESSION['uname'] . "'";
+        $resulturl = $conn->query($urlquery);
+        $rowurl = $resulturl->fetch_array(MYSQLI_NUM);
+        $userid = $rowurl[0];
+        $allowedExts = array(
+            "jpg",
+            "jpeg",
+            "gif",
+            "png",
+            "JPG",
+        );
+        $extension = @end(explode(".", $_FILES["file"]["name"]));
         if (isset($_POST['pupload'])) {
-            if ((($_FILES["file"]["type"] == "image/gif")
-                || ($_FILES["file"]["type"] == "image/jpeg")
-                || ($_FILES["file"]["type"] == "image/JPG")
-                || ($_FILES["file"]["type"] == "image/png")
-                || ($_FILES["file"]["type"] == "image/pjpeg"))
-                && ($_FILES["file"]["size"] < 800000)
-                && in_array($extension, $allowedExts)) {
+            if ((($_FILES["file"]["type"] == "image/gif") || ($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "image/JPG") || ($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/pjpeg")) && ($_FILES["file"]["size"] < 800000) && in_array($extension, $allowedExts)) {
                 if ($_FILES["file"]["error"] > 0) {
                     echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
                 } else {
@@ -1354,21 +1417,18 @@ echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
                     echo "Uploaded Successully";
                     echo '</div>';
                     echo "<br/><b><u>Image Details</u></b><br/>";
-
                     echo "Name: " . $_FILES["file"]["name"] . "<br/>";
                     echo "Type: " . $_FILES["file"]["type"] . "<br/>";
                     echo "Size: " . ceil(($_FILES["file"]["size"] / 1024)) . " KB";
-
                     if (file_exists("./userpics/" . $_FILES["file"]["name"])) {
                         unlink("./userpics/" . $_FILES["file"]["name"]);
                     } else {
-                        $pic  = $_FILES["file"]["name"];
+                        $pic = $_FILES["file"]["name"];
                         $conv = explode(".", $pic);
-                        $ext  = $conv['1'];
+                        $ext = $conv['1'];
                         move_uploaded_file($_FILES["file"]["tmp_name"], "./userpics/" . $userid . "." . $ext);
                         echo "Stored in as: " . "./userpics/" . $userid . "." . $ext;
                         $urlpic = $userid . "." . $ext;
-
                         $query = "update users set url='$urlpic', lastUpload=now() where uname='" . $_SESSION['uname'] . "'";
                         if ($upl = $conn->query($query)) {
                             echo "<br/>Saved to Database successfully";
@@ -1383,26 +1443,27 @@ echo "<center><table id=\"spotted\" class=\"table table-bordered\">";
         ?>
 <form action="" method="post" enctype="multipart/form-data">
 <?php
-$res  = $conn->query($pull);
+$res = $conn->query($pull);
         $pics = $res->fetch_assoc();
         echo '<div class="imgLow">';
         ?>
-<?php if ($url !== '') { ?><img src="./userpics/<?php echo $url; ?>" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } else { ?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php } ?>
-<?php echo "</div><br>";
-        ?>
+<?php if ($url !== '') {?><img src="./userpics/<?php echo $url; ?>" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php
+} else {?><img src="./userpics/nopic.png" height="50px" width="50px" alt="logo"  style="border:1px solid black"><?php
+}?>
+</div><br>
 <input type="file" name="file" />
 <input type="submit" name="pupload" class="button" value="Upload"/>
 </form></center><?php
-
-    } else {
-        echo "<center><div style='margin-top:10px;'>";
-        echo "Login to view your profile";
-        ?><br /><br /><a href="/login/login.php">Login Here</a><?php
-echo "</div></center></table></center>";
-    }}
-
+} else {?>
+<center><div style='margin-top:10px;'>
+Login to view your profile
+<br /><br /><a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+                <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+</div></center></table></center>
+<?php
+}
+}
 ///////////////// SUBMIT EX RAIDS \\\\\\\\\\\\\\\\\
-
 function exraidsubmission()
 {
     require './config/config.php';
@@ -1421,12 +1482,12 @@ function exraidsubmission()
 <?php
 require './config/config.php';
         $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
-        $gid    = $gname    = $gteam    = "";
+        $gid = $gname = $gteam = "";
         echo "<select id='gymsearch' name='gname'>";
         while ($row = $result->fetch_assoc()) {
             unset($gid, $gname);
-            $gid   = $row['gid'];
-            $tid   = $row['tname'];
+            $gid = $row['gid'];
+            $tid = $row['tname'];
             $gname = $row['gname'];
             $gteam = $row['gteam'];
             echo '<option value="' . $gid . '" label="' . $gteam . '">' . $gname . '</option>';
@@ -1454,34 +1515,43 @@ require './config/config.php';
 </table></center>
 </form>
 
-<?php } else {
+<?php
+} else {?>
 
-        echo "<center><div style='margin-top:5%;'>";
-        echo "Login to spot a Raid";
-        ?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";
+<center>
+    <div style='margin-top:5%;'>
+        Login to spot a Raid
+        <br />
+        <br />
+        <a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+            <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+    </div>
+</center>
 
-    }}
-
+ <?php
+}
+}
 ////////////////////// SPOTTED RAIDS \\\\\\\\\\\\\\\\\\\\\\\\\
 function spottedexraids()
 {
     require './config/config.php';
     $results_per_page = 10;
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
     $start_from = ($page - 1) * $results_per_page;
-
     if ($clock == "true") {
         $sql = "SELECT exid, DATE_FORMAT(`gyms`.`exraiddate`, '%d-%m-%Y %H:%m:%s') as exraiddate , gyms.gname, spotter, glatitude, glongitude FROM exraids, gyms WHERE exraids.gname = gyms.gid ORDER BY exraids.exraiddate ASC LIMIT $start_from," . $results_per_page;
     } else {
         $sql = "SELECT exid, DATE_FORMAT(`gyms`.`exraiddate`, '%Y-%m-%d %h:%m:%s %p') as exraiddate , gyms.gname, spotter, glatitude, glongitude FROM exraids, gyms WHERE exraids.gname = gyms.gid ORDER BY exraids.exraiddate ASC LIMIT $start_from," . $results_per_page;
     }
-
-    $result      = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    $sqlcnt      = "SELECT COUNT(EXID) AS total FROM exraids";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(EXID) AS total FROM exraids";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -1495,40 +1565,38 @@ function spottedexraids()
 echo "<table id=\"spotted\" class=\"table table-bordered\">";
     echo "<tr><th>EX ID</th><th>GYM</th><th>Date and Time</th><th>Spotter</th><th>Attendance</th></tr>";
     while ($row = mysqli_fetch_array($result)) {
-        $exid       = $row['exid'];
+        $exid = $row['exid'];
         $exraiddate = $row['exraiddate'];
-        $gname      = $row['gname'];
-        $spotter    = $row['spotter'];
-        $glatitude  = $row['glatitude'];
+        $gname = $row['gname'];
+        $spotter = $row['spotter'];
+        $glatitude = $row['glatitude'];
         $glongitude = $row['glongitude'];
-
         ///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
         if ($clock == "false") {
-
             ///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
-	<td>" ?><center><?php echo $exid; ?><center><?php echo "</td>
+	<td>"
+            ?><center><?php echo $exid; ?><center><?php echo "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	<td>" . $exraiddate . "</td>
 	<td>" ?><center><?php echo $spotter; ?><center><?php echo "</td>
 	<td>" ?><center><form action='attendance.php' method='post'><input type='hidden' name='exidr' value="<?php echo $exid; ?>" /><input type='image' name='att' style='width:25px;height:auto;align:middle;' src='<?=W_ASSETS?>voting/up.png' value="<?php echo $_SESSION['uname'] ?>" /></form><a href='./ex-attendance.php' style='display:inline;'>View</a></center><?php echo "</td>
 	</tr>";
-
         } else {
             ///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
-
             ///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
-	<td>" ?><center><?php echo $exid; ?><center><?php echo "</td>
+	<td>"
+            ?><center><?php echo $exid; ?><center><?php echo "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	<td>" . $exraiddate . "</td>
 	<td>" ?><center><?php echo $spotter; ?><center><?php echo "</td>
 	<td>" ?><center><form action='attendance.php' method='post'><input type='hidden' name='exidr' value="<?php echo $exid; ?>" /><input type='image' name='att' style='width:25px;height:auto;align:middle;' src='<?=W_ASSETS?>voting/up.png' value="<?php echo $_SESSION['uname'] ?>" /></form><a href='./ex-attendance.php' style='display:inline;'>View</a></center><?php echo "</td>
 	</tr>";
-
-        }}
+        }
+    }
     echo "</table></center><p id='pages'>";
     ?><center><?php
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
@@ -1538,11 +1606,9 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
     ;
     ?></center><?php
 }
-
 function exatt()
 {
     require './config/config.php';
-
     ?>
 
 
@@ -1555,49 +1621,50 @@ function exatt()
 echo "<table id=\"spotted\" class=\"table table-bordered\">";
     echo "<tr><th>ID</th><th>Gym</th><th>Date and Time</th><th>Attending</th></tr>";
     $results_per_page = 15;
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
-    $start_from  = ($page - 1) * $results_per_page;
-    $sql1        = "SELECT * FROM exraidatt,exraids,gyms WHERE exraidatt.exid = exraids.exid AND exraids.gname = gyms.gid ORDER BY exraids.exid ASC LIMIT $start_from," . $results_per_page;
-    $result      = mysqli_query($conn, $sql1) or die(mysqli_error($conn));
-    $sqlcnt      = "SELECT COUNT(EXID) AS total FROM exraidatt";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $start_from = ($page - 1) * $results_per_page;
+    $sql1 = "SELECT * FROM exraidatt,exraids,gyms WHERE exraidatt.exid = exraids.exid AND exraids.gname = gyms.gid ORDER BY exraids.exid ASC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql1) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(EXID) AS total FROM exraidatt";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     while ($row = mysqli_fetch_array($result)) {
-
-        $exid       = $row['exid'];
-        $uid        = $row['uid'];
-        $gname      = $row['gname'];
+        $exid = $row['exid'];
+        $uid = $row['uid'];
+        $gname = $row['gname'];
         $exraiddate = $row['exraiddate'];
-        $glatitude  = $row['glatitude'];
+        $glatitude = $row['glatitude'];
         $glongitude = $row['glongitude'];
         ///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
-
         if ($clock == "false") {
-
             ///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
-	<td>" ?><center><?php echo $exid; ?><center><?php echo "</td>
+	<td>"
+            ?><center><?php echo $exid; ?><center><?php echo "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	<td>" . $exraiddate . "</td>
 	<td>" . $uid . "</td>
 	</tr>";
-
         } else {
             ///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
-
             ///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             echo "
 	<tr>
-	<td>" ?><center><?php echo $exid; ?><center><?php echo "</td>
+	<td>"
+            ?><center><?php echo $exid; ?><center><?php echo "</td>
 	<td>" ?><a href="./?loc=<?php echo "" . $glatitude, "," . $glongitude . "" ?>&zoom=19"><?php echo $gname; ?></a><?php echo "</td>
 	<td>" . $exraiddate . "</td>
 	<td>" . $uid . "</td>
 	</tr>";
-
-        }}
+        }
+    }
     echo "</table></center><p id='pages'>";
     ?><center><?php
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
@@ -1607,16 +1674,13 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
     ;
     ?></center><?php
 }
-
 ///////////////////// CREATE TRADE \\\\\\\\\\\\\\\\\\\\\
-
 function offertrade()
 {
     require './config/config.php';
     $result = $conn->query("SELECT * FROM pokedex");
-    $id     = $pokemon     = $cp     = $iv     = $monster     = $spotter     = $opentrade     = "";
-
-    if (isset($_SESSION["uname"])) { ?>
+    $id = $pokemon = $cp = $iv = $monster = $spotter = $opentrade = "";
+    if (isset($_SESSION["uname"])) {?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h3 style="text-align:center;"><strong>Offer a Trade:</strong></h3>
 <form id="usersubmit" method="post" action="./offertrade.php">
@@ -1631,7 +1695,7 @@ function offertrade()
 echo "<select id='pokesearch' name='offmon'>";
         while ($row = $result->fetch_assoc()) {
             unset($id, $monster);
-            $id      = $row['id'];
+            $id = $row['id'];
             $monster = $row['monster'];
             echo '<option value="' . $id . '">' . $id . ' - ' . $monster . '</option>';
         }
@@ -1696,7 +1760,7 @@ require './config/config.php';
         echo "<select id='pokesearch2' name='reqmon'>";
         while ($row = $result1->fetch_assoc()) {
             unset($id, $monster);
-            $id      = $row['id'];
+            $id = $row['id'];
             $monster = $row['monster'];
             echo '<option value="' . $id . '">' . $id . ' - ' . $monster . '</option>';
         }
@@ -1746,32 +1810,35 @@ function myFunction() {
 </table></center>
 </form>
 
-<?php } else {
+<?php
+} else {?>
 
-        echo "<center><whoa wtdiv style='margin-top:10px;'>";
-        echo "Login to spot a pokemon";
-        ?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";
-    }
+        <center><whoa wtdiv style='margin-top:10px;'>
+        Login to spot a pokemon
+        <br /><br /><a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+                <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+</div></center>
+  <?php
 }
-
+}
 ///////////////////// ACTIVE TRADE LIST \\\\\\\\\\\\\\\\\\\\\
-
 function activetrades()
 {
     require './config/config.php';
     $results_per_page = 7;
-
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
     $start_from = ($page - 1) * $results_per_page;
-    $sql        = "SELECT * FROM offers,pokedex WHERE offers.offmon = pokedex.id AND complete = 0 ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
-    $result     = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
+    $sql = "SELECT * FROM offers,pokedex WHERE offers.offmon = pokedex.id AND complete = 0 ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
     if (isset($_SESSION["uname"])) {
-        $sqlcnt      = "SELECT COUNT(OID) AS total FROM offers";
-        $resultcnt   = $conn->query($sqlcnt);
-        $row         = $resultcnt->fetch_assoc();
+        $sqlcnt = "SELECT COUNT(OID) AS total FROM offers";
+        $resultcnt = $conn->query($sqlcnt);
+        $row = $resultcnt->fetch_assoc();
         $total_pages = ceil($row["total"] / $results_per_page);
         ?>
 
@@ -1781,21 +1848,19 @@ function activetrades()
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
-        while ($row = mysqli_fetch_array($result)) {
-            $oid       = $row['oid'];
-            $offmon    = $row['offmon'];
-            $cp        = $row['cp'];
-            $iv        = $row['iv'];
-            $tradeloc  = $row['tradeloc'];
-            $reqmon    = $row['reqmon'];
-            $accepted  = $row['accepted'];
-            $offerby   = $row['tname'];
+while ($row = mysqli_fetch_array($result)) {
+            $oid = $row['oid'];
+            $offmon = $row['offmon'];
+            $cp = $row['cp'];
+            $iv = $row['iv'];
+            $tradeloc = $row['tradeloc'];
+            $reqmon = $row['reqmon'];
+            $accepted = $row['accepted'];
+            $offerby = $row['tname'];
             $opentrade = $row['opentrade'];
-            $shiny     = $row['shiny'];
-            $alolan    = $row['alolan'];
-            $cloc      = $row['cloc'];
-
+            $shiny = $row['shiny'];
+            $alolan = $row['alolan'];
+            $cloc = $row['cloc'];
             ?>
 
 	<div id="<?php echo $oid; ?>" class="activelisting">
@@ -1808,15 +1873,16 @@ function activetrades()
 
 	<div class="offerby">
 	<?php
-$urlquery  = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
+$urlquery = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
             $resulturl = $conn->query($urlquery);
-            $rowurl    = $resulturl->fetch_array(MYSQLI_NUM);
-            $url       = $rowurl[0];
-
+            $rowurl = $resulturl->fetch_array(MYSQLI_NUM);
+            $url = $rowurl[0];
             ?>
 
 		<center><a href='./compose.php?user=<?php echo $offerby; ?>&subject=Trade Number <?php echo $oid; ?>'><?php echo $offerby; ?></a><br>
-	<?php if ($url !== '') { ?><a href='./compose.php?user=<?php echo $offerby; ?>&subject=Trade Number <?php echo $oid; ?>'><img src="./userpics/<?php echo $url; ?>" height="25px" width="25px" alt="logo"  style="border:1px solid black"></a><?php } else { ?><a href='./compose.php?user=<?php echo $offerby; ?>&subject=Trade Number <?php echo $oid; ?>'><img src="./userpics/nopic.png" height="25px" width="25px" alt="logo"  style="border:1px solid black"></a><?php } ?>
+	<?php if ($url !== '') {?><a href='./compose.php?user=<?php echo $offerby; ?>&subject=Trade Number <?php echo $oid; ?>'><img src="./userpics/<?php echo $url; ?>" height="25px" width="25px" alt="logo"  style="border:1px solid black"></a><?php
+} else {?><a href='./compose.php?user=<?php echo $offerby; ?>&subject=Trade Number <?php echo $oid; ?>'><img src="./userpics/nopic.png" height="25px" width="25px" alt="logo"  style="border:1px solid black"></a><?php
+}?>
 
 		<?php echo "<p style='font-weight:600;'>$tradeloc</p>"; ?></center>
 
@@ -1830,9 +1896,10 @@ $urlquery  = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
 
 	<div class="monvars">
 
-			<?php if ($shiny == 1) { ?><img src='<?-W_ASSETS?>/img/star.png' title='shiny'></br><?php }
-
-            if ($alolan == 1) { ?><img src='<?-W_ASSETS?>/img/alolan.png' title='alolan'><?php } ?>
+			<?php if ($shiny == 1) {?><img src='<? - W_ASSETS ?>/img/star.png' title='shiny'></br><?php
+}
+            if ($alolan == 1) {?><img src='<? - W_ASSETS ?>/img/alolan.png' title='alolan'><?php
+}?>
 
 		</div>
 
@@ -1844,7 +1911,7 @@ $urlquery  = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
 
 		</div>
 
-	<a href='./active-offers.php?oid=<?php echo $oid; ?>'><img style="height:30px;width:30px;margin-left:10px;margin-bottom:40px;" src='<?-W_ASSETS?>/img/swap.png' title='swap'></a>
+	<a href='./active-offers.php?oid=<?php echo $oid; ?>'><img style="height:30px;width:30px;margin-left:10px;margin-bottom:40px;" src='<? - W_ASSETS ?>/img/swap.png' title='swap'></a>
 
 	<div class="reqmon">
 
@@ -1855,74 +1922,68 @@ $urlquery  = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
 	<div class="control">
 
 	<?php
-
-            if ($offerby == $_SESSION["uname"]) { ?><a href='./active-offers.php?oid=<?php echo $oid; ?>'><?php echo "<input type='button' name='makeoffer' class='btn3' value='Your Trade' />"; ?></a><?php } else {
-
+if ($offerby == $_SESSION["uname"]) {?><a href='./active-offers.php?oid=<?php echo $oid; ?>'><?php echo "<input type='button' name='makeoffer' class='btn3' value='Your Trade' />"; ?></a><?php
+} else {
                 if ($accepted == 0) {
-
                     if ($opentrade == 0) {
-
                         ?>
 
 	<form action='./trading.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid; ?>' /><input type='hidden' name='accepted' value='<?php echo $accepted; ?>' /><input type='submit' class='btn1' name='accepted' value='Lets Trade' /></form>
 
-	<?php } else { ?>
+	<?php
+} else {?>
 
 	<form action='./make-offer.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid; ?>' /><input type='submit' name='makeoffer' class='btn' value='Make Offer' /></form>
 
-	<?php }} else { ?>
-		<a href='./active-offers.php?oid=<?php echo $oid; ?>'>
 	<?php
+}
+                } else {?>
+		<a href='./active-offers.php?oid=<?php echo $oid; ?>'>
 
-                    echo "<input type='button' name='makeoffer' class='btn2' value='In Progress' />";
-                    ?></a><?php
-}}
+
+                    <input type='button' name='makeoffer' class='btn2' value='In Progress' /></a><?php
+}
+            }
             ?>
 		</div>
 </div>
 <?php
-
-        }
-
+}
         echo "<p id='pages'>";
-
         ?><center><?php
-
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
-
         for ($i = 1; $i <= $total_pages; $i++) {
-
             echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?page=" . $i . "'>" . $i . "</a> ";
-
         }
         ;
-    } else {
+    } else {?>
 
-        echo "<center><whoa wtdiv style='margin-top:10px;'>";
-        echo "Login to spot a pokemon";
-        ?><br /><br /><a href="./login/login.php">Login Here</a><?php
-echo "</div></center>";
-    }
-    ?></center><?php
-
+        <center><whoa wtdiv style='margin-top:10px;'>
+        Login to spot a pokemon
+        <br /><br /><a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+                <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+</div></center>
+  <?php
 }
-
+    ?></center><?php
+}
 ///////////////////// MY TRADES \\\\\\\\\\\\\\\\\\\\\
-
 function mytrades()
 {
     require './config/config.php';
     $results_per_page = 8;
-
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
     $start_from = ($page - 1) * $results_per_page;
-    $sql        = "SELECT * FROM offers WHERE offers.tname = '" . $_SESSION['uname'] . "' ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
-    $result     = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
-    $sqlcnt      = "SELECT COUNT(TID) AS total FROM trades";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $sql = "SELECT * FROM offers WHERE offers.tname = '" . $_SESSION['uname'] . "' ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(TID) AS total FROM trades";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -1932,26 +1993,26 @@ function mytrades()
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
-    echo "<table id=\"spotted\" class=\"table table-bordered\">";
-    if (isset($_SESSION["uname"])) {
-        echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>DATE</th></tr>";
-    } else {
-        echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>DATE</th></tr>";
-    }
-
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
+    if (isset($_SESSION["uname"])) { ?>
+        <tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>DATE</th></tr>
+  <?php
+} else {?>
+        <tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>DATE</th></tr>
+  <?php
+}
     while ($row = mysqli_fetch_array($result)) {
-        $oid      = $row['oid'];
-        $offmon   = $row['offmon'];
-        $reqmon   = $row['reqmon'];
+        $oid = $row['oid'];
+        $offmon = $row['offmon'];
+        $reqmon = $row['reqmon'];
         $tradeloc = $row['tradeloc'];
-        $date     = $row['date'];
-        $tname    = $row['tname'];
+        $date = $row['date'];
+        $tname = $row['tname'];
         if (isset($_SESSION["uname"])) {
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $oid . "</td>
-	<td>" ?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid; ?>' /><input type='image' name='offmon' style='width:45px;height:auto;display:inline;' src="<?=W_ASSETS?>icons/<?php echo $offmon; ?>' value='<?php echo $offmon; ?>' /></form><center><?php echo "</td>
+	<td>"?><center><form action='active-offers.php' method='post'><input type='hidden' name='oid' value='<?php echo $oid; ?>' /><input type='image' name='offmon' style='width:45px;height:auto;display:inline;' src="<?=W_ASSETS?>icons/<?php echo $offmon; ?>' value='<?php echo $offmon; ?>' /></form><center><?php echo "</td>
 	<td>" ?><center><img style=" padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="50" width="55"></center><?php echo "</td>
 	<td>" . $tradeloc . "</td>
 
@@ -1970,9 +2031,8 @@ function mytrades()
 	</tr>";
         }
     }
-    echo "</table></center><p id='pages'>";
-    ?><center><?php
-
+    ?></table></center><p id='pages'>
+    <center><?php
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?page=" . $i . "'>" . $i . "</a> ";
@@ -1980,23 +2040,23 @@ function mytrades()
     ;
     ?></center><?php
 }
-
 ///////////////////// MY OPEN OFFERS \\\\\\\\\\\\\\\\\\\\\
-
 function mynatrades()
 {
     require './config/config.php';
     $results_per_page = 10;
-
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
     $start_from = ($page - 1) * $results_per_page;
-    $sql        = "SELECT * FROM offers WHERE offers.tname = '" . $_SESSION['uname'] . "' AND accepted = 0 ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
-    $result     = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
-    $sqlcnt      = "SELECT COUNT(OID) AS total FROM offers";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $sql = "SELECT * FROM offers WHERE offers.tname = '" . $_SESSION['uname'] . "' AND accepted = 0 ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(OID) AS total FROM offers";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -2005,27 +2065,26 @@ function mynatrades()
 <center>
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
-<?php
-
-    echo "<table id=\"spotted\" class=\"table table-bordered\">";
-    if (isset($_SESSION["uname"])) {
-        echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>DATE</th></tr>";
-    } else {
-        echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>DATE</th></tr>";
-    }
-
+    <table id="spotted" class="table table-bordered"><?php
+if (isset($_SESSION["uname"])) {?>
+        <tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>DATE</th></tr>
+  <?php
+} else {?>
+        <tr><th>#</th><th>OFFERED POKEMON</th><th>REQUESTED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>DATE</th></tr>
+   <?php
+}
     while ($row = mysqli_fetch_array($result)) {
-        $oid      = $row['oid'];
-        $offmon   = $row['offmon'];
-        $reqmon   = $row['reqmon'];
+        $oid = $row['oid'];
+        $offmon = $row['offmon'];
+        $reqmon = $row['reqmon'];
         $tradeloc = $row['tradeloc'];
-        $date     = $row['date'];
-        $tname    = $row['tname'];
+        $date = $row['date'];
+        $tname = $row['tname'];
         if (isset($_SESSION["uname"])) {
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $oid . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
+	<td>"?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $offmon ?>.png" title="<?php echo $offmon; ?> (#<?php echo $offmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $offmon; ?></p><?php echo "</td>
 	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $reqmon ?>.png" title="<?php echo $reqmon; ?> (#<?php echo $reqmon ?>)" height="24" width="28"><p style="padding-top:6%;"><?php echo $reqmon; ?></p><?php echo "</td>
 	<td>" . $tradeloc . "</td>
 	<td style='text-align:center; color:green;'>AVAILABLE</td>
@@ -2046,7 +2105,6 @@ function mynatrades()
     }
     echo "</table></center><p id='pages'>";
     ?><center><?php
-
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?page=" . $i . "'>" . $i . "</a> ";
@@ -2054,22 +2112,23 @@ function mynatrades()
     ;
     ?></center><?php
 }
-
 ///////////////////// ACCEPTED TRADES \\\\\\\\\\\\\\\\\\\\\
-
 function acceptedtrades()
 {
     require './config/config.php';
     $results_per_page = 10;
-
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
-    $start_from  = ($page - 1) * $results_per_page;
-    $sql         = "SELECT * FROM trades WHERE trades.rname = '" . $_SESSION['uname'] . "' ORDER BY tid DESC LIMIT $start_from," . $results_per_page;
-    $result      = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    $sqlcnt      = "SELECT COUNT(TID) AS total FROM trades";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $start_from = ($page - 1) * $results_per_page;
+    $sql = "SELECT * FROM trades WHERE trades.rname = '" . $_SESSION['uname'] . "' ORDER BY tid DESC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(TID) AS total FROM trades";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -2079,21 +2138,19 @@ function acceptedtrades()
 
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
-    echo "<table id=\"spotted\" class=\"table table-bordered\">";
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
     if (isset($_SESSION["uname"])) {
         echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>OFFERED BY</th><th>DATE</th></tr>";
     } else {
         echo "<tr><th>#</th><th>OFFERED POKEMON</th><th>CITY TO TRADE</th><th>STATUS</th><th>OFFERED BY</th><th>DATE</th></tr>";
     }
-
     while ($row = mysqli_fetch_array($result)) {
-        $tid      = $row['tid'];
-        $offmon   = $row['offmon'];
+        $tid = $row['tid'];
+        $offmon = $row['offmon'];
         $tradeloc = $row['tradeloc'];
-        $rname    = $row['rname'];
-        $tname    = $row['tname'];
-        $date     = $row['date'];
+        $rname = $row['rname'];
+        $tname = $row['tname'];
+        $date = $row['date'];
         if (isset($_SESSION["uname"])) {
             echo "
 	<tr>
@@ -2119,7 +2176,6 @@ function acceptedtrades()
     }
     echo "</table></center><p id='pages'>";
     ?><center><?php
-
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?page=" . $i . "'>" . $i . "</a> ";
@@ -2127,34 +2183,30 @@ function acceptedtrades()
     ;
     ?></center><?php
 }
-
 ///////////////////// COUNTER OFFER TRADE \\\\\\\\\\\\\\\\\\\\\
-
 function counteroffer()
 {
     require './config/config.php';
     if (isset($_GET['oid'])) {
-        $oid          = $_GET['oid'];
-        $selectquery  = "SELECT * FROM offers WHERE oid='$oid'";
+        $oid = $_GET['oid'];
+        $selectquery = "SELECT * FROM offers WHERE oid='$oid'";
         $selectresult = $conn->query($selectquery);
-        $row          = $selectresult->fetch_array(MYSQLI_NUM);
+        $row = $selectresult->fetch_array(MYSQLI_NUM);
     } else {
         $oid = $conn->real_escape_string($_POST['oid']);
     }
-
-    $sql2   = "SELECT * FROM offers WHERE oid='$oid'";
+    $sql2 = "SELECT * FROM offers WHERE oid='$oid'";
     $result = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
-
     while ($row = mysqli_fetch_array($result)) {
-        $oid      = $row['oid'];
-        $offmon   = $row['offmon'];
+        $oid = $row['oid'];
+        $offmon = $row['offmon'];
         $tradeloc = $row['tradeloc'];
-        $cp       = $row['cp'];
-        $iv       = $row['iv'];
-        $offerby  = $row['tname'];
-        $shiny    = $row['shiny'];
-        $alolan   = $row['alolan'];
-        $rname    = $_SESSION["uname"];
+        $cp = $row['cp'];
+        $iv = $row['iv'];
+        $offerby = $row['tname'];
+        $shiny = $row['shiny'];
+        $alolan = $row['alolan'];
+        $rname = $_SESSION["uname"];
     }
     ?>
 
@@ -2193,7 +2245,7 @@ echo $tradeloc;
 <tr>
 <td style="width: 5%; text-align:center;vertical-align:middle;">Offered Pokemon:</td>
 <td style="width: 10%; text-align:center;vertical-align:middle;">
-<img src="<?=W_ASSETS?>icons/<?php echo $offmon; ?>.png" height=50; width=55;>
+<img src="<?=W_ASSETS?>.png" height=50; width=55;>
 </td>
 </tr>
 
@@ -2208,8 +2260,16 @@ IV:<?php echo " $iv"; ?> %
 <tr>
 <td style="width: 5%; text-align:center;vertical-align:middle;">Variance:</td>
 <td style="width: 10%; text-align:center;vertical-align:middle;">
-Shiny:<?php if ($shiny == 1) {echo " Yes";} else {echo " No";} ?>&nbsp;&nbsp;&nbsp;
-Alolan:<?php if ($alolan == 1) {echo " Yes";} else {echo " No";} ?>
+Shiny:<?php if ($shiny == 1) {
+        echo " Yes";
+    } else {
+        echo " No";
+    }?>&nbsp;&nbsp;&nbsp;
+Alolan:<?php if ($alolan == 1) {
+        echo " Yes";
+    } else {
+        echo " No";
+    }?>
 </td>
 </tr>
 
@@ -2223,7 +2283,7 @@ require './config/config.php';
     echo "<select id='pokesearch2' name='coffmon'>";
     while ($row = $result1->fetch_assoc()) {
         unset($id, $monster);
-        $id      = $row['id'];
+        $id = $row['id'];
         $monster = $row['monster'];
         echo '<option value="' . $id . '"><img src="<?=W_ASSETS?>icons/' . $id . '.png">' . $id . ' - ' . $monster . '</option>';
     }
@@ -2266,37 +2326,33 @@ Alolan: <input type="checkbox" id="calolan" name="calolan"><span id="calolan"></
 
 <?php
 }
-
 ///////////////////// ACTIVE OFFERS \\\\\\\\\\\\\\\\\\\\\
-
 function actoffer()
 {
     require './config/config.php';
     if (isset($_GET['oid'])) {
-        $oid          = $_GET['oid'];
-        $selectquery  = "SELECT * FROM offers WHERE oid='$oid'";
+        $oid = $_GET['oid'];
+        $selectquery = "SELECT * FROM offers WHERE oid='$oid'";
         $selectresult = $conn->query($selectquery);
-        $row          = $selectresult->fetch_array(MYSQLI_NUM);
+        $row = $selectresult->fetch_array(MYSQLI_NUM);
     } else {
         $oid = $conn->real_escape_string($_POST['oid']);
     }
-
-    $sql2   = "SELECT * FROM offers WHERE oid='$oid'";
+    $sql2 = "SELECT * FROM offers WHERE oid='$oid'";
     $result = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
-
     while ($row = mysqli_fetch_array($result)) {
-        $oid      = $row['oid'];
-        $offmon   = $row['offmon'];
+        $oid = $row['oid'];
+        $offmon = $row['offmon'];
         $tradeloc = $row['tradeloc'];
-        $cp       = $row['cp'];
-        $iv       = $row['iv'];
-        $offerby  = $row['tname'];
-        $shiny    = $row['shiny'];
-        $alolan   = $row['alolan'];
-        $notes    = $row['notes'];
-        $rname    = $_SESSION["uname"];
+        $cp = $row['cp'];
+        $iv = $row['iv'];
+        $offerby = $row['tname'];
+        $shiny = $row['shiny'];
+        $alolan = $row['alolan'];
+        $notes = $row['notes'];
+        $rname = $_SESSION["uname"];
         $complete = $row['complete'];
-        $cloc     = $row['cloc'];
+        $cloc = $row['cloc'];
     }
     ?>
 
@@ -2326,7 +2382,7 @@ echo "User:&nbsp;<a href='./compose.php?user=" . $offerby . "&subject=Trade Numb
 <tr>
 <td style="width: 5%; text-align:center;vertical-align:middle;">Offered Pokemon:</td>
 <td style="width: 10%; text-align:center;vertical-align:middle;">
-<img src="<?=W_ASSETS?>icons/<?php echo $offmon; ?>.png" height=50; width=55;>
+<img src="<?=W_ASSETS?>icons/<?=$offmon?>.png" height=50; width=55;>
 </td>
 </tr>
 
@@ -2341,8 +2397,16 @@ IV:<?php echo " $iv"; ?> %
 <tr>
 <td style="width: 5%; text-align:center;vertical-align:middle;">Variance:</td>
 <td style="width: 10%; text-align:center;vertical-align:middle;">
-Shiny:<?php if ($shiny == 1) {echo " Yes";} else {echo " No";} ?>&nbsp;&nbsp;&nbsp;
-Alolan:<?php if ($alolan == 1) {echo " Yes";} else {echo " No";} ?>
+Shiny:<?php if ($shiny == 1) {
+        echo " Yes";
+    } else {
+        echo " No";
+    }?>&nbsp;&nbsp;&nbsp;
+Alolan:<?php if ($alolan == 1) {
+        echo " Yes";
+    } else {
+        echo " No";
+    }?>
 </td>
 </tr>
 
@@ -2357,19 +2421,23 @@ Alolan:<?php if ($alolan == 1) {echo " Yes";} else {echo " No";} ?>
 <td style="width: 5%; text-align:center;">Notes:</td>
 <td style="width: 10%; text-align:center;">
 <?php
-if (empty($notes)) {echo "No Notes";} else {
-        echo $notes;}
-
+if (empty($notes)) {
+        echo "No Notes";
+    } else {
+        echo $notes;
+    }
     ?>
 </td>
 </tr>
 
-<?php if ($offerby == ($_SESSION["uname"])) {} else { ?>
+<?php if ($offerby == ($_SESSION["uname"])) {
+    } else {?>
 <tr>
 <td></td>
 <td style="width:10%;"><center><input type='hidden' name='oid' value='<?php echo $oid; ?>' /><input type="submit" id="coffer" value="OFFER!"></center></td>
 </tr>
-<?php } ?>
+<?php
+}?>
 </tbody>
 </table></center>
 </form>
@@ -2379,14 +2447,18 @@ if (empty($notes)) {echo "No Notes";} else {
 <?php
 require './config/config.php';
     $results_per_page = 10;
-    if (isset($_GET["page"])) {$page = $_GET["page"];} else { $page = 1;}
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
     ;
-    $start_from  = ($page - 1) * $results_per_page;
-    $sql         = "SELECT * FROM tradeoffers WHERE oid='$oid' ORDER BY complete DESC, accepted DESC, date DESC LIMIT $start_from," . $results_per_page;
-    $result      = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    $sqlcnt      = "SELECT COUNT(OID) AS total FROM tradeoffers";
-    $resultcnt   = $conn->query($sqlcnt);
-    $row         = $resultcnt->fetch_assoc();
+    $start_from = ($page - 1) * $results_per_page;
+    $sql = "SELECT * FROM tradeoffers WHERE oid='$oid' ORDER BY complete DESC, accepted DESC, date DESC LIMIT $start_from," . $results_per_page;
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $sqlcnt = "SELECT COUNT(OID) AS total FROM tradeoffers";
+    $resultcnt = $conn->query($sqlcnt);
+    $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
     ?>
 
@@ -2395,11 +2467,8 @@ require './config/config.php';
 <center>
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
-
-    echo "<table id=\"spotted\" class=\"table table-bordered\">";
-
+echo "<table id=\"spotted\" class=\"table table-bordered\">";
     if (isset($_SESSION["uname"])) {
-
         if ($offerby == ($_SESSION["uname"])) {
             if ($complete == 0) {
                 echo "<tr><th>#</th><th>OFFERED BY</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>SHINY</th><th>ALOLAN</th><th>DATE</th><th>ACCEPT</th><th>DECLINE</th></tr>";
@@ -2407,32 +2476,25 @@ require './config/config.php';
                 echo "<tr><th>#</th><th>OFFERED BY</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>SHINY</th><th>ALOLAN</th><th>DATE</th><th>STATUS</th></tr>";
             }
         } elseif ($offerby != ($_SESSION["uname"])) {
-
             echo "<tr><th>#</th><th>OFFERED BY</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>SHINY</th><th>ALOLAN</th><th>DATE</th></tr>";
-
         } else {
-
             echo "<tr><th>#</th><th>OFFERED BY</th><th>OFFERED POKEMON</th><th>CP</th><th>IV</th><th>SHINY</th><th>ALOLAN</th><th>DATE</th></tr>";
-
         }
     }
-
     while ($row = mysqli_fetch_array($result)) {
-        $toid     = $row['toid'];
-        $oid      = $row['oid'];
-        $coffer   = $row['coffer'];
+        $toid = $row['toid'];
+        $oid = $row['oid'];
+        $coffer = $row['coffer'];
         $cofferby = $row['cofferby'];
-        $ccp      = $row['ccp'];
-        $civ      = $row['civ'];
-        $cshiny   = $row['cshiny'];
-        $calolan  = $row['calolan'];
+        $ccp = $row['ccp'];
+        $civ = $row['civ'];
+        $cshiny = $row['cshiny'];
+        $calolan = $row['calolan'];
         $accepted = $row['accepted'];
         $complete = $row['complete'];
-        $date     = $row['date'];
-
+        $date = $row['date'];
         if (isset($_SESSION["uname"])) {
             if ($offerby == ($_SESSION["uname"])) {
-
                 echo "
 	<tr>
 	<td style='text-align:center;'>" . $toid . "</td>
@@ -2440,33 +2502,55 @@ require './config/config.php';
 	<td style='text-align:center;'>" ?><center><img style="padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
 	<td style='text-align:center;'>" . $ccp . "</td>
 	<td style='text-align:center;'>" . $civ . "</td>
-	<td style='text-align:center;'>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";}
+	<td style='text-align:center;'>";
+                if ($cshiny == 1) {
+                    echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";
+                }
                 echo "</td>
-	<td style='text-align:center;'>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";}
+	<td style='text-align:center;'>";
+                if ($calolan == 1) {
+                    echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";
+                }
                 echo "</td>
 	<td style='text-align:center;'>" . $date . "</td>
 
-	";if ($complete == 0) {echo "
+	";
+                if ($complete == 0) {
+                    echo "
 
 
 	<td style='text-align:center;'>
-	";if ($accepted == 1) {echo "<p style='color:green;font-weight:700;'>Accepted</p><span style='display:inline-block;'><form action='<?=S_ROOT?>trading/complete.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='complete' style='color:blue;font-size:9px' value='Complete' /></form></span>";} else {echo "<span style='display:inline-block;'><form action='<?=S_ROOT?>trading/accept.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='accepted' style='color:green;font-size:9px' value='Accept' /></form></span>";}
+	";
+                    if ($accepted == 1) {
+                        echo "<p style='color:green;font-weight:700;'>Accepted</p><span style='display:inline-block;'><form action='<?=S_ROOT?>trading/complete.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='complete' style='color:blue;font-size:9px' value='Complete' /></form></span>";
+                    } else {
+                        echo "<span style='display:inline-block;'><form action='<?=S_ROOT?>trading/accept.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='accepted' style='color:green;font-size:9px' value='Accept' /></form></span>";
+                    }
                     echo "</td>
 
 	<td style='text-align:center;'>
-	";if ($accepted == 2) {echo "<p style='color:red;font-weight:700;'>Declined</p>";} else {echo "<span style='display:inline-block;'><form action='<?=S_ROOT?>trading/decline.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='declined' style='color:red;font-size:9px' value='Decline' /></form></span>";}
+	";
+                    if ($accepted == 2) {
+                        echo "<p style='color:red;font-weight:700;'>Declined</p>";
+                    } else {
+                        echo "<span style='display:inline-block;'><form action='<?=S_ROOT?>trading/decline.php' method='post'><input type='hidden' name='toid' value='$toid' /><input type='hidden' name='oid' value='$oid' /><input type='submit' name='declined' style='color:red;font-size:9px' value='Decline' /></form></span>";
+                    }
                     echo "</td>
 
-	";} elseif ($complete == 1) {echo "
+	";
+                } elseif ($complete == 1) {
+                    echo "
 
 	<td style='text-align:center;'>
-	";if ($accepted == 1) {echo "<p style='color:green;font-weight:700;'>Complete</p>";}}
+	";
+                    if ($accepted == 1) {
+                        echo "<p style='color:green;font-weight:700;'>Complete</p>";
+                    }
+                }
                 echo "</td>
 
 	</tr>";
-
             } else {
-
                 echo "
 	<tr>
 	<td style='text-align:center;'>" . $toid . "</td>
@@ -2474,15 +2558,20 @@ require './config/config.php';
 	<td>" ?><center><img style="padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
 	<td>" . $ccp . "</td>
 	<td>" . $civ . "</td>
-	<td>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";}
+	<td>";
+                if ($cshiny == 1) {
+                    echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";
+                }
                 echo "</td>
-	<td>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";}
+	<td>";
+                if ($calolan == 1) {
+                    echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";
+                }
                 echo "</td>
 	<td>" . $date . "</td>
 	</tr>";
-
-            }} else {
-
+            }
+        } else {
             echo "
 	<tr>
 	<td style='text-align:center;'>" . $toid . "</td>
@@ -2490,26 +2579,29 @@ require './config/config.php';
 	<td>" ?><center><img style="padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $coffer ?>.png" title="<?php echo $coffer; ?> (#<?php echo $coffer ?>)" height="50" width="55"></center><?php echo "</td>
 	<td>" . $ccp . "</td>
 	<td>" . $civ . "</td>
-	<td>";if ($cshiny == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";}
+	<td>";
+            if ($cshiny == 1) {
+                echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/star.png' title='star' height='24' width='28'></span><center>";
+            }
             echo "</td>
-	<td>";if ($calolan == 1) {echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";}
+	<td>";
+            if ($calolan == 1) {
+                echo "<center><span><img style='padding-right:3px;' src='<?-W_ASSETS?>/img/alolan.png' title='star' height='24' width='28'></span><center>";
+            }
             echo "</td>
 	<td>" . $date . "</td>
 	</tr>";
         }
-
     }
-
     echo "</table></center><p id='pages'><center>";
-
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?oid=" . $oid . "?page=" . $i . "'>" . $i . "</a> ";
     }
     ;
-
     ?>
 
 </center>
 </form>
 
-<?php } ?>
+<?php
+}?>

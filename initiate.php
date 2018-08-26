@@ -59,3 +59,5 @@ use \ParagonIE\AntiCSRF\Reusable;
 $csrf = new Reusable;
 use \Spotamon\Validate;
 $Validate = new Validate;
+
+?>

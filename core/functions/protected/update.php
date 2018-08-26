@@ -187,7 +187,7 @@ $update10 = ["ALTER TABLE `users`
 		`avatar` VARCHAR(100) NULL DEFAULT NULL,
 		UNIQUE INDEX `email` (`email`),
 		UNIQUE INDEX `discord_id` (`discord_id`),
-		CONSTRAINT `FK_user_extended_users` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON UPDATE CASCADE ON DELETE CASCADE
+		CONSTRAINT `FK_user_extended_users` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON UPDATE NO ACTION ON DELETE NO ACTION
 	)
 	COMMENT='additional user rescources'
 	COLLATE='latin1_swedish_ci'

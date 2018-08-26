@@ -10,3 +10,7 @@ vendor/*
 composer.lock
 
 \.vscode/
+
+composer
+
+test\.sh

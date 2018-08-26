@@ -17,25 +17,22 @@ class Authentication
                 $result = $this->register();
                 break;
             case 'discordlogin':
-                $this->discordlogin();
+                $result = $this->discordlogin();
                 break;
             case 'discordregister':
-                $this->discordregister();
+                $result = $this->discordregister();
                 break;
             case 'logout':
-                $this->logout();
+                $result = $this->logout();
                 break;
             default:
                 $result = false;
                 break;
         }
-        if ($result === true ) {
-            $result = 'true';
-        } else if ($result === false ) {
-            $result = 'false';
-        }
-        return $result;
+        $Validate->setSession('form');
+        $this->result = $result;
     }
+
 
     protected function login()
     {
@@ -56,17 +53,20 @@ class Authentication
 
         if (!$results) {
             $this->result = "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            return false;
             exit();
         }
         $results = $stmt->execute();
         if (!$results) {
             $this->result = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
             exit();
         }
         $pass = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         if (empty($pass)) {
             $this->result = "Username does not exist";
             return false;
+            exit();
         }
         $user = $pass[0]['uname'];
         $pass = $pass[0]['upass'];
@@ -97,7 +97,7 @@ class Authentication
         $States = ['uname', 'token', 'CSRF', 'logged_in', 'time', 'oauth2tate', 'state'];
         $Validate->setSession($States);
         session_destroy();
-        header("Location: " . W_ROOT . "index.php");
+        return true;
     }
 
     protected function register()
@@ -113,7 +113,7 @@ class Authentication
 
         if ($userConfirmpass === null) {
             $this->result = 'passwords do not match';
-            exit();
+            return false;
         }
 
         $pass = password_hash($userPassword, PASSWORD_DEFAULT);
@@ -121,10 +121,12 @@ class Authentication
         $emailexist = $this->emailexists($userEmail);
         if ($nameexist === true) {
             $this->result = $userName . "is already taken";
+            return false;
             exit();
         }
         if ($emailexist === true) {
             $this->result = $userEmail . "already is registered";
+            return false;
             exit();
         }
 
@@ -134,15 +136,14 @@ class Authentication
         if ($results == false) {
 
             $this->result = 'input error';
+            return false;
             exit();
 
         }
         $results = $stmt->execute();
-        $this->debug['execute'] = $results;
-
         if ($results == false) {
             $this->result = 'Mysql error registration execute';
-            exit();
+            return false;
         }
 
         $values = [$userName, true, time()];
@@ -173,17 +174,18 @@ class Authentication
     {
         global $conn;
         $email = $useremail;
-        $exist = $conn->prepare("SELECT count(*) FROM users WHERE email = ? ;");
+        $exist = $conn->prepare("SELECT count(*) FROM users WHERE email like ? ;");
         $exist->bind_param("s", $email);
         $exist->execute();
-        $exist->store_result();
-        $data = $exist->num_rows;
+        $data = $exist->get_result();
+        $data = $data->fetch_all();
+        $data = $data[0][0];
         $exist->close();
-        if ($data == 1) {
+        if ($data == '1') {
             return true;
-            exit();
-        }
+        } else {
         return false;
+        }
     }
 
     private function discordlogin()
@@ -196,22 +198,24 @@ class Authentication
         $user = $Oauth2->user;
         $logintime = time();
         $emailexists = $this->emailexists($user->email);
-        if ($emailexists === true) {
+        if ($emailexists) {
             \Spotamon\Session::regenerateSession();
             $username = $conn->prepare("SELECT uname FROM users WHERE email = ?;");
             $username->bind_param("s", $user->email);
             $username->execute();
-            $username->bind_result($uname);
-            $username->fetch();
+            $data = $username->get_result();
+            $uname = $data->fetch_all();
+            $uname = $uname[0][0];
             $username->close();
-            $options = ['uname', 'logged_in', 'login_time'];
-            $values = [$uname, true, $logintime];
+            $options = ['uname', 'logged_in', 'login_time', 'form'];
+            $values = [$uname, true, $logintime, null];
             $Validate->setSession($options, $values);
-        }
-        $this->insertToken();
-        header("Location: " . W_ROOT . "index.php");
-        exit();
+            $this->insertToken($user->email);
+            return 'discord';
+        } else {
+            return 'You must first register to login with discord';
 
+        }
     }
 
     private function discordregister()
@@ -221,6 +225,7 @@ class Authentication
         global $conn;
 
         $user = $Oauth2->user;
+        
         $usergroup = 1;
         if (!empty($elevatedUsers)) {
             foreach ($elevatedUsers as $key) {
@@ -231,31 +236,30 @@ class Authentication
         }
         $oo = $ooo = 0;
         $temppass = password_hash('1', PASSWORD_DEFAULT);
-        $userinsert = $conn->prepare("INSERT INTO USERS (email, uname, upass, usergroup, offtrades, reqtrades, url)
+        $userinsert = $conn->prepare("INSERT INTO users (email, uname, upass, usergroup, offtrades, reqtrades, url)
                                         Values (?,?,?,?,?,?,?) on duplicate key update url=?;");
         $userinsert->bind_param("sssiiiss", $user->email, $user->basename, $temppass, $usergroup, $oo, $ooo, $user->avatar, $user->avatar);
         $userinsert->execute();
-        $userinsert->close();
-        $discordinsert = $conn->prepare("INSERT INTO user_extended (email, discord_id, discord_uname, discord_profile, avatar) value (?,?,?,?,?);");
-        $discordinsert->bind_param("sssss", $user->email, $user->id, $user->username, $discordprofile, $user->avatar);
+        $discordinsert = $conn->prepare("INSERT IGNORE INTO user_extended (email, discord_id, discord_uname, avatar) values (?,?,?,?);");
+        $discordinsert->bind_param("ssss", $user->email, $user->id, $user->username, $user->avatar);
         $discordinsert->execute();
         $discordinsert->close();
-        $options = ['uname', 'logged_in', 'login_time'];
-        $values = [$user->basename, true, time()];
-        $Validate->setSession($options, $values);
-        $this->insertToken();
-        header("Location: " . W_PAGES . "temppass.php");
-        exit();
+        \Spotamon\Session::regenerateSession();
+        $keys = ['uname', 'logged_in', 'login_time', 'form'];
+        $values = [$user->basename, true, time(), null];
+        $Validate->setSession($keys, $values);
+        $this->insertToken($user->email);
+        return 'discord';
 
     }
-    private function insertToken()
+    private function insertToken($email)
     {
         global $Validate;
         global $conn;
         $jsontoken = $_SESSION['token'];
         $jsontoken = $jsontoken->getRefreshtoken();
-        $dbtoken = $conn->prepare("INSERT INTO user_extended (token) values (?);");
-        $dbtoken->bind_param('s', $jsontoken);
+        $dbtoken = $conn->prepare("UPDATE user_extended SET token = ? WHERE email = ?;");
+        $dbtoken->bind_param('ss', $jsontoken, $email);
         $dbtoken->execute();
         $dbtoken->close();
         $Validate->setSession('token');

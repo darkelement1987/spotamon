@@ -5,7 +5,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table spotamon.exraidatt
+
 CREATE TABLE IF NOT EXISTS `exraidatt` (
   `attid` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `exid` int(10) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `exraidatt` (
   PRIMARY KEY (`attid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.exraids
+
 CREATE TABLE IF NOT EXISTS `exraids` (
   `exid` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `gname` int(10) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `exraids` (
   UNIQUE KEY `gname` (`gname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.gyms
+
 CREATE TABLE IF NOT EXISTS `gyms` (
   `gid` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `gname` varchar(255) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `gyms` (
   UNIQUE KEY `glongitude` (`glongitude`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.messages
+
 CREATE TABLE IF NOT EXISTS `messages` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `subject` varchar(255) DEFAULT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.offers
+
 CREATE TABLE IF NOT EXISTS `offers` (
   `oid` int(10) NOT NULL AUTO_INCREMENT,
   `offmon` varchar(30) NOT NULL,
@@ -85,14 +85,14 @@ CREATE TABLE IF NOT EXISTS `offers` (
   PRIMARY KEY (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.pokedex
+
 CREATE TABLE IF NOT EXISTS `pokedex` (
   `id` int(6) NOT NULL,
   `monster` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.quests
+
 CREATE TABLE IF NOT EXISTS `quests` (
   `qid` int(6) NOT NULL,
   `qname` varchar(255) NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `quests` (
   PRIMARY KEY (`qid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.raidbosses
+
 CREATE TABLE IF NOT EXISTS `raidbosses` (
   `rid` int(6) NOT NULL,
   `rcp` int(6) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `raidbosses` (
   PRIMARY KEY (`rid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.reset
+
 CREATE TABLE IF NOT EXISTS `reset` (
   `resetid` int(10) NOT NULL AUTO_INCREMENT,
   `uname` varchar(100) NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `reset` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.rewards
+
 CREATE TABLE IF NOT EXISTS `rewards` (
   `reid` int(4) NOT NULL,
   `rname` varchar(255) NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `rewards` (
   PRIMARY KEY (`reid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.spotraid
+
 CREATE TABLE IF NOT EXISTS `spotraid` (
   `rid` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `rboss` varchar(30) NOT NULL,
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `spotraid` (
   PRIMARY KEY (`rid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.spots
+
 CREATE TABLE IF NOT EXISTS `spots` (
   `spotid` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `pokemon` varchar(30) NOT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `spots` (
   PRIMARY KEY (`spotid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.stops
+
 CREATE TABLE IF NOT EXISTS `stops` (
   `sid` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `sname` varchar(255) NOT NULL,
@@ -181,14 +181,14 @@ CREATE TABLE IF NOT EXISTS `stops` (
   UNIQUE KEY `slongitude` (`slongitude`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.teams
+
 CREATE TABLE IF NOT EXISTS `teams` (
   `tid` int(6) NOT NULL,
   `tname` varchar(15) NOT NULL,
   PRIMARY KEY (`tid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.tradeoffers
+
 CREATE TABLE IF NOT EXISTS `tradeoffers` (
   `toid` int(10) NOT NULL AUTO_INCREMENT,
   `oid` int(10) NOT NULL,
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `tradeoffers` (
   PRIMARY KEY (`toid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.trades
+
 CREATE TABLE IF NOT EXISTS `trades` (
   `tid` int(10) NOT NULL AUTO_INCREMENT,
   `oid` int(10) NOT NULL,
@@ -217,14 +217,14 @@ CREATE TABLE IF NOT EXISTS `trades` (
   PRIMARY KEY (`tid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.usergroup
+
 CREATE TABLE IF NOT EXISTS `usergroup` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `groupname` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.users
+
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `uname` (`uname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping structure for table spotamon.user_extended
+
 CREATE TABLE IF NOT EXISTS `user_extended` (
   `email` varchar(100) NOT NULL,
   `discord_id` varchar(50) DEFAULT NULL,
@@ -253,10 +253,10 @@ CREATE TABLE IF NOT EXISTS `user_extended` (
   `avatar` varchar(100) DEFAULT NULL,
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `discord_id` (`discord_id`),
-  CONSTRAINT `FK_user_extended_users` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_user_extended_users` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='additional user rescources';
 
--- Dumping structure for table spotamon.version
+
 CREATE TABLE IF NOT EXISTS `version` (
   `version` int(3) NOT NULL,
   `minor_v` int(3) unsigned zerofill DEFAULT NULL

@@ -15,14 +15,15 @@ class Oauth2
 
         $checktoken = $Validate->getSession('token');
         $checkstate  = $Validate->getGet('state');
-
+        $state = $Validate->getSession('state');
         $this->provider = $this->provider();
         if ($checktoken === null && $checkstate === null) {
             $this->oauthToken();
-        } else if ($checkstate !== null && $checktoken === null) {
+        } else if ($checkstate !== null && $checkstate === $state) {
             $this->token = $this->token();
             $Validate->setSession('token', $this->token);
             unset($_GET['state']);
+            $Validate->setSession('state');
         }
         $seshtoken = $Validate->getSession('token');
         if ($seshtoken || isset($this->token)){
@@ -49,7 +50,7 @@ class Oauth2
     private function oauthToken()
     {
         global $Validate;
-
+        $this->sesh = session_id();
         $options = [
             'state' => $this->sesh,
             'scope' => [
@@ -61,14 +62,13 @@ class Oauth2
             ], // array or string
         ];
         $authUrl = $this->provider->getAuthorizationUrl($options);
-
+        $Validate->setSession('state', $this->sesh);
         header('Location: ' . $authUrl);
         die();
     }
     public function token()
     {
         global $Validate;
-        global $conn;
 
         $code  = $Validate->getGet('code', null, false);
         $token = $this->provider->getAccessToken('authorization_code', [

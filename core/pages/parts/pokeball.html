@@ -1,0 +1,282 @@
+<div class="pokeball element-animation">
+    <div class="wrapper">
+        <div class="top"></div>
+        <div class="separator"></div>
+        <div class="bottom"></div>
+        <div class="center">
+            <div class="dot"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pokeball {
+        display: block;
+        width: 75px;
+        height: 75px;
+        overflow: hidden;
+        border-radius: 50%;
+        background-color: #000000;
+        position: absolute;
+        left: calc(50% - 75px /2);
+    }
+
+    .pokeball .wrapper {
+        width: 69px;
+        height: 69px;
+        margin: 3px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+    }
+
+    .pokeball .wrapper .top,
+    .pokeball .wrapper .bottom {
+        position: absolute;
+        width: 75px;
+        height: 32.5px;
+    }
+
+    .pokeball .wrapper .top {
+        background-color: #ff1b1b;
+        top: 0;
+        z-index: 1005;
+    }
+
+    .pokeball .wrapper .bottom {
+        background-color: #ffffff;
+        bottom: 0;
+        z-index: 1005;
+    }
+
+    .pokeball .wrapper .separator {
+        position: absolute;
+        width: 75px;
+        background-color: #000000;
+        height: 4px;
+        top: 35px;
+        z-index: 1006;
+    }
+
+    .pokeball .wrapper .center {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border: 5px solid #000000;
+        top: 24px;
+        left: 24px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        z-index: 1007;
+        box-sizing: border-box;
+    }
+
+    .pokeball .wrapper .center .dot {
+        position: absolute;
+        width: 9px;
+        height: 9px;
+        border: 1px solid black;
+        z-index: 1008;
+        top: 1.5px;
+        left: 1.5px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        box-sizing: border-box;
+    }
+
+
+    .element-animation {
+        animation-delay: 1s;
+        animation: animationFrames linear 4s;
+        animation-iteration-count: 1;
+        transform-origin: 50% 50%;
+        animation-fill-mode: forwards;
+        /*when the spec is finished*/
+        -webkit-animation: animationFrames linear 4s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-transform-origin: 50% 50%;
+        -webkit-animation-fill-mode: forwards;
+        /*Chrome 16+, Safari 4+*/
+        -moz-animation: animationFrames linear 4s;
+        -moz-animation-iteration-count: 1;
+        -moz-transform-origin: 50% 50%;
+        -moz-animation-fill-mode: forwards;
+        /*FF 5+*/
+        -o-animation: animationFrames linear 4s;
+        -o-animation-iteration-count: 1;
+        -o-transform-origin: 50% 50%;
+        -o-animation-fill-mode: forwards;
+        /*Not implemented yet*/
+        -ms-animation: animationFrames linear 4s;
+        -ms-animation-iteration-count: 1;
+        -ms-transform-origin: 50% 50%;
+        -ms-animation-fill-mode: forwards;
+        /*IE 10+*/
+    }
+
+    @keyframes animationFrames {
+        0% {
+            transform: translate(calc(-1*(60vw - 100%)), calc(-1*(60vh - 100%))) rotate(0deg);
+        }
+        14% {
+            transform: translate(calc(-1*(25vw - 100%)), calc(-1*(-45vh - 100%))) rotate(92deg);
+        }
+        18% {
+            transform: translate(calc(-1*(20vw - 100%)), calc(-1*(-39vh - 100%))) rotate(140deg);
+        }
+        23% {
+            transform: translate(calc(-1*(10vw - 100%)), calc(-1*(-34vh - 100%))) rotate(200deg);
+        }
+        28% {
+            transform: translate(calc(-1*(0vw - 100%)), calc(-1*(-38vh - 100%))) rotate(260deg);
+        }
+        35% {
+            transform: translate(calc(-1*(-10vw - 100%)), calc(-1*(-45vh - 100%))) rotate(320deg);
+        }
+        58% {
+            transform: translate(calc(-1*(-30vw - 100%)), calc(-1*(-45vh - 100%))) rotate(413deg);
+        }
+        73% {
+            transform: translate(calc(-1*(-45vw - 100%)), calc(-1*(-45vh - 100%))) rotate(519deg);
+        }
+        84% {
+            transform: translate(calc(-1*(-55vw - 100%)), calc(-1*(-45vh - 100%))) rotate(562deg);
+        }
+        100% {
+            transform: translate(calc(-1*(-75vw - 100%)), calc(-1*(-45vh - 100%))) rotate(613deg);
+        }
+    }
+
+    @-moz-keyframes animationFrames {
+        0% {
+            -moz-transform: translate(calc(-1*(60vw - 100%)), calc(-1*(60vh - 100%))) rotate(0deg);
+        }
+        14% {
+            -moz-transform: translate(calc(-1*(25vw - 100%)), calc(-1*(-45vh - 100%))) rotate(92deg);
+        }
+        18% {
+            -moz-transform: translate(calc(-1*(20vw - 100%)), calc(-1*(-39vh - 100%))) rotate(140deg);
+        }
+        23% {
+            -moz-transform: translate(calc(-1*(10vw - 100%)), calc(-1*(-34vh - 100%))) rotate(200deg);
+        }
+        28% {
+            -moz-transform: translate(calc(-1*(0vw - 100%)), calc(-1*(-38vh - 100%))) rotate(260deg);
+        }
+        35% {
+            -moz-transform: translate(calc(-1*(-10vw - 100%)), calc(-1*(-45vh - 100%))) rotate(320deg);
+        }
+        58% {
+            -moz-transform: translate(calc(-1*(-30vw - 100%)), calc(-1*(-45vh - 100%))) rotate(413deg);
+        }
+        73% {
+            -moz-transform: translate(calc(-1*(-45vw - 100%)), calc(-1*(-45vh - 100%))) rotate(519deg);
+        }
+        84% {
+            -moz-transform: translate(calc(-1*(-55vw - 100%)), calc(-1*(-45vh - 100%))) rotate(562deg);
+        }
+        100% {
+            -moz-transform: translate(calc(-1*(-75vw - 100%)), calc(-1*(-45vh - 100%))) rotate(613deg);
+        }
+    }
+
+    @-webkit-keyframes animationFrames {
+        0% {
+            -webkit-transform: translate(calc(-1*(60vw - 100%)), calc(-1*(60vh - 100%))) rotate(0deg);
+        }
+        14% {
+            -webkit-transform: translate(calc(-1*(25vw - 100%)), calc(-1*(-45vh - 100%))) rotate(92deg);
+        }
+        18% {
+            -webkit-transform: translate(calc(-1*(20vw - 100%)), calc(-1*(-39vh - 100%))) rotate(140deg);
+        }
+        23% {
+            -webkit-transform: translate(calc(-1*(10vw - 100%)), calc(-1*(-34vh - 100%))) rotate(200deg);
+        }
+        28% {
+            -webkit-transform: translate(calc(-1*(0vw - 100%)), calc(-1*(-38vh - 100%))) rotate(260deg);
+        }
+        35% {
+            -webkit-transform: translate(calc(-1*(-10vw - 100%)), calc(-1*(-45vh - 100%))) rotate(320deg);
+        }
+        58% {
+            -webkit-transform: translate(calc(-1*(-30vw - 100%)), calc(-1*(-45vh - 100%))) rotate(413deg);
+        }
+        73% {
+            -webkit-transform: translate(calc(-1*(-45vw - 100%)), calc(-1*(-45vh - 100%))) rotate(519deg);
+        }
+        84% {
+            -webkit-transform: translate(calc(-1*(-55vw - 100%)), calc(-1*(-45vh - 100%))) rotate(562deg);
+        }
+        100% {
+            -webkit-transform: translate(calc(-1*(-75vw - 100%)), calc(-1*(-45vh - 100%))) rotate(613deg);
+        }
+    }
+
+    @-o-keyframes animationFrames {
+        0% {
+            -o-transform: translate(calc(-1*(60vw - 100%)), calc(-1*(60vh - 100%))) rotate(0deg);
+        }
+        14% {
+            -o-transform: translate(calc(-1*(25vw - 100%)), calc(-1*(-45vh - 100%))) rotate(92deg);
+        }
+        18% {
+            -o-transform: translate(calc(-1*(20vw - 100%)), calc(-1*(-39vh - 100%))) rotate(140deg);
+        }
+        23% {
+            -o-transform: translate(calc(-1*(10vw - 100%)), calc(-1*(-34vh - 100%))) rotate(200deg);
+        }
+        28% {
+            -o-transform: translate(calc(-1*(0vw - 100%)), calc(-1*(-38vh - 100%))) rotate(260deg);
+        }
+        35% {
+            -o-transform: translate(calc(-1*(-10vw - 100%)), calc(-1*(-45vh - 100%))) rotate(320deg);
+        }
+        58% {
+            -o-transform: translate(calc(-1*(-30vw - 100%)), calc(-1*(-45vh - 100%))) rotate(413deg);
+        }
+        73% {
+            -o-transform: translate(calc(-1*(-45vw - 100%)), calc(-1*(-45vh - 100%))) rotate(519deg);
+        }
+        84% {
+            -o-transform: translate(calc(-1*(-55vw - 100%)), calc(-1*(-45vh - 100%))) rotate(562deg);
+        }
+        100% {
+            -o-transform: translate(calc(-1*(-75vw - 100%)), calc(-1*(-45vh - 100%))) rotate(613deg);
+        }
+    }
+
+    @-ms-keyframes animationFrames {
+        0% {
+            -ms-transform: translate(calc(-1*(60vw - 100%)), calc(-1*(60vh - 100%))) rotate(0deg);
+        }
+        14% {
+            -ms-transform: translate(calc(-1*(25vw - 100%)), calc(-1*(-45vh - 100%))) rotate(92deg);
+        }
+        18% {
+            -ms-transform: translate(calc(-1*(20vw - 100%)), calc(-1*(-39vh - 100%))) rotate(140deg);
+        }
+        23% {
+            -ms-transform: translate(calc(-1*(10vw - 100%)), calc(-1*(-34vh - 100%))) rotate(200deg);
+        }
+        28% {
+            -ms-transform: translate(calc(-1*(0vw - 100%)), calc(-1*(-38vh - 100%))) rotate(260deg);
+        }
+        35% {
+            -ms-transform: translate(calc(-1*(-10vw - 100%)), calc(-1*(-45vh - 100%))) rotate(320deg);
+        }
+        58% {
+            -ms-transform: translate(calc(-1*(-30vw - 100%)), calc(-1*(-45vh - 100%))) rotate(413deg);
+        }
+        73% {
+            -ms-transform: translate(calc(-1*(-45vw - 100%)), calc(-1*(-45vh - 100%))) rotate(519deg);
+        }
+        84% {
+            -ms-transform: translate(calc(-1*(-55vw - 100%)), calc(-1*(-45vh - 100%))) rotate(562deg);
+        }
+        100% {
+            -ms-transform: translate(calc(-1*(-75vw - 100%)), calc(-1*(-45vh - 100%))) rotate(613deg);
+        }
+    }
+
+</style>

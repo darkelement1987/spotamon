@@ -6,18 +6,20 @@ $csrftoken = $csrf->insertToken($form, false);
 <div class="container-fluid" id="auth-modal-container">
     <div class="modal fade" id="auth-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content" id="auth-modal-content">
+            <div class="modal-content border-0" id="auth-modal-content">
                 <div class="modal-body p-0">
+                    <div class="lloader"></div>
                     <div class="login-row row login-modal">
-                        <div class="col-md-5 justify-content-center discord-modal" id="discordloginbody">
-                            <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordlogin" class="d-flex justify-content-center">
+                        <div class="col-md-5 d-none d-md-flex flex-column discord-modal" id="discordloginbody">
+                            <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordlogin" class="d-none d-md-flex align-content-center discord-link">
                                 <img src="<?=W_ASSETS?>img/Discord_Logo.png" width="150px" alt="Discord" id="discord-logo-login"
-                                    class="d-flex" />
+                                    class="d-flex mx-auto" />
                             </a>
-                            <h5>or login with Discord!</h5>
+                            <h5 class="modal-title">or login with Discord!</h5>
                         </div>
-                        <div class="col-md-7 email-modal" id="emailmodalbody">
-                            <h5 class="modal-title">Login By Username or Email</h5>
+                        <div class="col-xs-12 col-md-7 email-modal" id="emailmodalbody">
+                            <h5 class="d-none d-md-inline-block modal-title">Login By Username or Email</h5>
+                            <h5 class="d-inline-block d-md-none">Login to Spotamon</h5>
                             <form class="login-form" id="loginform" action="<?=W_FUNCTIONS?>auth.php" method="post">
                                 <div class="form-group">
                                     <div class="input-group">
@@ -28,8 +30,10 @@ $csrftoken = $csrf->insertToken($form, false);
                                             </span>
                                         </div>
                                         <input type="text" id="login_username" class="form-control login-fields" name="username"
-                                            placeholder="Username/Email" required minlength="5" maxLength="20" oninvalid="this.setCustomValidity('This does not seem to be a valid username, sorry')"
-                                            maxlength="20" pattern='^[a-zA-Z0-9#_-]{8,20}|(?i)admin(?-i)' />
+                                            placeholder="Username/Email" required minlength="5" maxLength="20"
+                                            oninvalid="this.setCustomValidity('This does not seem to be a valid username, sorry')"
+                                            maxlength="20" pattern='^[a-zA-Z0-9#]([._](?![._])|[a-zA-Z0-9#]){8,20}[a-zA-Z0-9]$|^[a-zA-Z0-9.!#$%&
+                                            *+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$|^admin$' />
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -38,18 +42,24 @@ $csrftoken = $csrf->insertToken($form, false);
                                                 <label class="sr-only">Password</label>
                                             </span>
                                         </div>
-                                        <input type="password" id="login_password" name="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])([^\s]).{8,20}$|admin"
-                                            maxlength="20" oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')" placeholder="Password" class="form-control login-fields"
-                                            required />
+                                        <input type="password" id="login_password" name="password" pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$|^admin$'
+                                            maxlength="20" minlength="8" oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
+                                            placeholder="Password" class="form-control login-fields" required />
                                     </div>
                                 </div>
                                 <input type="hidden" name="formtype" value="login">
                                 <?=$csrftoken?>
-                                <button class="btn btn-primary btn-block btn-sm" id="loginsubmit" type="submit">Login</button>
+                                <div class="form-row d-flex justify-content-around">
+                                    <button class="btn btn-primary btn-md-block d-inline-block d-md-block btn-sm" id="loginsubmit"
+                                        type="submit">Login by Account</button>
+                                    <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordlogin" class="btn discord-link btn-discord btn-sm d-inline-block d-md-none"><span
+                                            class="fab fa-discord"></span>
+                                        Login by Discord</a>
+                                </div>
                             </form>
                             <div id="login-error"></div>
 
-                            <div class="row">
+                            <div class="row register-switch">
                                 <div class="col">
                                     <p>
                                         <strong class="login-fields" style="  font-size:14px; margin-top:7px;">Not a
@@ -59,7 +69,7 @@ $csrftoken = $csrf->insertToken($form, false);
                                     </p>
                                 </div>
                             </div>
-                            <div class="row form-switch">
+                            <div class="row form-switch register-switch">
                                 <div class="col p-0" style="  font-size:14px;">
                                     <a href="#" id="registerswitch">Register Here</a>
                                     <strong>/</strong>
@@ -70,16 +80,17 @@ $csrftoken = $csrf->insertToken($form, false);
                     </div>
                 </div>
                 <div class="register-row row login-modal">
-                    <div class="col-md-5 justify-content-center discord-modal">
-                        <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordregister" class="d-flex justify-content-center">
+                    <div class="col-md-5 d-none d-md-flex flex-column justify-content-center discord-modal" id="discordregisterbody">
+                        <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordregister" class="d-none d-md-flex justify-content-center discord-link">
                             <img src="<?=W_ASSETS?>img/discord_logo.png" alt="Discord" id="discord-logo-register" class="d-flex" />
                         </a>
-                        <h5>or Register
+                        <h5 class="modal-title">or Register
                             <br>with Discord!</h5>
                     </div>
-                    <div class="col-md-7 email-modal">
+                    <div class="col-md-7 order-1 order-md-12 email-modal">
                         <h5 class="modal-title">Register By Email</h5>
-                        <form class="register-form" method="post" action="<?=W_FUNCTIONS?>auth.php">
+                        <div class="rloader"></div>
+                        <form class="register-form" id="registerform" method="post" action="<?=W_FUNCTIONS?>auth.php">
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -110,8 +121,7 @@ $csrftoken = $csrf->insertToken($form, false);
                                         </span>
                                     </div>
                                     <input type="password" name="password" placeholder="Password" class="form-control login-fields"
-                                        pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=[\S\W]*)(?=\S*[A-Z])(?=\S*[\d])\S*$"
-                                        oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
+                                        pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
                                         maxlength="18" id="regpass" minlength=required />
                                 </div>
                                 <div class="input-group">
@@ -122,14 +132,19 @@ $csrftoken = $csrf->insertToken($form, false);
                                         </span>
                                     </div>
                                     <input type="password" name="confirmpassword" placeholder="Confirm Password" class="form-control login-fields"
-                                        pattern='^\S*(?=\S{8,})(?=\S*[a-z])(?=[\S\W]*)(?=\S*[A-Z])(?=\S*[\d])\S*$'
-                                        oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
+                                        pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
                                         id="regconfirmpass" maxlength="18" minlength="8" required />
                                 </div>
                             </div>
                             <input type="hidden" name="formtype" value="register">
                             <?=$csrftoken?>
-                            <button class="btn btn-primary btn-block btn-sm" id="registersubmit" type="submit">Register</button>
+                            <div class="form-row d-flex no-wrap justify-content-around">
+                                <button class="btn btn-primary btn-md-block d-inline-block d-md-block btn-sm" id="registersubmit"
+                                    type="submit">Register by Account</button>
+                                <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordregister" class="btn discord-link btn-discord btn-sm d-inline-block d-md-none"><span
+                                        class="fab fa-discord"></span>
+                                    Register by Discord</a>
+                            </div>
                         </form>
                         <div id="register-error"></div>
                         <div class="row">

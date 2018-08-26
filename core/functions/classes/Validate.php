@@ -208,7 +208,7 @@ class Validate
                         } 
                     }
                 } else {
-                    $passregexp = "/^\S*(?=\S{8,})(?=\S*[a-z])(?=[\S\W]*)(?=\S*[A-Z])(?=\S*[\d])\S*$|admin/";
+                    $passregexp = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$|admin/";
                     if (filter_var($data, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => $passregexp)))) {
                         $data = $data;
                         break;

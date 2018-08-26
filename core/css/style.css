@@ -1,3 +1,12 @@
+* {
+	font-family: 'Verela Round', sans-serif;
+}
+
+.wsmenu>.wsmenu-list,
+.wsmobileheader {
+	background: #03060c
+}
+
 .logo {
 	float: left;
 	vertical-align: middle;
@@ -11,32 +20,17 @@
 	vertical-align: middle;
 }
 
-.navbar-inverse ul li a:hover {
-	background: #000;
-	color: #fff;
-}
-
 .spotlogo img {
 	margin-top: 5px;
 }
 
 a {
 	color: #000;
-	text-decoration: underline;
 }
 
 a:visited {
-	color: #000;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-	color: #9d9d9d;
-	text-decoration: none;
-}
-
-#navibar a {
-	color: #9d9d9d;
-	text-decoration: none;
+	color: #122e5a;
+	;
 }
 
 .select2-results__options img {
@@ -75,8 +69,13 @@ hr {
 }
 
 #map {
+	top: 0;
+	left: 0;
 	height: 100%;
-	position: relative;
+	width: 100%;
+	position: absolute;
+	box-sizing: content-box;
+	overflow: visible;
 }
 
 html,
@@ -84,7 +83,7 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	font-family: tahoma;
+	font-family: 'Verela Round', sans-serif;
 }
 
 body {
@@ -92,7 +91,7 @@ body {
 }
 
 h2 {
-	font-family: tahoma;
+	font-family: 'Verela Round', sans-serif;
 }
 
 td,
@@ -176,7 +175,7 @@ div#pm {
 		width: 85%;
 	}
 	#map {
-		height: 94.6%;
+		height: 100%;
 	}
 	form#feedback {
 		width: 85%;
@@ -288,7 +287,7 @@ div#pm {
 		margin-right: 5px;
 		float: right;
 	}
-	.btn {
+	.btn0 {
 		font: 14px 'Fira Sans', sans-serif;
 		color: #fff;
 		padding: 5px 5px 5px 5px;
@@ -429,7 +428,7 @@ div#pm {
 		margin-right: 5px;
 		float: right;
 	}
-	.btn {
+	.btn0 {
 		font: 14px 'Fira Sans', sans-serif;
 		color: #fff;
 		padding: 5px 5px 5px 5px;
@@ -468,6 +467,9 @@ div#pm {
 }
 
 @media only screen and (max-width: 1080px) and (min-width:769px) {
+	.nav-link:hover {
+		background: rgb(0, 0, 0, 0.35);
+	}
 	.acttrade {
 		background-image: url("/core/assets/img/tradebackground.jpg");
 		margin-top: -20px;
@@ -574,7 +576,7 @@ div#pm {
 		margin-right: 25px;
 		float: right;
 	}
-	.btn {
+	.btn0 {
 		font: 14px 'Fira Sans', sans-serif;
 		color: #fff;
 		padding: 5px 5px 5px 5px;
@@ -613,6 +615,9 @@ div#pm {
 }
 
 @media only screen and (max-width: 1440px) and (min-width:1080px) {
+	.nav-link:hover {
+		background: rgb(0, 0, 0, 0.35);
+	}
 	.acttrade {
 		background-image: url("/core/assets/img/tradebackground.jpg");
 		margin-top: -20px;
@@ -719,7 +724,7 @@ div#pm {
 		margin-right: 25px;
 		float: right;
 	}
-	.btn {
+	.btn0 {
 		font: 14px 'Fira Sans', sans-serif;
 		color: #fff;
 		padding: 5px 5px 5px 5px;
@@ -758,6 +763,9 @@ div#pm {
 }
 
 @media only screen and (max-width: 2880px) and (min-width:1441px) {
+	.nav-link:hover {
+		background: rgb(0, 0, 0, 0.35);
+	}
 	.acttrade {
 		background-image: url("/core/assets/img/tradebackground.jpg");
 		margin-top: -20px;
@@ -864,7 +872,7 @@ div#pm {
 		margin-right: 25px;
 		float: right;
 	}
-	.btn {
+	.btn0 {
 		font: 14px 'Fira Sans', sans-serif;
 		color: #fff;
 		padding: 5px 5px 5px 5px;
@@ -914,16 +922,42 @@ div#pm {
 	color: white;
 }
 
+#auth-modal input,
+.login-fields {
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+}
+
+#auth-modal input:invalid,
+.login-fields:invalid {
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	box-shadow: 12, 0, 4, -4 red;
+}
+
 #auth-modal .login-row {
 	margin: 0px;
 	padding: 0px;
 	font-family: average Sans, sans-serif;
 }
 
+#auth-modal .btn {
+	background-color: #7289DA;
+}
+
 .discord-modal {
 	padding: 0px;
 	text-align: center;
 	background-color: rgba(249, 242, 242, 0.63);
+}
+
+.email-modal {
+	background-color: rgba(35, 39, 32, 0.63);
+	text-align: center;
+	color: white;
+	min-height: 250px;
 }
 
 #discord-logo-login {
@@ -938,11 +972,6 @@ div#pm {
 	max-height: 150px;
 	margin-top: 55px;
 	max-width: 150px;
-}
-
-.email-modal {
-	background-color: rgba(35, 39, 32, 0.63);
-	text-align: center;
 }
 
 #login-form * {
@@ -961,16 +990,131 @@ div#pm {
 	margin-right: 0px;
 }
 
+#auth-modal a {
+	color: #7289DA;
+}
+
+#auth-modal a:hover {
+	color: #9d9d9d;
+}
+
 #form-switch {
 	margin-right: -15px;
 	margin-bottom: 9px;
 }
 
+.discord-modal .modal-title {
+	color: rgba(35, 39, 32, 0.63) !important;
+}
 
-.blur{
-    -webkit-filter: blur(4px) grayscale(50%);
-    -moz-filter: blur(4px) grayscale(50%);
-    -o-filter: blur(4px) grayscale(50%);
-    -ms-filter: blur(4px) grayscale(50%);
-    filter: blur(4px) grayscale(50%);
+.blur {
+	-webkit-filter: blur(2px) grayscale(50%);
+	-moz-filter: blur(2px) grayscale(50%);
+	-o-filter: blur(2px) grayscale(50%);
+	-ms-filter: blur(2px) grayscale(50%);
+	filter: blur(2px) grayscale(50%);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.flex-expand {
+	flex-grow: 1;
+	max-width: 800px;
+	transition: all 600ms ease;
+}
+
+.flex-hide {
+	max-width: 0px;
+	overflow: hidden;
+	padding: 0;
+	flex-shrink: 1;
+	transition: all 600ms ease;
+}
+
+.modal-body::before {
+	position: relative;
+	-webkit-filter: blur(2px) grayscale(50%);
+	-moz-filter: blur(2px) grayscale(50%);
+	-o-filter: blur(2px) grayscale(50%);
+	-ms-filter: blur(2px) grayscale(50%);
+	filter: blur(2px) grayscale(50%);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.login-row {
+	display: flex;
+	flex: 45%;
+	background-color: rgb(0, 0, 0, .4);
+}
+
+.loader {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+#menu-container {
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+}
+
+#map {
+	-webkit-transform: translate3D(0, 0, 0);
+	transform: translate3D(0, 0, 0);
+}
+
+p.bodyspacer {
+	height: 50px;
+	padding: 25px;
+	display: block;
+	margin: 0;
+}
+
+.discord-dark {
+	background-color: #23272A;
+	color: white;
+	background-image: none;
+}
+
+.discord-subtext {
+	color: #99AAB5;
+}
+
+.discord {
+	background-color: #2C2F33;
+	color: white;
+}
+
+.discord-blue {
+	background-color: #7289DA;
+	background-image: none;
+	color: white;
+	text-decoration: none;
+}
+
+.discord-logo-text-white {
+	background-image: url(/core/assets/img/Discord_Logo_text_white.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding-top: 55px;
+}
+
+.btn-discord {
+	background-color: #7289DA;
+	color: #2C2F33 !important;
+	text-align: center;
+}
+
+.btn-discord .fab {
+	border: right 2px solid black !important;
+	padding-right: 8px;
+}
+
+.no-wrap {
+	white-space: nowrap;
 }

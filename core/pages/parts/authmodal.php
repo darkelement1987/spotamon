@@ -17,10 +17,10 @@ $csrftoken = $csrf->insertToken($form, false);
                             </a>
                             <h5 class="modal-title">or login with Discord!</h5>
                         </div>
-                        <div class="col-xs-12 col-md-7 email-modal" id="emailmodalbody">
+                        <div class="col-xs-12 col-md-7 d-flex flex-column align-content-around email-modal" id="emailmodalbody">
                             <h5 class="d-none d-md-inline-block modal-title">Login By Username or Email</h5>
                             <h5 class="d-inline-block d-md-none">Login to Spotamon</h5>
-                            <form class="login-form" id="loginform" action="<?=W_FUNCTIONS?>auth.php" method="post">
+                            <form class="login-form my-4" id="loginform" action="<?=W_FUNCTIONS?>auth.php" method="post">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -50,7 +50,7 @@ $csrftoken = $csrf->insertToken($form, false);
                                 <input type="hidden" name="formtype" value="login">
                                 <?=$csrftoken?>
                                 <div class="form-row d-flex justify-content-around">
-                                    <button class="btn btn-primary btn-md-block d-inline-block d-md-block btn-sm" id="loginsubmit"
+                                    <button class="btn btn-primary d-inline-block d-md-block  btn-sm" id="loginsubmit"
                                         type="submit">Login by Account</button>
                                     <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordlogin" class="btn discord-link btn-discord btn-sm d-inline-block d-md-none"><span
                                             class="fab fa-discord"></span>
@@ -59,19 +59,15 @@ $csrftoken = $csrf->insertToken($form, false);
                             </form>
                             <div id="login-error"></div>
 
-                            <div class="row register-switch">
+                            <div class="row register-switch mt-auto">
                                 <div class="col">
-                                    <p>
-                                        <strong class="login-fields" style="  font-size:14px; margin-top:7px;">Not a
-                                            Member
-                                            Yet??
-                                        </strong>
-                                    </p>
+                                    <p class="small m-0 text-muted">Not a Member Yet??</p>
                                 </div>
                             </div>
                             <div class="row form-switch register-switch">
-                                <div class="col p-0" style="  font-size:14px;">
-                                    <a href="#" id="registerswitch">Register Here</a>
+                                <div class="col small">
+                                    <a href=" #" id="registerswitch">Register
+                                        Here</a>
                                     <strong>/</strong>
                                     <a href="#" class="close-modal" data-dismiss="modal">Go Home</a>
                                 </div>

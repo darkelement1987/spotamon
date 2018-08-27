@@ -1003,6 +1003,10 @@ div#pm {
 	margin-bottom: 9px;
 }
 
+.modal-title {
+	margin: 10px;
+}
+
 .discord-modal .modal-title {
 	color: rgba(35, 39, 32, 0.63) !important;
 }
@@ -1055,6 +1059,8 @@ div#pm {
 	display: block;
 }
 
+/* Page Considerations */
+
 #menu-container {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
@@ -1073,6 +1079,8 @@ p.bodyspacer {
 	display: block;
 	margin: 0;
 }
+
+/* Beggining of Discord framework */
 
 .discord-dark {
 	background-color: #23272A;
@@ -1114,6 +1122,8 @@ p.bodyspacer {
 	border: right 2px solid black !important;
 	padding-right: 8px;
 }
+
+/* Utility Classes */
 
 .no-wrap {
 	white-space: nowrap;

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('.register-row').hide();
+    $('#pokeball-loader').hide();
 });
 
 $("#regconfirmpass").focus(function () {
@@ -24,7 +25,7 @@ $('#loginswitch').on('click', function () {
 });
 
 $('#auth-modal').on('show.bs.modal', function () {
-    $('#auth-modal-container ~ div').addClass('blur');
+    $('#menu-container ~ div').addClass('blur');
     $('body').removeClass('wsactive');
 })
 
@@ -42,13 +43,14 @@ $('#loginform').submit(function (event) {
     $("body").removeClass('wsactive');
     $('.login-fields').hide();
     $('#registerswitch').hide();
-    $('.lloader').load(w_root + 'core/pages/parts/pokeball.html');
-
+    $('#pokeball-loader').show(function () {
+        $('#pokeball-loader').load(w_root + 'core/pages/parts/pokeball.html');
+    });
     var data = $('#loginform').serialize();
     var auth = $('#loginform').attr('action');
     $.post(auth, data, function (data) {
         if (data == 'true') {
-            $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function () {
+            $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow').delay('1000', function () {
                 $('#auth-modal').modal('toggle');
             });
         } else {
@@ -67,26 +69,30 @@ $('#registerform').submit(function (event) {
     $("body").removeClass('wsactive');
     $('#loginswitch').hide();
     $('.login-fields').hide();
-    $('.rloader').load(w_root + 'core/pages/parts/pokeball.html');
+    $('#pokeball-loader').show(function () {
+        $('#pokeball-loader').load(w_root + 'core/pages/parts/pokeball.html');
+    });
 
     var data = $('#registerform').serialize();
     var auth = $('#registerform').attr('action');
     $.post(auth, data, function (data) {
         if (data == 'true') {
             $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function () {
-                $('#auth-modal').modal('toggle')
+                $('#auth-modal').modal('toggle');
             });
         } else {
             $('#register-error').html(data);
         }
     });
+
 });
+
 $('.discord-link').click(function (event) {
     event.preventDefault();
     $('.discord-modal').toggleClass('flex-expand');
     $('.email-modal').toggleClass('flex-hide');
     $('.email-modal').find('*').hide();
-    path = $(this).attr('href');
+    var path = $(this).attr('href');
     var options = {
         path: path
     }

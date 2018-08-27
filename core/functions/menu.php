@@ -61,7 +61,7 @@ srand((float) microtime() * 10000000); // Seed the random number generator
 echo $titles[array_rand($titles)];?>
     </title>
     <meta property="og:title" content="<?php
-echo $titles[array_rand($titles)]; // Pick a random item from the array and output it                  ?> ">
+echo $titles[array_rand($titles)]; // Pick a random item from the array and output it                   ?> ">
     <meta property="og:description" content="spot a pokemon, raid, pokestop quest or more all in your local area! Dont forget to give us feedback to improve your experience and please let us know if you encounter any bugs. Welcome to spotamon.">
     <meta property="og:image" content="<?=W_ASSETS?>img/ultra-ball.png">
 

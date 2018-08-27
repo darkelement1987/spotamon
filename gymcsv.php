@@ -5,16 +5,16 @@ include S_FUNCTIONS . 'menu.php';
 ?>
 
 <head>
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <?php
-include_once S_FUNCTIONS . 'menu.php';;
+include_once S_FUNCTIONS . 'menu.php';
 
 if (isset($_SESSION["uname"])) {
     $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
-    $id     = $usergroup     = "";
+    $id = $usergroup = "";
     while ($row = $result->fetch_assoc()) {
         $usergroup = $row['groupname'];
         if ("$usergroup" == 'admin') {
@@ -48,15 +48,15 @@ if (isset($_SESSION["uname"])) {
             }
             ?>
 <center>
-	<h2>
-		<strong>Upload Gym CSV:</strong>
-	</h2>
-	<form method='POST' enctype='multipart/form-data'>
-		Upload GYM CSV:
-		<input type='file' name='csv_data' />
-		<input type='submit' name='submit' value='Upload CSV' />
-	</form>
-	<br>
+    <h2>
+        <strong>Upload Gym CSV:</strong>
+    </h2>
+    <form method='POST' enctype='multipart/form-data'>
+        Upload GYM CSV:
+        <input type='file' name='csv_data' />
+        <input type='submit' name='submit' value='Upload CSV' />
+    </form>
+    <br>
 </center>
 </body>
 
@@ -68,7 +68,8 @@ if (isset($_SESSION["uname"])) {
     ?>
 <br />
 <br />
-<a href="/login/login.php">Login Here</a>
+<a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+    Login Here</a>
 <?php
 echo "</div></center></table></center>";
-} 
+}

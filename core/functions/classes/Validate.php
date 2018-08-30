@@ -54,7 +54,7 @@ class Validate
         return $key;
     }
 
-    public function setGet($key, $value)
+    public function setGet($key, $value = Null)
     {
         if (is_array($key) && is_array($value)) {
             $array = array_combine($key, $value);
@@ -67,6 +67,21 @@ class Validate
             }
         } else {
             $_GET[$key] = $value;
+        }
+    }
+    public function setPost($key, $value = Null)
+    {
+        if (is_array($key) && is_array($value)) {
+            $array = array_combine($key, $value);
+            foreach( $array as $k => $v) {
+                $_POST[$k] = $v;
+            }
+        } else if (is_array($key) && !is_array($value)) {
+            foreach ($key as $k) {
+                $_POST[$k] = $value;
+            }
+        } else {
+            $_POST[$key] = $value;
         }
     }
     public function getSession($key, $sanitize = null, $default = null)
@@ -208,7 +223,7 @@ class Validate
                         } 
                     }
                 } else {
-                    $passregexp = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$|admin/";
+                    $passregexp = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$|^admin$/";
                     if (filter_var($data, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => $passregexp)))) {
                         $data = $data;
                         break;

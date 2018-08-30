@@ -57,7 +57,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 use \ParagonIE\AntiCSRF\Reusable;
 $csrf = new Reusable;
+$csrf2 = new AntiCSRF;
 use \Spotamon\Validate;
 $Validate = new Validate;
-
-?>

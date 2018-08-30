@@ -8,8 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $upass = $Validate->getPost('password', 'password');
-    $cpass = $Validate->getPost('confirmpassword', 'password', true, ['hash', $upass]);
-    var_dump($cpass);
+    $cpass = $Validate->getPost('confirmpassword', 'password', true, $upass);
     $user = $Validate->getSession('uname');
     if ($cpass === false) {
         echo $Validate->data;

@@ -43,7 +43,7 @@ $csrftoken = $csrf->insertToken($form, false);
                                             </span>
                                         </div>
                                         <input type="password" id="login_password" name="password" pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$|^admin$'
-                                            maxlength="20" minlength="8" oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
+                                            maxlength="20" minlength="5" oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
                                             placeholder="Password" class="form-control login-fields" required />
                                     </div>
                                 </div>

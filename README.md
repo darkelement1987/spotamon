@@ -4,9 +4,12 @@ Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/
 #### Requirements
 
 - Hosting with SSL / HTTPS
-- PHP 5.x or above
+- PHP 7.x or above
 - MySQL database
-- cURL extension
+- cURL PHP extension
+- Header Apache extension
+- Composer PHP Dependency Manager (Download and install [Here](https://getcomposer.org/download/))
+- Discord Application ( Quick Guide [Here](https://github.com/SinisterRectus/Discordia/wiki/Setting-up-a-Discord-application))
 
 #### Optional Requirements
 
@@ -18,8 +21,7 @@ Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/
 - <a href="https://github.com/darkelement1987/spotbot">Spotamon Discord Bot</a> 
 
 #### Install
-- Create Database,
-- Connect to DB in config and load site, on first load it will auto create tables. 
+- use terminal or Git Bash to run `.install.sh`
 - Set `/userpics/` folder permissions to 777 / 757
 
 #### Default Login

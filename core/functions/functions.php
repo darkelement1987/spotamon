@@ -42,23 +42,25 @@ function pokesubmission()
 
 <!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
-<td style="width: 5%;">Pokemon</td>
-<td style="width: 10%;">
+    <td style="width: 5%;">Pokemon</td>
+    <td style="width: 10%;">
+    <select id='pokesearch' name='pokemon'>
 <?php
-echo "<select id='pokesearch' name='pokemon'>";
-        while ($row = $result->fetch_assoc()) {
-            unset($id, $monster);
-            $id = $row['id'];
-            $monster = $row['monster'];
-            echo '<option value="' . $id . '">' . $id . ' - ' . $monster . '</option>';
-        }
-        echo "</select>";
-        mysqli_close($conn);
+while ($row = $result->fetch_assoc()) {
+        unset($id, $monster);
+        $id = $row['id'];
+        $monster = $row['monster'];
+        ?>
+<option value="<?=$id?>"><?=$id?>-<?=$monster?></option>
+        <?php }?>
+</select>
+<?php
+mysqli_close($conn);
         ?>
 </td>
 </tr>
 
-<!--///////////////////// Cp enter \\\\\\\\\\\\\\\\\\\\\-->
+<!--//////////////////php/// Cp enter \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;">CP</td>
 <td style="width: 10%;">
@@ -79,7 +81,7 @@ echo "<select id='pokesearch' name='pokemon'>";
 
 <p>Click the button to get your coordinates.</p>
 <p id="ScanLocation"></p>
-<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=<?php //echo $gmaps; ?>"></script> -->
+<!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=<?php //echo $gmaps; ?>"></script> -->
 <script>
 var x = document.getElementById("ScanLocation");
 
@@ -163,11 +165,28 @@ function spottedpokemon()
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
 <?php
 echo "<table id=\"spotted\" class=\"table table-bordered\">";
-    if (isset($_SESSION["uname"])) {
-        echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th><th>VOTING</th></tr>";
-    } else {
-        echo "<tr><th>#</th><th>ID</th><th>POKEMON</th><th>CP</th><th>IV</th><th>FOUND</th><th>LOCATION</th></tr>";
-    }
+    if (isset($_SESSION["uname"])) { ?>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>POKEMON</th>
+            <th>CP</th
+            <th>IV</th>
+            <th>FOUND</th>
+            <th>LOCATION</th>
+            <th>VOTING</th>
+        </tr>
+    <?php } else { ?>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>POKEMON</th>
+            <th>CP</th>
+            <th>IV</th>
+            <th>FOUND</th>
+            <th>LOCATION</th>
+        </tr>
+    <?php }
     while ($row = mysqli_fetch_array($result)) {
         $spotid = $row['spotid'];
         $id = $row['monster'];
@@ -193,31 +212,41 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
         ///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
         if ($clock == "false") {
             ///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
-            if (isset($_SESSION["uname"])) {
-                echo "
+            if (isset($_SESSION["uname"])) { ?>
 	<tr>
-	<td style='text-align:center;'>" . $spotid . "</td>
-	<td style='text-align:center;'>" . $pokemon . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
-	<td>" . $cp . "</td>
-	<td>" . $iv . "%</td>
-	<td style='text-align:center;'>" . $hour . ":" . $minutes . " " . $ampm . "</td>
-	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
-	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='" . W_ASSETS . "voting/up.png' value='$good' /></form></span>" . $good . "<br>
-	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='" . W_ASSETS . "voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
-	</tr>";
-            } else {
-                echo "
+	    <td style='text-align:center;'><?=$spotid?></td>
+	    <td style='text-align:center;'><?=$pokemon?></td>
+	    <td><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?=$pokemon?>.png" title="<?=$id?> (#<?=$pokemon?>)"    height="24" width="24"><p style="padding-top:6%;"><?=$id?></p></td>
+	    <td><?=$cp?></td>
+	    <td><?=$iv?>%</td>
+	    <td style='text-align:center;'><?php echo $hour . ":" . $minutes . " " . $ampm;?></td>
+	    <td><a href="./?loc=<?php echo $latitude, "," . $longitude;?>&zoom=19"><?=$fulladdress?></a></td>
+	    <td style='text-align:center;'>
+	    <span style='display:inline-block;'>
+            <form action='good.php' method='post'>
+                <input type='hidden' name='spotid' value="<?=$spotid?>" />
+                <input   type='image' name='good' style='width:25px;height:auto;display:inline;' src='<?=W_ASSETS?>voting/up.png'   value="<?=$good?>" />
+            </form>
+        </span><?=$good?><br>
+	    <span style='display:inline-block;'>
+            <form action='bad.php' method='post'>
+                <input type='hidden' name='spotid' value='<?=$spotid?>' />
+                <input    type='image' name='bad' style='width:27px;height:auto;display:inline;' src='<?=W_ASSETS?>voting/down.png' value='<?=$bad?>'  />
+            </form>
+        </span><?=$bad?></td> 
+	</tr>
+          <?php  } else { ?>
 	<tr>
-	<td style='text-align:center;'>" . $spotid . "</td>
-	<td style='text-align:center;'>" . $pokemon . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
-	<td>" . $cp . "</td>
-	<td>" . $iv . "%</td>
-	<td style='text-align:center;'>" . $hour . ":" . $minutes . " " . $ampm . "</td>
-	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
-	";
+	    <td style='text-align:center;'><?=$spotid?></td>
+	    <td style='text-align:center;'><?=$pokemon?></td>
+	    <td>
+            <img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?=$pokemon?>.png" title="<?=$id?> (#<?=$pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?=$id?></p>
+        </td>
+	    <td><?=$cp?></td>
+	    <td><?=$iv?>%</td>
+	    <td style='text-align:center;'><?php echo $hour . ":" . $minutes . " " . $ampm; ?></td>
+	    <td><a href="./?loc=<?php echo  $latitude . "," . $longitude;?>&zoom=19"><?=$fulladdress?></a></td>
+	<?php
             }
         } else {
             ///////////////////// 24 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
@@ -227,35 +256,46 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
             }
             ///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
             if (isset($_SESSION["uname"])) {
-                echo "
+?>
 	<tr>
-	<td style='text-align:center;'>" . $spotid . "</td>
-	<td>" . $pokemon . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
-	<td>" . $cp . "</td>
-	<td>" . $iv . "%</td>
-	<td>" . $hr . ":" . $minutes . "</td>
-	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
-	<td style='text-align:center;'>
-	<span style='display:inline-block;'><form action='good.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='good' style='width:25px;height:auto;display:inline;' src='" . W_ASSETS . "voting/up.png' value='$good' /></form></span>" . $good . "<br>
-	<span style='display:inline-block;'><form action='bad.php' method='post'><input type='hidden' name='spotid' value='$spotid' /><input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='" . W_ASSETS . "voting/down.png' value='$bad' /></form></span>" . $bad . "</td>
-	</tr>";
-            } else {
-                echo "
+	    <td style='text-align:center;'><?=$spotid?></td>
+	    <td><?=$pokemon?></td>
+	    <td><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?=$pokemon?>.png" title="<?=$id?> (#<?=$pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?=$id?></p></td>
+	    <td><?=$cp?></td>
+	    <td><?=$iv?>%</td>
+	    <td><?php echo $hr . ":" . $minutes; ?></td>
+	    <td><a href="./?loc=<?php echo $latitude, "," . $longitude; ?>&zoom=19"><?=$fulladdress?></a></td>
+	    <td style='text-align:center;'>
+	        <span style='display:inline-block;'>
+                <form action='good.php' method='post'>
+                    <input type='hidden' name='spotid' value='<?=$spotid?>' />
+                    <input type='image' name='good' style='width:25px;height:auto;display:inline;' src='<?=W_ASSETS?>voting/up.png' value='<?=$good?>' />
+                </form>
+            </span><?=$good?><br>
+	        <span style='display:inline-block;'>
+                <form action='bad.php' method='post'>
+                    <input type='hidden' name='spotid' value='<?=$spotid?>' />
+                    <input type='image' name='bad' style='width:27px;height:auto;display:inline;' src='<?=W_ASSETS?>voting/down.png' value='<?=$bad?>' />
+                </form>
+            </span><?=$bad?></td>
+	</tr>
+        <?php    } else { ?>
 	<tr>
-	<td style='text-align:center;'>" . $spotid . "</td>
-	<td>" . $pokemon . "</td>
-	<td>" ?><img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?php echo $pokemon ?>.png" title="<?php echo $id; ?> (#<?php echo $pokemon ?>)" height="24" width="24"><p style="padding-top:6%;"><?php echo $id; ?></p><?php echo "</td>
-	<td>" . $cp . "</td>
-	<td>" . $iv . "%</td>
-	<td>" . $hr . ":" . $minutes . "</td>
-	<td>" ?><a href="./?loc=<?php echo "" . $latitude, "," . $longitude . "" ?>&zoom=19"><?php echo $fulladdress; ?></a><?php echo "</td>
-	";
+	    <td style='text-align:center;'><?=$spotid?></td>
+	    <td><?=$pokemon?></td>
+	    <td>
+            <img style="float:left; padding-right:5px;" src="<?=W_ASSETS?>icons/<?=$pokemon?>.png" title="<?=$id?> (#<?=$pokemon?>)" height="24" width="24"><p style="padding-top:6%;"><?=$id?></p></td>
+	    <td><?=$cp?></td>
+	    <td><?=$iv?>"%</td>
+	    <td><?php echo $hr . ":" . $minutes;?></td>
+	    <td><a href="./?loc=<?php echo  $latitude, "," . $longitude; ?>&zoom=19"><?=$fulladdress?></a></td>
+<?php
             }
         }
-    }
-    echo "</table></center><p id='pages'>";
-    ?><center><?php
+    } ?>
+</table>
+</center><p id='pages'>
+<center><?php
 ///////////////////// PAGENATION \\\\\\\\\\\\\\\\\\\\\
     for ($i = 1; $i <= $total_pages; $i++) {
         echo "<a href='" . basename($_SERVER['PHP_SELF']) . "?page=" . $i . "'>" . $i . "</a> ";
@@ -263,6 +303,9 @@ echo "<table id=\"spotted\" class=\"table table-bordered\">";
     ;
     ?></center><?php
 }
+
+
+//   Maps function
 function maps()
 {
     require './config/config.php';
@@ -532,16 +575,17 @@ function raidsubmission()
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h3 style="text-align:center;"><strong>Add Raid:</strong></h3>
 <form id="usersubmit" method="post" action="./spotraid.php">
-<center><table id="added" class="table table-bordered">
-<tbody>
+    <center>
+        <table id="added" class="table table-bordered">
+            <tbody>
 
 
 <!--///////////////////// GENERATE BOSS LIST \\\\\\\\\\\\\\\\\\\\\-->
-<tr>
-<td style="width: 5%;">Raid Boss</td>
-<td style="width: 10%;">
-<?php
-echo "<select id='raidsearch' name='rboss'>";
+                <tr>
+                    <td style="width: 5%;">Raid Boss</td>
+                    <td style="width: 10%;">
+                        <select id='raidsearch' name='rboss'>
+                        <?php
         while ($row = $result->fetch_assoc()) {
             unset($rid, $rboss);
             $rid = $row['rid'];
@@ -551,20 +595,20 @@ echo "<select id='raidsearch' name='rboss'>";
         echo "</select>";
         mysqli_close($conn);
         ?>
-</td>
-</tr>
+                    </td>
+                </tr>
 
 <!--///////////////////// TIME OF FIND \\\\\\\\\\\\\\\\\\\\\-->
-<tr>
-<td style="width: 5%;">Minutes until expire:</td>
-<td style="width: 10%;">
+                <tr>
+                    <td style="width: 5%;">Minutes until expire:</td>
+                    <td style="width: 10%;">
 <style>
 .sliderraid
 {
     width: 100% !important;
 }
 </style>
-	<input type="range" name="rtime" min="0" max="45" value="0" id="rtimerange" class="sliderraid"><span id="rtimeoutput"></span>
+	                    <input type="range" name="rtime" min="0" max="45" value="0" id="rtimerange" class="sliderraid"><span id="rtimeoutput"></span>
 	<script>
 var sliderraid = document.getElementById("rtimerange");
 var output = document.getElementById("rtimeoutput");
@@ -573,9 +617,9 @@ output.innerHTML = "<br>Raid ends in: " + sliderraid.value + " minutes</center>"
 sliderraid.oninput = function() {
   output.innerHTML = "<br>Raid ends in: " + this.value + " minutes</center>";
 }
-</script>
-</td>
-</tr>
+    </script>
+                        </td>
+                    </tr>
 <!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
 <tr>
 <td style="width: 5%;">At Gym</td>

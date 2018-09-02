@@ -2,8 +2,6 @@
 $curl = curl_init();
 ob_start();
 require_once 'initiate.php';
-include S_FUNCTIONS . 'functions.php';
-include("login/auth.php");
 $gname = $conn->real_escape_string($_POST['gname']);
 $egg = $conn->real_escape_string($_POST['egg']);
 $minutes = $conn->real_escape_string($_POST['etime']);

@@ -1,7 +1,8 @@
 <?php
 require_once 'config/config.php';
 require_once 'vendor/autoload.php';
-require 'core/functions/protected/version.php';
+require_once 'core/functions/protected/version.php';
+require_once 'core/functions/functions.php';
 
 // returns the url of the current page (does not account for rewrites or includes)
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";

@@ -87,7 +87,7 @@ body {
 }
 
 body {
-	background-image: url("/core/assets/img/pokecenter.jpg");
+	background-image: url("../assets/img/pokecenter.jpg");
 }
 
 h2 {

@@ -1,8 +1,7 @@
 <?php
 require_once 'initiate.php';
-include  S_FUNCTIONS . 'functions.php';
 include S_FUNCTIONS . 'menu.php';
-include 'config/dbbuilding.php';
+
 ?>
 
 <head>

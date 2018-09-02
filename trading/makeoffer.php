@@ -1,8 +1,7 @@
 <?php
 
 require_once 'initiate.php';
-include  S_FUNCTIONS . 'functions.php';
-include("../login/auth.php");
+;
 
 if (isset($_POST['oid'])) {
 $oid = $conn->real_escape_string($_POST['oid']);

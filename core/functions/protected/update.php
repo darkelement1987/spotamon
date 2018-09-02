@@ -1,6 +1,6 @@
 <?php
 require_once 'initiate.php';
-include_once S_FUNCTIONS . 'functions.php';
+;
 include_once S_ROOT . 'core/protected/create_db.php';
 
 if (isset($_GET['cssupdate']) && $_GET['cssupdate'] == 1) {

@@ -2,8 +2,7 @@
 $curl = curl_init();
 ob_start();
 require_once 'initiate.php';
-include S_FUNCTIONS . 'functions.php';
-include("login/auth.php");
+
 $exraiddate = $conn->real_escape_string($_POST['exraiddate']);
 $gname = $conn->real_escape_string($_POST['gname']);
 $spotter = $conn->real_escape_string($_SESSION['uname']);

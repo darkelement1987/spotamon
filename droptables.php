@@ -1,7 +1,6 @@
 <?php
 ob_start();
 require_once 'initiate.php';
-include S_FUNCTIONS . 'functions.php';
 
 if (isset($_SESSION["uname"])) {
 

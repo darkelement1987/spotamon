@@ -1,6 +1,5 @@
 <?php
 require_once 'initiate.php';
-include  S_FUNCTIONS . 'functions.php';
 
 
 

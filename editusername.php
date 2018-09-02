@@ -1,6 +1,5 @@
 <?php
 require_once 'initiate.php';
-include S_FUNCTIONS . 'functions.php';
 $uname = $conn->real_escape_string($_POST['uname']);
 // attempt insert query execution
 if(!empty($uname)){

@@ -1,6 +1,6 @@
 <?php
 require_once 'initiate.php';
-include  S_FUNCTIONS . 'functions.php';
+;
 require_once S_FUNCTIONS . 'menu.php';
 
 ?>

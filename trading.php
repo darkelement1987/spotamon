@@ -1,7 +1,7 @@
 <?php
 require_once 'initiate.php';
-include  S_FUNCTIONS . 'functions.php';
-include("login/auth.php");
+;
+
 if (isset($_GET['oid'])) {
 	
 $oid = $_GET['oid'];

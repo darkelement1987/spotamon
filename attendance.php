@@ -1,6 +1,5 @@
 <?php
 require_once 'initiate.php';
-include  S_FUNCTIONS . 'functions.php';
 
 
 if (isset($_GET['exid'])) {
@@ -48,9 +47,9 @@ $sql1 = "INSERT INTO exraidatt (exid, uid) VALUES ('$exidr', '$att')";
 				} else {
 					echo "<meta http-equiv=\"refresh\" content=\"0;URL=./exraids.php\">";
 				}
-			   
-			   
-			   
+			
+			
+			
             }
 
 

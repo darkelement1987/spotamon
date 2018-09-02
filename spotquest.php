@@ -2,7 +2,6 @@
 $curl = curl_init();
 ob_start();
 require_once 'initiate.php';
-include S_FUNCTIONS . 'functions.php';
 
 $quest = $conn->real_escape_string($_POST['quest']);
 $reward = $conn->real_escape_string($_POST['reward']);

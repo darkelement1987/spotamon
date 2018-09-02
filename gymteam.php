@@ -2,7 +2,6 @@
 $curl = curl_init();
 ob_start();
 require_once 'initiate.php';
-include S_FUNCTIONS . 'functions.php';
 $gname = $conn->real_escape_string($_POST['gname']);
 $tname = $conn->real_escape_string($_POST['tname']);
 $teamby = $conn->real_escape_string($_SESSION['uname']);

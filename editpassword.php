@@ -1,6 +1,5 @@
 <?php
 require_once 'initiate.php';
-include S_FUNCTIONS . 'functions.php';
 $pass = $Validate->getPost('password');
 $upass = $Validate->getPost('password', 'password');
 // attempt insert query execution

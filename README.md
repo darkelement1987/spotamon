@@ -1,6 +1,6 @@
 ### SPOTAMON - Crowdsourced Pokemon Go map.
 Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/">here</a>
-
+This Fork is a work in progress, and still actively under development towards new deployment.
 #### Requirements
 
 - Hosting with SSL / HTTPS

@@ -22,7 +22,7 @@ Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/
 
 #### Install
 - use terminal or Git Bash to run `.install.sh`
-- Set `/userpics/` folder permissions to 777 / 757
+- Set `/core/assets/userpics/` folder permissions to 777 / 757
 
 #### Default Login
 Username: admin<br>
@@ -42,12 +42,12 @@ $viewtitle = "View on Spotamon"; // <-- Text showing for the MAP-link @ Discord
 #### Cronjob Commands
 Set your Cronjob to check each minute:
 
-Pokemon spots: `cd *path to spotamon*/frontend/ && php spotscron.php'`<br>
-Raid spots: `cd *path to spotamon*/frontend/ && php raidcron.php'`<br>
-Egg spots: `cd *path to spotamon*/frontend/ && php eggcron.php'` <br>
+Pokemon spots: `cd *path to spotamon*/core/functions/frontend/ && php spotscron.php'`<br>
+Raid spots: `cd *path to spotamon*/core/functions/frontend/ && php raidcron.php'`<br>
+Egg spots: `cd *path to spotamon*/core/functions/frontend/ && php eggcron.php'` <br>
 
 ### Set this Cronjob to check every day at 00:01 (AM):
-Quest spots: `cd *path to spotamon*/frontend/ && php questcron.php'`<br>
+Quest spots: `cd *path to spotamon*/core/functions/frontend/ && php questcron.php'`<br>
 
 #### Importing Gym/Stop CSV's
 

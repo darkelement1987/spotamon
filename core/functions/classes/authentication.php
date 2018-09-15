@@ -208,11 +208,14 @@ class Authentication
             $uname = $data->fetch_all();
             $uname = $uname[0][0];
             $username->close();
+            $avatarupdate = $conn->prepare("UPDATE users SET url = ? WHERE email = ?;");
+            $avatarupdate->bind_param("ss", $user->avatar, $user->email);
+            $avatarupdate->execute();
             $options = ['uname', 'logged_in', 'login_time', 'form'];
             $values = [$uname, true, $logintime, null];
             $Validate->setSession($options, $values);
             $this->insertToken($user->email);
-            return 'discord';
+            return 'discord-login';
         } else {
             return 'You must first register to login with discord';
 
@@ -250,7 +253,7 @@ class Authentication
         $values = [$user->basename, true, time(), null];
         $Validate->setSession($keys, $values);
         $this->insertToken($user->email);
-        return 'discord';
+        return 'discord-register';
 
     }
     private function insertToken($email)

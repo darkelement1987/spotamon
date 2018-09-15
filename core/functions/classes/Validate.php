@@ -6,11 +6,24 @@ class Validate
 
     public $aXss;
     public $data;
+    public $get;
+    public $post;
     public function __construct()
     {
         $this->aXss = new antiXSS;
-
+        $get = new \stdclass();
+        $post = new \stdclass();
+        foreach($_GET as $key => $value) {
+            $get->$key = $this->clean($value);
+            $this->get = $get;
+        }
+        foreach($_POST as $key => $value) {
+            $post->$key = $this->clean($value);
+            $this->post = $post;
+        }
     }
+
+    
 
     public function clean($input)
     {

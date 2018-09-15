@@ -172,10 +172,10 @@ if (isset($_SESSION["uname"])) {
         if (substr($url, 0, 5) == 'https') {?>
                 <img class="pic my-auto" src="<?=$url?>" height="19px" width="19px" alt="logo" style="border:1px solid black">
                 <?php } else {?>
-                <img class="pic my-auto" src="<?=W_ROOT?>userpics/<?=$url?>" height="20px" width="20px" alt="logo"
+                <img class="pic my-auto" src="<?=W_ASSETS?>userpics/<?=$url?>" height="20px" width="20px" alt="logo"
                     style="border:1px solid black">
                 <?php }} else {?>
-                <img class="pic my-auto" src="<?=W_ROOT?>userpics/nopic.png" height="20px" width="20px" alt="logo"
+                <img class="pic my-auto" src="<?=W_ASSETS?>userpics/nopic.png" height="20px" width="20px" alt="logo"
                     style="border:1px solid black">
                 <?php }?>
                 &nbsp

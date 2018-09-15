@@ -372,7 +372,7 @@ if (isset($_GET['zoom'])) {
     })
 map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}))
     // Change this depending on the name of your PHP or XML file
-    downloadUrl('/frontend/xml.php', function(data) {
+    downloadUrl('/core/functions/frontend/xml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -414,7 +414,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         map.addLayer(marker)
       });
     });
-	downloadUrl('/frontend/gxml.php', function(data) {
+	downloadUrl('/core/functions/frontend/gxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -525,7 +525,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         map.addLayer(marker)
       });
     });
-	downloadUrl('/frontend/sxml.php', function(data) {
+	downloadUrl('/core/functions/frontend/sxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -1328,9 +1328,9 @@ while ($row = $result->fetch_assoc()) {
                 if (substr($url, 0, 5) == 'https') {?>
                                 <img src="<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
                                 <?php } else {?>
-                                <img src="./userpics/<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
+                                <img src="./core/assets/userpics/<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
                                 <?php }} else {?>
-                                <img src="./userpics/nopic.png" height="50px" width="50px" alt="logo" style="border:1px solid black">
+                                <img src="./core/assets/userpics/nopic.png" height="50px" width="50px" alt="logo" style="border:1px solid black">
                                 <?php }?>
                             </td>
                             <td>
@@ -1620,14 +1620,14 @@ while ($row = $result->fetch_assoc()) {
                     Size:
                     <?=ceil(($_FILES["file"]["size"] / 1024))?> KB <br>
                     <?php
-if (file_exists("./userpics/" . $_FILES["file"]["name"])) {
-                    unlink("./userpics/" . $_FILES["file"]["name"]);
+if (file_exists("./core/assets/userpics/" . $_FILES["file"]["name"])) {
+                    unlink("./core/assets/userpics/" . $_FILES["file"]["name"]);
                 } else {
                     $pic = $_FILES["file"]["name"];
                     $conv = explode(".", $pic);
                     $ext = $conv['1'];
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "./userpics/" . $userid . "." . $ext);
-                    echo "Stored in as: " . "./userpics/" . $userid . "." . $ext;
+                    move_uploaded_file($_FILES["file"]["tmp_name"], "./core/assets/userpics/" . $userid . "." . $ext);
+                    echo "Stored in as: " . "./core/assets/userpics/" . $userid . "." . $ext;
                     $urlpic = $userid . "." . $ext;
                     $query = "update users set url='$urlpic', lastUpload=now() where uname='" . $_SESSION['uname'] . "'";
                     if ($upl = $conn->query($query)) {?>
@@ -1648,9 +1648,9 @@ $res = $conn->query($pull);
         ?>
                         <div class="imgLow">
                             <?php if ($url !== '') {?>
-                            <img src="./userpics/<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
+                            <img src="./core/assets/userpics/<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
                             <?php } else {?>
-                            <img src="./userpics/nopic.png" height="50px" width="50px" alt="logo" style="border:1px solid black">
+                            <img src="./core/assets/userpics/nopic.png" height="50px" width="50px" alt="logo" style="border:1px solid black">
                             <?php }?>
                         </div><br>
                         <input type="file" name="file" />
@@ -2140,10 +2140,10 @@ $urlquery = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
                                         <?=$offerby?></a><br>
                                     <?php if ($url !== '') {?>
                                     <a href='./compose.php?user=<?=$offerby?>&subject=Trade Number <?=$oid?>'>
-                                        <img src="./userpics/<?=$url?>" height="25px" width="25px" alt="logo" style="border:1px solid black"></a>
+                                        <img src="./core/assets/userpics/<?=$url?>" height="25px" width="25px" alt="logo" style="border:1px solid black"></a>
                                     <?php } else {?>
                                     <a href='./compose.php?user=<?=$offerby?>&subject=Trade Number <?=$oid?>'>
-                                        <img src="./userpics/nopic.png" height="25px" width="25px" alt="logo" style="border:1px solid black"></a>
+                                        <img src="./core/assets/userpics/nopic.png" height="25px" width="25px" alt="logo" style="border:1px solid black"></a>
                                     <?php }
             echo "<p style='font-weight:600;'>$tradeloc</p>";
             ?>
@@ -2612,7 +2612,7 @@ function counteroffer()
     }
     ?>
                                         <h3 style="text-align:center;"><strong>Make an Offer:</strong></h3>
-                                        <form id="usersubmit" method="post" action="<?=S_ROOT?>trading/makeoffer.php">
+                                        <form id="usersubmit" method="post" action="<?=S_ROOT?>core/functions/trading/makeoffer.php">
                                             <center>
                                                 <table id="added" class="table table-bordered">
                                                     <tbody>
@@ -2974,7 +2974,7 @@ if (isset($_SESSION["uname"])) {
                                                     <td style='text-align:center;'>
                                                         <?php if ($accepted == 1) {?>
                                                         <p style='color:green;font-weight:700;'>Accepted</p><span style='display:inline-block;'>
-                                                            <form action='<?=S_ROOT?>trading/complete.php' method='post'>
+                                                            <form action='<?=S_ROOT?>core/functions/trading/complete.php' method='post'>
                                                                 <input type='hidden' name='toid' value='$toid' />
                                                                 <input type='hidden' name='oid' value='$oid' />
                                                                 <input type='submit' name='complete' style='color:blue;font-size:9px'
@@ -2983,7 +2983,7 @@ if (isset($_SESSION["uname"])) {
                                                         </span>
                                                         <?php } else {?>
                                                         <span style='display:inline-block;'>
-                                                            <form action='<?=S_ROOT?>trading/accept.php' method='post'>
+                                                            <form action='<?=S_ROOT?>core/functions/trading/accept.php' method='post'>
                                                                 <input type='hidden' name='toid' value='$toid' />
                                                                 <input type='hidden' name='oid' value='$oid' />
                                                                 <input type='submit' name='accepted' style='color:green;font-size:9px'
@@ -2997,7 +2997,7 @@ if (isset($_SESSION["uname"])) {
                                                         <p style='color:red;font-weight:700;'>Declined</p>
                                                         <?php } else {?>
                                                         <span style='display:inline-block;'>
-                                                            <form action='<?=S_ROOT?>trading/decline.php' method='post'>
+                                                            <form action='<?=S_ROOT?>core/functions/trading/decline.php' method='post'>
                                                                 <input type='hidden' name='toid' value='$toid' />
                                                                 <input type='hidden' name='oid' value='$oid' />
                                                                 <input type='submit' name='declined' style='color:red;font-size:9px'

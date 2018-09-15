@@ -23,7 +23,11 @@ class Session
                 // Reset session data and regenerate id
                 $_SESSION              = array();
                 $_SESSION['IPaddress'] = $_SERVER['REMOTE_ADDR'];
-                $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+                if (!empty($_SERVER['HTTP_USER_AGENT'])) {
+                    $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+                } else {
+                    $_SESSION['userAgent'] = "unknown";
+                }
                 self::regenerateSession();
 
                 // Give a 5% chance of the session id changing on any request
@@ -46,10 +50,15 @@ class Session
         if ($_SESSION['IPaddress'] != $_SERVER['REMOTE_ADDR']) {
             return false;
         }
-
-        if ($_SESSION['userAgent'] != $_SERVER['HTTP_USER_AGENT']) {
-            return false;
-        }
+        if (!empty($_SERVER['HTTP_USER_AGENT'])) {
+            if ($_SESSION['userAgent'] != $_SERVER['HTTP_USER_AGENT']) {
+                return false;
+            } 
+        } else {
+            if ($_SESSION['userAgent'] != 'unknown') {
+                return false;
+                }
+            }
 
         return true;
     }

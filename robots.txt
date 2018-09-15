@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow: 
+Disallow: /core/functions/
+Disallow: /core/assets/icons/

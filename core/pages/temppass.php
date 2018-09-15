@@ -1,5 +1,5 @@
 <?php
-require_once 'initiate.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$csrf->validateRequest()) {
         $result = 'Validation Error';
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ?>
 <br />
 <center>Thank you, your password was successfully updated</center>
-<meta http-equiv=\"refresh\" content=\"3;URL=" . W_ROOT . " index.php\">
+<meta http-equiv="refresh" content="3;URL=<?=W_ROOT?>index.php">
 <?php
 }
     }
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Passwords and Stuff</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

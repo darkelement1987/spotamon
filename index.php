@@ -10,39 +10,31 @@ require_once 'initiate.php';
 </head>
 
 <body>
-    <?php include_once S_PAGES . 'parts/menu.php'; ?>
+    <?php include_once S_PAGES . 'parts/menu.php';
 
-    <script>
-        function submitInstinct() {
-            document.postInstinct.submit();
-        }
-
-        function submitValor() {
-            document.postValor.submit();
-        }
-
-        function submitMystic() {
-            document.postMystic.submit();
-        }
-
-    </script>
-
-    <?php
     if (!empty($Validate->get->pg)) {
         $pageurl = $Validate->get->pg;
-        if (file_exists(S_PAGES . $pageurl . '.php')) {
+        if (file_exists(S_PAGES . $pageurl . '.php')) { ?>
+            <div id="content" data-page="<?=$pageurl?>">
+            <?php
             include_once S_PAGES . $pageurl . '.php';
-        } else if (function_exists($pageurl)) {
+        } else if (function_exists($pageurl)) { ?>
+            <div id="content" data-page="<?=$pageurl?>">
+            <?php
             $pageurl();
-        } else {
+        } else { ?>
+            <div id="content" data-page="home">
+            <?php
             maps();
         }
-    } else {
+    } else { ?>
+        <div id="content" id="home">
+        <?php
         maps();
-    }
+    } ?>
+    </div>
 
 
-    ?>
 
 
 <?php include_once S_PAGES . 'parts/js.php'; ?>

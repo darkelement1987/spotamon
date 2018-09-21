@@ -15,6 +15,18 @@ if (!isset($subdir)) {
     $subdir = $folder;
 }
 
+function mysql() {
+    Global $servername, $username, $password, $database;
+    // Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error); 
+}
+return $conn;
+}
+
 // Returns the webroot in relativity to any subflders
 function directory()
 {
@@ -64,3 +76,5 @@ use \ParagonIE\AntiCSRF\AntiCSRF;
 $csrf2 = new AntiCSRF;
 use \Spotamon\Validate;
 $Validate = new Validate;
+
+$conn = mysql();

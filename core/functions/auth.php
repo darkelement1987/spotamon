@@ -22,7 +22,7 @@ if ($form == 'discordlogin' || $form == 'discordregister') {
 }
 
 $authenticated = new \Spotamon\Authentication;
-if ($authenticated->result === 'discord-register') {
+if ($authenticated->result === 'discord-register' || $authenticated->result === 'discord-login') {
     $result = $authenticated->result;
     $form = W_PAGES . 'temppass.php';
     $csrftoken = $csrf->insertToken($form, false);
@@ -34,8 +34,8 @@ if ($authenticated->result === 'discord-register') {
     $passcheck->fetch();
     $passcheck->close();
     $pass = password_verify('1', $upass);
-
 ?>
+
 
 
 <!doctype html>
@@ -120,17 +120,21 @@ if ($authenticated->result === 'discord-register') {
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-    <?php if ($upass === $pass) {?>
     <script>
-        $("#regconfirmpass").focus(function() {
-            $('#regconfirmpass').prop('pattern', $('#regpass').val());
-            $('#regconfirmpass').attr('oninvalid', 'this.setCustomValidity("Passwords must Match")');
+        $(document).ready(function() {
+            $("#regconfirmpass").focus(function() {
+                $('#regconfirmpass').prop('pattern', $('#regpass').val());
+                $('#regconfirmpass').attr('oninvalid', 'this.setCustomValidity("Passwords must Match")');
         });
+    });
+        </script>
+    <script>
+       
 
         $.(function() {
             $('#return-btn').hide();
         });
+
         $("#passsset").submit(function(event) {
             event.preventDefault();
             var data = $("#passset").serialize();
@@ -153,7 +157,7 @@ if ($authenticated->result === 'discord-register') {
 </html>
 
 <?php
-} else if ($authenticated->result === true) {
+if ($authenticated->result === true) {
 
     echo 'true';
 

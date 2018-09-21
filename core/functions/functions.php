@@ -52,36 +52,9 @@ mysqli_close($conn);
                 <tr>
                     <td style="width: 5%;">Location</td>
                     <td style="width: 10%;">
-                        <p>Click the button to get your coordinates.</p>
-                        <p id="ScanLocation"></p>
-                        <script>
-                            var x = document.getElementById("ScanLocation");
-                            function getLocation() {
-                                if (navigator.geolocation) {
-                                    navigator.geolocation.getCurrentPosition(showPosition);
-                                } else {
-                                    x.innerHTML = "Geolocation is not supported by this browser.";
-                                }
-                            }
-
-                            function showPosition(position) {
-                                var lat = position.coords.latitude;
-                                var lng = position.coords.longitude;
-                                var latlng = new google.maps.LatLng(lat, lng);
-                                var geocoder = geocoder = new google.maps.Geocoder();
-                                geocoder.geocode({
-                                    'latLng': latlng
-                                }, function (results, status) {
-                                    if (status == google.maps.GeocoderStatus.OK) {
-                                        if (results[1]) {
-                                            document.getElementById("addressinput").value = "" + results[0].formatted_address + "";
-                                        }
-                                    }
-                                });
-                                x.innerHTML = "<input name='latitude' value='" + position.coords.latitude + "' style='width:100%' readonly></input><input                   name='longitude' value='" + position.coords.longitude + "' style='width:100%' readonly></input><input name='addressinput'                   id='addressinput' value='' style='width:100%'></input> ";
-                            }
-                        </script>
+                    <div id="ScanLocation"><p>Click the button to get your coordinates.</p>
                         <button type="button" onclick="getLocation();enablespotbutton()">Get Location</button>
+                    </div>
                     </td>
                 </tr>
                 <!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
@@ -109,17 +82,19 @@ mysqli_close($conn);
 //=============================
 function spottedpokemon()
 {
-    require './config/config.php';
+
+    Global $Validate, $conn, $clock;
+
     $results_per_page = 10;
-    if (isset($_GET["page"])) {
-        $page = $_GET["page"];
+    $page = $Validate->getGet('page', 'int', true, null, 1);
+    if ($page === 1 ){
+        $start_from = $page * $results_per_page;
     } else {
-        $page = 1;
+        $start_from = ($page - 1) * $results_per_page;
     }
-    $start_from = ($page - 1) * $results_per_page;
-    $sql = "SELECT * FROM spots,pokedex WHERE spots.pokemon = pokedex.id ORDER BY spotid DESC LIMIT <?=$start_from?>;";
+    $sql = "SELECT * FROM spots join pokedex ON spots.pokemon = pokedex.id ORDER BY spotid DESC LIMIT " . $start_from . ";";
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    $sqlcnt = "SELECT COUNT(SPOTID) AS total FROM spots";
+    $sqlcnt = "SELECT COUNT(SPOTID) AS total FROM spots;";
     $resultcnt = $conn->query($sqlcnt);
     $row = $resultcnt->fetch_assoc();
     $total_pages = ceil($row["total"] / $results_per_page);
@@ -127,7 +102,7 @@ function spottedpokemon()
 <h3 style="text-align:center;"><strong>Spotted Pokemon:</strong></h3>
 <center>
     <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
-    <table id="spotted" class="table table-bordered">
+        <table id="spotted" class="table table-bordered">
         <?php if (isset($_SESSION["uname"])) {?>
         <tr>
             <th>#</th>
@@ -345,6 +320,21 @@ function maps()
 <div id="map"></div>
 
 <script>
+    function downloadUrl(url, callback) {
+    var request = window.ActiveXObject ?
+        new ActiveXObject('Microsoft.XMLHTTP') :
+        new XMLHttpRequest;
+    request.onreadystatechange = function() {
+        if (request.readyState == 4) {
+        request.onreadystatechange = doNothing;
+        callback(request, request.status);
+        }
+    };
+    request.open('GET', url, true);
+    request.send(null);
+}
+function doNothing() {}
+    
 var customLabel = {
   monster: {
     label: 'pokemon'
@@ -365,7 +355,7 @@ if (isset($_GET['loc'])) {
 if (isset($_GET['zoom'])) {
     echo $_GET['zoom'];
 } else {
-    echo 15;
+    echo 13;
 } ?>,
         maxZoom: 18,
         zoomControl: false
@@ -396,18 +386,32 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             iconUrl: '<?= W_ASSETS ?>icons/' + id + '.png',
             iconSize: [32, 32]
         });
-		var html = '<div class=\"maplabel\"><center><img src=\"<?= W_ASSETS ?>icons/' + id + '.png\" height=\"45\" width=\"45\"></img><p><b>'
-		+ pokemon + ' (#' + id + ')</b><br>CP: ' + cp + '<br>IV: '+ iv + '%<br>Found: ' + hour + ':' + min + ' ' + ampm +
-		'<?php if (isset($_SESSION["uname"])) { ?><br><hr><a href =\"./good.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"<?= W_ASSETS ?>voting/up.png\" height=\"25\" width=\"25\"></img></a>' + good +
-		' x Found<br><a href =\"./bad.php?spotid=' + spotid + '&loc=' + markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\"><img src=\"<?= W_ASSETS ?>voting/down.png\" height=\"25\" width=\"25\"></img></a>' + bad + ' x Not found<?php
-
-                                                                                                                                                                                                                                                            } ?><br><hr><a href=\"http://maps.google.com/maps?q=' +
-		markerElem.getAttribute('latitude') + ',' + markerElem.getAttribute('longitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr>Spotted by: <b>' + spotter + '</b><?php
-
-                                                                                                                                                                                        } ?></center></div>';
-        var marker = new L.marker([parseFloat(markerElem.getAttribute('latitude')), parseFloat(markerElem.getAttribute('longitude'))],{
-          icon: image
-        }).bindPopup(html);
+        var html = `
+        <div class="maplabel">
+            <center>
+                <img src="<?=W_ASSETS?>icons/` + id + `.png" height="45" width="45"></img>
+                <p><b>` + pokemon + ` (#` + id + `)</b>
+                <br>CP: ` + cp + `
+                <br>IV: `+ iv + `%
+                <br>Found: ` + hour + `:` + min + ` ` + ampm + ` 
+        <?php if (isset($_SESSION["uname"])) { ?>
+                <br>
+                <hr>
+                <a href ="./good.php?spotid=` + spotid + `&loc=` + markerElem.getAttribute('latitude') + `,` + markerElem.getAttribute('longitude') + `">
+                    <img src="<?= W_ASSETS ?>voting/up.png" height="25" width="25"></img>
+                </a>` + good + ` x Found
+                <br>
+                <a href ="./bad.php?spotid=` + spotid + `&loc=` + markerElem.getAttribute('latitude') + `,` + markerElem.getAttribute('longitude') + `">
+                    <img src="<?= W_ASSETS ?>voting/down.png" height="25" width="25"></img>
+                </a>` + bad + ` x Not found
+                <?php } ?>
+                <br><hr>
+                <a href="http://maps.google.com/maps?q=` +	markerElem.getAttribute('latitude') + `,` + markerElem.getAttribute('longitude') + `">Google Maps</a>
+                <?php if (isset($_SESSION["uname"])) { ?>
+                <br><hr>
+                Spotted by: <b>` + spotter + `</b>
+                <?php } ?></center></div>`;
+        var marker = new L.marker([parseFloat(markerElem.getAttribute('latitude')), parseFloat(markerElem.getAttribute('longitude'))],{ icon: image }).bindPopup(html);
         marker.on('click', function() {
           marker.openPopup();
         });
@@ -437,50 +441,182 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		var exraiddate = markerElem.getAttribute('exraiddate');
 		if (actraid === "0" && egg === "0"){
 			if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?= W_ASSETS ?>gyms/' + gteam + 'ex.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
-
-                                                                                                                                                                                                                                                                                                        } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25"></a><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
+            var html = `
+                <div class="maplabel">
+                    <center>
+                        <img src="<?= W_ASSETS ?>gyms/` + gteam + `ex.png" height="45px" width="45px"></img>
+                        <p><b>` + gname + `</b><br>Team: ` + tid + `
+                        <?php if (!isset($_SESSION["uname"])) { ?>
+                        <hr>
+                        <b><span class="text-danger">Login to change/add teams or raids.</span></b>
+                        <?php } else { ?>
+                        <br>
+                        <hr><strong>EX Raid On:</strong><br> ` + exraiddate + `
+                        <br><hr><b>Choose team:</b>
+                        <br>
+                        <form action="./gymteam.php" name="postInstinct" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="2">
+                        </form>
+                        <form action="./gymteam.php" name="postValor" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="3">
+                        </form>
+                        <form action="./gymteam.php" name="postMystic" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="4">
+                        </form>
+                        <a href="javascript:void(0);" class="Instinct">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Valor">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Mystic">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                        </a>
+                        <?php } ?>
+                        <br><hr>
+                        <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
+                    </center>
+                </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
-            iconUrl: '<?= W_ASSETS ?>/gyms/' + gteam + 'ex.png',
+            iconUrl: '<?=W_ASSETS?>gyms/' + gteam + 'ex.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?= W_ASSETS ?>/gyms/' + gteam + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Team: ' + tid + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
-
-                                                                                                                                                                                                                                                                                                        } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25"></a><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a></center></div>';
+            var html = `
+                <div class="maplabel">
+                    <center>
+                        <img src="<?=W_ASSETS?>gyms/` + gteam + `.png" height="45px" width="45px"></img>
+                        <p><b>` + gname + `</b><br>Team: ` + tid + `
+                    <?php if (!isset($_SESSION["uname"])) { ?>
+                        <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
+                    <?php } else { ?>
+                        <br>
+                        <hr><b>Choose team:</b><br>
+                        <form action="./gymteam.php" name="postInstinct" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="2">
+                        </form>
+                        <form action="./gymteam.php" name="postValor" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="3">
+                        </form>
+                        <form action="./gymteam.php" name="postMystic" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="4">
+                        </form>
+                        <a href="javascript:void(0);" class="Instinct">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Valor">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Mystic">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                        </a>
+                    <?php } ?>
+                        <br><hr>
+                        <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
+                    </center>
+                </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
-            iconUrl: '<?= W_ASSETS ?>/gyms/' + gteam + '.png',
+            iconUrl: '<?= W_ASSETS ?>gyms/' + gteam + '.png',
             iconSize: [55, 55]
 			});
 			}
 		} else if (actraid !== "0" && egg === "0"){
 			if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?= W_ASSETS ?>icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                                            } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25"></a><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + raidby + '<?php
-
-                                                                                                                                                                                                                                                } ?></center></div>';
+            var html = `
+                <div class="maplabel">
+                    <center>
+                        <img src="<?= W_ASSETS ?>icons/` + actboss + `.png" height="45px" width="45px"></img>
+                        <p><b>` + gname + `</b>
+                        <br>Boss: ` + bossname + `
+                        <br>CP: ` + bosscp + `
+                        <br>Team: ` + tid + `
+                        <br>Expires: ` + hour + `:` + min + ` ` + ampm + `
+                    <?php if (!isset($_SESSION["uname"])) { ?>
+                        <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
+                    <?php } else if (isset($_SESSION["uname"])) { ?>
+                        <br><hr>
+                        <b>Choose team:</b>
+                        <br>
+                        <form action="./gymteam.php" name="postInstinct" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="2">
+                        </form>
+                        <form action="./gymteam.php" name="postValor" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="3">
+                        </form>
+                        <form action="./gymteam.php" name="postMystic" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="4">
+                        </form>
+                        <a href="javascript:void(0);" class="Instinct">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Valor">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Mystic">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                        </a>
+                    <?php } ?>
+                        <br><hr>
+                        <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
+                    <?php if (isset($_SESSION["uname"])) { ?>
+                        <br><hr><b>Spotted by: </b>` + raidby + `
+                    <?php } ?>
+                    </center>
+                </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?= W_ASSETS ?>raids/' + actboss + '.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src="<?= W_ASSETS ?>icons/' + actboss + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Boss: ' + bossname + '<br>CP: ' + bosscp + '<br>Team: ' + tid + '<br>Expires: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                                        } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25"></a><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + raidby + '<?php
-
-                                                                                                                                                                                                                                                } ?></center></div>';
+            var html = `
+                <div class="maplabel">
+                    <center>
+                        <img src="<?= W_ASSETS ?>icons/` + actboss + `.png" height="45px" width="45px"></img>
+                        <p><b>` + gname + `</b>
+                        <br>Boss: ` + bossname + `
+                        <br>CP: ` + bosscp + `
+                        <br>Team: ` + tid + `
+                        <br>Expires: ` + hour + `:` + min + ` ` + ampm + `
+                    <?php if (!isset($_SESSION["uname"])) { ?>
+                        <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
+                    <?php } else if (isset($_SESSION["uname"])) { ?>
+                        <br><hr><strong>EX Raid On:</strong>
+                        <br> ` + exraiddate + `
+                        <br><hr><b>Choose team:</b>
+                        <br>
+                        <form action="./gymteam.php" name="postInstinct" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="2">
+                        </form>
+                        <form action="./gymteam.php" name="postValor" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="3">
+                        </form>
+                        <form action="./gymteam.php" name="postMystic" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="4">
+                        </form>
+                        <a href="javascript:void(0);" class="Instinct">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Valor">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Mystic">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                        </a>
+                    <?php } ?>
+                        <br><hr>
+                        <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
+                    <?php if (isset($_SESSION["uname"])) { ?>
+                        <br><hr><b>Spotted by: </b>` + raidby + `
+                    <?php } ?>
+                    </center>
+                </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?= W_ASSETS ?>raids/' + actboss + '.png',
@@ -489,26 +625,99 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			}
 		} else if (actraid === "0" && egg !== "0"){
 			if (exraid === "0"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?= W_ASSETS ?>eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                    } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25"></a><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + eggby + '<?php
-
-                                                                                                                                                                                                                                                } ?></center></div>';
+            var html = `
+                <div class="maplabel">
+                    <center>
+                        <img src="<?= W_ASSETS ?>eggs/` + egg + `.png" height="45px" width="45px"></img>
+                        <p><b>` + gname + `</b>
+                        <br>Egg level: ` + egg + `
+                        <br>Team: ` + tid + `
+                        <br>Hatches at: ` + hour + `:` + min + ` ` + ampm + `
+                    <?php if (!isset($_SESSION["uname"])) { ?>
+                        <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
+                    <?php } else if (isset($_SESSION["uname"])) { ?>
+                    <br><hr>
+                    <b>Choose team:</b>
+                    <br>
+                    <form action="./gymteam.php" name="postInstinct" method="post">
+                        <input type="hidden" name="gname" value="` + gid + `">
+                        input type="hidden" name="tname" value="2">
+                    </form>
+                    <form action="./gymteam.php" name="postValor" method="post">
+                        <input type="hidden" name="gname" value="` + gid + `">
+                        <input type="hidden" name="tname" value="3">
+                    </form>
+                    <form action="./gymteam.php" name="postMystic" method="post">
+                        <input type="hidden" name="gname" value="` + gid + `">
+                        <input type="hidden" name="tname" value="4">
+                    </form>
+                    <a href="javascript:void(0);" class="Instinct">
+                        <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                    </a> / <a href="javascript:void(0);" class="Valor">
+                        <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                    </a> / <a href="javascript:void(0);" class="Mystic">
+                        <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                    </a>
+                <?php } ?>
+                    <br><hr>
+                    <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
+                <?php if (isset($_SESSION["uname"])) { ?>
+                    <br><hr>
+                    <b>Spotted by: </b>` + eggby + `
+                <?php } ?>
+                </center>
+            </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?= W_ASSETS ?>eggs/' + egg + '.png',
             iconSize: [55, 55]
 			});
 			} else if (exraid === "1"){
-			var html = '<div class=\"maplabel\"><center><img src=\"<?= W_ASSETS ?>eggs/' + egg + '.png\" height=\"45px\" width=\"45px\"></img><p><b>' + gname + '</b><br>Egg level: ' + egg + '<br>Team: ' + tid + '<br>Hatches at: ' + hour + ':' + min + ' ' + ampm + '<?php if (!isset($_SESSION["uname"])) { ?><hr><b><span class="text-danger">Login to change/add teams or raids.</span></b><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                    } ?><?php if (isset($_SESSION["uname"])) { ?><br><hr><strong>EX Raid On:</strong><br> ' + exraiddate + '<br><hr><b>Choose team:</b><br><form action=\"./gymteam.php\" name=\"postInstinct\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"2\"></form><form action=\"./gymteam.php\" name=\"postValor\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"3\"></form><form action=\"./gymteam.php\" name=\"postMystic\" method=\"post\"\"><input type=\"hidden\" name=\"gname\" value=\"' + gid + '\"><input type=\"hidden\" name=\"tname\" value=\"4\"></form><a href=\"javascript:submitInstinct();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25"></a> / <a href="javascript:submitValor();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25"></a> / <a href="javascript:submitMystic();\"><img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25"></a><?php
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('glatitude') + ',' + markerElem.getAttribute('glongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + eggby + '<?php
-
-                                                                                                                                                                                                                                                } ?></center></div>';
+            var html = `
+                <div class="maplabel">
+                    <center>
+                        <img src="<?= W_ASSETS ?>eggs/` + egg + `.png" height="45px" width="45px"></img>
+                        <p><b>` + gname + `</b>
+                        <br>Egg level: ` + egg + `
+                        <br>Team: ` + tid + `
+                        <br>Hatches at: ` + hour + `:` + min + ` ` + ampm + `
+                    <?php if (!isset($_SESSION["uname"])) { ?>
+                        <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
+                    <?php } else if (isset($_SESSION["uname"])) { ?>
+                        <br><hr>
+                        <strong>EX Raid On:</strong>
+                        <br> ` + exraiddate + `
+                        <br><hr>
+                        <b>Choose team:</b>
+                        <br>
+                        <form action="./gymteam.php" name="postInstinct" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="2">
+                        </form>
+                        <form action="./gymteam.php" name="postValor" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="3">
+                        </form>
+                        <form action="./gymteam.php" name="postMystic" method="post">
+                            <input type="hidden" name="gname" value="` + gid + `">
+                            <input type="hidden" name="tname" value="4">
+                        </form>
+                        <a href="javascript:void(0);" class="Instinct">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Valor">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                        </a> / <a href="javascript:void(0);" class="Mystic">
+                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                        </a>
+                    <?php }; ?>
+                        <br><hr>
+                        <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
+                    <?php if (isset($_SESSION["uname"])) { ?>
+                        <br>
+                        <hr><b>Spotted by: </b>` + eggby + `
+                    <?php } ?>
+                    </center>
+                </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?= W_ASSETS ?>eggs/' + egg + '.png',
@@ -537,22 +746,51 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		var type = markerElem.getAttribute('type');
         var questby = markerElem.getAttribute('questby');
 		if (quested === "1"){
-		var html = '<div class=\"maplabel\"><center><img src=\"<?= W_ASSETS ?>stops/queststop.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) { ?><br>(<b><span class="text-success">Quested</span></b>)<br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php
-
-                                                                                                                                                                                                                                                                                                                        } ?><?php if (isset($_SESSION["uname"])) { ?></b><br><hr><b>Quest:</b><br> ' + quest + '<br><hr><b>Reward:</b><br>' + reward + '<?php
-
-                                                                                                                            }; ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a><?php if (isset($_SESSION["uname"])) { ?><br><hr><b>Spotted by: </b>' + questby + '<?php
-
-                                                                                                                                                                                                                                                } ?></center></div>';
+        var html = `
+            <div class="maplabel">
+                <center>
+                    <img src="<?= W_ASSETS ?>stops/queststop.png" height="45" width="45"></img>
+                    <p><b>` + sname + `</b>
+                <?php if (!isset($_SESSION["uname"])) { ?>
+                    <br>
+                    (<b><span class="text-success">Quested</span></b>)
+                    <br><hr>
+                    <b><span class="text-danger">Login to add/view quests.</span></b>
+                <?php } else if (isset($_SESSION["uname"])) { ?> 
+                    <br><hr>
+                    <b>Quest:</b>
+                    <br> ` + quest + `
+                    <br><hr>
+                    <b>Reward:</b>
+                    <br>` + reward + `
+                <?php } ?>
+                    <br><hr>
+                    <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('slatitude') + `,` + markerElem.getAttribute ('slongitude') + `">Google Maps</a>
+                <?php if (isset($_SESSION["uname"])) { ?>
+                    <br><hr>
+                    <b>Spotted by: </b>` + questby + `
+                <?php } ?>
+                </center>
+            </div>`;
         var icon = customLabel[type] || {};
         var image = new L.Icon({
             iconUrl: '<?= W_ASSETS ?>stops/queststop.png',
             iconSize: [30, 30]
 			});
 		} else if (quested === ""){
-		var html = '<div class=\"maplabel\"><center><img src=\"<?= W_ASSETS ?>stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if (!isset($_SESSION["uname"])) { ?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php
-
-                                                                                                                                                                                                                                                                } ?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
+        var html = `
+            <div class="maplabel">
+                <center>
+                    <img src="<?= W_ASSETS ?>stops/stops.png" height="45" width="45"></img>
+                    <p><b>` + sname + `</b>
+                <?php if (!isset($_SESSION["uname"])) { ?>
+                    <br><hr>
+                    <b><span class="text-danger">Login to add/view quests.</span></b>
+                <?php } ?>
+                    <br><hr>
+                    <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('slatitude') + `,` + markerElem.getAttribute('slongitude') + `">Google Maps</a>
+                </center>
+            </div>`;
         var icon = customLabel[type] || {};
         var image = new L.Icon({
             iconUrl: '<?= W_ASSETS ?>stops/stops.png',
@@ -569,23 +807,9 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       });
     });
   }
-function downloadUrl(url, callback) {
-  var request = window.ActiveXObject ?
-      new ActiveXObject('Microsoft.XMLHTTP') :
-      new XMLHttpRequest;
-  request.onreadystatechange = function() {
-    if (request.readyState == 4) {
-      request.onreadystatechange = doNothing;
-      callback(request, request.status);
-    }
-  };
-  request.open('GET', url, true);
-  request.send(null);
-}
-function doNothing() {}
-</script>
 
 </script>
+
     <?php }
 //=============================
 //     SUBMIT RAIDS
@@ -2472,13 +2696,9 @@ if (isset($_SESSION["uname"])) {?>
 //=============================
 function acceptedtrades()
 {
-    require './config/config.php';
+    Global $Validate;
     $results_per_page = 10;
-    if (isset($_GET["page"])) {
-        $page = $_GET["page"];
-    } else {
-        $page = 1;
-    }
+    $page = $validate->getGet('page', int, true, null, 1);
     $start_from = ($page - 1) * $results_per_page;
     $sql = "SELECT * FROM trades WHERE trades.rname = '" . $_SESSION['uname'] . "' ORDER BY tid DESC LIMIT $start_from," . $results_per_page;
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));

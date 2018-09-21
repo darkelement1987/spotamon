@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </span>
                                 </div>
                                 <input type="password" name="password" placeholder="Password" class="form-control login-fields"
-                                    pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
+                                    pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
                                     maxlength="20" id="regpass" minlength="8" required />
                             </div>
                             <div class="input-group">
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </span>
                                 </div>
                                 <input type="password" name="confirmpassword" placeholder="Confirm Password" class="form-control login-fields"
-                                    pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
+                                    pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
                                     id="regconfirmpass" maxlength="20" minlength="8" required />
                             </div>
                             <input class="btn btn-primary mx-auto" type='submit' name='submit' value='Submit' id='submit_pass'

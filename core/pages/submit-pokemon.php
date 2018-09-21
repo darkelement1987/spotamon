@@ -1,12 +1,7 @@
 <?php
-
-;
-
-
 ?>
 
-
-	<script>
+<script>
 		$(document).ready(function() {
 			$("#pokesearch").select2({
 				templateResult: formatState,

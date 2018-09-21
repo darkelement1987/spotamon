@@ -32,7 +32,7 @@ $csrftoken = $csrf->insertToken($form, false);
                                         <input type="text" id="login_username" class="form-control login-fields" name="username"
                                             placeholder="Username/Email" required minlength="5" maxLength="20"
                                             oninvalid="this.setCustomValidity('This does not seem to be a valid username, sorry')"
-                                            maxlength="20" pattern='^[a-zA-Z0-9#]([._](?![._])|[a-zA-Z0-9#]){8,20}[a-zA-Z0-9]$|^[a-zA-Z0-9.!#$%&
+                                            pattern='^[a-zA-Z0-9#]([._](?![._])|[a-zA-Z0-9#]){6,18}[a-zA-Z0-9]$|^[a-zA-Z0-9.!#$%&
                                             *+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$|^admin$' />
                                     </div>
                                     <div class="input-group">
@@ -106,7 +106,7 @@ $csrftoken = $csrf->insertToken($form, false);
                                         </span>
                                     </div>
                                     <input type="text" class="form-control login-fields" name="username" placeholder="Username"
-                                        minlength="8" max-length="20" pattern='^[a-zA-Z0-9#]([._](?![._])|[a-zA-Z0-9#]){8,20}[a-zA-Z0-9]$'
+                                        minlength="8" max-length="20" pattern='^[a-zA-Z0-9#]([._](?![._])|[a-zA-Z0-9#]){6,18}[a-zA-Z0-9]$'
                                         required />
                                 </div>
                                 <div class="input-group">

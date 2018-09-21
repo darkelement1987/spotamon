@@ -1,3 +1,44 @@
+// get locations for spots
+var x = document.getElementById("ScanLocation");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+
+    var url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lng + "&zoom=18&addressdetails=1";
+    $.getJSON(url, function (data) {
+        var street = data.address.house_number + ` ` + data.address.road;
+        if (data.address.city) {
+            city = data.address.city;
+        } else if (data.address.hamlet) {
+            city = data.address.hamlet;
+        } else if (data.address.county) {
+            city = data.address.county;
+        } else {
+            city = "";
+        }
+        if (data.address.country_code == 'us') {
+            x.innerHTML = `
+                <input name='latitude' value='` + position.coords.latitude + `' hidden></input>
+                <input name='longitude' value='` + position.coords.longitude + `' hidden></input>
+                <center><p>` + street + `,<br>` + city + `, ` + data.address.state + `</p></center>`;
+        } else {
+            x.innerHTML = `
+                <input name='latitude' value='` + position.coords.latitude + `' hidden></input>
+                <input name='longitude' value='` + position.coords.longitude + `' hidden></input>
+                <center><p>` + street + `,<br>` + data.address.postcode + `, ` + city + `</p></center>`;
+        }
+    });
+}
+
 $(document).ready(function () {
     $('.register-row').hide();
     $('#pokeball-loader').hide();
@@ -27,11 +68,11 @@ $('#loginswitch').on('click', function () {
 $('#auth-modal').on('show.bs.modal', function () {
     $('#menu-container ~ div').addClass('blur');
     $('body').removeClass('wsactive');
-})
+});
 
 $('#auth-modal').on('hide.bs.modal', function () {
     $('#auth-modal-container ~ div').removeClass('blur');
-})
+});
 
 $('#loginform').submit(function (event) {
     event.preventDefault();
@@ -84,7 +125,6 @@ $('#registerform').submit(function (event) {
             $('#register-error').html(data);
         }
     });
-
 });
 
 $('.discord-link').click(function (event) {
@@ -96,7 +136,6 @@ $('.discord-link').click(function (event) {
     var options = {
         path: path
     }
-
     $.oauth2popup(options);
 });
 
@@ -114,20 +153,6 @@ $('#registerform').submit(function (event) {
     });
 });
 
-$(window).on('hashchange', function () {
-    var ref = location.hash;
-    var $el = $('a[href="' + ref + '"]');
-    var $menu = $el.parent().parent().siblings('a');
-
-
-    $('a').removeClass('active');
-    $el.addClass('active');
-    $menu.addClass('active');
-});
-
-// FUNCTIONS //
-
-;
 (function ($) {
     //  inspired by DISQUS
     $.oauth2popup = function (options) {
@@ -139,7 +164,12 @@ $(window).on('hashchange', function () {
                 ,
             windowOptions: 'location=0,menubar=no,titlebar=no,toolbar=no,channelmode=yes,directories=no,status=0,width=500,height=600',
             callback: function () {
-                window.location.reload();
+                var page = $('#content').attr('data-page');
+                if (page == 'home') {
+                    $('#menu-container').load('core/pages/parts/nav.php').fadeIn('slow');
+                } else {
+                    window.location.reload();
+                }
             }
         }, options);
 
@@ -158,3 +188,18 @@ $(window).on('hashchange', function () {
         $this.click($.oauth2popup.bind(this, options));
     };
 })(jQuery);
+
+
+$('a.Instinct').click(function (e) {
+    e.preventDefault();
+    $("form[name='postInstinct']").submits();
+});
+$('a.Valor').click(function (e) {
+    e.preventDefault();
+    $("form[name='postValor']").submit();
+});
+
+$('a.Mystic').click(function (e) {
+    e.preventDefault();
+    $("form[name='postMystic']").submit();
+});

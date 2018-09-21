@@ -16,7 +16,7 @@ ALTER TABLE `spots` ADD `iv` INT(3) NOT NULL AFTER `cp`;
 
 ALTER  TABLE `users` ADD `url` TEXT NOT NULL AFTER `trn_date`, ADD `lastUpload` VARCHAR(200) NOT NULL AFTER `url`;
 
-ALTER  TABLE `gyms` ADD `exraid` INT(1) NOT NULL AFTER `raidby`, ADD `exraiddate` DATETIME NULL AFTER `exraid`;
+ALTER  TABLE `gyms` ADD `exraid` INT(1) NOT NULL DEFAULT 0 AFTER `raidby`, ADD `exraiddate` DATETIME NULL AFTER `exraid`;
 
 CREATE TABLE users2 LIKE users;
 ALTER TABLE users2 ADD UNIQUE(uname);

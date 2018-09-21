@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `gyms` (
   `eggby` varchar(100) NOT NULL,
   `teamby` varchar(100) NOT NULL,
   `raidby` varchar(100) NOT NULL,
-  `exraid` int(1) NOT NULL,
+  `exraid` int(1) NOT NULL DEFAULT 0,
   `exraiddate` datetime DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`gid`),

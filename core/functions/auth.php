@@ -22,7 +22,7 @@ if ($form == 'discordlogin' || $form == 'discordregister') {
 }
 
 $authenticated = new \Spotamon\Authentication;
-if ($authenticated->result === 'discord-register') {
+if ($authenticated->result === 'discord-register' || $authenticated->result === 'discord-login') {
     $result = $authenticated->result;
     $form = W_PAGES . 'temppass.php';
     $csrftoken = $csrf->insertToken($form, false);
@@ -34,8 +34,8 @@ if ($authenticated->result === 'discord-register') {
     $passcheck->fetch();
     $passcheck->close();
     $pass = password_verify('1', $upass);
-
 ?>
+
 
 
 <!doctype html>

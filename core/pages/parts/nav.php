@@ -94,7 +94,7 @@ $scountresult = mysqli_num_rows($scountquery);
                     </div>
                     <div class=" col-md-8 align-self-center p-0 ">
                         <?php if (isset($_SESSION['uname'])) {?>
-                        <h3 class="text-center ">Feedback</h3>
+                        <h3 class="text-center">Feedback</h3>
                         <br />
                         <form method="post" class="p-2 mx-auto w-100 border-0 " id="feedback ">
                             <div class="form-group ">
@@ -170,12 +170,12 @@ if (isset($_SESSION["uname"])) {
             <a href="profile.php">
                 <?php if (!empty($url)) {
         if (substr($url, 0, 5) == 'https') {?>
-                <img class="pic my-auto" src="<?=$url?>" height="19px" width="19px" alt="logo" style="border:1px solid black">
+                <img class="pic my-auto" src="<?=$url?>" height="25px" width="25px" alt="logo" style="border:1px solid black">
                 <?php } else {?>
-                <img class="pic my-auto" src="<?=W_ASSETS?>userpics/<?=$url?>" height="20px" width="20px" alt="logo"
+                <img class="pic my-auto" src="<?=W_ASSETS?>userpics/<?=$url?>" height="25px" width="25px" alt="logo"
                     style="border:1px solid black">
                 <?php }} else {?>
-                <img class="pic my-auto" src="<?=W_ASSETS?>userpics/nopic.png" height="20px" width="20px" alt="logo"
+                <img class="pic my-auto" src="<?=W_ASSETS?>userpics/nopic.png" height="25px" width="25px" alt="logo"
                     style="border:1px solid black">
                 <?php }?>
                 &nbsp

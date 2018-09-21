@@ -7,6 +7,8 @@ $xmlStr=str_replace('>','&gt;',$xmlStr);
 $xmlStr=str_replace('"','&quot;',$xmlStr);
 $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
+$xmlStr=str_replace("é",'&eacute',$xmlStr);
+
 return $xmlStr;
 }
 $query = "SELECT * FROM stops,quests,rewards WHERE stops.actquest = quests.qid AND stops.actreward = rewards.reid";

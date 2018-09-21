@@ -7,6 +7,8 @@ $xmlStr=str_replace('>','&gt;',$xmlStr);
 $xmlStr=str_replace('"','&quot;',$xmlStr);
 $xmlStr=str_replace("'",'&#39;',$xmlStr);
 $xmlStr=str_replace("&",'&amp;',$xmlStr);
+$xmlStr=str_replace("é",'&eacute',$xmlStr);
+
 return $xmlStr;
 }
 $query = "SELECT * FROM spots,pokedex WHERE 1 AND spots.pokemon = pokedex.id";

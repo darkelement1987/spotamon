@@ -14,7 +14,7 @@ $clientId = "#clientid#";
 $clientSecret = "#clientsecret#";
 
 // If you wish for specific interactions with your server, make the application
-// a bot user
+// a bot user (for future use)
 
 $botToken = '#bottoken#';
 

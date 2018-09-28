@@ -34,10 +34,9 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
     $passcheck->fetch();
     $passcheck->close();
     $pass = password_verify('1', $upass);
+
+
 ?>
-
-
-
 <!doctype html>
 <html lang="en">
 
@@ -50,7 +49,7 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="<?=W_CSS?>style.css">
+    <link rel="stylesheet" type="text/css" href="<?=versionFile(W_CSS . 'style.css')?>">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
     </script>
@@ -127,9 +126,6 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
                 $('#regconfirmpass').attr('oninvalid', 'this.setCustomValidity("Passwords must Match")');
         });
     });
-        </script>
-    <script>
-       
 
         $.(function() {
             $('#return-btn').hide();
@@ -149,14 +145,13 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
                 }
             });
         });
-        <?php }?>
-
-    </script>
+        </script>
 </body>
 
 </html>
-
 <?php
+
+    }
 if ($authenticated->result === true) {
 
     echo 'true';

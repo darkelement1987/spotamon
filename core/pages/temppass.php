@@ -1,5 +1,5 @@
 <?php
-
+require_once "initiate.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$csrf->validateRequest()) {
         $result = 'Validation Error';
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="<?=W_CSS?>style.css">
+    <link rel="stylesheet" href="<?=versionFile(W_CSS . 'style.css')?>">
 </head>
 
 <body>
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tr>
                 <form action="#" method="post">
 
-                    <td>
+                    <td class="discord-light opc50">
                         <center>
                             <span id='temppass-error' style='font-size:10px;float:left;'></span>
                             <br>
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
                                     id="regconfirmpass" maxlength="20" minlength="8" required />
                             </div>
-                            <input class="btn btn-primary mx-auto" type='submit' name='submit' value='Submit' id='submit_pass'
+                            <input class="btn btn-dark my-2 mx-auto" type='submit' name='submit' value='Submit' id='submit_pass'
                                 style='float:left;'>
                     </td>
                 </form>
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
             crossorigin="anonymous">
         </script>
-        <script src="<?=W_JS?>spotamon.js">
+        <script src="<?=versionFile(W_JS . 'spotamon.js')?>">
         </script>
 </body>
 

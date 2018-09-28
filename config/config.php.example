@@ -48,13 +48,13 @@ $polemail = ""; // <-- Email
 
 $delmon = "2"; // <-- Delete Pokemon after this many 'bad'-votes
 
-// Set maps default location example: 
+// Set maps default location example:
 // Example:
 // $mapcenter = "51.9720526, 6.7202572";
 
 $mapcenter = "#lat,lon#";
 
-//24HR-Clock (default = false = 12HR) 
+//24HR-Clock (default = false = 12HR)
 $clock = "";
 
 //Webhook Setup
@@ -63,7 +63,7 @@ $raid_webhook_url = ""; // <-- Webhook URL of your Raid Discord channel
 $egg_webhook_url = ""; // <-- Webhook URL of your Egg Discord channel
 $quest_webhook_url = ""; // <-- Webhook URL of your Quest Discord channel
 $exraid_webhook_url = ""; // <-- Webhook URL of your Ex-Raid Discord channel
-$gym_webhook_url = ""; // <-- Webhook URL of your Gym Discord channel	
+$gym_webhook_url = ""; // <-- Webhook URL of your Gym Discord channel
 $viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
 
 // MOTD POPUP
@@ -91,11 +91,4 @@ $resetsubject = ""; // Subject of the reset mail
 $resetsendername = ""; // Name of the sender of the reset mail
 $resetsendermail = ""; // Mail-address of the sender of the reset mail
 
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$enableDebug = false;  //enables php error logging

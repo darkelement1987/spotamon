@@ -36,7 +36,7 @@ Header set X-UA-Compatible IE=edge env=is-msie
 
 
 #      Prevent Iframe if not local       #
-Header set X-Frame-Options SAMEORIGIN  
+Header set X-Frame-Options SAMEORIGIN
 
 
 ##########################################
@@ -90,53 +90,33 @@ Header set X-Frame-Options SAMEORIGIN
 
 <IfModule mod_expires.c>
     ExpiresActive on
-    ExpiresDefault                                      "access plus 0 month"
 
-  # CSS
-    ExpiresByType text/css                              "access plus 0 year"
+    Default
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
 
-  # Data interchange
-    ExpiresByType application/json                      "access plus 0 seconds"
-    ExpiresByType application/xml                       "access plus 0 seconds"
-    ExpiresByType text/xml                              "access plus 0 seconds"
+    # Video
+    ExpiresByType video/mp4 "access plus 1 year"
+    ExpiresByType video/mpeg "access plus 1 year"
 
-  # Favicon (cannot be renamed!)
-    ExpiresByType image/x-icon                          "access plus 1 week"
+    # CSS, JavaScript
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 month"
 
-  # HTML components (HTCs)
-    ExpiresByType text/x-component                      "access plus 0 month"
+    # Others
+    ExpiresByType application/pdf "access plus 1 year"
 
-  # HTML
-    ExpiresByType text/html                             "access plus 0 seconds"
-
-  # JavaScript
-    ExpiresByType application/javascript                "access plus 0 year"
-
-  # Manifest files
-    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
-    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
-
-  # Media
-    ExpiresByType audio/ogg                             "access plus 1 month"
-    ExpiresByType image/gif                             "access plus 1 month"
-    ExpiresByType image/jpeg                            "access plus 1 month"
-    ExpiresByType image/png                             "access plus 1 month"
-    ExpiresByType video/mp4                             "access plus 1 month"
-    ExpiresByType video/ogg                             "access plus 1 month"
-    ExpiresByType video/webm                            "access plus 1 month"
-
-  # Web feeds
-    ExpiresByType application/atom+xml                  "access plus 1 hour"
-    ExpiresByType application/rss+xml                   "access plus 1 hour"
-
-  # Web fonts
-    ExpiresByType application/font-woff2                "access plus 1 month"
-    ExpiresByType application/font-woff                 "access plus 1 month"
-    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
-    ExpiresByType application/x-font-ttf                "access plus 1 month"
-    ExpiresByType font/opentype                         "access plus 1 month"
-    ExpiresByType image/svg+xml                         "access plus 1 month"
 </IfModule>
+
+
+# Rules for Versioned Static Files
+RewriteRule ^core/(css|js)/(.+)\.(\d{10})\.(css|js)$ core/$1/$2.$4 [NC,L]
 
 
 ### Disables browsers ability to cache files ###
@@ -176,7 +156,7 @@ RewriteRule "(^|/)\." - [F]
 ###    Uncomment for Https only    ###
 #   RewriteCond %{HTTPS} !on
 #   RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
-#   
+#
 #   # Note: It’s also recommended to enable HTTP Strict Transport Security (HSTS)
 #   # on your HTTPS website to help prevent man-in-the-middle attacks.
 #   # See https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
@@ -198,7 +178,7 @@ RewriteRule (.*)$ $1.html [L]
 RewriteCond %{REQUEST_FILE}\.php -f
 RewriteRule (.*)$ $1.php [L]
 
- 
+
 
 
 

@@ -1,16 +1,9 @@
 <?php
 
-;
 
 
 ?>
 
-<head>
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 	<script>
 		$(document).ready(function() {
 			$("#questsearch").select2({
@@ -81,9 +74,116 @@
 </head>
 
 <?php
-
-
-questsubmission();
+$result = $conn->query("SELECT * FROM quests");
+$qid = $qname = $spotter = "";
+if (isset($_SESSION["uname"])) {
+	?>
+	<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+	<h3 style="text-align:center;"><strong>Submit a Quest:</strong></h3>
+	<form id="usersubmit" method="post" action="./spotquest.php">
+		<center>
+			<table id="added" class="table table-bordered">
+				<tbody>
+					<!--///////////////////// GENERATE QUEST & REWARD LIST \\\\\\\\\\\\\\\\\\\\\-->
+					<tr>
+						<td style="width: 5%;">Quests</td>
+						<td style="width: 10%;">
+							<select id='questsearch' name='quest'>
+				<?php
+while ($row = $result->fetch_assoc()) {
+		unset($qid, $qname);
+		$qid = $row['qid'];
+		$qname = $row['qname'];
+		$array[$row['type']][] = $row;
+	}
+	// loop the array to create optgroup
+	foreach ($array as $key => $value) {
+		// check if its an array
+		if (is_array($value)) {
+			// create optgroup for each groupname ?>
+								<optgroup label="<?=$key?>">
+				<?php
+foreach ($value as $k => $v) {?>
+									<option label="<?=$v['type']?>" value="<?=$v['qid']?>">
+										<?=$v['qname']?>
+									</option>
+									<?php }?>
+								</optgroup>
+								<?php }
+	}
+	?>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 5%;">Rewards</td>
+						<td style="width: 10%;">
+							<?php
+require './config/config.php';
+	$result2 = $conn->query("SELECT * FROM rewards");
+	$reid = $rname = "";?>
+							<select id='rewardsearch' name='reward'>
+								<?php
+while ($row2 = $result2->fetch_assoc()) {
+		unset($reid, $rname);
+		$reid = $row2['reid'];
+		$rname = $row2['rname'];
+		$array2[$row2['type']][] = $row2;
+	}
+	// loop the array to create optgroup
+	foreach ($array2 as $key => $value) {
+		// check if its an array
+		if (is_array($value)) {
+			// create optgroup for each groupname
+			echo "<optgroup label='" . $key . "'>";
+			foreach ($value as $k => $v) {
+				echo "<option label='" . $v['type'] . "' value='" . $v['reid'] . "'>'" . $v['rname'] . "'</option>";
+			}?>
+								</optgroup>
+								<?php }
+	}?>
+							</select>
+						</td>
+					</tr>
+					<!--///////////////////// ADDRESS \\\\\\\\\\\\\\\\\\\\\-->
+					<tr>
+						<td style="width: 5%;">At Pokestop</td>
+						<td style="width: 10%;">
+							<?php
+$result = $conn->query("SELECT * FROM stops");
+	$sid = $sname = $sname = "";?>
+							<select id='pokestopsearch' name='sname'>
+								<?php
+while ($row = $result->fetch_assoc()) {
+		unset($sid, $sname);
+		$sid = $row['sid'];
+		$sname = $row['sname'];
+		echo '<option value="' . $sid . '">' . $sname . '</option>';
+	}?>
+							</select>
+						</td>
+					</tr>
+					<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+					<center>
+						<td style="width:10%;">
+							<input type="submit" value="SPOT!" />
+						</td>
+					</center>
+				</tbody>
+			</table>
+		</center>
+	</form>
+	<?php } else {?>
+	<center>
+		<div style='margin-top:10px;'>
+			Login to spot a Quest
+			<br />
+			<br />
+			<a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+				<i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+		</div>
+	</center>
+	<?php }
 ?>
 
 </body>

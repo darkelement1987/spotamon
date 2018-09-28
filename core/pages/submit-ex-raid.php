@@ -4,14 +4,6 @@
 
 ?>
 
-<head>
-	<link rel="stylesheet" type="text/css" href="<?=W_CSS ?>style.css">
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			$("#raidsearch").select2({
@@ -62,14 +54,63 @@
 		}
 
 	</script>
-</head>
 
 <?php
-
-
-exraidsubmission();
+if (isset($_SESSION["uname"])) {
+	?>
+			<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+			<h3 style="text-align:center;"><strong>Add EX Raid:</strong></h3>
+			<form id="usersubmit" method="post" action="./spotexraid.php">
+				<center>
+					<table id="added" class="table table-bordered">
+						<tbody>
+							<tr>
+								<td style="width: 5%;">At Gym</td>
+								<td style="width: 10%;">
+									<?php
+require './config/config.php';
+	$result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
+	$gid = $gname = $gteam = "";?>
+									<select id='gymsearch' name='gname'>
+										<?php
+while ($row = $result->fetch_assoc()) {
+		unset($gid, $gname);
+		$gid = $row['gid'];
+		$tid = $row['tname'];
+		$gname = $row['gname'];
+		$gteam = $row['gteam'];
+		echo '<option value="' . $gid . '" label="' . $gteam . '">' . $gname . '</option>';
+	}?>
+									</select>
+								</td>
+							</tr>
+							<!--///////////////////// DATE & TIME \\\\\\\\\\\\\\\\\\\\\-->
+							<tr>
+								<td style="width: 5%;">Date & Time:</td>
+								<td style="width: 10%;">
+									<input type="datetime-local" name="exraiddate">
+								</td>
+							</tr>
+							<!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+							<center>
+								<td style="width:10%;"><input type="submit" value="SPOT!" /></td>
+							</center>
+						</tbody>
+					</table>
+				</center>
+			</form>
+			<?php } else {?>
+			<center>
+				<div style='margin-top:5%;'>
+					Login to spot a Raid
+					<br />
+					<br />
+					<a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+						<i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+				</div>
+			</center>
+			<?php }
 ?>
-
 </body>
 
 <footer></footer>

@@ -1,9 +1,19 @@
 <?php
 require_once 'config/config.php';
 require_once 'vendor/autoload.php';
+
+use \Spotamon\Db;
+$conn = New Spotamon\Db;
+
 require_once 'core/functions/protected/version.php';
 require_once 'core/functions/functions.php';
 
+if ($enableDebug === true) {
+    ini_set("log_errors", -1);
+ini_set("error_log", "./debug.log");
+} else if ($enableDebug === false && file_exists('./error.log') ){
+    delete('./error.log');
+ }
 // returns the url of the current page (does not account for rewrites or includes)
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $domainName = $_SERVER['HTTP_HOST'];
@@ -13,18 +23,6 @@ $trim = $domain . $folder;
 $viewurl = rtrim($trim, '\/');
 if (!isset($subdir)) {
     $subdir = $folder;
-}
-
-function mysql() {
-    Global $servername, $username, $password, $database;
-    // Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error); 
-}
-return $conn;
 }
 
 // Returns the webroot in relativity to any subflders
@@ -63,18 +61,17 @@ define("W_CSS", $css);
 define("W_JS", $js);
 define("W_FUNCTIONS", $wfunctions);
 //  Create, check and restrict _SESSION
-?>
-<?php
 
 if (session_status() == PHP_SESSION_NONE) {
 
-    Spotamon\Session::sessionStart('Spotamon', 0, W_ROOT, $domainName);
+    Spotamon\Session::sessionStart('Spotamon', 0, W_DOMAIN, $domainName);
 }
-use \ParagonIE\AntiCSRF\Reusable;
-$csrf = new Reusable;
 use \ParagonIE\AntiCSRF\AntiCSRF;
 $csrf2 = new AntiCSRF;
+use \ParagonIE\AntiCSRF\Reusable;
+$csrf = new Reusable;
+
 use \Spotamon\Validate;
 $Validate = new Validate;
 
-$conn = mysql();
+

@@ -1,0 +1,154 @@
+[27-Sep-2018 01:32:32 America/New_York] PHP Fatal error:  Uncaught Error: Class 'Reusable' not found in C:\wamp64\www\me\spotamon\initiate.php:79
+Stack trace:
+#0 C:\wamp64\www\me\spotamon\index.php(2): require_once()
+#1 {main}
+  thrown in C:\wamp64\www\me\spotamon\initiate.php on line 79
+[27-Sep-2018 01:34:43 America/New_York] PHP Fatal error:  Uncaught Error: Class 'Reusable' not found in C:\wamp64\www\me\spotamon\initiate.php:79
+Stack trace:
+#0 C:\wamp64\www\me\spotamon\index.php(2): require_once()
+#1 {main}
+  thrown in C:\wamp64\www\me\spotamon\initiate.php on line 79
+[27-Sep-2018 01:35:50 America/New_York] PHP Fatal error:  Uncaught Error: Class 'Reusable' not found in C:\wamp64\www\me\spotamon\initiate.php:79
+Stack trace:
+#0 C:\wamp64\www\me\spotamon\index.php(2): require_once()
+#1 {main}
+  thrown in C:\wamp64\www\me\spotamon\initiate.php on line 79
+[27-Sep-2018 01:35:57 America/New_York] PHP Fatal error:  Uncaught Error: Class 'Reusable' not found in C:\wamp64\www\me\spotamon\initiate.php:79
+Stack trace:
+#0 C:\wamp64\www\me\spotamon\index.php(2): require_once()
+#1 {main}
+  thrown in C:\wamp64\www\me\spotamon\initiate.php on line 79
+[27-Sep-2018 01:41:56 America/New_York] PHP Fatal error:  Uncaught Error: Class 'Reusable' not found in C:\wamp64\www\me\spotamon\initiate.php:79
+Stack trace:
+#0 C:\wamp64\www\me\spotamon\index.php(2): require_once()
+#1 {main}
+  thrown in C:\wamp64\www\me\spotamon\initiate.php on line 79
+[27-Sep-2018 01:48:58 America/New_York] PHP Fatal error:  Uncaught Error: Class 'Reusable' not found in C:\wamp64\www\me\spotamon\initiate.php:79
+Stack trace:
+#0 C:\wamp64\www\me\spotamon\index.php(2): require_once()
+#1 {main}
+  thrown in C:\wamp64\www\me\spotamon\initiate.php on line 79
+[27-Sep-2018 03:13:29 America/New_York] PHP Fatal error:  Cannot redeclare actoffer() (previously declared in C:\wamp64\www\me\spotamon\core\functions\functions.php:2968) in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 2968
+[27-Sep-2018 03:13:29 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:13:29 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:14:46 America/New_York] PHP Fatal error:  Cannot redeclare actoffer() (previously declared in C:\wamp64\www\me\spotamon\core\functions\functions.php:2968) in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 2968
+[27-Sep-2018 03:14:46 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:14:46 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:16:34 America/New_York] PHP Fatal error:  Cannot redeclare actoffer() (previously declared in C:\wamp64\www\me\spotamon\core\functions\functions.php:2968) in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 2968
+[27-Sep-2018 03:16:34 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:16:34 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:17:38 America/New_York] PHP Fatal error:  Cannot redeclare actoffer() (previously declared in C:\wamp64\www\me\spotamon\core\functions\functions.php:2968) in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 2968
+[27-Sep-2018 03:17:38 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:17:38 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:18:05 America/New_York] PHP Notice:  Use of undefined constant SYS_PATH - assumed 'SYS_PATH' in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:18:05 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:18:05 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:18:05 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:3
+[27-Sep-2018 03:18:27 America/New_York] PHP Warning:  filemtime(): stat failed for SYS_PATH/./core/css/style.css in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:18:27 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:18:27 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:18:27 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:3
+[27-Sep-2018 03:18:27 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:18:27 America/New_York] PHP Notice:  Use of undefined constant SYS_PATH - assumed 'SYS_PATH' in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:18:27 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:18:27 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:18:27 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:4
+[27-Sep-2018 03:18:28 America/New_York] PHP Warning:  filemtime(): stat failed for SYS_PATH//core/js/spotamon.js in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:18:28 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:18:28 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:18:28 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:4
+[27-Sep-2018 03:18:28 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:18:36 America/New_York] PHP Warning:  filemtime(): stat failed for //./core/css/style.css in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:18:36 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:18:36 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:18:36 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:3
+[27-Sep-2018 03:18:36 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:18:58 America/New_York] PHP Warning:  filemtime(): stat failed for /core/js/spotamon.js in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:18:58 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:18:58 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:18:58 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:4
+[27-Sep-2018 03:18:58 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:19:40 America/New_York] PHP Warning:  filemtime(): stat failed for /core/js/spotamon.js in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:19:40 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:19:40 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:19:40 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:4
+[27-Sep-2018 03:19:40 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:20:26 America/New_York] PHP Warning:  filemtime(): stat failed for ./core/stuFF.img in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:20:26 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:20:26 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:20:26 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:5
+[27-Sep-2018 03:20:26 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:20:41 America/New_York] PHP Warning:  filemtime(): stat failed for /core/assets/img/spotamon.png in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:20:41 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:20:41 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:20:41 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:7
+[27-Sep-2018 03:20:41 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:22:42 America/New_York] PHP Warning:  filemtime(): stat failed for /core/js/spotamon.js in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:22:42 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:22:42 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:22:42 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:4
+[27-Sep-2018 03:22:42 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:23:11 America/New_York] PHP Warning:  filemtime(): stat failed for /core/js/spotamon.js in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:23:11 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:23:11 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:23:11 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:4
+[27-Sep-2018 03:23:11 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:24:26 America/New_York] PHP Warning:  filemtime(): stat failed for core/stuff.img in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:24:26 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:24:26 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:24:26 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:5
+[27-Sep-2018 03:24:26 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 03:24:28 America/New_York] PHP Warning:  filemtime(): stat failed for /core/assets/img/spotamon.png in C:\wamp64\www\me\spotamon\core\functions\functions.php on line 11
+[27-Sep-2018 03:24:28 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:24:28 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\test.php:0
+[27-Sep-2018 03:24:28 America/New_York] PHP   2. versionFile($url = *uninitialized*) C:\wamp64\www\me\spotamon\test.php:7
+[27-Sep-2018 03:24:28 America/New_York] PHP   3. filemtime(*uninitialized*) C:\wamp64\www\me\spotamon\core\functions\functions.php:11
+[27-Sep-2018 06:00:57 America/New_York] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\wamp64\www\me\spotamon\core\pages\parts\meta.php:84) in C:\wamp64\www\me\spotamon\core\pages\offertrade.php on line 59
+[27-Sep-2018 06:00:57 America/New_York] PHP Stack trace:
+[27-Sep-2018 06:00:57 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[27-Sep-2018 06:00:57 America/New_York] PHP   2. include_once() C:\wamp64\www\me\spotamon\index.php:23
+[27-Sep-2018 06:00:57 America/New_York] PHP   3. header() C:\wamp64\www\me\spotamon\core\pages\offertrade.php:59
+[27-Sep-2018 06:13:44 America/New_York] PHP Notice:  Undefined index: bad in C:\wamp64\www\me\spotamon\core\pages\bad.php on line 20
+[27-Sep-2018 06:13:44 America/New_York] PHP Stack trace:
+[27-Sep-2018 06:13:44 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[27-Sep-2018 06:13:44 America/New_York] PHP   2. include_once() C:\wamp64\www\me\spotamon\index.php:23
+[28-Sep-2018 00:06:50 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:06:50 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:06:50 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:06:50 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:06:55 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:06:55 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:06:55 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:06:55 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:08:27 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:08:27 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:08:27 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:08:27 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:10:38 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:10:39 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:10:39 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:10:39 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:11:42 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:11:42 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:11:42 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:11:42 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:13:37 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:13:37 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:13:37 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:13:37 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:15:23 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:15:23 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:15:23 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:15:23 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:18:34 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:18:34 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:18:34 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:18:34 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:19:24 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:19:24 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:19:24 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:19:24 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2
+[28-Sep-2018 00:20:48 America/New_York] PHP Notice:  Undefined index: HTTP_HOST in C:\wamp64\www\me\spotamon\initiate.php on line 15
+[28-Sep-2018 00:20:48 America/New_York] PHP Stack trace:
+[28-Sep-2018 00:20:48 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\index.php:0
+[28-Sep-2018 00:20:48 America/New_York] PHP   2. require_once() C:\wamp64\www\me\spotamon\index.php:2

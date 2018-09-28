@@ -2,8 +2,12 @@
 require_once 'config/config.php';
 require_once 'vendor/autoload.php';
 
-use \Spotamon\Db;
-$conn = New Spotamon\Db;
+$conn = new mysqli($servername, $username, $password, $database);
+// Check connection
+if ($conn->connect_error) {
+    echo "Connection failed: $conn->connection_error";
+}
+
 
 require_once 'core/functions/protected/version.php';
 require_once 'core/functions/functions.php';
@@ -25,16 +29,7 @@ if (!isset($subdir)) {
     $subdir = $folder;
 }
 
-// Returns the webroot in relativity to any subflders
-function directory()
-{
-    return substr(str_replace('\\', '/', realpath(dirname(__FILE__))), strlen(str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']))) + 1);
-}
-if (directory() != '') {
-    $wroot = '/' . directory() . '/';
-} else {
-    $wroot = '/';
-}
+
 
 // Defines constants for includes and references
 $root = __DIR__ . '/';

@@ -1,0 +1,12 @@
+[27-Sep-2018 03:05:23 America/New_York] PHP Warning:  include_once(C:\wamp64\www\me\spotamon/core/protected/create_db.php): failed to open stream: No such file or directory in C:\wamp64\www\me\spotamon\core\functions\protected\update.php on line 4
+[27-Sep-2018 03:05:23 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:05:23 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\core\functions\protected\update.php:0
+[27-Sep-2018 03:05:23 America/New_York] PHP Warning:  include_once(): Failed opening 'C:\wamp64\www\me\spotamon/core/protected/create_db.php' for inclusion (include_path='.;C:\php\pear') in C:\wamp64\www\me\spotamon\core\functions\protected\update.php on line 4
+[27-Sep-2018 03:05:23 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:05:23 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\core\functions\protected\update.php:0
+[27-Sep-2018 03:07:41 America/New_York] PHP Warning:  include_once(C:\wamp64\www\me\spotamon/core/protected/create_db.php): failed to open stream: No such file or directory in C:\wamp64\www\me\spotamon\core\functions\protected\update.php on line 4
+[27-Sep-2018 03:07:41 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:07:41 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\core\functions\protected\update.php:0
+[27-Sep-2018 03:07:41 America/New_York] PHP Warning:  include_once(): Failed opening 'C:\wamp64\www\me\spotamon/core/protected/create_db.php' for inclusion (include_path='.;C:\php\pear') in C:\wamp64\www\me\spotamon\core\functions\protected\update.php on line 4
+[27-Sep-2018 03:07:41 America/New_York] PHP Stack trace:
+[27-Sep-2018 03:07:41 America/New_York] PHP   1. {main}() C:\wamp64\www\me\spotamon\core\functions\protected\update.php:0

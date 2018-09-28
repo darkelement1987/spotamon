@@ -2,8 +2,7 @@
     "name": "Spotamon",
     "short_name": "Spotamon",
     "description": "Spot a Pok&eacute;mon, Raid, Quest or more, Welcome to Spotamon! Now with trading!!!!",
-    "icons": [
-        {
+    "icons": [{
             "src": "/core/assets/favicon/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"

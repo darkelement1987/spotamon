@@ -10,20 +10,17 @@ $Meta = new \Spotamon\Meta(W_DOMAIN);
 <title><?=$Meta->title?></title>
 <meta name="description" content="<?=$Meta->description?>">
 
-<?php if (!empty($analytics)) { ?>
+<?php if (!empty($analytics)) {?>
     <!--globalsite tag (gtag . js) - Google Analytics -->
-    <script async src = "https://www.googletagmanager.com/gtag/js?id=<?=$analytics?>"> </script>
-    <script>
-        window . dataLayer = window . dataLayer || [] ;
+<script async src="https://www.googletagmanager.com/gtag/js?id=<?=$analytics?>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-        function gtag()
-        {
-            dataLayer . push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', '<?=$analytics?>');
-    </script>
-        <?php } ?>
+  gtag('config', '<?=$analytics?>');
+</script>
+        <?php }?>
 
 
 <!-- Link include favicons, app icons, and mobile chrome manifest -->
@@ -73,18 +70,18 @@ $Meta = new \Spotamon\Meta(W_DOMAIN);
 <link rel="stylesheet" type="text/css" href="<?=W_CSS?>dataTables.css">
 
     <!-- Leaflet (openstreetmap) -->
-<link rel="stylesheet" href="<?=W_CSS?>leaflet.css">
+<link rel="stylesheet" href="<?=versionFile(W_CSS . 'leaflet.css')?>">
 
     <!-- Animations and Theme for menu and navbar -->
-<link rel="stylesheet" type="text/css" media="all" href="<?=W_CSS?>fade-down.css" />
-<link rel="stylesheet" type="text/css" media="all" href="<?=W_CSS?>menu.css" />
-<link rel="stylesheet" type="text/css" media="all" href="<?=W_CSS?>black-gry.css" />
+<link rel="stylesheet" type="text/css" media="all" href="<?=versionFile(W_CSS . 'fade-down.css')?>" />
+<link rel="stylesheet" type="text/css" media="all" href="<?=versionFile(W_CSS . 'menu.css')?>" />
+<link rel="stylesheet" type="text/css" media="all" href="<?=versionFile(W_CSS . 'black-gry.css')?>" />
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
 
 <!-- custom styles -->
-<link rel="stylesheet" type="text/css" href="<?=W_CSS?>style.css">
+<link rel="stylesheet" type="text/css" href="<?=versionFile(W_CSS . 'style.css')?>">
 
 <!-- JS functions compatability -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

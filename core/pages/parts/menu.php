@@ -58,7 +58,7 @@ include S_PAGES . 'parts/nav.php';
     </div>
     <!--container end -->
     <script>
-        var w_root = '<?=W_ROOT?>';
+        var w_root = '<?=W_DOMAIN?>';
     </script>
 
 

@@ -17,14 +17,14 @@ if(isset($_POST['shiny'])){
 	$shiny = $conn->real_escape_string($_POST['shiny']);
 	$shiny = 1;
 } else {
-	$shiny = 0;	
+	$shiny = 0;
 }
 
 if(isset($_POST['alolan'])){
 	$alolan = $conn->real_escape_string($_POST['alolan']);
 	$alolan = 1;
 } else {
-	$alolan = 0;	
+	$alolan = 0;
 }
 
 if(isset($_POST['opentrade'])){
@@ -44,10 +44,10 @@ if(!mysqli_query($conn,$sql))
 }
 
 $sql1 = "SELECT * FROM users WHERE uname='".$_SESSION['uname']."'";
-$result = mysqli_query($conn,$sql1)or die(mysqli_error($conn));	
+$result = mysqli_query($conn,$sql1)or die(mysqli_error($conn));
 				while($row = mysqli_fetch_array($result)) {
-					$offtrades = $row['offtrades'];					
-				}	
+					$offtrades = $row['offtrades'];
+				}
 			$offtrades = ++$offtrades;
 
 $sql2 = "UPDATE users SET offtrades='$offtrades' WHERE uname='".$_SESSION['uname']."'";
@@ -55,6 +55,6 @@ $sql2 = "UPDATE users SET offtrades='$offtrades' WHERE uname='".$_SESSION['uname
         {
             echo 'Not Inserted';
         }
-		
-header('Location:active-trades.php');
+
+header('Location:'.$_SERVER['HTTP_HOST'].'/active-trades.php');
 ?>

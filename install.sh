@@ -100,7 +100,7 @@ readinput() {
 
 # Loop until answer is yes
 until [[ "$answer" == 'y' ]] ; do
-    
+
     echo "- PATH Settings -"
     echo "If on a Linux system just type \"Linux\", If Windows enter the"
     echo "path to your Apache \"bin\" folder containing the htpasswd executable."
@@ -125,7 +125,7 @@ until [[ "$answer" == 'y' ]] ; do
     echo "--PATH Set--"
     echo
     echo
-    
+
     # Get input
     echo "- MySQL Settings -"
     SYS_DB_NAME=$(readinput "MySQL Database Name: " "$SYS_DB_NAME")
@@ -176,7 +176,7 @@ until [[ "$answer" == 'y' ]] ; do
     HTPATH=$(readinput "Password save location: " "$HTPATH")
     echo
     HTPATH_FILE="${HTPATH}""/.htpasswd"
-    
+
     clear
     # Show input for verification
     echo
@@ -210,7 +210,7 @@ until [[ "$answer" == 'y' ]] ; do
     echo "Admin Password: $HTPASSWORD"
     echo "Password File Path: $HTPATH_FILE"
     echo
-    
+
     # yes or no
     read -r -n 1 -p "Is everything correct [y/n] " answer
     if [[ "$answer" != 'y' ]] ; then
@@ -236,7 +236,7 @@ sed -e "s/#database#/$SYS_DB_NAME/" \
 "$CONFIG_PHP_EX" > "$CONFIG_PHP"
 
 echo "Writing $PR_ACCESS ..."
-sed -e "s_#htpassword#_\"$HTPATH_FILE\"_" \
+sed -e "s/#htpassword#/$HTPATH_FILE/" \
 "$PR_EXAMPLE" > "$PR_ACCESS"
 
 echo "Writing $HTPATH_FILE ..."

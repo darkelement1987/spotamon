@@ -6,7 +6,10 @@ require_once 'initiate.php';
 <html>
 
 <head>
-    <?php include_once S_PAGES . 'parts/meta.php'; ?>
+    <?php
+    include_once S_PAGES . 'parts/meta.php';
+    include_once S_PAGES . 'parts/js.php';
+    ?>
 </head>
 
 <body>
@@ -37,7 +40,7 @@ require_once 'initiate.php';
 
 
 
-<?php include_once S_PAGES . 'parts/js.php'; ?>
+
     <script>
 if (typeof initMap == 'function') {
 

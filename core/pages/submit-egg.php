@@ -4,12 +4,6 @@
 
 ?>
 
-<head>
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 	<script>
 		$(document).ready(function() {
 			$("#gymsearch").select2({
@@ -61,14 +55,88 @@
 		}
 
 	</script>
-</head>
+
 
 <?php
 
-
-eggsubmission();
+$result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
+    $gid = $gname = $gteam = $eggby = "";
+    if (isset($_SESSION["uname"])) {
+        ?>
+                <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
+                <h3 style="text-align:center;"><strong>Spot Egg:</strong></h3>
+                <form id="usersubmit" method="post" action="./spotegg.php">
+                    <center>
+                        <table id="added" class="table table-bordered">
+                            <tbody>
+                                <!--///////////////////// GENERATE MONSTER LIST \\\\\\\\\\\\\\\\\\\\\-->
+                                <tr>
+                                    <td style="width: 5%;">Gym</td>
+                                    <td style="width: 10%;">
+                                        <select id='gymsearch' name='gname'>
+                                            <?php
+while ($row = $result->fetch_assoc()) {
+            unset($gid, $gname);
+            $gid = $row['gid'];
+            $tid = $row['tname'];
+            $gname = $row['gname'];
+            $gteam = $row['gteam'];
+            echo '<option value="' . $gid . '" label="' . $gteam . '">' . $gname . '</option>';
+        }?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 5%;">Hatches in</td>
+                                    <td style="width: 10%;">
+                                        <style>
+                                            .slideregg
+{
+    width: 100% !important;
+}
+</style>
+                                        <input type="range" name="etime" min="0" max="60" value="0" id="etimerange"
+                                            class="slideregg"><span id="etimeoutput"></span>
+                                        <script>
+                                            var slideregg = document.getElementById("etimerange");
+var output = document.getElementById("etimeoutput");
+output.innerHTML = "<br>Egg hatches in: " + slideregg.value + " minutes</center>";
+slideregg.oninput = function() {
+  output.innerHTML = "<br>Egg hatches in: " + this.value + " minutes</center>";
+}
+</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 5%;">Egg Lvl</td>
+                                    <td style="width: 10%;">
+                                        <select id='eggsearch' name='egg'>
+                                            <option value="1">LVL 1</option>
+                                            <option value="2">LVL 2</option>
+                                            <option value="3">LVL 3</option>
+                                            <option value="4">LVL 4</option>
+                                            <option value="5">LVL 5</option>
+                                            <option value="6">EX RAID</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <!--///////////////////// fORM SUBMIT BUTTON \\\\\\\\\\\\\\\\\\\\\-->
+                                <center>
+                                    <td style="width:10%;"><input type="submit" value="SPOT!" /></td>
+                                </center>
+                            </tbody>
+                        </table>
+                    </center>
+                </form>
+                <?php } else {?>
+                <center>
+                    <div style='margin-top:10px;'>
+                        Login to spot an Egg
+                        <br /><br /><a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
+                            <i class="fas fa-sign-in-alt"></i> Login or Register Here</a>
+                    </div>
+                </center>
+                <?php }
 ?>
 
-</body>
 
-<footer></footer>

@@ -19,11 +19,9 @@ class Meta {
         $this->locale = $this->locale();
         $this->description = $this->description();
         $this->images = $this->images();
-        $this->createWebmanifest();
-
     }
 
-    public  function createWebmanifest() {
+    public static function createWebmanifest($site) {
     $data = array(
         "name" => "Spotamon",
         "short_name" => "Spotamon",
@@ -42,7 +40,7 @@ class Meta {
         ),
         "theme_color" => "#1386c7",
         "background_color" => "#1386c7",
-        "start_url" => $this->site,
+        "start_url" => $site,
         "display" => "fullscreen",
     );
     $newJsonString = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
@@ -52,9 +50,10 @@ class Meta {
 
 
 
-    public function title() {
+    public function title($title = null) {
 
-        $name = 'Spotamon';
+        if ($title === null ) {
+        $name = $this->name;
 
         $ending = array();
         $ending[] = "spotting made easy";
@@ -81,7 +80,7 @@ class Meta {
         // Pick a random item from the array and output it
         $ending = $ending[array_rand($ending)];
         $title = $name . ', ' . $ending;
-        
+        }
         return $title;
     }
     public function locale() {
@@ -89,9 +88,10 @@ class Meta {
         return $data;
     }
 
-    public function description() {
-
+    public function description($description = null) {
+        if ($description === null) {
         $description = "Spot a Pokémon, Raid, Quest or more, Welcome to Spotamon!!! Now with trading!!!!";
+        }
         return $description;
 
     }

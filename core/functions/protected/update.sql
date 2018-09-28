@@ -18,6 +18,8 @@ ALTER  TABLE `users` ADD `url` TEXT NOT NULL AFTER `trn_date`, ADD `lastUpload` 
 
 ALTER  TABLE `gyms` ADD `exraid` INT(1) NOT NULL DEFAULT 0 AFTER `raidby`, ADD `exraiddate` DATETIME NULL AFTER `exraid`;
 
+ALTER TABLE `quests` CHANGE COLUMN `type` `type` VARCHAR(60) NOT NULL AFTER `qname`;
+
 CREATE TABLE users2 LIKE users;
 ALTER TABLE users2 ADD UNIQUE(uname);
 INSERT IGNORE INTO users2 SELECT * FROM users;
@@ -32,10 +34,7 @@ ALTER TABLE `trades` ADD `oid` INT(10) NOT NULL AFTER `tid`;
 
 ALTER TABLE `messages` ADD `del_in` INT(1) NOT NULL DEFAULT '0' AFTER `from_user`, ADD `del_out` INT(1) NOT NULL DEFAULT '0' AFTER `del_in`;
 
-ALTER TABLE `version`
-ADD COLUMN `minor_v` INT(3) UNSIGNED ZEROFILL NULL AFTER `version`;
-
-ALTER TABLE `users1`	CHANGE COLUMN `usergroup` `usergroup` VARCHAR(1) NOT NULL DEFAULT '1' AFTER `upass`,	CHANGE COLUMN `trn_date` `trn_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `usergroup`,	CHANGE COLUMN `url` `url` TEXT NULL DEFAULT NULL AFTER`trn_date`,	CHANGE COLUMN `lastUpload` `lastUpload` VARCHAR(200) NULL DEFAULT NULL AFTER `url`,	CHANGE COLUMN `offtrades` `offtrades` INT(9) NOT NULL DEFAULT '0' AFTER `lastUpload`,	CHANGE COLUMN `reqtrades` `reqtrades` INT(9) NOT NULL DEFAULT '0' AFTER `offtrades`,	ADD UNIQUE INDEX `email` (`email`),	ADD UNIQUE INDEX `uname` (`uname`);	
+ALTER TABLE `users1`	CHANGE COLUMN `usergroup` `usergroup` VARCHAR(1) NOT NULL DEFAULT '1' AFTER `upass`,	CHANGE COLUMN `trn_date` `trn_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `usergroup`,	CHANGE COLUMN `url` `url` TEXT NULL DEFAULT NULL AFTER`trn_date`,	CHANGE COLUMN `lastUpload` `lastUpload` VARCHAR(200) NULL DEFAULT NULL AFTER `url`,	CHANGE COLUMN `offtrades` `offtrades` INT(9) NOT NULL DEFAULT '0' AFTER `lastUpload`,	CHANGE COLUMN `reqtrades` `reqtrades` INT(9) NOT NULL DEFAULT '0' AFTER `offtrades`,	ADD UNIQUE INDEX `email` (`email`),	ADD UNIQUE INDEX `uname` (`uname`);
 
 CREATE TABLE `user_extended` (
 	`email` VARCHAR(100) NOT NULL,

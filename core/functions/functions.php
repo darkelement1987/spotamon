@@ -1,5 +1,20 @@
 <?php
 
+//=============================
+//    START-UP FUNCTIONS
+//=============================
+
+// Returns the webroot in relativity to any subflders
+function directory()
+{
+    return substr(str_replace('\\', '/', realpath(dirname(__FILE__))), strlen(str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']))) + 1);
+}
+if (directory() != '') {
+    $wroot = '/' . directory() . '/';
+} else {
+    $wroot = '/';
+}
+
 
 //=============================
 //    AUTO VERSION CSS

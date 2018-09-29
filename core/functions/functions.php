@@ -1,16 +1,50 @@
 <?php
 
+//=============================
+//    START-UP FUNCTIONS
+//=============================
+
+// Returns the webroot in relativity to any subflders
+function directory()
+{
+    function directory1() {
+        $url =  substr(str_replace('\\', '/', realpath(dirname(__FILE__))), strlen(str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']))) + 1);
+        $url = preg_replace("/\/?(core\/functions|functions)\/?/i", '', $url);
+        return $url;
+    }
+    if (directory1() != '') {
+        $wroot = '/' . directory1() . '/';
+    } else {
+        $wroot = '/';
+    }
+    return $wroot;
+}
+
+function columnExists($table, $column) {
+    global $conn;
+    $sql = "SHOW COLUMNS FROM `" . $table . "` LIKE '" . $column . "';";
+    $exists = $conn->query($sql);
+    if ($exists->num_rows){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 
 //=============================
-//    AUTO VERSION CSS
+//    AUTO VERSION CSS/JS
 //=============================
 
 function versionFile($url) {
     $dir = S_ROOT . $url;
     if (file_exists($dir)) {
 	    $path = pathinfo($url);
-	    $ver = '.'.filemtime($dir).'.';
-	    return $path['dirname'].'/'.preg_replace('/\.(css|js|png|jpg|jpeg|svg|ico)$/', $ver."$1", $path['basename']);
+        $ver = '.'.filemtime($dir).'.';
+        $ver = $path['dirname'].'/'. $path['basename'] . $ver . $path['extension'];
+        $ver = preg_replace('/\.(css|js)/i', '', $ver, 1);
+        return $ver;
     } else {
         return $url;
     }

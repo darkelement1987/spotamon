@@ -1,34 +1,23 @@
 <?php
 
-// Connect to Database
+//   ##### REQUIRED #####    //
+
+//  Database Connections
 $servername = "#servername#";
 $username = "#username#";
 $password = "#password#";
 $database = "#database#";
 
-
-// Discord Bot settings for oauth2
-// Create a application at https: //discordapp.com/developers/applications
+// Discord Settings for Oauth2
+// Create a application at https://discordapp.com/developers/applications
+// Discord Settings are mandatory at //
+// this time, will move them to optional soon //
 
 $clientId = "#clientid#";
 $clientSecret = "#clientsecret#";
 
-// If you wish for specific interactions with your server, make the application
-// a bot user (for future use)
 
-$botToken = '#bottoken#';
-
-// and include your discord server ID, found on the "widget" page of the server settings
-$discordId = '#serverid#';
-
-// here you can include the IDs of specific users you wish to give elevated privileges to
-
-$elevatedUsers = [
-    144670512956702730,
-    236935444573585408
-];
-
-
+//   ##### OPTIONAL #####    //
 
 // GOOGLE ANALYTICS TRACKING ID
 
@@ -36,17 +25,17 @@ $analytics = '';
 
 // Privacy policy contact info
 
-$polsite = ""; // Website url to show in policy
-$polstreet = ""; // <-- Street/Number
-$polcity = ""; // <-- eCity only
-$polstate = ""; // <-- State/Province
-$polpostal = ""; // <-- Postal
-$polcountry = ""; // <-- Country
-$polemail = ""; // <-- Email
+$polsite = "";                  // Website url to show in policy
+$polstreet = "";                // <-- Street/Number
+$polcity = "";                  // <-- eCity only
+$polstate = "";                 // <-- State/Province
+$polpostal = "";                // <-- Postal
+$polcountry = "";               // <-- Country
+$polemail = "";                 // <-- Email
 
 // Spot removal when downvoting
 
-$delmon = "2"; // <-- Delete Pokemon after this many 'bad'-votes
+$delmon = "2";                  // <-- Delete Pokemon after this many 'bad'-votes
 
 // Set maps default location example:
 // Example:
@@ -58,37 +47,39 @@ $mapcenter = "#lat,lon#";
 $clock = "";
 
 //Webhook Setup
-$pokemon_webhook_url = ""; // <-- Webhook URL of your Pokemon Discord channel
-$raid_webhook_url = ""; // <-- Webhook URL of your Raid Discord channel
-$egg_webhook_url = ""; // <-- Webhook URL of your Egg Discord channel
-$quest_webhook_url = ""; // <-- Webhook URL of your Quest Discord channel
-$exraid_webhook_url = ""; // <-- Webhook URL of your Ex-Raid Discord channel
-$gym_webhook_url = ""; // <-- Webhook URL of your Gym Discord channel
-$viewtitle = ""; // <-- Text showing for the MAP-link @ Discord
+$pokemon_webhook_url = "";      // <-- Webhook URL of your Pokemon Discord channel
+$raid_webhook_url = "";         // <-- Webhook URL of your Raid Discord channel
+$egg_webhook_url = "";          // <-- Webhook URL of your Egg Discord channel
+$quest_webhook_url = "";        // <-- Webhook URL of your Quest Discord channel
+$exraid_webhook_url = "";       // <-- Webhook URL of your Ex-Raid Discord channel
+$gym_webhook_url = "";          // <-- Webhook URL of your Gym Discord channel
+$viewtitle = "";                // <-- Text showing for the MAP-link @ Discord
 
 // MOTD POPUP
 
 $disablemotd = true;
 $motdtitle = "";
 $motdtext = "";
-$motdimage = ""; // Set URL for custom popup-image
-$motdalways = false; // Always show MOTD, even when logged  in? -> Set to -> 'true'. Only when NOT logged in? Set to -> 'false'
-$motdwidth = ''; // Set width for motd window
-$imageheight = ''; // Set height for MOTD image
-$imagewidth = ''; // Set width for MOTD image
+$motdimage = "";                //  Set URL for custom popup-image
+$motdalways = false;            //  Always show MOTD, even when logged
+                                    in? -> Set to -> 'true'. Only when
+                                    NOT logged in? Set to -> 'false'
+$motdwidth = '';                // Set width for motd window
+$imageheight = '';              // Set height for MOTD image
+$imagewidth = '';               // Set width for MOTD image
 
 // Mail settings
 
-$showformlink = false; // Set to true or false to show feedback button in menu
-$mailhost = ""; // Hostname of SMTP
-$mailport = ""; // Port of SMTP
-$mailuser = ""; // Login of SMTP
-$mailpass = ""; // Password of SMTP
-$mailauthtype = ""; // 'ssl', 'tls', or ''
-$mailemail = ""; // Enter email where you wish to receive messages sent through form
-$feedbacksubject = ""; // Subject of the feedbackmail you will receive
-$resetsubject = ""; // Subject of the reset mail
-$resetsendername = ""; // Name of the sender of the reset mail
-$resetsendermail = ""; // Mail-address of the sender of the reset mail
+$showformlink = false;          // Set to true or false to show feedback button in menu
+$mailhost = "";                 // Hostname of SMTP
+$mailport = "";                 // Port of SMTP
+$mailuser = "";                 // Login of SMTP
+$mailpass = "";                 // Password of SMTP
+$mailauthtype = "";             // 'ssl', 'tls', or ''
+$mailemail = "";                // Enter email where you wish to receive messages sent through form
+$feedbacksubject = "";          // Subject of the feedbackmail you will receive
+$resetsubject = "";             // Subject of the reset mail
+$resetsendername = "";          // Name of the sender of the reset mail
+$resetsendermail = "";          // Mail-address of the sender of the reset mail
 
-$enableDebug = false;  //enables php error logging
+$enableDebug = false;           //enables php error logging

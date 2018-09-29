@@ -1,16 +1,8 @@
 <?php
 require_once 'config/config.php';
 require_once 'vendor/autoload.php';
-
-$conn = new mysqli($servername, $username, $password, $database);
-// Check connection
-if ($conn->connect_error) {
-    echo "Connection failed: $conn->connection_error";
-}
-
-
-require_once 'core/functions/protected/version.php';
 require_once 'core/functions/functions.php';
+
 
 if ($enableDebug === true) {
     ini_set("log_errors", -1);
@@ -18,9 +10,12 @@ ini_set("error_log", "./debug.log");
 } else if ($enableDebug === false && file_exists('./error.log') ){
     delete('./error.log');
  }
+
+use \Spotamon\Validate;
+$Validate = new Validate;
 // returns the url of the current page (does not account for rewrites or includes)
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$domainName = $_SERVER['HTTP_HOST'];
+$domainName = ($_SERVER['HTTP_HOST']) ? $Validate->clean($_SERVER['HTTP_HOST']) : $_SERVER['SERVER_NAME'];
 $domain = $protocol . $domainName;
 $folder = (dirname($_SERVER['PHP_SELF']));
 $trim = $domain . $folder;
@@ -29,9 +24,7 @@ if (!isset($subdir)) {
     $subdir = $folder;
 }
 
-
-
-// Defines constants for includes and references
+$wroot = directory();// Defines constants for includes and references
 $root = __DIR__ . '/';
 define("S_ROOT", $root);
 $config = S_ROOT . 'config/';
@@ -61,12 +54,17 @@ if (session_status() == PHP_SESSION_NONE) {
 
     Spotamon\Session::sessionStart('Spotamon', 0, W_DOMAIN, $domainName);
 }
+
+
 use \ParagonIE\AntiCSRF\AntiCSRF;
 $csrf2 = new AntiCSRF;
 use \ParagonIE\AntiCSRF\Reusable;
 $csrf = new Reusable;
 
-use \Spotamon\Validate;
-$Validate = new Validate;
 
+$conn = new mysqli($servername, $username, $password, $database);
+// Check connection
+if ($conn->connect_error) {
+    echo "Connection failed: $conn->connection_error";
+    }
 

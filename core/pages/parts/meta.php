@@ -74,7 +74,7 @@ $Meta = new \Spotamon\Meta(W_DOMAIN);
 
     <!-- Animations and Theme for menu and navbar -->
 <link rel="stylesheet" type="text/css" media="all" href="<?=versionFile(W_CSS . 'fade-down.css')?>" />
-<link rel="stylesheet" type="text/css" media="all" href="<?=versionFile(W_CSS . 'menu.css')?>" />
+<link rel="stylesheet" type="text/css" media="all" href="<?=W_CSS?>menu.css" />
 <link rel="stylesheet" type="text/css" media="all" href="<?=versionFile(W_CSS . 'black-gry.css')?>" />
 
 <!-- Fonts -->

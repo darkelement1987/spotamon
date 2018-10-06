@@ -1,8 +1,8 @@
 <?php
 require_once 'initiate.php';
 
-if ($Validate->getSession('uname') === null) {
-    include S_PAGES . 'parts/authmodal.php';
+if ($sess->get('uname', null) === null) {
+    include_once S_PAGES . 'parts/authmodal.php';
 }?>
     <!--end auth container -->
     <!-- Mobile Header -->
@@ -12,9 +12,7 @@ if ($Validate->getSession('uname') === null) {
     </div>
     <!-- Mobile Header -->
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/js/select2.min.js" integrity="sha256-190Fv8aJAduyyIOnvWVpjCmzkX1h8OEtGWbcoU1QVsA="
-        crossorigin="anonymous">
-    </script>
+
 
 
     </script>
@@ -58,7 +56,7 @@ include S_PAGES . 'parts/nav.php';
     </div>
     <!--container end -->
     <script>
-        var w_root = '<?=W_DOMAIN?>';
+        var w_root = '<?=W_ROOT?>';
     </script>
 
 

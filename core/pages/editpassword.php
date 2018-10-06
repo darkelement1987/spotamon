@@ -4,7 +4,7 @@ $pass = $Validate->getPost('password');
 $upass = $Validate->getPost('password', 'password');
 // attempt insert query execution
 $upass = password_hash($upass, PASSWORD_DEFAULT);
-$username = $Validate->getSession('uname');
+$username = $sess->get('uname');
 if (!empty($upass)) {
     $password = $conn->prepare("UPDATE users SET upass= ? WHERE uname= ?;");
     if (!$password) {

@@ -2,7 +2,7 @@
 
 
 if (isset($_SESSION["uname"])) {
-    require 'config/config.php';
+    require_once 'config/config.php';
     $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
     $gcountquery = $conn->query("SELECT * FROM `gyms`");
     $gcountresult = mysqli_num_rows($gcountquery);

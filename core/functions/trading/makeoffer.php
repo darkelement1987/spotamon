@@ -9,26 +9,26 @@ $coffmon = $conn->real_escape_string($_POST['coffmon']);
 $ccp = $conn->real_escape_string($_POST['ccp']);
 $civ = $conn->real_escape_string($_POST['civ']);
 $offerby = $conn->real_escape_string($_POST['offerby']);
-$cofferby = $conn->real_escape_string($_SESSION['uname']);
+$cofferby = $conn->real_escape_string($sess->get('uname'));
 $accepted = 0;
 $complete = 0;
 if(isset($_POST['cshiny'])){
 	$cshiny = $conn->real_escape_string($_POST['cshiny']);
 	$cshiny = 1;
 } else {
-	$cshiny = 0;	
+	$cshiny = 0;
 }
 
 if(isset($_POST['calolan'])){
 	$calolan = $conn->real_escape_string($_POST['alolan']);
 	$calolan = 1;
 } else {
-	$calolan = 0;	
+	$calolan = 0;
 }
 
 $sql = "SELECT * FROM offers WHERE oid='$oid'";
 $result = mysqli_query($conn,$sql)or die(mysqli_error($conn));
-while($row = mysqli_fetch_array($result)) {			
+while($row = mysqli_fetch_array($result)) {
 	$oid = $row['oid'];
 	$offmon = $row['offmon'];
 	$tradeloc = $row['tradeloc'];

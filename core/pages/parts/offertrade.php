@@ -8,7 +8,7 @@ $cp = $conn->real_escape_string($_POST['cp']);
 $iv = $conn->real_escape_string($_POST['iv']);
 $tradeloc = $conn->real_escape_string($_POST['tradeloc']);
 $reqmon = $conn->real_escape_string($_POST['reqmon']);
-$uname = $conn->real_escape_string($_SESSION['uname']);
+$uname = $conn->real_escape_string($_SESSION['Spotamon']['uname']);
 $notes = $conn->real_escape_string($_POST['notes']);
 $cloc = $conn->real_escape_string($_POST['cloc']);
 $accepted = "0";
@@ -43,7 +43,7 @@ if(!mysqli_query($conn,$sql))
     echo 'Not Inserted';
 }
 
-$sql1 = "SELECT * FROM users WHERE uname='".$_SESSION['uname']."'";
+$sql1 = "SELECT * FROM users WHERE uname='".$_SESSION['Spotamon']['uname']."'";
 $result = mysqli_query($conn,$sql1)or die(mysqli_error($conn));
 				while($row = mysqli_fetch_array($result)) {
 					$offtrades = $row['offtrades'];

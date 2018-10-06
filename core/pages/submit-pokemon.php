@@ -27,7 +27,7 @@
 	</script>
 
 <?php
-require './config/config.php';
+require_once './config/config.php';
     $result = $conn->query("SELECT * FROM pokedex");
     $id = $pokemon = $cp = $iv = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter = "";
     if (isset($_SESSION["uname"])) {?>

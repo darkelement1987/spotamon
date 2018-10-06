@@ -1,10 +1,9 @@
 <?php
-$form = W_FUNCTIONS . 'auth.php';
-$csrftoken = $csrf->insertToken($form, false);
+$csrftoken = csrf();
 ?>
 <!-- Login/register Modal Start -->
 <div class="container-fluid" id="auth-modal-container">
-    <div class="modal fade" id="auth-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal" id="auth-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content border-0" id="auth-modal-content">
                 <div class="modal-body p-0">
@@ -17,7 +16,7 @@ $csrftoken = $csrf->insertToken($form, false);
                             </a>
                             <h5 class="modal-title">or login with Discord!</h5>
                         </div>
-                        <div class="col-xs-12 col-md-7 d-flex flex-column align-content-around email-modal" id="emailmodalbody">
+                        <div class="col-12 col-md-7 d-flex flex-column align-content-around email-modal" id="emailmodalbody">
                             <h5 class="d-none d-md-inline-block modal-title">Login By Username or Email</h5>
                             <h5 class="d-inline-block d-md-none">Login to Spotamon</h5>
                             <form class="login-form my-4" id="loginform" action="<?=W_FUNCTIONS?>auth.php" method="post">
@@ -151,7 +150,7 @@ $csrftoken = $csrf->insertToken($form, false);
                         </div>
                         <div class="row form-switch">
                             <div class="col p-0" style="  font-size:14px;">
-                                <a href="#" id="loginswitch">Login Here</a>
+                                <a href="#" id="login-switch">Login Here</a>
                                 <strong>/</strong>
                                 <a href="#" data-dismiss="modal" class="close-modal">Go Home</a>
                             </div>

@@ -12,20 +12,20 @@ class Oauth2
     public function __construct()
     {
         global $Validate;
-
-        $checktoken = $Validate->getSession('token');
+        global $sess;
+        $checktoken = $sess->get('token');
         $checkstate  = $Validate->getGet('state');
-        $state = $Validate->getSession('state');
+        $state = $sess->get('state');
         $this->provider = $this->provider();
         if ($checktoken === null && $checkstate === null) {
             $this->oauthToken();
         } else if ($checkstate !== null && $checkstate === $state) {
             $this->token = $this->token();
-            $Validate->setSession('token', $this->token);
+            $sess->set('token', $this->token);
             unset($_GET['state']);
             $Validate->setSession('state');
         }
-        $seshtoken = $Validate->getSession('token');
+        $seshtoken = $sess->get('token');
         if ($seshtoken || isset($this->token)){
             $this->token = $seshtoken;
             $this->user = $this->discordUser($this->token);
@@ -49,6 +49,7 @@ class Oauth2
 
     private function oauthToken()
     {
+        global $sess;
         global $Validate;
         $this->sesh = session_id();
         $options = [
@@ -62,7 +63,7 @@ class Oauth2
             ], // array or string
         ];
         $authUrl = $this->provider->getAuthorizationUrl($options);
-        $Validate->setSession('state', $this->sesh);
+        $sess->set('state', $this->sesh);
         header('Location: ' . $authUrl);
         die();
     }
@@ -93,7 +94,7 @@ class Oauth2
         $result->username = $result->basename . "#" . $result->discrim;
         $result->avatar   = 'https://cdn.discordapp.com/avatars/' . $user->getId() . '/' . $user->getAvatarHash() . '.png';
         $result->email    = $user->getEmail();
-        $result->guilds   = $this->getGuilds($_SESSION['token']);
+        $result->guilds   = $this->getGuilds($_SESSION['Spotamon']['token']);
         return $result;
     }
     private function getGuilds($token)

@@ -6,7 +6,7 @@ $results_per_page = 8;
         $page = 1;
     }
     $start_from = ($page - 1) * $results_per_page;
-    $sql = "SELECT * FROM offers WHERE offers.tname = '" . $_SESSION['uname'] . "' ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
+    $sql = "SELECT * FROM offers WHERE offers.tname = '" . $sess->get('uname') . "' ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
     $sqlcnt = "SELECT COUNT(TID) AS total FROM trades";
     $resultcnt = $conn->query($sqlcnt);

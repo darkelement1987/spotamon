@@ -45,7 +45,7 @@ if (isset($_POST["submit"])) {
         $message = clean_text($_POST["message"]);
     }
     if ($error == '') {
-        require S_FUNCTIONS . 'class.phpmailer.php';
+        require_once S_FUNCTIONS . 'class.phpmailer.php';
         $mail = new PHPMailer;
         $mail->IsSMTP(); //Sets Mailer to send message using SMTP
         $mail->Host = $mailhost; //Sets the SMTP hosts of your Email hosting, this for Godaddy

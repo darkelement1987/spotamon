@@ -1,21 +1,21 @@
 <?php
-require 'initiate.php';
+require_once 'initiate.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $Validate->getPost('formtype');
     if ($form !== null) {
-        $Validate->setSession('form', $form);
+        $sess->set('form', $form);
         unset($form);
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $form = $Validate->getGet('formtype');
     if ($form !== null) {
-        $Validate->setSession('form', $form);
+        $sess->set('form', $form);
         unset($form);
     }
 }
-$form = $Validate->getSession('form');
+$form = $sess->get('form');
 
 if ($form == 'discordlogin' || $form == 'discordregister') {
     $Oauth2 = new \Spotamon\Oauth2;
@@ -26,7 +26,7 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
     $result = $authenticated->result;
     $form = W_PAGES . 'temppass.php';
     $csrftoken = $csrf->insertToken($form, false);
-    $user = $Validate->getSession('uname');
+    $user = $sess->get('uname');
     $passcheck = $conn->prepare("SELECT upass FROM users WHERE uname = ?;");
     $passcheck->bind_param("s", $user);
     $passcheck->execute();
@@ -152,11 +152,13 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
 <?php
 
     }
-if ($authenticated->result === true) {
+if ($authenticated->result == True) {
 
     echo 'true';
 
 } else {
-    echo $authenticated->result;
+    foreach ($authenticated->error as $error) {
+        echo $error . '<br>';
+        }
 }
 ?>

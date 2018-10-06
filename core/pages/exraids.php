@@ -64,7 +64,7 @@ while ($row = mysqli_fetch_array($result)) {
                                     <form action='attendance.php' method='post'>
                                         <input type='hidden' name='exidr' value="<?=$exid?>" />
                                         <input type='image' name='att' style='width:25px;height:auto;align:middle;' src='<?=W_ASSETS?>voting/up.png'
-                                            value="<?=$_SESSION['uname']?>" />
+                                            value="<?=$sess->get('uname')?>" />
                                     </form><a href='./ex-attendance.php' style='display:inline;'>View</a>
                                 </center>
                             </td>
@@ -94,7 +94,7 @@ while ($row = mysqli_fetch_array($result)) {
                                     <form action='attendance.php' method='post'>
                                         <input type='hidden' name='exidr' value="<?=$exid?>" />
                                         <input type='image' name='att' style='width:25px;height:auto;align:middle;' src='<?=W_ASSETS?>voting/up.png'
-                                            value="<?=$_SESSION['uname']?>" />
+                                            value="<?=$sess->get('uname')?>" />
                                     </form>
                                     <a href='./ex-attendance.php' style='display:inline;'>View</a>
                                 </center>

@@ -111,7 +111,7 @@ while ($row = mysqli_fetch_array($result)) {
 															offer:</td>
 														<td style="width: 10%; text-align:center;vertical-align:middle;">
 															<?php
-require './config/config.php';
+require_once './config/config.php';
 $result1 = $conn->query("SELECT * FROM pokedex");
 ?>
 															<select id='pokesearch2' name='coffmon'>

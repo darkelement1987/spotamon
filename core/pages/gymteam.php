@@ -4,7 +4,7 @@ ob_start();
 
 $gname = $conn->real_escape_string($_POST['gname']);
 $tname = $conn->real_escape_string($_POST['tname']);
-$teamby = $conn->real_escape_string($_SESSION['uname']);
+$teamby = $conn->real_escape_string($sess->get('uname'));
 
 
 $sql = "UPDATE gyms SET gteam='$tname', teamby='$teamby' WHERE gid='$gname'";
@@ -15,7 +15,7 @@ $sql = "UPDATE gyms SET gteam='$tname', teamby='$teamby' WHERE gid='$gname'";
 			else
 			{
 				echo 'Inserted';
-			}	
+			}
 
 // Lookup teamname for webhook
 $teamquery = "SELECT tname FROM teams WHERE tid = '$tname'";
@@ -32,7 +32,7 @@ $resultteam = $conn->query($teamquery);
 
 $row = $resultteam->fetch_array(MYSQLI_NUM);
 $teamname = $row[0];
-			
+
 // Lookup gymname for webhook
 $gymquery = "SELECT gname,glatitude,glongitude FROM gyms WHERE gid = '$gname'";
 	if(!mysqli_query($conn,$gymquery))
@@ -72,19 +72,19 @@ $hookObject = json_encode([
                 "text" => "Spotted by $teamby at $date",
 				"icon_url" => W_ASSETS . "teams/$tname.png"
             ],
-            
+
             "image" => [
 				"url" => "http://staticmap.openstreetmap.de/staticmap.php?center=".$gymlat.",".$gymlon."&zoom=17&size=400x400&maptype=mapnik&markers=".$gymlat.",".$gymlon.",red-pushpin",
             ],
-            
+
             "thumbnail" => [
 				"url" => W_ASSETS . "teams/$tname.png",
             ],
-            
+
             "author" => [
                 "name" => "Gym Taken (spotted by $teamby)",
             ],
-            
+
             "fields" => [
                 [
                     "name" => "Gym:",
@@ -104,7 +104,7 @@ $hookObject = json_encode([
             ]
         ]
     ]
-    
+
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
 $ch = curl_init();
@@ -123,5 +123,5 @@ $response = curl_exec( $ch );
 curl_close( $ch );
 
 	header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-	
+
 ?>

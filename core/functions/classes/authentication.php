@@ -6,10 +6,13 @@ class Authentication
 {
     public $debug;
     public $result;
+    public $error;
     public function __construct()
     {
         global $Validate;
-        $form = $Validate->getSession('form');
+        global $sess;
+        $this->error = array();
+        $form = $sess->get('form');
         switch ($form) {
             case 'login':
                 $result = $this->login();
@@ -32,7 +35,7 @@ class Authentication
         }
         $Validate->setSession('form');
         $this->result = $result;
-    }
+        }
 
 
     protected function login()
@@ -40,34 +43,32 @@ class Authentication
         global $conn;
         global $Validate;
         global $csrf;
-        if (!$csrf->validateRequest() ) {
-            $this->result = 'Validation Error';
-            exit();
+        global $session;
+        if (!verifyCsrf()) {
+            $this->error[] = 'Validation Error';
+            return false;
         }
         $userName = $Validate->getPost('username', 'username');
         $userEmail = $Validate->getPost('username', 'email');
         $userPassword = $Validate->getPost('password', 'password');
-        $options = ['uname', 'logged_in', 'login_time', 'state'];
+        $options = ['uname', 'logged_in', 'login_time'];
 
-        $stmt = $conn->prepare("SELECT uname, upass FROM users WHERE uname = ? or email = ?;");
+        $stmt = $conn->prepare("SELECT uname, upass FROM users WHERE uname LIKE ? or email = ?;");
         $results = $stmt->bind_param("ss", $userName, $userEmail);
 
         if (!$results) {
-            $this->result = "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            $this->error[] = "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             return false;
-            exit();
         }
         $results = $stmt->execute();
         if (!$results) {
-            $this->result = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            $this->error[] = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
             return false;
-            exit();
         }
         $pass = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         if (empty($pass)) {
-            $this->result = "Username does not exist";
+            $this->error[] = "Username does not exist";
             return false;
-            exit();
         }
         $user = $pass[0]['uname'];
         $pass = $pass[0]['upass'];
@@ -77,27 +78,27 @@ class Authentication
             unset($values);
             $logged_in = true;
             $time = time();
-            $values = [$user, $logged_in, $time, session_id()];
+            $values = [$user, $logged_in, $time];
+            $session->regenerateId();
             $Validate->setSession($options, $values);
             $stmt->close();
             return true;
-            exit();
 
         } else if ( md5($userPassword) === $pass ) {
             header("Location: " . W_PAGES . "temppass.php");
             exit();
         }
-        $this->result = 'Password is incorrect';
+        $this->error[] = 'Password is incorrect';
         return false;
     }
 
     public static function logout()
     {
         global $Validate;
-
+        global $session;
         $States = ['uname', 'token', 'CSRF', 'logged_in', 'time', 'oauth2tate', 'state'];
         $Validate->setSession($States);
-        session_destroy();
+        $session->clear();
         return true;
     }
 
@@ -105,7 +106,11 @@ class Authentication
     {
         global $conn;
         global $Validate;
+        global $session;
 
+        if (!verifyCsrf()) {
+            return false;
+        }
         $userName = $Validate->getPost('username', 'username');
         $userEmail = $Validate->getPost('email', 'email');
         $userPassword = $Validate->getPost('password', 'password');
@@ -113,7 +118,7 @@ class Authentication
         $options = ['uname', 'logged_in', 'login_time'];
 
         if ($userConfirmpass === null) {
-            $this->result = 'passwords do not match';
+            $this->error[] = 'passwords do not match';
             return false;
         }
 
@@ -121,14 +126,12 @@ class Authentication
         $nameexist = $this->userexists($userName);
         $emailexist = $this->emailexists($userEmail);
         if ($nameexist === true) {
-            $this->result = $userName . "is already taken";
+            $this->error[] = $userName . "is already taken";
             return false;
-            exit();
         }
         if ($emailexist === true) {
-            $this->result = $userEmail . "already is registered";
+            $this->error[] = $userEmail . "already is registered";
             return false;
-            exit();
         }
 
         $stmt = $conn->prepare("INSERT INTO users (email, uname, upass) VALUES (?,?,?);");
@@ -136,17 +139,16 @@ class Authentication
 
         if ($results == false) {
 
-            $this->result = 'input error';
+            $this->error[] = 'input error';
             return false;
-            exit();
 
         }
         $results = $stmt->execute();
         if ($results == false) {
-            $this->result = 'Mysql error registration execute';
+            $this->error[] = 'Mysql error registration execute';
             return false;
         }
-
+        $session->regenerateId();
         $values = [$userName, true, time()];
         $Validate->setSession($options, $values);
 
@@ -166,7 +168,6 @@ class Authentication
         $exist->close();
         if ($data >= 1) {
             return true;
-            exit();
         }
         return false;
     }
@@ -195,12 +196,13 @@ class Authentication
         global $conn;
         global $Validate;
         global $Oauth2;
+        global $session;
 
         $user = $Oauth2->user;
         $logintime = time();
         $emailexists = $this->emailexists($user->email);
         if ($emailexists) {
-            \Spotamon\Session::regenerateSession();
+            $session->regenerateId();
             $username = $conn->prepare("SELECT uname FROM users WHERE email = ?;");
             $username->bind_param("s", $user->email);
             $username->execute();
@@ -227,9 +229,9 @@ class Authentication
         global $Oauth2;
         global $Validate;
         global $conn;
-
+        global $session;
         $user = $Oauth2->user;
-        
+
         $usergroup = 1;
         if (!empty($elevatedUsers)) {
             foreach ($elevatedUsers as $key) {
@@ -248,7 +250,7 @@ class Authentication
         $discordinsert->bind_param("ssss", $user->email, $user->id, $user->username, $user->avatar);
         $discordinsert->execute();
         $discordinsert->close();
-        \Spotamon\Session::regenerateSession();
+        $session->regenerateId();
         $keys = ['uname', 'logged_in', 'login_time', 'form'];
         $values = [$user->basename, true, time(), null];
         $Validate->setSession($keys, $values);
@@ -258,9 +260,10 @@ class Authentication
     }
     private function insertToken($email)
     {
+        global $sess;
         global $Validate;
         global $conn;
-        $jsontoken = $_SESSION['token'];
+        $jsontoken = $sesh->get('token');
         $jsontoken = $jsontoken->getRefreshtoken();
         $dbtoken = $conn->prepare("UPDATE user_extended SET token = ? WHERE email = ?;");
         $dbtoken->bind_param('ss', $jsontoken, $email);

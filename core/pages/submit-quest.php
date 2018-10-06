@@ -119,7 +119,7 @@ foreach ($value as $k => $v) {?>
 						<td style="width: 5%;">Rewards</td>
 						<td style="width: 10%;">
 							<?php
-require './config/config.php';
+require_once './config/config.php';
 	$result2 = $conn->query("SELECT * FROM rewards");
 	$reid = $rname = "";?>
 							<select id='rewardsearch' name='reward'>

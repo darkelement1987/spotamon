@@ -11,11 +11,11 @@ if (isset($_SESSION["uname"])) {
                 <?php
 $error = '';
     if (isset($_POST["markreadall"])) {
-        $countunread = "SELECT * FROM messages WHERE unread='1' AND to_user='" . $_SESSION['uname'] . "'";
+        $countunread = "SELECT * FROM messages WHERE unread='1' AND to_user='" . $sess->get('uname') . "'";
         $countresult = mysqli_query($conn, $countunread) or die(mysqli_error($conn));
         $unreadcount = mysqli_num_rows($countresult);
         if ($unreadcount !== 0) {
-            $clear = "UPDATE messages SET unread=0 WHERE unread=1 AND to_user='" . $_SESSION['uname'] . "'";
+            $clear = "UPDATE messages SET unread=0 WHERE unread=1 AND to_user='" . $sess->get('uname') . "'";
             if (!mysqli_query($conn, $clear)) {
                 $error .= '<p><label class="text-danger">SQL ERROR</label></p>';
             } else {
@@ -26,11 +26,11 @@ $error = '';
     }
 
     if (isset($_POST["deleteall"])) {
-        $delcountquery = "SELECT * FROM messages WHERE to_user='" . $_SESSION['uname'] . "'";
+        $delcountquery = "SELECT * FROM messages WHERE to_user='" . $sess->get('uname') . "'";
         $delcountresult = mysqli_query($conn, $delcountquery) or die(mysqli_error($conn));
         $delcount = mysqli_num_rows($delcountresult);
         if ($delcount !== 0) {
-            $clear = "UPDATE messages SET del_in='1' WHERE to_user='" . $_SESSION['uname'] . "' AND del_in='0'";
+            $clear = "UPDATE messages SET del_in='1' WHERE to_user='" . $sess->get('uname') . "' AND del_in='0'";
             if (!mysqli_query($conn, $clear)) {
                 $error .= '<p><label class="text-danger">SQL ERROR</label></p>';
             } else {

@@ -9,7 +9,7 @@ $email = '';
 $subject = '';
 $message = '';
 
-function password_generate($chars) 
+function password_generate($chars)
 {
   $data = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz';
   return substr(str_shuffle($data), 0, $chars);
@@ -33,9 +33,9 @@ if(isset($_POST["submit"]))
     	}
     		else
     		{}
-    
+
     $checkmail = $conn->query($checkquery);
-    
+
     $row = $checkmail->fetch_array(MYSQLI_NUM);
     $useremail = $row[1];
 	$username = $row[2];
@@ -43,7 +43,7 @@ if(isset($_POST["submit"]))
 if (!$useremail) {
 	$error .= '<p><label class="text-danger">User with this email does not exist</label></p>';
 }
-	
+
 	if(empty($_POST["email"]))
 	{
 		$error .= '<p><label class="text-danger">Please Enter your Email</label></p>';
@@ -58,15 +58,15 @@ if (!$useremail) {
 	}
 	if($error == '')
 	{
-		require S_FUNCTIONS . 'class.phpmailer.php';
+		require_once S_FUNCTIONS . 'class.phpmailer.php';
 		$token = password_generate(7);
-		
+
 		    $storetoken = "INSERT IGNORE INTO reset (uname, email, token) VALUES ('$username','$useremail','$token') ON DUPLICATE KEY UPDATE uname='$username', email='$useremail', token='$token';";
     if(!mysqli_query($conn,$storetoken))
     	{}
     		else
     		{}
-		
+
 		$mail = new PHPMailer;
 		$mail->IsSMTP();								//Sets Mailer to send message using SMTP
 		$mail->Host = $mailhost;		//Sets the SMTP hosts of your Email hosting, this for Godaddy
@@ -80,7 +80,7 @@ if (!$useremail) {
 		$mail->AddAddress($mailemail, 'Name');		//Adds a "To" address
 		$mail->AddCC($_POST["email"], '');	//Adds a "Cc" address
 		$mail->WordWrap = 50;							//Sets word wrapping on the body of the message to a given number of characters
-		$mail->IsHTML(true);							//Sets message type to HTML				
+		$mail->IsHTML(true);							//Sets message type to HTML
 		$mail->Subject = $resetsubject;				//Sets the Subject of the message
 		$mail->Body = 'You requested a password reset<br>Reset password using this link: '.$viewurl.'/reset.php?token='.$token;				//An HTML or plain text message body
 		if($mail->Send())								//Send an Email. Return true on success or false on error
@@ -124,13 +124,13 @@ if (!isset($_GET['token'])) {?>
     	}
     		else
     		{}
-    
+
     $fetched = $conn->query($fetchtoken);
-    
+
     $row = $fetched->fetch_array(MYSQLI_NUM);
     $fetchedname = $row[0];
-	$fetchedmail = $row[1];	
-	
+	$fetchedmail = $row[1];
+
 	// Insert new pass using token
 	$newpass = password_generate(10);
     $resetpass = "UPDATE users SET upass='".md5($newpass)."' WHERE uname='".$fetchedname."'";
@@ -140,13 +140,13 @@ if (!isset($_GET['token'])) {?>
     	}
     		else
     		{}
-		
+
 		if (!$fetchedname){echo "<center><p><label class=\"text-danger\">INVALID TOKEN</label></p></center>";} else {
 			echo "<center><p><label class=\"text-danger\">Password reset. New password '".$newpass."'</label></p></center>";
 			mysqli_query($conn,"DELETE FROM reset WHERE token='".$_GET['token']."'");
-			}	
+			}
 
-	
+
 }?>
 
 	<footer></footer>

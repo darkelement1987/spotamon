@@ -1,7 +1,7 @@
 <?php
 if (isset($_SESSION["uname"])) {
-    require 'config/config.php';
-    $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
+    require_once 'config/config.php';
+    $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $sess->get('uname') . "' AND users.usergroup = usergroup.id LIMIT 1  ");
     $id = $usergroup = "";?>
             <h3 style="text-align:center;"><strong>Edit Your Profile:</strong></h3>
             <center>
@@ -112,9 +112,9 @@ while ($row = $result->fetch_assoc()) {
     if ($conn->connect_errno) {
         $conn->connect_error;
     }
-    $pull = "select * from users where uname='" . $_SESSION['uname'] . "'";
+    $pull = "select * from users where uname='" . $sess->get('uname') . "'";
     // Lookup id for user
-    $urlquery = "SELECT id FROM users WHERE uname = '" . $_SESSION['uname'] . "'";
+    $urlquery = "SELECT id FROM users WHERE uname = '" . $sess->get('uname') . "'";
     $resulturl = $conn->query($urlquery);
     $rowurl = $resulturl->fetch_array(MYSQLI_NUM);
     $userid = $rowurl[0];
@@ -151,7 +151,7 @@ if (file_exists("./core/assets/userpics/" . $_FILES["file"]["name"])) {
                 move_uploaded_file($_FILES["file"]["tmp_name"], "./core/assets/userpics/" . $userid . "." . $ext);
                 echo "Stored in as: " . "./core/assets/userpics/" . $userid . "." . $ext;
                 $urlpic = $userid . "." . $ext;
-                $query = "update users set url='$urlpic', lastUpload=now() where uname='" . $_SESSION['uname'] . "'";
+                $query = "update users set url='$urlpic', lastUpload=now() where uname='" . $sess->get('uname') . "'";
                 if ($upl = $conn->query($query)) {?>
                 <br />Saved to Database successfully
                 <meta http-equiv='refresh' content='3;url=profile.php'>

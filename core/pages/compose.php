@@ -57,7 +57,7 @@ if (isset($_POST["submit"])) {
                         <h3>Send PM:</h3>
                     </td>
                 </tr>
-                <input type="hidden" name="from_user" maxlength="32" value="<?=$_SESSION['uname']?>">
+                <input type="hidden" name="from_user" maxlength="32" value="<?=$sess->get('uname')?>">
                 </td>
                 </tr>
 

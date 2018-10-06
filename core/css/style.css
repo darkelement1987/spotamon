@@ -71,7 +71,7 @@ hr {
 #map {
 	top: 0;
 	left: 0;
-	height: 100vh;
+	height: calc(100vh - 50px);
 	width: 100vw;
 	position: absolute;
 	box-sizing: content-box;
@@ -183,7 +183,7 @@ div#pm {
 	}
 
 	#map {
-		height: 100%;
+		height: calc(100vh - 50px);
 	}
 
 	form#feedback {
@@ -1250,11 +1250,11 @@ p.bodyspacer {
 
 
 .blur {
-	-webkit-filter: blur(2px) grayscale(50%);
-	-moz-filter: blur(2px) grayscale(50%);
-	-o-filter: blur(2px) grayscale(50%);
-	-ms-filter: blur(2px) grayscale(50%);
-	filter: blur(2px) grayscale(50%);
+	-webkit-filter: blur(2px) grayscale(70%);
+	-moz-filter: blur(2px) grayscale(70%);
+	-o-filter: blur(2px) grayscale(70%);
+	-ms-filter: blur(2px) grayscale(70%);
+	filter: blur(2px) grayscale(70%);
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }

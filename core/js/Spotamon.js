@@ -4,45 +4,7 @@ $(document).ready(function () {
     $('.register-row').hide();
 
 
-    function getLocation() {
-        var x = document.getElementById("ScanLocation");
 
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-    }
-
-    function showPosition(position) {
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-
-        var url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lng + "&zoom=18&addressdetails=1";
-        $.getJSON(url, function (data) {
-            var street = data.address.house_number + ` ` + data.address.road;
-            if (data.address.city) {
-                city = data.address.city;
-            } else if (data.address.hamlet) {
-                city = data.address.hamlet;
-            } else if (data.address.county) {
-                city = data.address.county;
-            } else {
-                city = "";
-            }
-            if (data.address.country_code == 'us') {
-                x.innerHTML = `
-                <input name='latitude' value='` + position.coords.latitude + `' hidden></input>
-                <input name='longitude' value='` + position.coords.longitude + `' hidden></input>
-                <center><p>` + street + `,<br>` + city + `, ` + data.address.state + `</p></center>`;
-            } else {
-                x.innerHTML = `
-                <input name='latitude' value='` + position.coords.latitude + `' hidden></input>
-                <input name='longitude' value='` + position.coords.longitude + `' hidden></input>
-                <center><p>` + street + `,<br>` + data.address.postcode + `, ` + city + `</p></center>`;
-            }
-        });
-    }
 
 
 
@@ -85,23 +47,27 @@ $(document).ready(function () {
         $('#loginform').hide();
         $("body").removeClass('wsactive');
         $('.login-fields').hide();
-        $('#registerswitch').hide();
+        $('#register-switch').hide();
         var data = $('#loginform').serialize();
         var auth = $('#loginform').attr('action');
         $.post(auth, data, function (data) {
             if (data == 'true') {
                 $('#menu-container').load(w_root + 'core/pages/parts/nav.php', function () {
-                    $.getScript(w_root + '/core/js/menu.js');
-                    $(this).addClass('blur');
+                    $.getScript(w_root + 'core/js/menu.js');
                 }).fadeIn('slow').delay('1000', function () {
                     $('#auth-modal').modal('toggle');
                     $('.blur').removeClass('blur');
                 });
             } else {
                 $('#login-error').html(data);
-            }
+                $('#menu-container').load(w_root + 'core/pages/parts/nav.php', function () {
+                    $.getScript(w_root + 'core/js/menu.js');
+                }).fadeIn('slow').delay('1000', function () {
+                    $('.blur').removeClass('blur');
         });
+    }
     });
+});
 
     $('#registerform').submit(function (event) {
         event.preventDefault();
@@ -111,7 +77,7 @@ $(document).ready(function () {
         $('.discord-modal > .modal-title').hide();
         $('#registerform').hide();
         $("body").removeClass('wsactive');
-        $('#loginswitch').hide();
+        $('#register-switch').hide();
         $('.login-fields').hide();
 
         var data = $('#registerform').serialize();
@@ -120,9 +86,11 @@ $(document).ready(function () {
             if (data == 'true') {
                 $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function () {
                     $('#auth-modal').modal('toggle');
+                    $('.blur').removeClass('blur');
                 });
             } else {
-                $('#register-error').html(data);
+                $('#register-error').html(data + '<br><a href="/index.php" class="btn m-auto">Retry</a>');
+                $('.blur').removeClass('blur');
             }
         });
     });
@@ -205,3 +173,4 @@ $(document).ready(function () {
     });
 
 });
+

@@ -68,7 +68,7 @@ if (isset($_SESSION["uname"])) {
 								<td style="width: 5%;">At Gym</td>
 								<td style="width: 10%;">
 									<?php
-require './config/config.php';
+require_once './config/config.php';
 	$result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 	$gid = $gname = $gteam = "";?>
 									<select id='gymsearch' name='gname'>

@@ -120,7 +120,7 @@ mysqli_close($conn);
 											</center>
 											<div id="opendefine">
 												<?php
-require './config/config.php';
+require_once './config/config.php';
 	$result1 = $conn->query("SELECT * FROM pokedex");?>
 												<select id='pokesearch2' name='reqmon'>
 													<?php

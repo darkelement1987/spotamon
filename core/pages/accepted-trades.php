@@ -3,7 +3,7 @@
 $results_per_page = 10;
     $page = $validate->getGet('page', int, true, null, 1);
     $start_from = ($page - 1) * $results_per_page;
-    $sql = "SELECT * FROM trades WHERE trades.rname = '" . $_SESSION['uname'] . "' ORDER BY tid DESC LIMIT $start_from," . $results_per_page;
+    $sql = "SELECT * FROM trades WHERE trades.rname = '" . $sess->get('uname') . "' ORDER BY tid DESC LIMIT $start_from," . $results_per_page;
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
     $sqlcnt = "SELECT COUNT(TID) AS total FROM trades";
     $resultcnt = $conn->query($sqlcnt);

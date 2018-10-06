@@ -4,7 +4,7 @@ ob_start();
 
 if (isset($_SESSION["uname"])) {
 
-    $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
+    $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $sess->get('uname') . "' AND users.usergroup = usergroup.id LIMIT 1  ");
     $id = $usergroup = "";
     while ($row = $result->fetch_assoc()) {
         $id = $row['id'];

@@ -5,7 +5,6 @@ $gcountresult = mysqli_num_rows($gcountquery);
 
 $scountquery = $conn->query("SELECT * FROM `stops`");
 $scountresult = mysqli_num_rows($scountquery);
-
 ?>
 
 <nav class="wsmenu clearfix">
@@ -93,7 +92,7 @@ $scountresult = mysqli_num_rows($scountquery);
                         <img src="<?=W_ASSETS?>img/feedback.png" class="img-fluid" />
                     </div>
                     <div class=" col-md-8 align-self-center p-0 ">
-                        <?php if (isset($_SESSION['uname'])) {?>
+                        <?php if (!empty($_SESSION['Spotamon']['uname'])) {?>
                         <h3 class="text-center">Feedback</h3>
                         <br />
                         <form method="post" class="p-2 mx-auto w-100 border-0 " id="feedback ">
@@ -137,14 +136,14 @@ $scountresult = mysqli_num_rows($scountquery);
 
         <!--Dropdown for MAIL-TAB starts -->
         <?php
-if (isset($_SESSION["uname"])) {
+if ( !empty($_SESSION['Spotamon']['uname'])) {
 
     // Lookup usrpic filename for user
-    $urlquery = "SELECT url FROM users WHERE uname = '" . $_SESSION['uname'] . "'";
+    $urlquery = "SELECT url FROM users WHERE uname = '" . $_SESSION['Spotamon']['uname'] . "'";
     $resulturl = $conn->query($urlquery);
     $rowurl = $resulturl->fetch_array(MYSQLI_NUM);
     $url = $rowurl[0];
-    $countquery = $conn->query("SELECT * FROM `messages` WHERE unread=1 AND to_user = '" . $_SESSION["uname"] . "' AND del_in='0'");
+    $countquery = $conn->query("SELECT * FROM `messages` WHERE unread=1 AND to_user = '" . $_SESSION['Spotamon']['uname'] . "' AND del_in='0'");
     $msgcount = $countquery->num_rows;
     ?>
         <li class="ml-md-auto"><a href="#"><i class="far fa-envelope-open"></i>Mail
@@ -179,7 +178,7 @@ if (isset($_SESSION["uname"])) {
                     style="border:1px solid black">
                 <?php }?>
                 &nbsp
-                <?=$_SESSION['uname']?>
+                <?=$_SESSION['Spotamon']['uname']?>
             </a>
         </li>
         <!-- USERPROFILE ends -->

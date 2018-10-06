@@ -64,13 +64,36 @@ function isMultiArray( $arr ) {
     return isset( $arr[0] ) && is_array( $arr[0] );
 }
 
+function csrf($echo = null) {
+    global $session;
+    $csrf = $session->getCsrfToken()->getValue();
+    $input = '<input type="hidden" value="' . $csrf . '" name="CSRF" />';
+    if ($echo) {
+        echo $input;
+    } else {
+        return $input;
+    }
+}
+
+function verifyCsrf() {
+    global $Validate;
+    global $session;
+    $token = $_POST['CSRF'];
+    $csrf_token = $session->getCsrfToken();
+    if ($csrf_token->isValid($token)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 //=============================
 //    MAPS
 //=============================
 function maps()
 {
-    require './config/config.php';
+    global $mapcenter;
+    global $sess;
     ?>
 
 <div id="map"></div>
@@ -150,7 +173,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 <br>CP: ` + cp + `
                 <br>IV: `+ iv + `%
                 <br>Found: ` + hour + `:` + min + ` ` + ampm + `
-        <?php if (isset($_SESSION["uname"])) { ?>
+        <?php if ($sess->get('uname',null) != null) { ?>
                 <br>
                 <hr>
                 <a href ="./good.php?spotid=` + spotid + `&loc=` + markerElem.getAttribute('latitude') + `,` + markerElem.getAttribute('longitude') + `">
@@ -163,7 +186,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 <?php } ?>
                 <br><hr>
                 <a href="http://maps.google.com/maps?q=` +	markerElem.getAttribute('latitude') + `,` + markerElem.getAttribute('longitude') + `">Google Maps</a>
-                <?php if (isset($_SESSION["uname"])) { ?>
+                <?php if ($sess->get('uname',null) != null) { ?>
                 <br><hr>
                 Spotted by: <b>` + spotter + `</b>
                 <?php } ?></center></div>`;
@@ -202,7 +225,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     <center>
                         <img src="<?= W_ASSETS ?>gyms/` + gteam + `ex.png" height="45px" width="45px"></img>
                         <p><b>` + gname + `</b><br>Team: ` + tid + `
-                        <?php if (!isset($_SESSION["uname"])) { ?>
+                        <?php if ($sess->get('uname',null) === null) { ?>
                         <hr>
                         <b><span class="text-danger">Login to change/add teams or raids.</span></b>
                         <?php } else { ?>
@@ -245,7 +268,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     <center>
                         <img src="<?=W_ASSETS?>gyms/` + gteam + `.png" height="45px" width="45px"></img>
                         <p><b>` + gname + `</b><br>Team: ` + tid + `
-                    <?php if (!isset($_SESSION["uname"])) { ?>
+                    <?php if ($sess->get('uname',null) === null) { ?>
                         <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
                     <?php } else { ?>
                         <br>
@@ -291,9 +314,9 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         <br>CP: ` + bosscp + `
                         <br>Team: ` + tid + `
                         <br>Expires: ` + hour + `:` + min + ` ` + ampm + `
-                    <?php if (!isset($_SESSION["uname"])) { ?>
+                    <?php if ($sess->get('uname',null) === null) { ?>
                         <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
-                    <?php } else if (isset($_SESSION["uname"])) { ?>
+                    <?php } else if ($sess->get('uname',null) != null) { ?>
                         <br><hr>
                         <b>Choose team:</b>
                         <br>
@@ -319,7 +342,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     <?php } ?>
                         <br><hr>
                         <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
-                    <?php if (isset($_SESSION["uname"])) { ?>
+                    <?php if ($sess->get('uname',null) != null) { ?>
                         <br><hr><b>Spotted by: </b>` + raidby + `
                     <?php } ?>
                     </center>
@@ -339,9 +362,9 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         <br>CP: ` + bosscp + `
                         <br>Team: ` + tid + `
                         <br>Expires: ` + hour + `:` + min + ` ` + ampm + `
-                    <?php if (!isset($_SESSION["uname"])) { ?>
+                    <?php if ($sess->get('uname',null) === null) { ?>
                         <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
-                    <?php } else if (isset($_SESSION["uname"])) { ?>
+                    <?php } else if ($sess->get('uname',null) != null) { ?>
                         <br><hr><strong>EX Raid On:</strong>
                         <br> ` + exraiddate + `
                         <br><hr><b>Choose team:</b>
@@ -368,7 +391,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     <?php } ?>
                         <br><hr>
                         <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
-                    <?php if (isset($_SESSION["uname"])) { ?>
+                    <?php if ($sess->get('uname',null) != null) { ?>
                         <br><hr><b>Spotted by: </b>` + raidby + `
                     <?php } ?>
                     </center>
@@ -389,9 +412,9 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         <br>Egg level: ` + egg + `
                         <br>Team: ` + tid + `
                         <br>Hatches at: ` + hour + `:` + min + ` ` + ampm + `
-                    <?php if (!isset($_SESSION["uname"])) { ?>
+                    <?php if ($sess->get('uname',null) === null) { ?>
                         <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
-                    <?php } else if (isset($_SESSION["uname"])) { ?>
+                    <?php } else if ($sess->get('uname',null) != null) { ?>
                     <br><hr>
                     <b>Choose team:</b>
                     <br>
@@ -417,7 +440,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 <?php } ?>
                     <br><hr>
                     <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
-                <?php if (isset($_SESSION["uname"])) { ?>
+                <?php if ($sess->get('uname',null) != null) { ?>
                     <br><hr>
                     <b>Spotted by: </b>` + eggby + `
                 <?php } ?>
@@ -437,9 +460,9 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         <br>Egg level: ` + egg + `
                         <br>Team: ` + tid + `
                         <br>Hatches at: ` + hour + `:` + min + ` ` + ampm + `
-                    <?php if (!isset($_SESSION["uname"])) { ?>
+                    <?php if ($sess->get('uname',null) === null) { ?>
                         <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
-                    <?php } else if (isset($_SESSION["uname"])) { ?>
+                    <?php } else if ($sess->get('uname',null) != null) { ?>
                         <br><hr>
                         <strong>EX Raid On:</strong>
                         <br> ` + exraiddate + `
@@ -468,7 +491,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     <?php }; ?>
                         <br><hr>
                         <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
-                    <?php if (isset($_SESSION["uname"])) { ?>
+                    <?php if ($sess->get('uname',null) != null) { ?>
                         <br>
                         <hr><b>Spotted by: </b>` + eggby + `
                     <?php } ?>
@@ -507,12 +530,12 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 <center>
                     <img src="<?= W_ASSETS ?>stops/queststop.png" height="45" width="45"></img>
                     <p><b>` + sname + `</b>
-                <?php if (!isset($_SESSION["uname"])) { ?>
+                <?php if ($sess->get('uname',null) === null) { ?>
                     <br>
                     (<b><span class="text-success">Quested</span></b>)
                     <br><hr>
                     <b><span class="text-danger">Login to add/view quests.</span></b>
-                <?php } else if (isset($_SESSION["uname"])) { ?>
+                <?php } else if ($sess->get('uname',null) != null) { ?>
                     <br><hr>
                     <b>Quest:</b>
                     <br> ` + quest + `
@@ -522,7 +545,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 <?php } ?>
                     <br><hr>
                     <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('slatitude') + `,` + markerElem.getAttribute ('slongitude') + `">Google Maps</a>
-                <?php if (isset($_SESSION["uname"])) { ?>
+                <?php if ($sess->get('uname',null)) { ?>
                     <br><hr>
                     <b>Spotted by: </b>` + questby + `
                 <?php } ?>
@@ -539,7 +562,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 <center>
                     <img src="<?= W_ASSETS ?>stops/stops.png" height="45" width="45"></img>
                     <p><b>` + sname + `</b>
-                <?php if (!isset($_SESSION["uname"])) { ?>
+                <?php if ($sess->get('uname',null) === null) { ?>
                     <br><hr>
                     <b><span class="text-danger">Login to add/view quests.</span></b>
                 <?php } ?>
@@ -574,7 +597,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //=============================
 function mynatrades()
 {
-    require './config/config.php';
+    require_once './config/config.php';
     $results_per_page = 10;
     if (isset($_GET["page"])) {
         $page = $_GET["page"];
@@ -582,7 +605,7 @@ function mynatrades()
         $page = 1;
     }
     $start_from = ($page - 1) * $results_per_page;
-    $sql = "SELECT * FROM offers WHERE offers.tname = '" . $_SESSION['uname'] . "' AND accepted = 0 ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
+    $sql = "SELECT * FROM offers WHERE offers.tname = '" . $_SESSION['Spotamon']['uname'] . "' AND accepted = 0 ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
     $sqlcnt = "SELECT COUNT(OID) AS total FROM offers";
     $resultcnt = $conn->query($sqlcnt);
@@ -594,7 +617,7 @@ function mynatrades()
                                     <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
                                     <table id="spotted" class="table table-bordered">
                                         <?php
-if (isset($_SESSION["uname"])) {?>
+if ($sess->get('uname',null)) {?>
                                         <tr>
                                             <th>#</th>
                                             <th>OFFERED POKEMON</th>
@@ -620,7 +643,7 @@ if (isset($_SESSION["uname"])) {?>
         $tradeloc = $row['tradeloc'];
         $date = $row['date'];
         $tname = $row['tname'];
-        if (isset($_SESSION["uname"])) {?>
+        if ($sess->get('uname',null) != null) {?>
                                         <tr>
                                             <td style='text-align:center;'>
                                                 <?=$oid?>

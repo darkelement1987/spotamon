@@ -23,7 +23,7 @@ class Validate
         }
     }
 
-    
+
 
     public function clean($input)
     {
@@ -97,11 +97,11 @@ class Validate
             $_POST[$key] = $value;
         }
     }
-    public function getSession($key, $sanitize = null, $default = null)
+    public function getSession($key, $sanitize = null, $namespace = 'Spotamon', $default = null)
     {
-        if (isset($_SESSION[$key]) && !empty($_SESSION[$key])) {
+        if (isset($_SESSION[$namespace][$key]) && !empty($_SESSION[$namespace][$key])) {
 
-            $key = $_SESSION[$key];
+            $key = $_SESSION[$namespace][$key];
 
             if ($sanitize !== null) {
                 $key = $this->clean($key);
@@ -112,19 +112,18 @@ class Validate
         return $key;
     }
 
-    public function setSession($key, $value = Null)
+    public function setSession($key, $value = Null, $namespace = 'Spotamon')
     {
-        if ($value === null) {
+        if ($value === Null) {
             if (is_array($key)) {
                 foreach($key as $k) {
-                    if (isset($_SESSION[$k])) {
-                        unset($_SESSION[$k]);
+                    if (isset($_SESSION[$namespace][$k])) {
+                        unset($_SESSION[$namespace][$k]);
                         return true;
                     }
                 }
-            }
-            if (isset($_SESSION[$key])) {
-                unset($_SESSION[$key]);
+            } else if (isset($_SESSION[$namespace][$key])) {
+                unset($_SESSION[$namespace][$key]);
                 return true;
             }
         }
@@ -132,17 +131,17 @@ class Validate
             if (count($key) === count($value)) {
             $array = array_combine($key, $value);
             foreach( $array as $k => $v) {
-                $_SESSION[$k] = $v;
-            
+                $_SESSION[$namespace][$k] = $v;
+
             }}else{
                 var_dump(['key' => $key, 'value' => $value]);
             }
         } else if (is_array($key) && !is_array($value)) {
             foreach ($key as $k) {
-                $_SESSION[$k] = $value;
+                $_SESSION[$namespace][$k] = $value;
             }
         } else {
-            $_SESSION[$key] = $value;
+            $_SESSION[$namespace][$key] = $value;
         }
     }
     public function validate($data, $filter, $options)
@@ -233,7 +232,7 @@ class Validate
                         if ($data === $options) {
                             $data = $data;
                             break;
-                        } 
+                        }
                     }
                 } else {
                     $passregexp = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$|^admin$/";

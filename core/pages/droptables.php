@@ -1,8 +1,10 @@
 <?php
+require_once 'initiate.php';
+
 ob_start();
 
 
-if (isset($_SESSION["uname"])) {
+if (isset($_SESSION['Spotamon']['uname'])) {
 
     $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $sess->get('uname') . "' AND users.usergroup = usergroup.id LIMIT 1  ");
     $id = $usergroup = "";

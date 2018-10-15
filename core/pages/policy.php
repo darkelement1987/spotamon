@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 ?>
 <style>
@@ -51,7 +52,7 @@
       </div>
       <div class='col-2'>
          <div class="col-12 quick-links2 gen-text-center">
-            Fair Information Practices                    
+            Fair Information Practices
             <div class="col-8 gen-text-left gen-xs-text-center" style="font-size:12px;position:relative;left:20px;">Fair information<br> Practices</div>
          </div>
       </div>
@@ -155,7 +156,7 @@
 <div class='innerText'>If there are any questions regarding this privacy policy, you may contact us using the information below.<br><br></div>
 <div class='innerText'><?php echo $polsite?></div>
 <div class='innerText'><?php echo $polstreet?></div>
-<?php echo $polcity?>, <?php echo $polstate?> <?php echo $polpostal?> 
+<?php echo $polcity?>, <?php echo $polstate?> <?php echo $polpostal?>
 <div class='innerText'><?php echo $polcountry?></div>
 <div class='innerText'><?php echo $polemail?></div>
 </div>

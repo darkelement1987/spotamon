@@ -1,4 +1,6 @@
 <?php
+require_once 'initiate.php';
+
 $results_per_page = 8;
     if (isset($_GET["page"])) {
         $page = $_GET["page"];
@@ -17,7 +19,7 @@ $results_per_page = 8;
                             <center>
                                 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
                                 <table id="spotted" class="table table-bordered">
-                                    <?php if (isset($_SESSION["uname"])) {?>
+                                    <?php if (isset($_SESSION['Spotamon']['uname'])) {?>
                                     <tr>
                                         <th>#</th>
                                         <th>OFFERED POKEMON</th>
@@ -41,7 +43,7 @@ $results_per_page = 8;
         $tradeloc = $row['tradeloc'];
         $date = $row['date'];
         $tname = $row['tname'];
-        if (isset($_SESSION["uname"])) {?>
+        if (isset($_SESSION['Spotamon']['uname'])) {?>
                                     <tr>
                                         <td style='text-align:center;'>
                                             <?=$oid?>

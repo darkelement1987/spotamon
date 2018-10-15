@@ -1,9 +1,10 @@
 <?php
+require_once 'initiate.php';
 
 
-if (isset($_SESSION["uname"])) {
+if (isset($_SESSION['Spotamon']['uname'])) {
     require_once 'config/config.php';
-    $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
+    $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['Spotamon']['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
     $gcountquery = $conn->query("SELECT * FROM `gyms`");
     $gcountresult = mysqli_num_rows($gcountquery);
     $scountquery = $conn->query("SELECT * FROM `stops`");
@@ -50,7 +51,7 @@ while ($row = $result->fetch_assoc()) {
             if (substr($url, 0, 5) == 'https') {?>
                             <img src="<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
                             <?php } else {?>
-                            <img src="./core/assets/userpics/<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
+                            <img src="<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
                             <?php }} else {?>
                             <img src="./core/assets/userpics/nopic.png" height="50px" width="50px" alt="logo" style="border:1px solid black">
                             <?php }?>

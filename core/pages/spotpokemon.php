@@ -1,4 +1,6 @@
 <?php
+require_once 'initiate.php';
+
 $curl = curl_init();
 ob_start();
 
@@ -12,7 +14,7 @@ if ($clock=="false"){
 		$hour = date('H');
 		$ampm = '';
 		}
-		
+
 $min = date('i');
 
 $latitude = $conn->real_escape_string($_POST['latitude']);
@@ -20,7 +22,7 @@ $longitude = $conn->real_escape_string($_POST['longitude']);
 $address = $conn->real_escape_string($_POST['addressinput']);
 $good = 0;
 $bad = 0;
-$spotter = $conn->real_escape_string($_SESSION['uname']);
+$spotter = $conn->real_escape_string($_SESSION['Spotamon']['uname']);
 
 // Start queries
 
@@ -33,10 +35,10 @@ if(!mysqli_query($conn,$sql))
 else
 {
     echo 'Inserted';
-}    
+}
 
 	} else {
-		
+
 $sql = "INSERT INTO spots (pokemon, cp, iv, hour, min, ampm, latitude, longitude, fulladdress, good, bad, spotter) VALUES ('$pokemon','$cp','$iv','$hour','$min','','$latitude','$longitude','$address','$good','$bad', '$spotter')";
 if(!mysqli_query($conn,$sql))
 {
@@ -45,11 +47,11 @@ if(!mysqli_query($conn,$sql))
 else
 {
     echo 'Inserted';
-}   
+}
 
 	}
-		
-		
+
+
 // Lookup Pokemon name for webhook
 $monnamequery = "SELECT monster FROM pokedex WHERE id = '$pokemon'";
 	if(!mysqli_query($conn,$monnamequery))
@@ -86,19 +88,19 @@ $hookObject = json_encode([
                 "text" => "Spotted by $spotter at $date",
 				"icon_url" => W_ASSETS . "icons/$pokemon.png"
             ],
-            
+
             "image" => [
 				"url" => "http://staticmap.openstreetmap.de/staticmap.php?center=".$latitude.",".$longitude."&zoom=17&size=400x400&maptype=mapnik&markers=".$latitude.",".$longitude.",red-pushpin",
             ],
-            
+
             "thumbnail" => [
 				"url" => W_ASSETS . "icons/$pokemon.png",
             ],
-            
+
             "author" => [
                 "name" => "$monname spotted by $spotter",
             ],
-            
+
             "fields" => [
 				[
 					"name" => "Found:",
@@ -123,7 +125,7 @@ $hookObject = json_encode([
             ]
         ]
     ]
-    
+
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
 $ch = curl_init();
@@ -139,8 +141,8 @@ curl_setopt_array( $ch, [
 ]);
 
 $response = curl_exec( $ch );
-curl_close( $ch );	
+curl_close( $ch );
 
 header('Location:index.php?loc='.$latitude.','.$longitude.'&zoom=19');
-    
+
 ?>

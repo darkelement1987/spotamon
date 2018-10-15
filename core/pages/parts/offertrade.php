@@ -50,7 +50,7 @@ $result = mysqli_query($conn,$sql1)or die(mysqli_error($conn));
 				}
 			$offtrades = ++$offtrades;
 
-$sql2 = "UPDATE users SET offtrades='$offtrades' WHERE uname='".$_SESSION['uname']."'";
+$sql2 = "UPDATE users SET offtrades='$offtrades' WHERE uname='".$_SESSION['Spotamon']['uname']."'";
     if(!mysqli_query($conn,$sql2))
         {
             echo 'Not Inserted';

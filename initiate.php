@@ -2,7 +2,7 @@
 require_once 'config/config.php';
 require_once 'vendor/autoload.php';
 require_once 'core/functions/functions.php';
-
+ini_set('display_errors', '1');
 use \Aura\Session\SessionFactory;
 if (!isset($_SESSION) || !isset($session)) {
     $session_factory = new \Aura\Session\SessionFactory;
@@ -16,7 +16,7 @@ if ($enableDebug === true) {
 ini_set("error_log", "/debug.log");
 } else if ($enableDebug === false && file_exists('/error.log') ){
     delete('/error.log');
- }
+}
 
 use \Spotamon\Validate;
 $Validate = new Validate;
@@ -67,6 +67,7 @@ define("W_FUNCTIONS", $wfunctions);
 
 
 $conn = new mysqli($servername, $username, $password, $database);
+$conn->set_charset('utf8mb4');
 // Check connection
 if ($conn->connect_error) {
     echo "Connection failed: $conn->connection_error";

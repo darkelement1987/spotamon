@@ -115,9 +115,6 @@ Header set X-Frame-Options SAMEORIGIN
 </IfModule>
 
 
-# Rules for Versioned Static Files
-RewriteRule ^core/(css|js)/(.+)\.(\d{10})\.(css|js)$ core/$1/$2.$4 [NC,L]
-
 
 ### Disables browsers ability to cache files ###
 ### Forces reliance on update script         ###
@@ -146,6 +143,9 @@ RewriteBase /
 #  RewriteCond http%1://%{HTTP_HOST} ^(https?://)(www\.)?(.+)$
 #  RewriteRule ^ %1%3%{REQUEST_URI} [R=301,L]
 
+
+# Rules for Versioned Static Files
+RewriteRule ^core/(css|js)/(.+)\.(\d{10})\.(css|js)$ core/$1/$2.$4 [NC,L]
 
 ###     Protects Hidden Files     ###
 RewriteCond %{SCRIPT_FILENAME} -d [OR]

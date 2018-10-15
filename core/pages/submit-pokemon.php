@@ -1,4 +1,6 @@
 <?php
+require_once 'initiate.php';
+
 ?>
 
 <script>
@@ -30,7 +32,7 @@
 require_once './config/config.php';
     $result = $conn->query("SELECT * FROM pokedex");
     $id = $pokemon = $cp = $iv = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter = "";
-    if (isset($_SESSION["uname"])) {?>
+    if (isset($_SESSION['Spotamon']['uname'])) {?>
 <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 <h3 style="text-align:center;"><strong>Add Pokémon:</strong></h3>
 <form id="usersubmit" method="post" action="./spotpokemon.php">

@@ -1,5 +1,6 @@
 <?php
 
+require_once 'initiate.php';
 
 
 ?>
@@ -46,7 +47,7 @@ while ($row = mysqli_fetch_array($result)) {
 	$offerby = $row['tname'];
 	$shiny = $row['shiny'];
 	$alolan = $row['alolan'];
-	$rname = $_SESSION["uname"];
+	$rname = $_SESSION['Spotamon']['uname'];
 }
 ?>
 									<h3 style="text-align:center;"><strong>Make an Offer:</strong></h3>

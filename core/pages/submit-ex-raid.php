@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 
 
@@ -56,7 +57,7 @@
 	</script>
 
 <?php
-if (isset($_SESSION["uname"])) {
+if (isset($_SESSION['Spotamon']['uname'])) {
 	?>
 			<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 			<h3 style="text-align:center;"><strong>Add EX Raid:</strong></h3>

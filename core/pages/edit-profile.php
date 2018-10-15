@@ -1,6 +1,7 @@
 <?php
-if (isset($_SESSION["uname"])) {
-    require_once 'config/config.php';
+require_once 'initiate.php';
+
+if (isset($_SESSION['Spotamon']['uname'])) {
     $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $sess->get('uname') . "' AND users.usergroup = usergroup.id LIMIT 1  ");
     $id = $usergroup = "";?>
             <h3 style="text-align:center;"><strong>Edit Your Profile:</strong></h3>
@@ -150,7 +151,7 @@ if (file_exists("./core/assets/userpics/" . $_FILES["file"]["name"])) {
                 $ext = $conv['1'];
                 move_uploaded_file($_FILES["file"]["tmp_name"], "./core/assets/userpics/" . $userid . "." . $ext);
                 echo "Stored in as: " . "./core/assets/userpics/" . $userid . "." . $ext;
-                $urlpic = $userid . "." . $ext;
+                $urlpic = '/core/assets/userpics/' . $userid . "." . $ext;
                 $query = "update users set url='$urlpic', lastUpload=now() where uname='" . $sess->get('uname') . "'";
                 if ($upl = $conn->query($query)) {?>
                 <br />Saved to Database successfully
@@ -170,7 +171,7 @@ $res = $conn->query($pull);
     ?>
                     <div class="imgLow">
                         <?php if ($url !== '') {?>
-                        <img src="./core/assets/userpics/<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
+                        <img src="<?=$url?>" height="50px" width="50px" alt="logo" style="border:1px solid black">
                         <?php } else {?>
                         <img src="./core/assets/userpics/nopic.png" height="50px" width="50px" alt="logo" style="border:1px solid black">
                         <?php }?>

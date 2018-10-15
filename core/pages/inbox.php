@@ -1,9 +1,10 @@
 <?php
+require_once 'initiate.php';
 
 
 
-if (isset($_SESSION["uname"])) {
-    $sql = "SELECT * FROM messages WHERE to_user = '" . $_SESSION["uname"] . "' AND del_in='0'";
+if (isset($_SESSION['Spotamon']['uname'])) {
+    $sql = "SELECT * FROM messages WHERE to_user = '" . $_SESSION['Spotamon']['uname'] . "' AND del_in='0'";
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));?>
     <center>
         <div id="pm">
@@ -40,7 +41,7 @@ $error = '';
         } else { $error .= '<p><label class="text-danger">No messages to delete</label></p>';}
     }
 
-    echo $_SESSION["uname"] . '\'s inbox';
+    echo $_SESSION['Spotamon']['uname'] . '\'s inbox';
     ?>
             </h3>
             <script>

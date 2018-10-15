@@ -25,7 +25,7 @@ $authenticated = new \Spotamon\Authentication;
 if ($authenticated->result === 'discord-register' || $authenticated->result === 'discord-login') {
     $result = $authenticated->result;
     $form = W_PAGES . 'temppass.php';
-    $csrftoken = $csrf->insertToken($form, false);
+    $csrftoken = csrf();
     $user = $sess->get('uname');
     $passcheck = $conn->prepare("SELECT upass FROM users WHERE uname = ?;");
     $passcheck->bind_param("s", $user);

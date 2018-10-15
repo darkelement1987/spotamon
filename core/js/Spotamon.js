@@ -30,12 +30,8 @@ $(document).ready(function () {
     });
 
     $('#auth-modal').on('show.bs.modal', function () {
-        $('#menu-container ~ div').addClass('blur');
+        $('#menu-wrapper *, #content').not('#auth-modal-container, #auth-modal-container *').addClass('blur');
         $('body').removeClass('wsactive');
-    });
-
-    $('#auth-modal').on('hide.bs.modal', function () {
-        $('#auth-modal-container ~ div').removeClass('blur');
     });
 
     $('#loginform').submit(function (event) {
@@ -43,31 +39,30 @@ $(document).ready(function () {
         $('#discordloginbody').toggleClass('flex-hide');
         $('.email-modal').toggleClass('flex-expand');
         $('.email-modal > .modal-title').text('Spotamon is securely logging you in');
-        $('.discord-modal > .modal-title').hide();
-        $('#loginform').hide();
         $("body").removeClass('wsactive');
-        $('.login-fields').hide();
-        $('#register-switch').hide();
+        $('#emailloginbody *, #discordloginbody *').not('.email-modal > .modal-title').hide();
         var data = $('#loginform').serialize();
         var auth = $('#loginform').attr('action');
         $.post(auth, data, function (data) {
             if (data == 'true') {
-                $('#menu-container').load(w_root + 'core/pages/parts/nav.php', function () {
-                    $.getScript(w_root + 'core/js/menu.js');
-                }).fadeIn('slow').delay('1000', function () {
-                    $('#auth-modal').modal('toggle');
+                $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function(){
                     $('.blur').removeClass('blur');
-                });
+                    page = $('#content').data('page');
+                    loadurl = w_root + 'core/pages/' + page + '.php';
+                    $('#content').load(loadurl);
+                    $.getScript(w_root + "core/js/leaflet.js");
+                    $('#auth-modal').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    });
             } else {
-                $('#login-error').html(data);
-                $('#menu-container').load(w_root + 'core/pages/parts/nav.php', function () {
-                    $.getScript(w_root + 'core/js/menu.js');
-                }).fadeIn('slow').delay('1000', function () {
+                $('#login-error').show().html(data);
+                $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function () {
                     $('.blur').removeClass('blur');
+            });
+        }
         });
-    }
     });
-});
 
     $('#registerform').submit(function (event) {
         event.preventDefault();
@@ -77,21 +72,29 @@ $(document).ready(function () {
         $('.discord-modal > .modal-title').hide();
         $('#registerform').hide();
         $("body").removeClass('wsactive');
-        $('#register-switch').hide();
+        $('.register-switch').hide();
         $('.login-fields').hide();
 
         var data = $('#registerform').serialize();
         var auth = $('#registerform').attr('action');
         $.post(auth, data, function (data) {
             if (data == 'true') {
-                $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function () {
-                    $('#auth-modal').modal('toggle');
+                $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function(){
                     $('.blur').removeClass('blur');
-                });
+                    page = $('#content').data('page');
+                    loadurl = w_root + 'core/pages/' + page + '.php';
+                    $('#content').load(loadurl);
+                    $.getScript(w_root + "core/js/leaflet.js");
+                    $('#auth-modal').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    });
             } else {
-                $('#register-error').html(data + '<br><a href="/index.php" class="btn m-auto">Retry</a>');
-                $('.blur').removeClass('blur');
-            }
+                $('#login-error').show().html(data);
+                $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function () {
+                    $('.blur').removeClass('blur');
+            });
+        }
         });
     });
 
@@ -107,19 +110,6 @@ $(document).ready(function () {
         $.oauth2popup(options);
     });
 
-
-    $('#registerform').submit(function (event) {
-        event.preventDefault();
-        var data = $('#registerform').serialize();
-        var auth = $('#registerform').attr('action');
-        $.post(auth, data, function (data) {
-            if (data == 'true') {
-                $('#menu-container').load('core/pages/parts/nav.php').fadeIn('slow');
-            } else {
-                $('#register-error').html(data);
-            }
-        });
-    });
 
     (function ($) {
         //  inspired by DISQUS
@@ -157,20 +147,55 @@ $(document).ready(function () {
         };
     })(jQuery);
 
-
-    $('a.Instinct').click(function (e) {
-        e.preventDefault();
-        $("form[name='postInstinct']").submits();
-    });
-    $('a.Valor').click(function (e) {
-        e.preventDefault();
-        $("form[name='postValor']").submit();
-    });
-
-    $('a.Mystic').click(function (e) {
-        e.preventDefault();
-        $("form[name='postMystic']").submit();
-    });
-
 });
+$(window).on('load', function() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '<?=$analytics?>');
+});
+function pickInstinct(gym) {
+    $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:2}, function(data) {
+        result = data.replace(/\r\n/g, "");
+        if (result == "Inserted") {
+            var id = '#' + gym,
+                mId = '.marker' + gym;
+            $(id).find('img').first().fadeTo(1000,0.30, function() {
+                $(this).attr('src', '/core/assets/gyms/2.png');
+                $(id).find('p').first().text('Team: Instinct');
+                $(mId).attr('src', '/core/assets/gyms/2.png');
+        }).fadeTo(500,1);
+    }
+    });
+}
+function pickValor(gym) {
+    $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:3}, function(data) {
+        result = data.replace(/\r\n/g, "");
+        if (result == "Inserted") {
+            var id = '#' + gym,
+                mId = '.marker' + gym;
+            $(id).find('img').first().fadeTo(1000,0.30, function() {
+                $(this).attr('src', '/core/assets/gyms/3.png');
+                $(id).find('p').first().text('Team: Valor');
+                $(mId).attr('src', '/core/assets/gyms/3.png');
+        }).fadeTo(500,1);
+    }
+    });
+}
+function pickMystic(gym) {
+    $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:4}, function(data) {
+        result = data.replace(/\r\n/g, "");
+        if (result == "Inserted") {
+            var id = '#' + gym,
+                mId = '.marker' + gym;
+            $(id).find('img').first().fadeTo(1000,0.30, function() {
+                $(this).attr('src', '/core/assets/gyms/4.png');
+                $(id).find('p').first().text('Team: Mystic');
+                $(mId).attr('src', '/core/assets/gyms/4.png');
+        }).fadeTo(500,1);
+    }
+    });
+}
+
 

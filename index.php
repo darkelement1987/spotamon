@@ -13,8 +13,10 @@ require_once 'initiate.php';
 </head>
 
 <body>
-    <?php include_once S_PAGES . 'parts/menu.php';
-
+    <div id="menu-wrapper">
+    <?php include_once S_PAGES . 'parts/menu.php'; ?>
+</div>
+<?php
     if (!empty($Validate->get->pg)) {
         $pageurl = $Validate->get->pg;
         if (file_exists(S_PAGES . $pageurl . '.php')) { ?>
@@ -26,15 +28,15 @@ require_once 'initiate.php';
             <?php
             $pageurl();
         } else { ?>
-            <div id="content" data-page="home">
+            <div id="content" data-page="map">
             <?php
-            maps();
+            include_once S_PAGES . 'map.php';
         }
     } else { ?>
-        <div id="content" id="home">
+        <div id="content" data-page="map">
         <?php
-        maps();
-    } ?>
+            include_once S_PAGES . 'map.php';
+        } ?>
     </div>
 
 
@@ -51,3 +53,8 @@ if (typeof initMap == 'function') {
     </script>
 </body>
 </html>
+<?php
+if($conn) {
+$conn->close();
+}
+?>

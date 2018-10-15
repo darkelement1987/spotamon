@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 $pass = $Validate->getPost('password');
 $upass = $Validate->getPost('password', 'password');

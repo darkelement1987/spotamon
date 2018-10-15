@@ -1,10 +1,11 @@
 <?php
 
+require_once 'initiate.php';
 
 
 
-if (isset($_SESSION["uname"])) {
-    $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
+if (isset($_SESSION['Spotamon']['uname'])) {
+    $result = $conn->query("SELECT * FROM users,usergroup WHERE uname='" . $_SESSION['Spotamon']['uname'] . "' AND users.usergroup = usergroup.id LIMIT 1  ");
     $id = $usergroup = "";
     while ($row = $result->fetch_assoc()) {
         $usergroup = $row['groupname'];

@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 
 
@@ -61,7 +62,7 @@
 <?php
 $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
 $gid = $gname = $gteam = $teamby = "";
-if (isset($_SESSION["uname"])) {
+if (isset($_SESSION['Spotamon']['uname'])) {
 	?>
 			<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 			<h3 style="text-align:center;"><strong>Gym team:</strong></h3>

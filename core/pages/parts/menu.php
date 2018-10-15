@@ -31,7 +31,7 @@ if ($sess->get('uname', null) === null) {
     </script>
     <?php } else if ($motdalways == false) {?>
 
-    <?php if (!isset($_SESSION["uname"])) {?>
+    <?php if (!isset($_SESSION['Spotamon']['uname'])) {?>
     <script>
         swal({
             title: '<?=$motdtitle?>',

@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 
 
@@ -47,7 +48,7 @@ if (isset($_POST["submit"])) {
 ?>
 <center>
     <div id="pm">
-        <?php if (isset($_SESSION["uname"])) {?>
+        <?php if (isset($_SESSION['Spotamon']['uname'])) {?>
         <h3>Messages:</h3>
         <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
             <table class="table table-bordered" style="background-color: rgba(255, 255, 255, 0.4);">

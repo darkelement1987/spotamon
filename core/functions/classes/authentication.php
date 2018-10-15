@@ -109,13 +109,13 @@ class Authentication
         global $session;
 
         if (!verifyCsrf()) {
+            $this->error[] = 'Validation Error';
             return false;
         }
         $userName = $Validate->getPost('username', 'username');
         $userEmail = $Validate->getPost('email', 'email');
         $userPassword = $Validate->getPost('password', 'password');
         $userConfirmpass = $Validate->getPost('confirmpassword', 'password', true, $userPassword);
-        $options = ['uname', 'logged_in', 'login_time'];
 
         if ($userConfirmpass === null) {
             $this->error[] = 'passwords do not match';
@@ -126,11 +126,11 @@ class Authentication
         $nameexist = $this->userexists($userName);
         $emailexist = $this->emailexists($userEmail);
         if ($nameexist === true) {
-            $this->error[] = $userName . "is already taken";
+            $this->error[] = $userName . " is already taken";
             return false;
         }
         if ($emailexist === true) {
-            $this->error[] = $userEmail . "already is registered";
+            $this->error[] = $userEmail . " already is registered";
             return false;
         }
 
@@ -149,6 +149,7 @@ class Authentication
             return false;
         }
         $session->regenerateId();
+        $options = ['uname', 'logged_in', 'login_time'];
         $values = [$userName, true, time()];
         $Validate->setSession($options, $values);
 
@@ -263,7 +264,7 @@ class Authentication
         global $sess;
         global $Validate;
         global $conn;
-        $jsontoken = $sesh->get('token');
+        $jsontoken = $sess->get('token');
         $jsontoken = $jsontoken->getRefreshtoken();
         $dbtoken = $conn->prepare("UPDATE user_extended SET token = ? WHERE email = ?;");
         $dbtoken->bind_param('ss', $jsontoken, $email);

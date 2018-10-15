@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 
 
@@ -76,7 +77,7 @@
 <?php
 $result = $conn->query("SELECT * FROM quests");
 $qid = $qname = $spotter = "";
-if (isset($_SESSION["uname"])) {
+if (isset($_SESSION['Spotamon']['uname'])) {
 	?>
 	<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 	<h3 style="text-align:center;"><strong>Submit a Quest:</strong></h3>

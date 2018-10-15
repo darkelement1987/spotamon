@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 $email = $conn->real_escape_string($_POST['email']);
 // attempt insert query execution

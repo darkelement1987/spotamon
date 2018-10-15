@@ -1,3 +1,12 @@
+@font-face {
+	font-family: 'Varela Round';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Varela Round Regular'), local('VarelaRound-Regular'),
+		 url('fonts/varela-round-v10-latin-ext-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+		 url('fonts/varela-round-v10-latin-ext-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
 * {
 	font-family: 'Verela Round', sans-serif;
 }
@@ -59,9 +68,7 @@ hr {
 	font-weight: 300;
 	font-size: 13px;
 	overflow: hidden;
-	padding-left: 15px;
-	padding-bottom: 10px;
-	padding-top: 5px;
+
 }
 
 .cpinput {
@@ -1250,11 +1257,11 @@ p.bodyspacer {
 
 
 .blur {
-	-webkit-filter: blur(2px) grayscale(70%);
-	-moz-filter: blur(2px) grayscale(70%);
-	-o-filter: blur(2px) grayscale(70%);
-	-ms-filter: blur(2px) grayscale(70%);
-	filter: blur(2px) grayscale(70%);
+	-webkit-filter: blur(2px);
+	-moz-filter: blur(2px);
+	-o-filter: blur(2px);
+	-ms-filter: blur(2px);
+	filter: blur(2px);
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }

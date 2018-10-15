@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 ?>
 
@@ -44,7 +45,7 @@ while ($row = mysqli_fetch_array($result)) {
     $shiny = $row['shiny'];
     $alolan = $row['alolan'];
     $notes = $row['notes'];
-    $rname = $_SESSION["uname"];
+    $rname = $_SESSION['Spotamon']['uname'];
     $complete = $row['complete'];
     $cloc = $row['cloc'];
 }
@@ -122,7 +123,7 @@ if (empty($notes)) {
 ?>
                                                             </td>
                                                         </tr>
-                                                        <?php if ($offerby == ($_SESSION["uname"])) {
+                                                        <?php if ($offerby == ($_SESSION['Spotamon']['uname'])) {
 } else {?>
                                                         <tr>
                                                             <td></td>
@@ -159,8 +160,8 @@ $total_pages = ceil($row["total"] / $results_per_page);
                                             <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
                                             <table id="spotted" class="table table-bordered">
                                                 <?php
-if (isset($_SESSION["uname"])) {
-    if ($offerby == ($_SESSION["uname"])) {
+if (isset($_SESSION['Spotamon']['uname'])) {
+    if ($offerby == ($_SESSION['Spotamon']['uname'])) {
         if ($complete == 0) {?>
                                                 <tr>
                                                     <th>#</th>
@@ -187,7 +188,7 @@ if (isset($_SESSION["uname"])) {
                                                     <th>STATUS</th>
                                                 </tr>
                                                 <?php }
-    } elseif ($offerby != ($_SESSION["uname"])) {?>
+    } elseif ($offerby != ($_SESSION['Spotamon']['uname'])) {?>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>OFFERED BY</th>
@@ -223,8 +224,8 @@ while ($row = mysqli_fetch_array($result)) {
     $accepted = $row['accepted'];
     $complete = $row['complete'];
     $date = $row['date'];
-    if (isset($_SESSION["uname"])) {
-        if ($offerby == ($_SESSION["uname"])) {?>
+    if (isset($_SESSION['Spotamon']['uname'])) {
+        if ($offerby == ($_SESSION['Spotamon']['uname'])) {?>
                                                 <tr>
                                                     <td style='text-align:center;'>
                                                         <?=$toid?>

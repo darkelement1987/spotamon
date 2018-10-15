@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 
 $results_per_page = 10;

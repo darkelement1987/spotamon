@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 $csrftoken = csrf();
 ?>
 <!-- Login/register Modal Start -->
@@ -7,7 +8,6 @@ $csrftoken = csrf();
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content border-0" id="auth-modal-content">
                 <div class="modal-body p-0">
-                    <div class="lloader"></div>
                     <div class="login-row row login-modal">
                         <div class="col-md-5 d-none d-md-flex flex-column discord-modal" id="discordloginbody">
                             <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordlogin" class="d-none d-md-flex align-content-center discord-link">
@@ -16,7 +16,7 @@ $csrftoken = csrf();
                             </a>
                             <h5 class="modal-title">or login with Discord!</h5>
                         </div>
-                        <div class="col-12 col-md-7 d-flex flex-column align-content-around email-modal" id="emailmodalbody">
+                        <div class="col-12 col-md-7 d-flex flex-column align-content-around email-modal" id="emailloginbody">
                             <h5 class="d-none d-md-inline-block modal-title">Login By Username or Email</h5>
                             <h5 class="d-inline-block d-md-none">Login to Spotamon</h5>
                             <form class="login-form my-4" id="loginform" action="<?=W_FUNCTIONS?>auth.php" method="post">
@@ -116,8 +116,7 @@ $csrftoken = csrf();
                                         </span>
                                     </div>
                                     <input type="password" name="password" placeholder="Password" class="form-control login-fields"
-                                        pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
-                                        maxlength="18" id="regpass" minlength=required />
+                                        pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')" id="regpass" minlength=required />
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -128,12 +127,12 @@ $csrftoken = csrf();
                                     </div>
                                     <input type="password" name="confirmpassword" placeholder="Confirm Password" class="form-control login-fields"
                                         pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
-                                        id="regconfirmpass" maxlength="18" minlength="8" required />
+                                        id="regconfirmpass" required />
                                 </div>
                             </div>
                             <input type="hidden" name="formtype" value="register">
                             <?=$csrftoken?>
-                            <div class="form-row d-flex no-wrap justify-content-around">
+                            <div class="form-row d-flex no-wrap justify-content-around register-button">
                                 <button class="btn btn-primary btn-md-block d-inline-block d-md-block btn-sm" id="registersubmit"
                                     type="submit">Register by Account</button>
                                 <a href="<?=W_FUNCTIONS?>auth.php?formtype=discordregister" class="btn discord-link btn-discord btn-sm d-inline-block d-md-none"><span
@@ -142,13 +141,13 @@ $csrftoken = csrf();
                             </div>
                         </form>
                         <div id="register-error"></div>
-                        <div class="row">
+                        <div class="row register-switch">
                             <div class="col p-0">
                                 <strong class="login-fields" style="font-size:14px; margin-top:7px;">Already a
                                     Member???</strong>
                             </div>
                         </div>
-                        <div class="row form-switch">
+                        <div class="row form-switch register-switch">
                             <div class="col p-0" style="  font-size:14px;">
                                 <a href="#" id="login-switch">Login Here</a>
                                 <strong>/</strong>

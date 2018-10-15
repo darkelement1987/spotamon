@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 
 ?>
@@ -47,7 +48,7 @@
 <?php
 $result = $conn->query("SELECT * FROM pokedex");
 $id = $pokemon = $cp = $iv = $monster = $spotter = $opentrade = "";
-if (isset($_SESSION["uname"])) {?>
+if (isset($_SESSION['Spotamon']['uname'])) {?>
 					<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 					<h3 style="text-align:center;"><strong>Offer a Trade:</strong></h3>
 					<form id="usersubmit" method="post" action="<?=W_FUNCTIONS?>offertrade.php">

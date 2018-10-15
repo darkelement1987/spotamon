@@ -1,5 +1,6 @@
 <?php
 
+require_once 'initiate.php';
 
 
 
@@ -75,7 +76,7 @@ if (isset($_POST["submit"])) {
     }
 }
 
-if (isset($_SESSION["uname"])) {?>
+if (isset($_SESSION['Spotamon']['uname'])) {?>
     <!DOCTYPE html>
     <center>
         <h3 align="center">Feedback</h3>

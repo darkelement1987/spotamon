@@ -1,11 +1,13 @@
 <?php
+require_once 'initiate.php';
+
 $curl = curl_init();
 ob_start();
 
 
 $exraiddate = $conn->real_escape_string($_POST['exraiddate']);
 $gname = $conn->real_escape_string($_POST['gname']);
-$spotter = $conn->real_escape_string($_SESSION['uname']);
+$spotter = $conn->real_escape_string($_SESSION['Spotamon']['uname']);
 
 $sql = "INSERT INTO exraids (gname, exraiddate, spotter) VALUES ('$gname', '$exraiddate', '$spotter')";
     if(!mysqli_query($conn,$sql))
@@ -44,9 +46,9 @@ $gymname = $row[0];
 $gymlat = $row[1];
 $gymlon = $row[2];
 $gymteam = $row[3];
-		
+
 	$siteurl = "[".$viewtitle."](".$viewurl."/?loc=$gymlat,$gymlon&zoom=19)";
-		
+
 		$hookObject = json_encode([
     "username" => "EX Raid Spotted!",
     "tts" => false,
@@ -59,13 +61,13 @@ $gymteam = $row[3];
                 "text" => "Spotted by $spotter at $exraiddate",
 				"icon_url" => W_ASSETS  . "gyms/".$gymteam."ex.png"
             ],
-            
+
             "image" => [
 				"url" => "http://staticmap.openstreetmap.de/staticmap.php?center=".$gymlat.",".$gymlon."&zoom=17&size=400x400&maptype=mapnik&markers=".$gymlat.",".$gymlon.",red-pushpin",
-            ],   
+            ],
             "author" => [
                 "name" => "Ex-Raid spotted by $spotter",
-            ],			
+            ],
             "thumbnail" => [
 				"url" => W_ASSETS  . "gyms/".$gymteam."ex.png",
             ],
@@ -78,7 +80,7 @@ $gymteam = $row[3];
             ]
         ]
     ]
-    
+
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
 $ch = curl_init();
@@ -95,6 +97,6 @@ curl_setopt_array( $ch, [
 
 $response = curl_exec( $ch );
 curl_close( $ch );
-	
+
 	header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
 ?>

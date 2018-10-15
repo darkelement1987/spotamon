@@ -1,7 +1,7 @@
 <?php
 require_once "initiate.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!$csrf->validateRequest()) {
+    if (!verifyCsrf()) {
         $result = 'Validation Error';
         echo $result;
         exit();

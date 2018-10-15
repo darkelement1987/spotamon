@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 $results_per_page = 7;
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
@@ -8,7 +9,7 @@ if (isset($_GET["page"])) {
 $start_from = ($page - 1) * $results_per_page;
 $sql = "SELECT * FROM offers,pokedex WHERE offers.offmon = pokedex.id AND complete = 0 ORDER BY oid DESC LIMIT $start_from," . $results_per_page;
 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-if (isset($_SESSION["uname"])) {
+if (isset($_SESSION['Spotamon']['uname'])) {
     $sqlcnt = "SELECT COUNT(OID) AS total FROM offers";
     $resultcnt = $conn->query($sqlcnt);
     $row = $resultcnt->fetch_assoc();
@@ -47,25 +48,24 @@ $urlquery = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
                                     <?=$offerby?></a><br>
                                 <?php if ($url !== '') {?>
                                 <a href='./compose.php?user=<?=$offerby?>&subject=Trade Number <?=$oid?>'>
-                                    <img src="./core/assets/userpics/<?=$url?>" height="25px" width="25px" alt="logo" style="border:1px solid black"></a>
+                                    <img src="<?=$url?>" height="25px" width="25px" alt="logo" style="border:1px solid black"></a>
                                 <?php } else {?>
                                 <a href='./compose.php?user=<?=$offerby?>&subject=Trade Number <?=$oid?>'>
                                     <img src="./core/assets/userpics/nopic.png" height="25px" width="25px" alt="logo" style="border:1px solid black"></a>
-                                <?php }
-        echo "<p style='font-weight:600;'>$tradeloc</p>";
-        ?>
+                                <?php }?>
+        <p style='font-weight:600;'><?=$tradeloc?></p>
+
                             </center>
                         </div>
                         <div class="offmon">
-                            <a href='./active-offers.php?oid=<?=$oid?>'><img src="<?=W_ASSETS?>icons/<?=$offmon?>.png'></a>
+                            <a href='./active-offers.php?oid=<?=$oid?>'><img src='<?=W_ASSETS?>icons/<?=$offmon?>.png'></a>
     </div>
-<div class="
-                                    monvars">
+<div class="monvars">
                                 <?php if ($shiny == 1) {?>
                                 <img src='<?=W_ASSETS?>/img/star.png' title='shiny'></br>
                                 <?php }
         if ($alolan == 1) {?>
-                                <img src='<? - W_ASSETS ?>/img/alolan.png' title='alolan'>
+                                <img src='<?W_ASSETS?>/img/alolan.png' title='alolan'>
                                 <?php }?>
                         </div>
                         <div class="stats">
@@ -86,7 +86,7 @@ $urlquery = "SELECT url FROM users WHERE uname = '" . $offerby . "'";
                             </a>
                         </div>
                         <div class="control">
-                            <?php if ($offerby == $_SESSION["uname"]) {?>
+                            <?php if ($offerby == $_SESSION['Spotamon']['uname']) {?>
                             <a href='./active-offers.php?oid=<?=$oid?>'>
                                 <input type='button' name='makeoffer' class='btn3' value='Your Trade' />
                             </a>

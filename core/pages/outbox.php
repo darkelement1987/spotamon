@@ -1,16 +1,17 @@
 <?php
+require_once 'initiate.php';
 
 
 
-if (isset($_SESSION["uname"])) {
-    $sql = "SELECT * FROM messages WHERE from_user = '" . $_SESSION["uname"] . "' and del_out='0'";
+if (isset($_SESSION['Spotamon']['uname'])) {
+    $sql = "SELECT * FROM messages WHERE from_user = '" . $_SESSION['Spotamon']['uname'] . "' and del_out='0'";
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));?>
     <center>
         <div id="pm">
             <h3>
                 <?php
 $error = '';
-    echo $_SESSION["uname"] . '\'s outbox';
+    echo $_SESSION['Spotamon']['uname'] . '\'s outbox';
     ?>
             </h3>
             <script>

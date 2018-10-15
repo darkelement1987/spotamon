@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 $results_per_page = 10;
     $page = $validate->getGet('page', int, true, null, 1);
@@ -14,7 +15,7 @@ $results_per_page = 10;
                                     <center>
                                         <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
                                         <table id="spotted" class="table table-bordered">
-                                            <?php if (isset($_SESSION["uname"])) {?>
+                                            <?php if (isset($_SESSION['Spotamon']['uname'])) {?>
                                             <tr>
                                                 <th>#</th>
                                                 <th>OFFERED POKEMON</th>
@@ -40,7 +41,7 @@ $results_per_page = 10;
         $rname = $row['rname'];
         $tname = $row['tname'];
         $date = $row['date'];
-        if (isset($_SESSION["uname"])) {?>
+        if (isset($_SESSION['Spotamon']['uname'])) {?>
                                             <tr>
                                                 <td style='text-align:center;'>
                                                     <?=$tid?>

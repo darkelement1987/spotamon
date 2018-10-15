@@ -1,3 +1,7 @@
+<?php
+require_once 'initiate.php';
+
+?>
 <h3 style="text-align:center;"><strong>EX Raid Attendance:</strong></h3>
                     <center>
                         <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->

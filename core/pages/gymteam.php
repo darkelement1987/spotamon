@@ -1,21 +1,20 @@
 <?php
-$curl = curl_init();
-ob_start();
+require_once 'initiate.php';
 
 $gname = $conn->real_escape_string($_POST['gname']);
 $tname = $conn->real_escape_string($_POST['tname']);
 $teamby = $conn->real_escape_string($sess->get('uname'));
 
-
 $sql = "UPDATE gyms SET gteam='$tname', teamby='$teamby' WHERE gid='$gname'";
 	if(!mysqli_query($conn,$sql))
 		{
-			echo 'Not Inserted';
-		}
-			else
-			{
-				echo 'Inserted';
-			}
+            echo 'Not Inserted';
+            exit();
+		} else {
+        echo 'Inserted';
+        }
+if (!empty($gym_webhook_url)) {
+    $curl = curl_init();
 
 // Lookup teamname for webhook
 $teamquery = "SELECT tname FROM teams WHERE tid = '$tname'";
@@ -123,5 +122,4 @@ $response = curl_exec( $ch );
 curl_close( $ch );
 
 	header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-
-?>
+    }

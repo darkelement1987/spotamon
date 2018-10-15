@@ -19,7 +19,7 @@ $total_pages = ceil($row["total"] / $results_per_page);
 <center>
 <!--///////////////////// START OF TABLE \\\\\\\\\\\\\\\\\\\\\-->
     <table id="spotted" class="table table-bordered">
-    <?php if (isset($_SESSION["uname"])) {?>
+    <?php if (isset($_SESSION['Spotamon']['uname'])) {?>
     <tr>
         <th>#</th>
         <th>ID</th>
@@ -54,7 +54,7 @@ while ($row = mysqli_fetch_array($result)) {
     $minutes = $min;
     $hr = $hour;
     $fulladdress = $row['fulladdress'];
-    if (isset($_SESSION["uname"])) {
+    if (isset($_SESSION['Spotamon']['uname'])) {
         $good = $row['good'];
         $bad = $row['bad'];
     }
@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_array($result)) {
     ///////////////////// 12 HOUR FORMAT \\\\\\\\\\\\\\\\\\\\\
     if ($clock == "false") {
         ///////////////////// 12 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
-        if (isset($_SESSION["uname"])) {?>
+        if (isset($_SESSION['Spotamon']['uname'])) {?>
     <tr>
         <td style='text-align:center;'>
             <?=$spotid?>
@@ -141,7 +141,7 @@ while ($row = mysqli_fetch_array($result)) {
             $hr = str_pad($hour, 2, "0", STR_PAD_LEFT);
         }
         ///////////////////// 24 HOUR TABLE LAYOUT \\\\\\\\\\\\\\\\\\\\\
-        if (isset($_SESSION["uname"])) {
+        if (isset($_SESSION['Spotamon']['uname'])) {
             ?>
     <tr>
         <td style='text-align:center;'>

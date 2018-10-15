@@ -1,4 +1,5 @@
 <?php
+require_once 'initiate.php';
 
 
 
@@ -58,7 +59,7 @@
 <?php
 $result = $conn->query("SELECT * FROM raidbosses");
     $rid = $rboss = $rlvl = $rhour = $rmin = $rampm = $spotter = "";
-    if (isset($_SESSION["uname"])) {
+    if (isset($_SESSION['Spotamon']['uname'])) {
         ?>
     <!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
     <h3 style="text-align:center;"><strong>Add Raid:</strong></h3>

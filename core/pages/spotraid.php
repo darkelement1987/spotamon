@@ -1,4 +1,6 @@
 <?php
+require_once 'initiate.php';
+
 $curl = curl_init();
 ob_start();
 
@@ -14,11 +16,11 @@ if ($clock=="false"){
 		$rhour = date('H', $timeuntilraid);
 		$rampm = '';
 		}
-		
+
 			$rmin = date('i', $timeuntilraid);
 
 $gname = $conn->real_escape_string($_POST['gname']);
-$spotter = $conn->real_escape_string($_SESSION['uname']);
+$spotter = $conn->real_escape_string($_SESSION['Spotamon']['uname']);
 
 // Check if active egg
 $checkegg = "SELECT egg,actraid FROM gyms WHERE gid='$gname'";
@@ -66,8 +68,8 @@ $sql1 = "UPDATE gyms SET actraid='1',actboss='$rboss',hour='$rhour',min='$rmin',
             else
             {
                 echo 'Inserted';
-            }                
-			
+            }
+
 	} else {
 		$sql = "INSERT INTO spotraid (rboss, rhour, rmin, rampm, spotter,rdate) VALUES ('$rboss','$rhour','$rmin','','$spotter','$newtime')";
     if(!mysqli_query($conn,$sql))
@@ -117,7 +119,7 @@ $bossnamequery = "SELECT monster FROM pokedex WHERE id='$rboss'";
 $resultbossname = $conn->query($bossnamequery);
 
 $rowbossname = $resultbossname->fetch_array(MYSQLI_NUM);
-$bossname = $rowbossname[0]; 
+$bossname = $rowbossname[0];
 
 $gymquery = "SELECT gname,glatitude,glongitude FROM gyms WHERE gid = '$gname'";
 	if(!mysqli_query($conn,$gymquery))
@@ -171,19 +173,19 @@ $hookObject = json_encode([
                 "text" => "Spotted by $spotter at $date",
 				"icon_url" => W_ASSETS  . "raids/$rboss.png"
             ],
-            
+
             "image" => [
 				"url" => "http://staticmap.openstreetmap.de/staticmap.php?center=".$gymlat.",".$gymlon."&zoom=17&size=400x400&maptype=mapnik&markers=".$gymlat.",".$gymlon.",red-pushpin",
             ],
-            
+
             "thumbnail" => [
 				"url" => W_ASSETS  . "raids/$rboss.png",
             ],
-            
+
             "author" => [
                 "name" => "Raid against $bossname spotted by $spotter",
             ],
-            
+
             "fields" => [
 				[
 					"name" => "Expires:",
@@ -208,7 +210,7 @@ $hookObject = json_encode([
             ]
         ]
     ]
-    
+
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
 $ch = curl_init();
@@ -225,7 +227,7 @@ curl_setopt_array( $ch, [
 
 $response = curl_exec( $ch );
 curl_close( $ch );
-			
+
     header('Location:index.php?loc='.$gymlat.','.$gymlon.'&zoom=19');
-}    
+}
 ?>

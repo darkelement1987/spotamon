@@ -12,7 +12,7 @@ if(mysqli_query($conn, $sql)){
 }
 
 // close connection
-mysqli_close($conn);
+
 echo "<meta http-equiv=\"refresh\" content=\"0;URL=profile.php\">";
 } else {
 echo "<br /><center><img src='<?-W_ASSETS?>/img/oops2.png'></center>";

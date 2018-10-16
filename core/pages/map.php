@@ -133,7 +133,7 @@ function getGyms() {
                 <div class="maplabel">
                     <center>
                         <img src="<?= W_ASSETS ?>gyms/` + gteam + `ex.png" height="45px" width="45px"></img>
-                        <p><b>` + gname + `</b><br>Team: ` + tid + `</p>
+                        <h6>` + gname + `</h6><br><p>Team: ` + tid + `</p>
                         <?php if ($sess->get('uname',null) === null) { ?>
                         <hr>
                         <b><span class="text-danger">Login to change/add teams or raids.</span></b>
@@ -165,7 +165,7 @@ function getGyms() {
                 <div class="maplabel" id="` + gid + `">
                     <center>
                         <img src="<?=W_ASSETS?>gyms/` + gteam + `.png" height="45px" width="45px"></img>
-                        <p><b>` + gname + `</b><br>Team: ` + tid + `</p>
+                        <h6>` + gname + `</h6><br><p>Team: ` + tid + `</p>
                     <?php if ($sess->get('uname',null) === null) { ?>
                         <hr><b><span class="text-danger">Login to change/add teams or raids.</span></b>
                     <?php } else { ?>

@@ -80,7 +80,7 @@ while ($row = $result->fetch_assoc()) {
             echo '<option value="' . $rid . '">' . $rid . ' - ' . $rboss . '</option>';
         }
         echo "</select>";
-        mysqli_close($conn);
+
         ?>
                         </td>
                     </tr>
@@ -110,7 +110,7 @@ while ($row = $result->fetch_assoc()) {
                         <td style="width: 5%;">At Gym</td>
                         <td style="width: 10%;">
                 <?php
-require_once './config/config.php';
+
         $result = $conn->query("SELECT * FROM gyms,teams WHERE gyms.gteam = teams.tid");
         $gid = $gname = $gteam = "";
         echo "<select id='gymsearch' name='gname'>";

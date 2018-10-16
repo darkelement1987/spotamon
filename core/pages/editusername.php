@@ -12,7 +12,7 @@ if(mysqli_query($conn, $sql)){
 }
 
 // close connection
-mysqli_close($conn);
+
 echo "<meta http-equiv=\"refresh\" content=\"3;URL=./login/logout.php\">";
 
 } else {

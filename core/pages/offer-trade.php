@@ -69,7 +69,7 @@ while ($row = $result->fetch_assoc()) {
 }?>
 											</select>
 											<?php
-mysqli_close($conn);
+
 	?>
 										</td>
 									</tr>
@@ -121,7 +121,7 @@ mysqli_close($conn);
 											</center>
 											<div id="opendefine">
 												<?php
-require_once './config/config.php';
+
 	$result1 = $conn->query("SELECT * FROM pokedex");?>
 												<select id='pokesearch2' name='reqmon'>
 													<?php
@@ -133,7 +133,7 @@ while ($row = $result1->fetch_assoc()) {
 	}?>
 												</select>
 												<?php
-mysqli_close($conn);
+
 	?>
 											</div>
 										</td>

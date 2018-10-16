@@ -29,7 +29,7 @@ require_once 'initiate.php';
 	</script>
 
 <?php
-require_once './config/config.php';
+
     $result = $conn->query("SELECT * FROM pokedex");
     $id = $pokemon = $cp = $iv = $hour = $min = $ampm = $monster = $latitude = $longitude = $fulladdress = $spotter = "";
     if (isset($_SESSION['Spotamon']['uname'])) {?>
@@ -55,9 +55,7 @@ while ($row = $result->fetch_assoc()) {
                             </option>
                             <?php }?>
                         </select>
-        <?php
-mysqli_close($conn);
-        ?>
+
                     </td>
                 </tr>
                 <!--//////////////////php/// Cp enter \\\\\\\\\\\\\\\\\\\\\-->

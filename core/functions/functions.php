@@ -88,7 +88,7 @@ function verifyCsrf() {
 //=============================
 function mynatrades()
 {
-    require_once './config/config.php';
+
     $results_per_page = 10;
     if (isset($_GET["page"])) {
         $page = $_GET["page"];

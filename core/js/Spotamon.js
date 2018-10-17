@@ -5,9 +5,6 @@ $(document).ready(function () {
 
 
 
-
-
-
     $("#regconfirmpass").focus(function () {
         $('#regconfirmpass').prop('pattern', $('#regpass').val());
         $('#regconfirmpass').attr('oninvalid', 'this.setCustomValidity("Passwords must Match")');
@@ -47,10 +44,12 @@ $(document).ready(function () {
             if (data == 'true') {
                 $('#menu-container').load(w_root + 'core/pages/parts/nav.php').fadeIn('slow', function(){
                     $('.blur').removeClass('blur');
-                    page = $('#content').data('page');
+                    page = $('#content').attr('data-page');
+                    if (page == 'map') {
+                        $.getScript("/core/js/leaflet.js");
+                    }
                     loadurl = w_root + 'core/pages/' + page + '.php';
                     $('#content').load(loadurl);
-                    $.getScript(w_root + "core/js/leaflet.js");
                     $('#auth-modal').modal('hide');
                     $('body').removeClass('modal-open');
                     $('.modal-backdrop').remove();
@@ -84,7 +83,6 @@ $(document).ready(function () {
                     page = $('#content').data('page');
                     loadurl = w_root + 'core/pages/' + page + '.php';
                     $('#content').load(loadurl);
-                    $.getScript(w_root + "core/js/leaflet.js");
                     $('#auth-modal').modal('hide');
                     $('body').removeClass('modal-open');
                     $('.modal-backdrop').remove();
@@ -147,6 +145,55 @@ $(document).ready(function () {
         };
     })(jQuery);
 
+    $('#content').on('click', '#pickInstinct', function(event) {
+        event.preventDefault;
+        var gym = $(this).attr('data-gym');
+        $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:2}, function(data) {
+            result = data.replace(/\r\n/g, "");
+            if (result == "Inserted") {
+                var id = '#' + gym,
+                    mId = '.marker' + gym;
+                $(id).find('img').first().fadeTo(1000,0.30, function() {
+                    $(this).attr('src', '/core/assets/gyms/2.png');
+                    $(id).find('p').first().text('Team: Instinct');
+                    $(mId).attr('src', '/core/assets/gyms/2.png');
+            }).fadeTo(500,1);
+        }
+        });
+    });
+
+    $('#content').on('click', '#pickMystic', function(event) {
+        event.preventDefault;
+        var gym = $(this).attr('data-gym');
+        $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:4}, function(data) {
+            result = data.replace(/\r\n/g, "");
+            if (result == "Inserted") {
+                var id = '#' + gym,
+                    mId = '.marker' + gym;
+                $(id).find('img').first().fadeTo(1000,0.30, function() {
+                    $(this).attr('src', '/core/assets/gyms/4.png');
+                    $(id).find('p').first().text('Team: Valor');
+                    $(mId).attr('src', '/core/assets/gyms/4.png');
+            }).fadeTo(500,1);
+        }
+        });
+    });
+    $('#content').on('click', '#pickValor', function(event) {
+        event.preventDefault;
+        var gym = $(this).attr('data-gym');
+        $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:3}, function(data) {
+            result = data.replace(/\r\n/g, "");
+            if (result == "Inserted") {
+                var id = '#' + gym,
+                    mId = '.marker' + gym;
+                $(id).find('img').first().fadeTo(1000,0.30, function() {
+                    $(this).attr('src', '/core/assets/gyms/3.png');
+                    $(id).find('p').first().text('Team: Mystic');
+                    $(mId).attr('src', '/core/assets/gyms/3.png');
+            }).fadeTo(500,1);
+        }
+        });
+    });
 });
 $(window).on('load', function() {
     window.dataLayer = window.dataLayer || [];
@@ -155,47 +202,7 @@ $(window).on('load', function() {
 
     gtag('config', '<?=$analytics?>');
 });
-function pickInstinct(gym) {
-    $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:2}, function(data) {
-        result = data.replace(/\r\n/g, "");
-        if (result == "Inserted") {
-            var id = '#' + gym,
-                mId = '.marker' + gym;
-            $(id).find('img').first().fadeTo(1000,0.30, function() {
-                $(this).attr('src', '/core/assets/gyms/2.png');
-                $(id).find('p').first().text('Team: Instinct');
-                $(mId).attr('src', '/core/assets/gyms/2.png');
-        }).fadeTo(500,1);
-    }
-    });
-}
-function pickValor(gym) {
-    $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:3}, function(data) {
-        result = data.replace(/\r\n/g, "");
-        if (result == "Inserted") {
-            var id = '#' + gym,
-                mId = '.marker' + gym;
-            $(id).find('img').first().fadeTo(1000,0.30, function() {
-                $(this).attr('src', '/core/assets/gyms/3.png');
-                $(id).find('p').first().text('Team: Valor');
-                $(mId).attr('src', '/core/assets/gyms/3.png');
-        }).fadeTo(500,1);
-    }
-    });
-}
-function pickMystic(gym) {
-    $.post(w_root + "core/pages/gymteam.php", {gname:gym, tname:4}, function(data) {
-        result = data.replace(/\r\n/g, "");
-        if (result == "Inserted") {
-            var id = '#' + gym,
-                mId = '.marker' + gym;
-            $(id).find('img').first().fadeTo(1000,0.30, function() {
-                $(this).attr('src', '/core/assets/gyms/4.png');
-                $(id).find('p').first().text('Team: Mystic');
-                $(mId).attr('src', '/core/assets/gyms/4.png');
-        }).fadeTo(500,1);
-    }
-    });
-}
+
+
 
 

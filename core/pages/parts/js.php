@@ -22,9 +22,7 @@
 <!-- Tables Javascript -->
 <script defer type="text/javascript" language="javascript" src="<?=W_JS?>dataTables.min.js">
 </script>
-<!-- Interactive Map Library -->
-<script defer src="<?=versionFile(W_JS . 'leaflet.js')?>">
-</script>
+
 
 
 <!-- Fadedown animations for menus -->

@@ -3,7 +3,9 @@
 ?>
 
 <div id="map"></div>
-
+<!-- Interactive Map Library -->
+<script src="<?=versionFile(W_JS . 'leaflet.js')?>">
+</script>
 <script>
     function downloadUrl(url, callback) {
     var request = window.ActiveXObject ?
@@ -142,11 +144,11 @@ function getGyms() {
                         <hr><strong>EX Raid On:</strong><br> ` + exraiddate + `
                         <br><hr><b>Choose team:</b>
                         <br>
-                        <a href="#" onclick="pickInstinct(` + gid + `);return false;" id="pickInstinct" title="Click to choose Instinct">
+                        <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickValor(` + gid + `);return false;" id="pickValor" title="Click to choose Valor">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickMystic(` + gid + `);return false;" id="pickMystic" title="Click to choose Mystic">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                         <?php } ?>
@@ -171,11 +173,11 @@ function getGyms() {
                     <?php } else { ?>
                         <br>
                         <hr><b>Choose team:</b><br>
-                        <a href="#" onclick="pickInstinct(` + gid + `);return false;" id="pickInstinct" title="Click to choose Instinct">
+                        <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickValor(` + gid + `);return false;" id="pickValor" title="Click to choose Valor">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickMystic(` + gid + `);return false;" id="pickMystic" title="Click to choose Mystic">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                     <?php } ?>
@@ -206,11 +208,11 @@ function getGyms() {
                     <?php } else if ($sess->get('uname',null) != null) { ?>
                         <br><hr>
                         <b>Choose team:</b>66
-                        <a href="#" onclick="pickInstinct(` + gid + `);return false;" id="pickInstinct" title="Click to choose Instinct">
+                        <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickValor(` + gid + `);return false;" id="pickValor" title="Click to choose Valor">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickMystic(` + gid + `);return false;" id="pickMystic" title="Click to choose Mystic">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                     <?php } ?>
@@ -244,11 +246,11 @@ function getGyms() {
                         <br> ` + exraiddate + `
                         <br><hr><b>Choose team:</b>
                         <br>
-                        <a href="#" onclick="pickInstinct(` + gid + `);return false;" id="pickInstinct" title="Click to choose Instinct">
+                        <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickValor(` + gid + `);return false;" id="pickValor" title="Click to choose Valor">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickMystic(` + gid + `);return false;" id="pickMystic" title="Click to choose Mystic">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                     <?php } ?>
@@ -282,11 +284,11 @@ function getGyms() {
                     <br><hr>
                     <b>Choose team:</b>
                     <br>
-                    <a href="#" onclick="pickInstinct(` + gid + `);return false;" id="pickInstinct" title="Click to choose Instinct">
+                    <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
                         <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
-                    </a> / <a href="#" onclick="pickValor(` + gid + `);return false;" id="pickValor" title="Click to choose Valor">
+                    </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
                         <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
-                    </a> / <a href="#" onclick="pickMystic(` + gid + `);return false;" id="pickMystic" title="Click to choose Mystic">
+                    </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
                         <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                     </a>
                 <?php } ?>
@@ -322,11 +324,11 @@ function getGyms() {
                         <br><hr>
                         <b>Choose team:</b>
                         <br>
-                        <a href="#" onclick="pickInstinct(` + gid + `);return false;" id="pickInstinct" title="Click to choose Instinct">
+                        <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickValor(` + gid + `);return false;" id="pickValor" title="Click to choose Valor">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
-                        </a> / <a href="#" onclick="pickMystic(` + gid + `);return false;" id="pickMystic" title="Click to choose Mystic">
+                        </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
                             <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                     <?php }; ?>

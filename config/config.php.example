@@ -62,8 +62,8 @@ $motdtitle = "";
 $motdtext = "";
 $motdimage = "";                //  Set URL for custom popup-image
 $motdalways = false;            //  Always show MOTD, even when logged
-                                    in? -> Set to -> 'true'. Only when
-                                    NOT logged in? Set to -> 'false'
+                                //  in? -> Set to -> 'true'. Only when
+                                //  NOT logged in? Set to -> 'false'
 $motdwidth = '';                // Set width for motd window
 $imageheight = '';              // Set height for MOTD image
 $imagewidth = '';               // Set width for MOTD image

@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `unread` int(10) NOT NULL,
   `message` varchar(1000) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

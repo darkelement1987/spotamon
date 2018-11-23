@@ -6,10 +6,24 @@ require_once 'initiate.php';
 <html>
 
 <head>
+
     <?php
     include_once S_PAGES . 'parts/meta.php';
-    include_once S_PAGES . 'parts/js.php';
     ?>
+    <script>
+<?php if (!empty($analytics)) {?>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', '<?=$analytics?>');
+<?php } ?>
+</script>
+<?php
+    include_once S_PAGES . 'parts/js.php';
+?>
+
 </head>
 
 <body>
@@ -17,6 +31,7 @@ require_once 'initiate.php';
     <?php include_once S_PAGES . 'parts/menu.php'; ?>
 </div>
 <?php
+
     if (!empty($Validate->get->pg)) {
         $pageurl = $Validate->get->pg;
         if (file_exists(S_PAGES . $pageurl . '.php')) { ?>
@@ -40,21 +55,6 @@ require_once 'initiate.php';
     </div>
 
 
-
-
-
-    <script>
-if (typeof initMap == 'function') {
-
-    $( document ).ready(function() {
-        initMap()
-    });
-}
-    </script>
-</body>
+    </body>
 </html>
-<?php
-if($conn) {
-$conn->close();
-}
-?>
+

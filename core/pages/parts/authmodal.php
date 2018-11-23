@@ -1,7 +1,8 @@
 <?php
 require_once 'initiate.php';
+if (empty($csrftoken)){
 $csrftoken = csrf();
-?>
+}?>
 <!-- Login/register Modal Start -->
 <div class="container-fluid" id="auth-modal-container">
     <div class="modal" id="auth-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -29,10 +30,9 @@ $csrftoken = csrf();
                                             </span>
                                         </div>
                                         <input type="text" id="login_username" class="form-control login-fields" name="username"
-                                            placeholder="Username/Email" required minlength="5" maxLength="20"
+                                            placeholder="Username/Email" required minlength="5" maxLength="50"
                                             oninvalid="this.setCustomValidity('This does not seem to be a valid username, sorry')"
-                                            pattern='^[a-zA-Z0-9#]([._](?![._])|[a-zA-Z0-9#]){6,18}[a-zA-Z0-9]$|^[a-zA-Z0-9.!#$%&
-                                            *+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$|^admin$' />
+                                            pattern='^[a-zA-Z0-9][a-zA-Z0-9\._-]{6,30}[a-zA-Z0-9]$|^admin$|^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$' />
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -41,7 +41,7 @@ $csrftoken = csrf();
                                                 <label class="sr-only">Password</label>
                                             </span>
                                         </div>
-                                        <input type="password" id="login_password" name="password" pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$|^admin$'
+                                        <input type="password" autocomplete="off" id="login_password" name="password" pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$|^admin$'
                                             maxlength="20" minlength="5" oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
                                             placeholder="Password" class="form-control login-fields" required />
                                     </div>
@@ -105,7 +105,7 @@ $csrftoken = csrf();
                                         </span>
                                     </div>
                                     <input type="text" class="form-control login-fields" name="username" placeholder="Username"
-                                        minlength="8" max-length="20" pattern='^[a-zA-Z0-9#]([._](?![._])|[a-zA-Z0-9#]){6,18}[a-zA-Z0-9]$'
+                                        minlength="8" max-length="20" pattern='^(?=.{8,32}$)(?![_.-])(?!.*[_.]{2})[a-zA-Z0-9][a-zA-Z0-9._-]+$'
                                         required />
                                 </div>
                                 <div class="input-group">
@@ -115,8 +115,8 @@ $csrftoken = csrf();
                                             <label for="password" class="sr-only">Password</label>
                                         </span>
                                     </div>
-                                    <input type="password" name="password" placeholder="Password" class="form-control login-fields"
-                                        pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')" id="regpass" minlength=required />
+                                    <input type="password" autocomplete="off" name="password" placeholder="Password" class="form-control login-fields"
+                                        pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')" id="regpass" minlength="8" required />
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -125,7 +125,7 @@ $csrftoken = csrf();
                                             <label for="confirmpassword" class="sr-only">Confirm Password</label>
                                         </span>
                                     </div>
-                                    <input type="password" name="confirmpassword" placeholder="Confirm Password" class="form-control login-fields"
+                                    <input type="password" autocomplete="off" name="confirmpassword" placeholder="Confirm Password" class="form-control login-fields"
                                         pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
                                         id="regconfirmpass" required />
                                 </div>

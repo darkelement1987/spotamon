@@ -1,7 +1,7 @@
 <?php
 require_once 'initiate.php';
-
-include_once S_ROOT . 'core/protected/create_db.php';
+include_once 'version.php';
+include_once 'create_db.php';
 
 
 
@@ -193,3 +193,13 @@ echo '<br><hr>';
 echo '<br><b>Back to index in 10 seconds..</b>';
 
 // End make columns for discord
+$update11 = "ALTER TABLE `messages2`
+	ADD COLUMN `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `date`;";
+if (!mysqli_query($conn, $update11)) {
+    echo '- Not updated, columns already exist :-)';
+} else {
+    echo '- Added columns \'updated\' to `messages`';
+}
+header("Refresh: 10; url= /index.php");
+
+echo '<br><hr>';

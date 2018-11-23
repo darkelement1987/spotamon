@@ -40,13 +40,15 @@ class Validate
             if ($sanitized == true) {
                 $data = $this->clean($data);
             }
-            if ($filter !== null) {
-                $data = $this->validate($data, $filter, $options);
-            }
-            return $data;
         } else {
+            if (!empty($default)){
             $data = $default;
+            } else {
+                $data = $filter;
+            }
         }
+            $data = $this->validate($data, $filter, $options);
+
         return $data;
     }
 
@@ -149,7 +151,7 @@ class Validate
         $origional = $data;
         switch ($filter) {
             case 'username':
-            $regexp = "/^[a-zA-Z0-9-_#]{8,20}$|(?i)admin(?-i)/";
+            $regexp = "/^(?=.{8,32}$)(?![_.-])(?!.*[_.]{2})[a-zA-Z0-9._-]+(?<![_.])$|^admin$/";
                 if (filter_var($data, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => $regexp)))) {
                     $data = $data;
                     break;
@@ -235,7 +237,7 @@ class Validate
                         }
                     }
                 } else {
-                    $passregexp = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$|^admin$/";
+                    $passregexp = "/^(?=.{8,32}$)(?![_.-])(?!.*[_.]{2})[a-zA-Z0-9][a-zA-Z0-9._-]+$|^admin$/";
                     if (filter_var($data, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => $passregexp)))) {
                         $data = $data;
                         break;
@@ -245,7 +247,9 @@ class Validate
                     }
                 }
             default:
-                $data = 'That is not a valid verification type';
+                if ($data === null) {
+                    $data = $filter;
+                }
                 break;
         }
         if ($data != $origional) {

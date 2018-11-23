@@ -1,5 +1,5 @@
 <?php
-require 'initiate.php';
+require_once 'initiate.php';
 // sql to create spoting table
 $spot = "CREATE TABLE IF NOT EXISTS `spots` (
 spotid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -160,7 +160,8 @@ $messages = "CREATE TABLE IF NOT EXISTS `messages` (
  from_user VARCHAR(30),
  unread INT(10) NOT NULL,
  message VARCHAR(1000),
- date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+ date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
 
 $offers = "CREATE TABLE IF NOT EXISTS `offers` (
 oid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,

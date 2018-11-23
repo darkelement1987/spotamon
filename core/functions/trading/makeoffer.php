@@ -1,7 +1,7 @@
 <?php
 
 require_once 'initiate.php';
-;
+
 
 if (isset($_POST['oid'])) {
 $oid = $conn->real_escape_string($_POST['oid']);
@@ -45,6 +45,6 @@ $sql1 = "INSERT INTO tradeoffers (oid, coffer, offerby, cofferby, ccp, civ, cshi
 if(!mysqli_query($conn,$sql1)){
     echo 'Not Inserted';
 }
-header('Location:../active-offers.php?oid='.$oid.'');
+echo 'true';
 }
 ?>

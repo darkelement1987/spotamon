@@ -1,7 +1,17 @@
 <?php
     require_once 'initiate.php';
 ?>
-
+<style>
+    .maplabel {
+        text-align: center;
+    }
+    .leaflet-popup-content {
+        max-height:0px;
+        width:px;
+        overflow:hidden;
+        transition: width .3s linear, max-height .7s linear .3s;
+    }
+    </style>
 <div id="map"></div>
 <!-- Interactive Map Library -->
 <script src="<?=versionFile(W_JS . 'leaflet.js')?>">
@@ -21,7 +31,9 @@
     request.send(null);
 }
 function doNothing() {}
-
+var monMarkers = new Object;
+var stopMarkers = new Object;
+var gymMarkers = new Object;
 var customLabel = {
   monster: {
     label: 'pokemon'
@@ -47,10 +59,32 @@ if (isset($_GET['zoom'])) {
         maxZoom: 18,
         zoomControl: false
     });
-map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}));
+    var monLayer = L.layerGroup();
+    var stopLayer = L.layerGroup();
+    var gymLayer = L.layerGroup();
+
+    var overlays = {
+        'Pokémon': monLayer,
+        'Gyms': gymLayer,
+        'Stops': stopLayer
+    };
+    L.control.layers(null, overlays, {collapsed:false, position:'topleft'}).addTo(map);
+
+
+map.addLayer(
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'From the<a href="https://spotamon.com" style=" margin:0 -3px;"><img src="' + w_root + 'core/assets/img/spotamon2.svg" style="max-height: 20px;" alt="spotamon"></img></a>Team',
+                detectRetina: true
+            })
+        );
+        var attribution = map.attributionControl;
+
+
+attribution.setPrefix('');
+
     // Change this depending on the name of your PHP or XML file
-function getPokemon(){
-    downloadUrl('/core/functions/frontend/xml.php', function(data) {
+    downloadUrl(w_root + 'core/functions/frontend/xml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -76,7 +110,7 @@ function getPokemon(){
         });
         var html = `
         <div class="maplabel">
-            <center>
+
                 <img src="<?=W_ASSETS?>icons/` + id + `.png" height="45" width="45"></img>
                 <p><b>` + pokemon + ` (#` + id + `)</b>
                 <br>CP: ` + cp + `
@@ -98,17 +132,23 @@ function getPokemon(){
                 <?php if ($sess->get('uname',null) != null) { ?>
                 <br><hr>
                 Spotted by: <b>` + spotter + `</b>
-                <?php } ?></center></div>`;
-        var marker = new L.marker([parseFloat(markerElem.getAttribute('latitude')), parseFloat(markerElem.getAttribute('longitude'))],{ icon: image }).bindPopup(html);
-        marker.on('click', function() {
-          marker.openPopup();
+                <?php } ?></div>`;
+        var popup = new L.popup({
+            className: 'monpop',
+            autoPan:true
+        }).setContent(html);
+        monMarkers[spotid] = new L.marker([parseFloat(markerElem.getAttribute('latitude')), parseFloat(markerElem.getAttribute('longitude'))],{ icon: image, title: pokemon }).bindPopup(popup).addTo(monLayer);
+        monMarkers[spotid].bindTooltip("Spotted by " + spotter + " at " + hour + ":" + min);
+        monMarkers[spotid].on('click', function() {
+          monMarkers[spotid].openPopup();
         });
-        map.addLayer(marker)
       });
+      monLayer.addTo(map);
+
     });
-}
-function getGyms() {
-	downloadUrl('/core/functions/frontend/gxml.php', function(data) {
+
+
+	downloadUrl(w_root + 'core/functions/frontend/gxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -128,12 +168,13 @@ function getGyms() {
 		var eggby = markerElem.getAttribute('eggby');
 		var bosscp = markerElem.getAttribute('bosscp');
 		var exraid = markerElem.getAttribute('exraid');
-		var exraiddate = markerElem.getAttribute('exraiddate');
+        var exraiddate = markerElem.getAttribute('exraiddate');
+        var teamclass = {2:'instincttrace', 3:'valortrace',4:'mystictrace'};
 		if (actraid === "0" && egg === "0"){
 			if (exraid === "1"){
             var html = `
                 <div class="maplabel">
-                    <center>
+
                         <img src="<?= W_ASSETS ?>gyms/` + gteam + `ex.png" height="45px" width="45px"></img>
                         <h6>` + gname + `</h6><br><p>Team: ` + tid + `</p>
                         <?php if ($sess->get('uname',null) === null) { ?>
@@ -145,18 +186,18 @@ function getGyms() {
                         <br><hr><b>Choose team:</b>
                         <br>
                         <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                            <img border="0" alt="Instinct" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                            <img border="0" alt="Valor" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                            <img border="0" alt="Mystic" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                         <?php } ?>
                         <br><hr>
                         <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
-                    </center>
+
                 </div>`;
-			var icon = customLabel[type] || {};
+            var icon = customLabel[type] || {};
 			var image = new L.Icon({
             iconUrl: '<?=W_ASSETS?>gyms/' + gteam + 'ex.png',
             iconSize: [55, 55],
@@ -165,7 +206,7 @@ function getGyms() {
 			} else if (exraid === "0"){
             var html = `
                 <div class="maplabel" id="` + gid + `">
-                    <center>
+
                         <img src="<?=W_ASSETS?>gyms/` + gteam + `.png" height="45px" width="45px"></img>
                         <h6>` + gname + `</h6><br><p>Team: ` + tid + `</p>
                     <?php if ($sess->get('uname',null) === null) { ?>
@@ -174,16 +215,16 @@ function getGyms() {
                         <br>
                         <hr><b>Choose team:</b><br>
                         <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                            <img border="0" alt="Instinct" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                            <img border="0" alt="Valor" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                            <img border="0" alt="Mystic" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                     <?php } ?>
                         <br><hr>
                         <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('glatitude') + `,` + markerElem.getAttribute('glongitude') + `">Google Maps</a>
-                    </center>
+
                 </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
@@ -196,7 +237,7 @@ function getGyms() {
 			if (exraid === "0"){
             var html = `
                 <div class="maplabel">
-                    <center>
+
                         <img src="<?= W_ASSETS ?>icons/` + actboss + `.png" height="45px" width="45px"></img>
                         <p><b>` + gname + `</b>
                         <br>Boss: ` + bossname + `
@@ -209,11 +250,11 @@ function getGyms() {
                         <br><hr>
                         <b>Choose team:</b>66
                         <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                            <img border="0" alt="Instinct" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                            <img border="0" alt="Valor" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                            <img border="0" alt="Mystic" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                     <?php } ?>
                         <br><hr>
@@ -221,7 +262,7 @@ function getGyms() {
                     <?php if ($sess->get('uname',null) != null) { ?>
                         <br><hr><b>Spotted by: </b>` + raidby + `
                     <?php } ?>
-                    </center>
+
                 </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
@@ -232,7 +273,7 @@ function getGyms() {
 			} else if (exraid === "1"){
             var html = `
                 <div class="maplabel">
-                    <center>
+
                         <img src="<?= W_ASSETS ?>icons/` + actboss + `.png" height="45px" width="45px"></img>
                         <p><b>` + gname + `</b>
                         <br>Boss: ` + bossname + `
@@ -247,11 +288,11 @@ function getGyms() {
                         <br><hr><b>Choose team:</b>
                         <br>
                         <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                            <img border="0" alt="Instinct" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                            <img border="0" alt="Valor" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                            <img border="0" alt="Mystic" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                     <?php } ?>
                         <br><hr>
@@ -259,7 +300,7 @@ function getGyms() {
                     <?php if ($sess->get('uname',null) != null) { ?>
                         <br><hr><b>Spotted by: </b>` + raidby + `
                     <?php } ?>
-                    </center>
+
                 </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
@@ -272,7 +313,7 @@ function getGyms() {
 			if (exraid === "0"){
             var html = `
                 <div class="maplabel">
-                    <center>
+
                         <img src="<?= W_ASSETS ?>eggs/` + egg + `.png" height="45px" width="45px"></img>
                         <p><b>` + gname + `</b>
                         <br>Egg level: ` + egg + `
@@ -285,11 +326,11 @@ function getGyms() {
                     <b>Choose team:</b>
                     <br>
                     <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
-                        <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                        <img border="0" alt="Instinct" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
                     </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
-                        <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                        <img border="0" alt="Valor" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
                     </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
-                        <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                        <img border="0" alt="mystic" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                     </a>
                 <?php } ?>
                     <br><hr>
@@ -298,7 +339,7 @@ function getGyms() {
                     <br><hr>
                     <b>Spotted by: </b>` + eggby + `
                 <?php } ?>
-                </center>
+
             </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
@@ -309,7 +350,7 @@ function getGyms() {
 			} else if (exraid === "1"){
             var html = `
                 <div class="maplabel">
-                    <center>
+
                         <img src="<?= W_ASSETS ?>eggs/` + egg + `.png" height="45px" width="45px"></img>
                         <p><b>` + gname + `</b>
                         <br>Egg level: ` + egg + `
@@ -325,11 +366,11 @@ function getGyms() {
                         <b>Choose team:</b>
                         <br>
                         <a href="#"  data-gym="` + gid + `" id="pickInstinct" title="Click to choose Instinct">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
+                            <img border="0" alt="Instinct" src="<?= W_ASSETS ?>teams/2.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickValor" title="Click to choose Valor">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
+                            <img border="0" alt="Valor" src="<?= W_ASSETS ?>teams/3.png" width="25" height="25">
                         </a> / <a href="#"  data-gym="` + gid + `" id="pickMystic" title="Click to choose Mystic">
-                            <img border="0" alt="W3Schools" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
+                            <img border="0" alt="Mystic" src="<?= W_ASSETS ?>teams/4.png" width="25" height="25">
                         </a>
                     <?php }; ?>
                         <br><hr>
@@ -338,7 +379,7 @@ function getGyms() {
                         <br>
                         <hr><b>Spotted by: </b>` + eggby + `
                     <?php } ?>
-                    </center>
+
                 </div>`;
 			var icon = customLabel[type] || {};
 			var image = new L.Icon({
@@ -347,21 +388,29 @@ function getGyms() {
             className: 'marker' + gid
 			});
 			}
-		}
-        var marker = new L.marker([parseFloat(markerElem.getAttribute('glatitude')), parseFloat(markerElem.getAttribute('glongitude'))],{
-          icon: image
+        }
+        gymMarkers[gid] = new L.marker([parseFloat(markerElem.getAttribute('glatitude')), parseFloat(markerElem.getAttribute('glongitude'))],{
+          icon: image,
+          title:gname
+        }).addTo(gymLayer);
+        var popup = new L.popup({
+                className: 'gympop ' + teamclass[gteam],
+                maxWidth: 300,
+                autoPan:true
+            }).setContent(html);
+        gymMarkers[gid].bindPopup(popup);
+        gymMarkers[gid].on('click', function(e) {
+
+            gymMarkers[gid].openPopup();
+
         });
-        marker.id = gid;
-        marker.bindPopup(html);
-        marker.on('click', function() {
-          marker.openPopup();
-        });
-        map.addLayer(marker);
+
       });
+      gymLayer.addTo(map);
+
     });
-}
-function getQuests() {
-	downloadUrl('/core/functions/frontend/sxml.php', function(data) {
+
+	downloadUrl(w_root + 'core/functions/frontend/sxml.php', function(data) {
       var xml = data.responseXML;
       var markers = xml.documentElement.getElementsByTagName('marker');
       Array.prototype.forEach.call(markers, function(markerElem) {
@@ -375,7 +424,7 @@ function getQuests() {
 		if (quested === "1"){
         var html = `
             <div class="maplabel">
-                <center>
+
                     <img src="<?= W_ASSETS ?>stops/queststop.png" height="45" width="45"></img>
                     <p><b>` + sname + `</b>
                 <?php if ($sess->get('uname',null) === null) { ?>
@@ -397,7 +446,7 @@ function getQuests() {
                     <br><hr>
                     <b>Spotted by: </b>` + questby + `
                 <?php } ?>
-                </center>
+
             </div>`;
         var icon = customLabel[type] || {};
         var image = new L.Icon({
@@ -408,7 +457,7 @@ function getQuests() {
 		} else if (quested === ""){
         var html = `
             <div class="maplabel">
-                <center>
+
                     <img src="<?= W_ASSETS ?>stops/stops.png" height="45" width="45"></img>
                     <p><b>` + sname + `</b>
                 <?php if ($sess->get('uname',null) === null) { ?>
@@ -417,28 +466,42 @@ function getQuests() {
                 <?php } ?>
                     <br><hr>
                     <a href="http://maps.google.com/maps?q=` + markerElem.getAttribute('slatitude') + `,` + markerElem.getAttribute('slongitude') + `">Google Maps</a>
-                </center>
+
             </div>`;
         var icon = customLabel[type] || {};
         var image = new L.Icon({
             iconUrl: '<?= W_ASSETS ?>stops/stops.png',
             iconSize: [30, 30],
-            className: 'marker' + gid
+            className: 'marker'
 			});
-		}
-        var marker = new L.marker([parseFloat(markerElem.getAttribute('slatitude')), parseFloat(markerElem.getAttribute('slongitude'))],{
-          icon: image
-        }).bindPopup(html);
-        marker.on('click', function() {
-          marker.openPopup();
+        }
+        var popup = new L.popup({
+            className: 'stoppop',
+            autoPan:true
+        }).setContent(html);
+        stopMarkers[sid] = new L.marker([parseFloat(markerElem.getAttribute('slatitude')), parseFloat(markerElem.getAttribute('slongitude'))],{
+          icon: image,
+          title:sname
+        }).bindPopup(popup).addTo(stopLayer);
+        stopMarkers[sid].on('click', function() {
+            stopMarkers[sid].openPopup();
         });
-        map.addLayer(marker)
       });
+      stopLayer.addTo(map);
     });
-  }
 
-getPokemon();
-getGyms();
-getQuests();
 }
 </script>
+<script>
+
+    $('#content').on('click', '.leaflet-marker-icon', function() {
+        $('.leaflet-popup-content').css({
+            'max-height':"1000px",
+            'width':'280px',
+        });
+        $('.leaflet-popup').css({
+         'left':'-164px',
+        'transition': 'left .3s linear'});
+    });
+
+    </script>

@@ -28,12 +28,12 @@ class Meta {
         "description" => "Spot a Pok&eacute;mon, Raid, Quest or more, Welcome to Spotamon! Now with trading!!!!",
         "icons" => array(
             array(
-                "src" => "/core/assets/favicon/android-chrome-192x192.png",
+                "src" => "/core/assets/meta/android-chrome-192x192.png",
                 "sizes" => "192x192",
                 "type" => "image/png",
             ),
             array(
-                "src" => "/core/assets/favicon/android-chrome-256x256.png",
+                "src" => "/core/assets/meta/android-chrome-256x256.png",
                 "sizes" => "256x256",
                 "type" => "image/png",
             ),
@@ -107,7 +107,7 @@ class Meta {
         $data->faviconIco = "/core/assets/meta/favicon.ico";
         $data->iconPng = "/core/assets/meta/icon.png";
         $data->msTile = "/core/assets/meta/mstile-150x150.png";
-        $data->ogImage = "/core/assets/meta/og-image.jpg";
+        $data->ogImage = "/core/assets/meta/facebook_large.jpg";
         $data->safari = "/core/assets/meta/safari-pinned-tab.svg";
         $data->facebookLg = "/core/assets/meta/facebook_large.jpg";
 

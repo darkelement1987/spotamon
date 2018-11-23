@@ -63,13 +63,12 @@ $error = '';
         </div>
 
     </center>
-    <?php } else {
-    echo "<div style='margin-top:10px;'>";
-    echo "Login to read your messages";
-    ?>
+    <?php } else { ?>
+    <div style='margin-top:10px;'>
+    <p>Login to read your messages</p>
     <br />
     <br />
     <a href="#" id="login-link" data-toggle="modal" data-target="#auth-modal">
         Login Here</a>
-    <?php
-echo "</div>";}
+    </div>
+    <?php } ?>

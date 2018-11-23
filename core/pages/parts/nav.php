@@ -5,12 +5,27 @@ $gcountresult = mysqli_num_rows($gcountquery);
 
 $scountquery = $conn->query("SELECT * FROM `stops`");
 $scountresult = mysqli_num_rows($scountquery);
+$uname = $sess->get('uname', null);
+$mquery = $conn->prepare('Select count(a.message) as count, b.url from messages a join users b on a.to_user = b.uname where a.to_user = ? and a.unread = 1 and a.del_in = 0;');
+$mquery->bind_param('s', $uname);
+if ($mquery->execute()) {
+    $results = $mquery->get_result();
+    while ( $result = $results->fetch_assoc()) {
+        $mcount = $result['count'];
+        $url = $result['url'];
+    }
+
+}
+
+$mquery->close();
+
+
 ?>
 
 <nav class="wsmenu clearfix">
     <ul class="wsmenu-list">
         <li><a href="<?=W_ROOT?>index.php" class="active"><img id="mainlogo" src="<?=W_ASSETS?>img/spotamon.png" height="50px"></img><span
-                    class="hometext"></span></a></li>
+                    class="hometext"></span><h1 class="sr-only d-hidden">Spotamon</h1></a></li>
         <!--Dropdown for SPOTS-TAB starts -->
 
         <li><a href="#"><i class="fa fa-plus"></i>Add Spot<span class="wsarrow"></span></a>
@@ -91,33 +106,30 @@ $scountresult = mysqli_num_rows($scountquery);
                     <div class="col-md-4 img-fluid align-self-center py-3">
                         <img src="<?=W_ASSETS?>img/feedback.png" class="img-fluid" />
                     </div>
-                    <div class=" col-md-8 align-self-center p-0 ">
-                        <?php if (!empty($_SESSION['Spotamon']['uname'])) {?>
-                        <h3 class="text-center">Feedback</h3>
+                    <div class=" col-md-8 align-self-center p-0">
+                        <?php if (!empty($uname)) {?>
+                        <h2 class="text-center" id="feedback-title">Feedback</h3>
                         <br />
-                        <form method="post" class="p-2 mx-auto w-100 border-0 " id="feedback ">
-                            <div class="form-group ">
-                                <label>Name</label>
-                                <input type="text" name="name" placeholder="Enter Name " class="form-control " value="<?=$name?>" />
+                        <form method="post" class="mx-auto w-100 border-0 p-1" id="feedback-form">
+                            <div class="form-group">
+                                <label class="sr-only">Email</label>
+                                <input type="text" name="email" class="form-control" placeholder="Email:" title="optional"/>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" name="email" class="form-control" placeholder="Enter Email" value="<?=$email?>" />
+                                <label class="sr-only">Subject</label>
+                                <input type="text" name="subject" class="form-control" placeholder="Subject:"/>
                             </div>
                             <div class="form-group">
-                                <input type="hidden" name="subject" class="form-control" placeholder="Enter Subject"
-                                    value="<?=$feedbacksubject?>" />
-                            </div>
-                            <div class="form-group">
-                                <label>Message</label>
-                                <textarea name="message" class="form-control" placeholder="Enter Message" rows="5">
-                                        <?=$message?>
-                                    </textarea>
+                                <label class="sr-only">Message</label>
+                                <textarea name="message" class="form-control" placeholder="Message:" rows="5"></textarea>
                             </div>
                             <div class="form-group" align="center">
                                 <input type="submit" name="submit" value="Submit" class="btn btn-info" />
                             </div>
                             <?=$error?>
+                            <script>
+                            var csrf = '<?=$session->getCsrfToken()->getValue()?>';
+                            </script>
                         </form>
                         <?php } else {?>
                         <div>
@@ -136,30 +148,24 @@ $scountresult = mysqli_num_rows($scountquery);
 
         <!--Dropdown for MAIL-TAB starts -->
         <?php
-if ( !empty($_SESSION['Spotamon']['uname'])) {
-
-    // Lookup usrpic filename for user
-    $urlquery = "SELECT url FROM users WHERE uname = '" . $_SESSION['Spotamon']['uname'] . "'";
-    $resulturl = $conn->query($urlquery);
-    $rowurl = $resulturl->fetch_array(MYSQLI_NUM);
-    $url = $rowurl[0];
-    $countquery = $conn->query("SELECT * FROM `messages` WHERE unread=1 AND to_user = '" . $_SESSION['Spotamon']['uname'] . "' AND del_in='0'");
-    $msgcount = $countquery->num_rows;
-    ?>
+if ( !empty($uname)) { ?>
         <li class="ml-md-auto"><a href="#"><i class="far fa-envelope-open"></i>Mail
-                <span class="badge my-auto">
-                    <?=$msgcount?>
+                <span class="badge mcount my-auto">
+                    <?=$mcount?>
                 </span>
                 <span class="wsarrow"></span></a>
             <ul class="sub-menu">
                 <li>
-                    <a href="./inbox.php">Inbox</a>
+                    <a href="/mail">Inbox</a>
                 </li>
                 <li>
-                    <a href="./outbox.php">Outbox</a>
+                    <a href="/mail?box=outbox">Outbox</a>
                 </li>
                 <li>
-                    <a href="./compose.php">Send message</a>
+                    <a href="/mail?compose=true">Send message</a>
+                </li>
+                <li>
+                    <a href="/mail?box=trash" class="d-block d-md-none">Trash</a>
                 </li>
             </ul>
         </li>
@@ -167,18 +173,14 @@ if ( !empty($_SESSION['Spotamon']['uname'])) {
         <!-- USERPROFILE begins -->
         <li>
             <a href="profile.php">
-                <?php if (!empty($url)) {
-        if (substr($url, 0, 5) == 'https') {?>
+                <?php if (!empty($url)) { ?>
                 <img class="pic my-auto" src="<?=$url?>" height="25px" width="25px" alt="logo" style="border:1px solid black">
                 <?php } else {?>
-                <img class="pic my-auto" src="<?=W_ASSETS?>userpics/<?=$url?>" height="25px" width="25px" alt="logo"
-                    style="border:1px solid black">
-                <?php }} else {?>
                 <img class="pic my-auto" src="<?=W_ASSETS?>userpics/nopic.png" height="25px" width="25px" alt="logo"
                     style="border:1px solid black">
                 <?php }?>
                 &nbsp
-                <?=$_SESSION['Spotamon']['uname']?>
+                <?=$uname?>
             </a>
         </li>
         <!-- USERPROFILE ends -->

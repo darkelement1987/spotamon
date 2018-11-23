@@ -1,7 +1,6 @@
 <?php
 require_once 'initiate.php';
 
-
 ?>
 
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -51,7 +50,7 @@ $id = $pokemon = $cp = $iv = $monster = $spotter = $opentrade = "";
 if (isset($_SESSION['Spotamon']['uname'])) {?>
 					<!--///////////////////// SUBMIT FORM \\\\\\\\\\\\\\\\\\\\\-->
 					<h3 style="text-align:center;"><strong>Offer a Trade:</strong></h3>
-					<form id="usersubmit" method="post" action="<?=W_FUNCTIONS?>offertrade.php">
+					<form id="usersubmit" method="post" action="<?=W_PAGES?>offertrade.php">
 						<center>
 							<table id="added" class="table table-bordered">
 								<tbody>
@@ -62,15 +61,15 @@ if (isset($_SESSION['Spotamon']['uname'])) {?>
 											<select id='pokesearch' name='offmon'>
 												<?php
 while ($row = $result->fetch_assoc()) {
-	unset($id, $monster);
-	$id = $row['id'];
-	$monster = $row['monster'];
-	echo '<option value="' . $id . '">' . $id . ' - ' . $monster . '</option>';
+    unset($id, $monster);
+    $id = $row['id'];
+    $monster = $row['monster'];
+    echo '<option value="' . $id . '">' . $id . ' - ' . $monster . '</option>';
 }?>
 											</select>
 											<?php
 
-	?>
+    ?>
 										</td>
 									</tr>
 									<!--///////////////////// Cp enter \\\\\\\\\\\\\\\\\\\\\-->
@@ -122,19 +121,19 @@ while ($row = $result->fetch_assoc()) {
 											<div id="opendefine">
 												<?php
 
-	$result1 = $conn->query("SELECT * FROM pokedex");?>
+    $result1 = $conn->query("SELECT * FROM pokedex");?>
 												<select id='pokesearch2' name='reqmon'>
 													<?php
 while ($row = $result1->fetch_assoc()) {
-		unset($id, $monster);
-		$id = $row['id'];
-		$monster = $row['monster'];
-		echo '<option value="' . $id . '">' . $id . ' - ' . $monster . '</option>';
-	}?>
+        unset($id, $monster);
+        $id = $row['id'];
+        $monster = $row['monster'];
+        echo '<option value="' . $id . '">' . $id . ' - ' . $monster . '</option>';
+    }?>
 												</select>
 												<?php
 
-	?>
+    ?>
 											</div>
 										</td>
 									</tr>

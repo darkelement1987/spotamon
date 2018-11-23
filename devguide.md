@@ -12,8 +12,7 @@ The Spotamon project is Composer dependent.  Composer is a PHP dependency and pa
 Included Classes in the Project (not including dependencies:
 | Class          | Namespace                             | Source      | Use                                                                 |
 | -------------- | ------------------------------------- | ----------- | ------------------------------------------------------------------- |
-| AntiCSRF       | \ParagonIE\AntiCSRF                   | Composer    | Form Anti-CSRF protection                                           |
-| Reusable       | \ParagonIE\AntiCSRF                   | Composer    | Ajax Anti-CSRF protection                                           |
+| Session        | \Aura\Session                         | Composer    | Session control and Anti-Csrf                                       |
 | Discord        | \ Wohali \ OAuth2 \ Client \ Provider | Composer    | Oauth2 Library                                                      |
 | DiscordClient  | \Restcord                             | Composer    | Discord interaction Library(future use)                             |
 | Anti-XSS       | \Voku                                 | Composer    | Anti-XSS Client                                                     |
@@ -21,11 +20,11 @@ Included Classes in the Project (not including dependencies:
 | Discord        | \Spotamon                             | FallenFlash | Pulling Discord Info to Web Frontend for Restcord  (future use)     |
 | Members        | \Spotamon                             | FallenFlash | Pulling specific member info from Discord (future use)              |
 | Oauth2         | \Spotamon                             | FallenFlash | Used for oauth2 authentication through Discord Front end for Waholi |
-| Session        | \Spotamon                             | FallenFlash | Session Management and Security                                     |
+
 | Silph          | \Spotamon                             | FallenFlash | Pulling of Trainer Card info from The Silph Road (future use)       |
 | Validate       | \Spotamon                             | FallenFlash | For form Validation with XSS Protection                             |
 
-All Classes are processed through the Composer Auto-loader so `Use` syntax is not required, though usable.  But Classes can be initiated by 
+All Classes are processed through the Composer Auto-loader so `Use` syntax is not required, though usable.  But Classes can be initiated by
 `$Class = New \Namespace\Class`
 
 ## Bootsrapped Classes and Variables
@@ -38,11 +37,11 @@ Every Directory has a file named "initiate.php"  This should be the first file i
 ### Project Constants
 
 Back-end Constants, These contain the absolute path to the project folders for use to back-end processes, such as file inclusion.
-  - S_ROOT 
+  - S_ROOT
   - S_CONFIG
   - S_PAGES
   - S_CLASSES
- 
+
  Front-end Constants, these contain the paths with domain included for use in the project front end, such as images or css files
    - W_ASSETS
    - W_PAGES
@@ -53,17 +52,14 @@ Back-end Constants, These contain the absolute path to the project folders for u
 Variables
   - $wroot  = containts the filepath not including domain.   `/` or if there is a subdirectory `/subdirectory/`
   - $viewurl = works much the same as wroot, but includes domain and request type
- 
+
  ##### Some Classes have been auto intitiated per convenience
-   - $csrf
-	   - This is for Ajax Form CSRF protection, not quite as secure as the standard csrf library, but the standard is not compatible with multiple submits or with page refreshes.
-   - $csrf2
-	   - The standard library
+   - $sess
+	- Session control, use ->get() ->set()
    - $Validate
 	   - The XSS/Form Validation Library
 
-**-Note-**
-The bootstrap file does initiate Session_Start() if it has not already been started, and does so through a custom class.  But this class is just static functions and is not initiated. but used as `Spotamon\Session::sessionStart()`
+
 
 # Class Guide
 
@@ -84,12 +80,12 @@ this creates a hidden input containing the information needed to validate the fo
 $path = W_ROOT . 'index.php;
 $token = $csrf->insertToken($path, false);
  ```
- this would save the input to the `$token` variable for a form being sent to 
+ this would save the input to the `$token` variable for a form being sent to
  `https://spotamon.com/index.php`
- you would then include 
+ you would then include
  `<?=$token?>`
  at the end, but before the close, of your form to be submitted.
- $lockto is optional if your form could be set to multiple locations, and echo is default true. simplest case of using this would be 
+ $lockto is optional if your form could be set to multiple locations, and echo is default true. simplest case of using this would be
 ```html
 <form id="form" method="post" action="#">
 	<input type="text">
@@ -111,7 +107,7 @@ The get functions check if the $key exists, as well as if the $key is empty.
 On passing validation check the asked for data will be returned.  If data fails to validate the functions of this class will return `null`
 
 **-Variables-**
- - $Validate->aXss 
+ - $Validate->aXss
 	 - this give direct access to the voku\antiXSS class
  - $Validate->data
 	 - On improper validation this will contain the reasoning behind the invalidation.  otherwise it will return empty.
@@ -151,8 +147,8 @@ if only key is provided then then this function unsets the variable
 if key and value are provided, $key = $value;
 both $key and $value accept arrays;
 if $key is array but $value is singular, sets all items in the array with the same value
-if both $key and $value are arrays, this function combines arrays and sets each 
-$key with its corresponding $value. 
+if both $key and $value are arrays, this function combines arrays and sets each
+$key with its corresponding $value.
 *note* if using both options as arrays, both arrays much have the same number of items, and corresponding $keys are set with thier $values.
 ie: $key[0] = $value[0], $key[1] = $value[1], and so forth.
 
@@ -203,12 +199,12 @@ $Validate->setSession('uname', $uname)
 	will set $_SESSION['uname'] = $uname
 $Validate->setPost('upass')
 	this would unset $_POST['upass']
-	
+
 $key = [ 'a', 'b', 'c']
 $value = 1
 $Validate->setSession( $key, $value)
 	sets $_SESSION['a'], $_SESSION['b'], $_SESSION['c'] all with the value 1
-	
+
 $key = ['uname', 'loggedin', 'time']
 $value = ['FallenFlash', true, time()]
 $Validate->setSession( $key, $value)

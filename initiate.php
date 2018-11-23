@@ -3,20 +3,18 @@ require_once 'config/config.php';
 require_once 'vendor/autoload.php';
 require_once 'core/functions/functions.php';
 ini_set('display_errors', '1');
+// if ($enableDebug === true) {
+//     ini_set("log_errors", 1);
+//     ini_set("error_log", "./debug.log");
+// } else if ($enableDebug === false && file_exists('./debug.log') ){
+//     delete('./debug.log');
+// }
 use \Aura\Session\SessionFactory;
-if (!isset($_SESSION) || !isset($session)) {
-    $session_factory = new \Aura\Session\SessionFactory;
-    $session = $session_factory->newInstance($_COOKIE);
-    $session->start();
-    $sess = $session->getSegment('Spotamon');
-}
-
-if ($enableDebug === true) {
-    ini_set("log_errors", -1);
-ini_set("error_log", "/debug.log");
-} else if ($enableDebug === false && file_exists('/error.log') ){
-    delete('/error.log');
-}
+$session_factory = new \Aura\Session\SessionFactory;
+$session = $session_factory->newInstance($_COOKIE);
+$session->setCookieParams(array('lifetime' => '1209600'));
+$sess = $session->getSegment('Spotamon');
+$uname = $sess->get('uname', null);
 
 use \Spotamon\Validate;
 $Validate = new Validate;
@@ -66,10 +64,13 @@ define("W_FUNCTIONS", $wfunctions);
 
 
 
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new \mysqli($servername, $username, $password, $database);
 $conn->set_charset('utf8mb4');
 // Check connection
 if ($conn->connect_error) {
     echo "Connection failed: $conn->connection_error";
     }
+
+$csrftoken = csrf();
+
 

@@ -26,9 +26,9 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
     $result = $authenticated->result;
     $form = W_PAGES . 'temppass.php';
     $csrftoken = csrf();
-    $user = $sess->get('uname');
+    $quname = $sess->get('uname');
     $passcheck = $conn->prepare("SELECT upass FROM users WHERE uname = ?;");
-    $passcheck->bind_param("s", $user);
+    $passcheck->bind_param("s", $quname);
     $passcheck->execute();
     $passcheck->bind_result($upass);
     $passcheck->fetch();
@@ -84,9 +84,9 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
                                         <label for="password" class="sr-only">Password</label>
                                     </span>
                                 </div>
-                                <input type="password" name="password" placeholder="Password" class="form-control login-fields"
+                                <input type="password" autocomplete="off" name="password" placeholder="Password" class="form-control login-fields"
                                     pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$" oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
-                                    maxlength="18" id="regpass" minlength=required />
+                                    maxlength="18" id="regpass" minlength="8" required />
                             </div>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -95,9 +95,9 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
                                         <label for="confirmpassword" class="sr-only">Confirm Password</label>
                                     </span>
                                 </div>
-                                <input type="password" name="confirmpassword" placeholder="Confirm Password" class="form-control login-fields"
+                                <input type="password" name="confirmpassword" autocomplete="off" placeholder="Confirm Password" class="form-control login-fields"
                                     pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,20}$' oninvalid="this.setCustomValidity('Password must contain: \n1 Capital, 1 Lowercase\n1 Number, and be 8-20 characters long.')"
-                                    id="regconfirmpass" maxlength="18" minlength="8" required />
+                                    id="regconfirmpass" maxlength="20" minlength="8" required />
                             </div>
                             <?=$csrftoken?>
                             <button class="btn btn-primary btn-block btn-sm" id="passwordsubmit" type="submit">Register</button>
@@ -125,9 +125,6 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
                 $('#regconfirmpass').prop('pattern', $('#regpass').val());
                 $('#regconfirmpass').attr('oninvalid', 'this.setCustomValidity("Passwords must Match")');
         });
-    });
-
-        $.(function() {
             $('#return-btn').hide();
         });
 
@@ -149,13 +146,13 @@ if ($authenticated->result === 'discord-register' || $authenticated->result === 
 </body>
 
 </html>
-<?php
 
-    }
+<?php
+}
+
 if ($authenticated->result == True) {
 
     echo 'true';
-
 } else {
     foreach ($authenticated->error as $error) {
         echo $error . '<br>';

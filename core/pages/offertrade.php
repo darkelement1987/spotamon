@@ -1,8 +1,7 @@
 <?php
+require_once 'initiate.php';
 
-
-$curl = curl_init();
-
+$status = '';
 $offmon = $conn->real_escape_string($_POST['offmon']);
 $cp = $conn->real_escape_string($_POST['cp']);
 $iv = $conn->real_escape_string($_POST['iv']);
@@ -40,7 +39,7 @@ if(isset($_POST['opentrade'])){
 $sql = "INSERT INTO offers (offmon, cp, iv, tradeloc, reqmon, tname, accepted, opentrade, shiny, alolan, notes, complete, cloc) VALUES ('$offmon','$cp','$iv','$tradeloc','$reqmon','$uname','$accepted','$opentrade','$shiny','$alolan','$notes','$complete','$cloc')";
 if(!mysqli_query($conn,$sql))
 {
-    echo 'Not Inserted';
+    $status = 'Not Inserted';
 }
 
 $sql1 = "SELECT * FROM users WHERE uname='".$_SESSION['Spotamon']['uname']."'";
@@ -53,8 +52,11 @@ $result = mysqli_query($conn,$sql1)or die(mysqli_error($conn));
 $sql2 = "UPDATE users SET offtrades='$offtrades' WHERE uname='".$_SESSION['Spotamon']['uname']."'";
     if(!mysqli_query($conn,$sql2))
         {
-            echo 'Not Inserted';
+            $status = 'Not Inserted';
         }
 
-header('Location:'.$_SERVER['HTTP_HOST'].'/active-trades.php');
-?>
+if ($status === '') {
+	$status = 'true';
+}
+header('Content-type: application/json');
+    echo json_encode($status);

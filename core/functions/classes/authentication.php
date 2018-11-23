@@ -44,6 +44,7 @@ class Authentication
         global $Validate;
         global $csrf;
         global $session;
+        global $sess;
         if (!verifyCsrf()) {
             $this->error[] = 'Validation Error';
             return false;
@@ -85,8 +86,18 @@ class Authentication
             return true;
 
         } else if ( md5($userPassword) === $pass ) {
-            header("Location: " . W_PAGES . "temppass.php");
-            exit();
+            $pass = password_hash($userPassword, PASSWORD_DEFAULT);
+            $updatePass = $conn->prepare("update users set upass = ? WHERE uname = ?");
+            $results = $updatePass->bind_param("ss", $pass, $user);
+            $results = $stmt->execute();
+            unset($values);
+            $logged_in = true;
+            $time = time();
+            $values = [$user, $logged_in, $time];
+            $session->regenerateId();
+            $Validate->setSession($options, $values);
+            $stmt->close();
+            return true;
         }
         $this->error[] = 'Password is incorrect';
         return false;
@@ -177,13 +188,14 @@ class Authentication
     {
         global $conn;
         $email = $useremail;
-        $exist = $conn->prepare("SELECT count(*) FROM users WHERE email like ? ;");
+        $exist = $conn->prepare("SELECT count(*) as count FROM users WHERE email like ? ;");
         $exist->bind_param("s", $email);
-        $exist->execute();
-        $data = $exist->get_result();
-        $data = $data->fetch_all();
-        $data = $data[0][0];
-        $exist->close();
+        if ($exist->execute()) {
+            $results = $exist->get_result();
+            while ( $result = $results->fetch_assoc()) {
+                $data = $result['count'];
+            }
+        }
         if ($data == '1') {
             return true;
         } else {
@@ -202,14 +214,13 @@ class Authentication
         $user = $Oauth2->user;
         $logintime = time();
         $emailexists = $this->emailexists($user->email);
-        if ($emailexists) {
+        if ($emailexists === true) {
             $session->regenerateId();
             $username = $conn->prepare("SELECT uname FROM users WHERE email = ?;");
             $username->bind_param("s", $user->email);
             $username->execute();
-            $data = $username->get_result();
-            $uname = $data->fetch_all();
-            $uname = $uname[0][0];
+            $username->bind_result($uname);
+            $username->fetch();
             $username->close();
             $avatarupdate = $conn->prepare("UPDATE users SET url = ? WHERE email = ?;");
             $avatarupdate->bind_param("ss", $user->avatar, $user->email);
@@ -220,8 +231,8 @@ class Authentication
             $this->insertToken($user->email);
             return 'discord-login';
         } else {
-            return 'You must first register to login with discord';
-
+            $this->error[] ='You must first register to login with discord';
+            return false;
         }
     }
 

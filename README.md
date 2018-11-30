@@ -1,12 +1,15 @@
 ### SPOTAMON - Crowdsourced Pokemon Go map.
 Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/">here</a>
-
+This Fork is a work in progress, and still actively under development towards new deployment.
 #### Requirements
 
 - Hosting with SSL / HTTPS
-- PHP 5.x or above
+- PHP 7.x or above
 - MySQL database
-- cURL extension
+- cURL PHP extension
+- Header Apache extension
+- Composer PHP Dependency Manager (Download and install [Here](https://getcomposer.org/download/))
+- Discord Application ( Quick Guide [Here](https://github.com/SinisterRectus/Discordia/wiki/Setting-up-a-Discord-application))
 
 #### Optional Requirements
 
@@ -18,9 +21,8 @@ Demo map: (spots only remain 15 seconds) <a href="https://www.spotamon.com/demo/
 - <a href="https://github.com/darkelement1987/spotbot">Spotamon Discord Bot</a> 
 
 #### Install
-- Create Database,
-- Connect to DB in config and load site, on first load it will auto create tables. 
-- Set `/userpics/` folder permissions to 777 / 757
+- use terminal or Git Bash to run `.install.sh`
+- Set `/core/assets/userpics/` folder permissions to 777 / 757
 
 #### Default Login
 Username: admin<br>
@@ -40,12 +42,12 @@ $viewtitle = "View on Spotamon"; // <-- Text showing for the MAP-link @ Discord
 #### Cronjob Commands
 Set your Cronjob to check each minute:
 
-Pokemon spots: `cd *path to spotamon*/frontend/ && php spotscron.php'`<br>
-Raid spots: `cd *path to spotamon*/frontend/ && php raidcron.php'`<br>
-Egg spots: `cd *path to spotamon*/frontend/ && php eggcron.php'` <br>
+Pokemon spots: `cd *path to spotamon*/core/functions/frontend/ && php spotscron.php'`<br>
+Raid spots: `cd *path to spotamon*/core/functions/frontend/ && php raidcron.php'`<br>
+Egg spots: `cd *path to spotamon*/core/functions/frontend/ && php eggcron.php'` <br>
 
 ### Set this Cronjob to check every day at 00:01 (AM):
-Quest spots: `cd *path to spotamon*/frontend/ && php questcron.php'`<br>
+Quest spots: `cd *path to spotamon*/core/functions/frontend/ && php questcron.php'`<br>
 
 #### Importing Gym/Stop CSV's
 

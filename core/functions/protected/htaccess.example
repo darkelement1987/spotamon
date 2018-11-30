@@ -1,0 +1,5 @@
+### Protect your protected files  ###
+  AuthName "Username and password required"
+  AuthUserFile "#htpassword#"
+  Require valid-user
+  AuthType Basic

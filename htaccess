@@ -1,0 +1,204 @@
+###########################################
+###              HTACCESS               ###
+###########################################
+###  Some sections have areas commented ###
+###  out, this is for differences in    ###
+###  configuration between Apache 2.4   ###
+###  and 2.2 and under.  Please comment ###
+###  or uncomment as necessary.  Default###
+###  is set up for Apache 2.4           ###
+###########################################
+###########################################
+
+
+
+###########################################
+####         GENERAL SETTINGS           ###
+###########################################
+
+#            disable indexes             #
+Options All -Indexes
+
+#  hard set index.html/php as index file #
+DirectoryIndex index.html index.php
+
+# Custom error pages.
+ErrorDocument 400 /core/pages/404.php
+ErrorDocument 500 /core/pages/404.php
+
+# ensures utf-8 for compatability        #
+AddDefaultCharset utf-8
+AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
+
+#     Force IE to use Edge rendering     #
+BrowserMatch MSIE is-msie
+Header set X-UA-Compatible IE=edge env=is-msie
+
+
+#      Prevent Iframe if not local       #
+Header set X-Frame-Options SAMEORIGIN
+
+
+##########################################
+####     Performance Settings          ###
+##########################################
+
+
+###        Enable Compression          ###
+
+
+<IfModule mod_deflate.c>
+
+    # Force compression for mangled headers.
+    <IfModule mod_setenvif.c>
+        <IfModule mod_headers.c>
+            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+        </IfModule>
+    </IfModule>
+
+#   Compress all output labeled with one  #
+#       of the following MIME-types       #
+## For Apache versions below 2.3.7, you  ##
+## don't need to enable `mod_filter` and ##
+##can remove the `<IfModule mod_filter.c>`#
+## and `</IfModule>` lines               ##
+
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE application/atom+xml \
+                                      application/javascript \
+                                      application/json \
+                                      application/rss+xml \
+                                      application/vnd.ms-fontobject \
+                                      application/x-font-ttf \
+                                      application/x-web-app-manifest+json \
+                                      application/xhtml+xml \
+                                      application/xml \
+                                      font/opentype \
+                                      image/svg+xml \
+                                      image/x-icon \
+                                      text/css \
+                                      text/html \
+                                      text/plain \
+                                      text/x-component \
+                                      text/xml
+    </IfModule>
+
+</IfModule>
+
+###        Set Header Exiration         ###
+
+<IfModule mod_expires.c>
+    ExpiresActive on
+
+    Default
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    # Video
+    ExpiresByType video/mp4 "access plus 1 year"
+    ExpiresByType video/mpeg "access plus 1 year"
+
+    # CSS, JavaScript
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 month"
+
+    # Others
+    ExpiresByType application/pdf "access plus 1 year"
+
+</IfModule>
+
+
+
+### Disables browsers ability to cache files ###
+### Forces reliance on update script         ###
+# Header unset ETag
+#
+# FileETag None
+
+
+###        Allow cross domain fonts           ###
+<FilesMatch "\.(eot|otf|ttc|ttf|woff|woff2)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+#################################################
+###               Rewrite Rules               ###
+#################################################
+
+
+# upEnable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+###  uncomment if you want to force no WWW    ###
+#  RewriteCond %{HTTP_HOST} ^www\.
+#  RewriteCond %{HTTPS}s ^on(s)|off
+#  RewriteCond http%1://%{HTTP_HOST} ^(https?://)(www\.)?(.+)$
+#  RewriteRule ^ %1%3%{REQUEST_URI} [R=301,L]
+
+
+# Rules for Versioned Static Files
+RewriteRule ^core/(css|js)/(.+)\.(\d{10})\.(css|js)$ core/$1/$2.$4 [NC,L]
+
+###     Protects Hidden Files     ###
+RewriteCond %{SCRIPT_FILENAME} -d [OR]
+RewriteCond %{SCRIPT_FILENAME} -f
+RewriteRule "(^|/)\." - [F]
+
+
+###    Uncomment for Https only    ###
+#   RewriteCond %{HTTPS} !on
+#   RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+#
+#   # Note: It’s also recommended to enable HTTP Strict Transport Security (HSTS)
+#   # on your HTTPS website to help prevent man-in-the-middle attacks.
+#   # See https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
+#   <IfModule mod_headers.c>
+#       # Remove "includeSubDomains" if you don't want to enforce HSTS on all subdomains
+#       Header always set Strict-Transport-Security "max-age=31536000;includeSubDomains"
+#   </IfModule>
+
+### unomment for use with letsencrypt
+# RewriteEngine On
+# RewriteCond %{REQUEST_URI} !\.well-known/acme-challenge
+# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+# RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+
+RewriteCond %{REQUEST_FILE}\.html -f
+RewriteRule (.*)$ $1.html [L]
+
+RewriteCond %{REQUEST_FILE}\.php -f
+RewriteRule (.*)$ $1.php [L]
+
+
+
+
+
+###Protect Hidden and System Files ###
+
+<FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$">
+    ### Apache 2.2
+    #Order allow,deny
+    #Deny from all
+    #Satisfy All
+
+    # Apache 2.4
+    Require all denied
+</FilesMatch>
+
+### Temp for page rewrites ###
+<IfModule mod_rewrite.c>
+  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI} !-f
+  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI} !-d
+  RewriteRule ([^\/\.]*)(\.php)(.*) index.php?pg=$1&$3 [QSA,NC,L]
+</IfModule>
+
+

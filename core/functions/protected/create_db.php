@@ -1,0 +1,213 @@
+<?php
+require_once 'initiate.php';
+// sql to create spoting table
+$spot = "CREATE TABLE IF NOT EXISTS `spots` (
+spotid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+pokemon VARCHAR(30) NOT NULL,
+cp INT(6) NOT NULL,
+iv INT(3) NOT NULL,
+hour VARCHAR(2) NOT NULL,
+min VARCHAR(2) NOT NULL,
+ampm VARCHAR(2) NOT NULL,
+latitude DECIMAL(10,6) NOT NULL,
+longitude DECIMAL(10,6) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+fulladdress VARCHAR(128) NOT NULL,
+good INT(3) NOT NULL,
+bad int(1) NOT NULL,
+spotter VARCHAR(100) NOT NULL
+)";
+
+// sql to create the pokedex table
+$dex = "CREATE TABLE IF NOT EXISTS `pokedex` (
+id INT(6) PRIMARY KEY NOT NULL,
+monster VARCHAR(25) NOT NULL)";
+
+$spotraid = "CREATE TABLE IF NOT EXISTS `spotraid` (
+rid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+rboss VARCHAR(30) NOT NULL,
+rhour VARCHAR(2) NOT NULL,
+rmin VARCHAR(2) NOT NULL,
+rampm VARCHAR(2) NOT NULL,
+rdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+spotter VARCHAR(100) NOT NULL
+)";
+
+$raidbosses = "CREATE TABLE IF NOT EXISTS `raidbosses` (
+rid INT(6) PRIMARY KEY NOT NULL,
+rcp INT(6) NOT NULL,
+rlvl INT(1) NOT NULL,
+rboss VARCHAR(25) NOT NULL)";
+
+$gyms = "CREATE TABLE IF NOT EXISTS `gyms` (
+gid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+gname VARCHAR(255) NOT NULL UNIQUE,
+glatitude DECIMAL(10,6) NOT NULL UNIQUE,
+glongitude DECIMAL(10,6) NOT NULL UNIQUE,
+gteam INT(2) NOT NULL,
+actraid VARCHAR(255) NOT NULL,
+actboss INT(3) NULL,
+hour VARCHAR(2) NOT NULL,
+min VARCHAR(2) NOT NULL,
+ampm VARCHAR(2) NOT NULL,
+egg INT(1) NOT NULL,
+type VARCHAR(25) NOT NULL,
+eggby VARCHAR(100) NOT NULL,
+teamby VARCHAR(100) NOT NULL,
+raidby VARCHAR(100) NOT NULL,
+exraid int(1) NOT NULL,
+exraiddate DATETIME NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
+
+$exraids = "CREATE TABLE IF NOT EXISTS `exraids` (
+exid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+gname INT(10) NOT NULL UNIQUE,
+exraiddate DATETIME NULL,
+spotter VARCHAR(255) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
+
+$exraidatt = "CREATE TABLE IF NOT EXISTS `exraidatt` (
+attid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+exid INT(10) NOT NULL,
+uid VARCHAR(255) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
+
+$teams = "CREATE TABLE IF NOT EXISTS `teams` (
+tid INT(6) PRIMARY KEY NOT NULL,
+tname VARCHAR(15) NOT NULL)";
+
+$stops = "CREATE TABLE IF NOT EXISTS `stops` (
+sid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+sname VARCHAR(255) NOT NULL UNIQUE,
+slatitude DECIMAL(10,6) NOT NULL UNIQUE,
+slongitude DECIMAL(10,6) NOT NULL UNIQUE,
+quested INT(1) NOT NULL,
+actquest INT (3) NOT  NULL,
+actreward INT (3) NOT NULL,
+hour VARCHAR(2) NOT NULL,
+min VARCHAR(2) NOT NULL,
+ampm VARCHAR(2) NOT NULL,
+lured INT(1) NOT NULL,
+type VARCHAR(25) NOT NULL,
+questby VARCHAR(100) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
+
+$quests = "CREATE TABLE IF NOT EXISTS `quests` (
+qid INT(6) PRIMARY KEY NOT NULL,
+qname VARCHAR(255) NOT NULL,
+type VARCHAR(8) NOT NULL)";
+
+$rewards = "CREATE TABLE IF NOT EXISTS `rewards` (
+reid INT(4) PRIMARY KEY NOT NULL,
+rname VARCHAR(255) NOT NULL,
+type VARCHAR(8) NOT NULL)";
+
+$users = "CREATE TABLE IF NOT EXISTS `users` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`email` VARCHAR(100) NOT NULL,
+	`uname` VARCHAR(100) NOT NULL,
+	`upass` VARCHAR(100) NOT NULL,
+	`usergroup` VARCHAR(1) NOT NULL DEFAULT '1',
+	`trn_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`url` TEXT NULL DEFAULT NULL,
+	`lastUpload` VARCHAR(200) NULL DEFAULT NULL,
+	`offtrades` INT(9) NOT NULL DEFAULT '0',
+	`reqtrades` INT(9) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `email` (`email`),
+	UNIQUE INDEX `uname` (`uname`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=1";
+
+$extendeduser = "CREATE TABLE IF NOT EXISTS `user_extended` (
+	`email` VARCHAR(100) NOT NULL,
+	`discord_id` VARCHAR(50) NULL DEFAULT NULL,
+	`silph_name` VARCHAR(50) NULL DEFAULT NULL,
+	`discord_uname` VARCHAR(50) NULL DEFAULT NULL,
+	`token` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`discord_profile` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`silph_profile` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`avatar` VARCHAR(100) NULL DEFAULT NULL,
+	UNIQUE INDEX `email` (`email`),
+	UNIQUE INDEX `discord_id` (`discord_id`),
+	CONSTRAINT `FK_user_extended_users` FOREIGN KEY (`Email`) REFERENCES `users` (`email`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COMMENT='additional user rescources'
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB";
+
+$usergroup = "CREATE TABLE IF NOT EXISTS `usergroup` (
+id INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+groupname VARCHAR(20) NOT NULL)";
+
+$version = "CREATE TABLE IF NOT EXISTS `version` (
+version INT(3) NOT NULL)";
+
+$reset = "CREATE TABLE IF NOT EXISTS `reset` (
+resetid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+uname VARCHAR(100) NOT NULL UNIQUE,
+email VARCHAR(100) NOT NULL UNIQUE,
+token VARCHAR(100) NOT NULL)";
+
+$messages = "CREATE TABLE IF NOT EXISTS `messages` (
+ id INT(6) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+ subject VARCHAR(255),
+ to_user VARCHAR(30),
+ del_in INT(1) NOT NULL DEFAULT '0',
+ del_out INT(1) NOT NULL DEFAULT '0',
+ from_user VARCHAR(30),
+ unread INT(10) NOT NULL,
+ message VARCHAR(1000),
+ date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
+
+$offers = "CREATE TABLE IF NOT EXISTS `offers` (
+oid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+offmon VARCHAR(30) NOT NULL,
+cp INT(6) NOT NULL,
+iv INT(3) NOT NULL,
+tradeloc VARCHAR(100) NOT NULL,
+reqmon VARCHAR(30) NOT NULL,
+tname VARCHAR(100) NOT NULL,
+accepted INT(1) NULL,
+opentrade INT(1) NOT NULL,
+shiny INT(1) NOT NULL,
+alolan INT(1) NOT NULL,
+notes VARCHAR(255) NOT NULL,
+complete INT(1) NOT NULL,
+cloc VARCHAR(255) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+$trades = "CREATE TABLE IF NOT EXISTS `trades` (
+tid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+oid INT(10) NOT NULL,
+tradeloc VARCHAR(100) NOT NULL,
+tname VARCHAR(100) NOT NULL,
+rname VARCHAR(100) NOT NULL,
+offmon VARCHAR(30) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+$tradeoffers = "CREATE TABLE IF NOT EXISTS `tradeoffers` (
+toid INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+oid INT(10) NOT NULL,
+coffer INT(10) NOT NULL,
+offerby VARCHAR(255) NOT NULL,
+cofferby VARCHAR(255) NOT NULL,
+ccp INT(10) NOT NULL,
+civ INT(10) NOT NULL,
+cshiny INT(1) NOT NULL,
+calolan INT(1) NOT NULL,
+accepted INT(1) NOT NULL,
+complete INT(1) NOT NULL,
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+$tables = [$spot, $dex, $spotraid, $raidbosses, $gyms, $exraids, $exraidatt, $teams, $stops, $quests, $rewards, $users, $extendeduser, $usergroup, $version, $reset, $messages, $offers, $trades, $tradeoffers];
+
+foreach($tables as $k => $sql){
+    $query = @$conn->query($sql);
+}
+
+?>
+<p> Your database has been successfully created, please check core/functions/protected/update.php for any database updates </p>

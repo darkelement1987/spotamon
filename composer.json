@@ -1,0 +1,13 @@
+{
+    "require": {
+        "restcord/restcord": "^0.2.2",
+        "wohali/oauth2-discord-new": "^1.0",
+        "aura/session": "2.x-dev",
+        "voku/anti-xss": "^4.1"
+    },
+    "autoload" : {
+        "psr-4":{
+            "Spotamon\\" : "core/functions/classes/"
+        }
+    }
+}

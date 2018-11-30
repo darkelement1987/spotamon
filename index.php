@@ -1,53 +1,60 @@
 <?php
-include './frontend/functions.php';
-include './frontend/menu.php';
-include './config/dbbuilding.php';
-require './config/config.php';
+require_once 'initiate.php';
 ?>
 
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script>
-
-        function submitInstinct(){
-            document.postInstinct.submit();
-        }
-        function submitValor(){
-            document.postValor.submit();
-        }
-        function submitMystic(){
-            document.postMystic.submit();
-        }
-    </script>
 
     <?php
-    menu();
-
-    maps();
-
+    include_once S_PAGES . 'parts/meta.php';
     ?>
-
-    <?php
-    // Update map if needed
-    require './config/version.php';
-    $versionquery = "SELECT version FROM version";
-    $versionresult = $conn->query($versionquery);
-    $rowversion = $versionresult->fetch_array(MYSQLI_NUM);
-    $version = $rowversion[0];
-
-    if ($version =='') {
-        $conn->query("INSERT IGNORE INTO `version` (`version`) VALUES ('1')");
-    } else if ($version < $lastversion) {
-        $conn->query("UPDATE version SET version='".$lastversion."'");
-        echo "<meta http-equiv='refresh' content='1;url=update.php'>";
+    <script>
+<?php if (!empty($analytics)) {?>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
     }
-    ?>
-    <script>
-    $( document ).ready(function() {
-        initMap()
-    })
-    </script>
+    gtag('js', new Date());
+    gtag('config', '<?=$analytics?>');
+<?php } ?>
+</script>
+<?php
+    include_once S_PAGES . 'parts/js.php';
+?>
+
+</head>
+
+<body>
+    <div id="menu-wrapper">
+    <?php include_once S_PAGES . 'parts/menu.php'; ?>
+</div>
+<?php
+
+    if (!empty($Validate->get->pg)) {
+        $pageurl = $Validate->get->pg;
+        if (file_exists(S_PAGES . $pageurl . '.php')) { ?>
+            <div id="content" data-page="<?=$pageurl?>">
+            <?php
+            include_once S_PAGES . $pageurl . '.php';
+        } else if (function_exists($pageurl)) { ?>
+            <div id="content" data-page="<?=$pageurl?>">
+            <?php
+            $pageurl();
+        } else { ?>
+            <div id="content" data-page="map">
+            <?php
+            include_once S_PAGES . 'map.php';
+        }
+    } else { ?>
+        <div id="content" data-page="map">
+        <?php
+            include_once S_PAGES . 'map.php';
+        } ?>
+    </div>
+
+
     </body>
-	<footer></footer>
+</html>
+

@@ -2,7 +2,7 @@
 ob_start();
 require './config/config.php';
 require './config/version.php';
-include'frontend/functions.php';
+include './frontend/functions.php';
 
 echo '<h2><strong>Database Update was necessary:</strong></h2>';
 echo '<h4>Version is now: "'.$lastversion.'"<br><br><hr>';

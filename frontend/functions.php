@@ -425,7 +425,7 @@ map.addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             iconSize: [30, 30]
 			});
 		} else if (quested === ""){
-		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if(!isset($_SESSION["uname"])){?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php }?><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
+		var html = '<div class=\"maplabel\"><center><img src=\"./static/stops/stops.png\" height=\"45\" width=\"45\"></img><p><b>' + sname + '</b><?php if(!isset($_SESSION["uname"])){?><br><hr><b><span class="text-danger">Login to add/view quests.</span></b><?php }?><br><hr><a href=\"javascript:window.open(\'submit-quest.php?stopid=' + sid + '\',\'mypopuptitle\',\'width=600,height=400\')\">open popup</a><br><hr><a href=\"http://maps.google.com/maps?q=' + markerElem.getAttribute('slatitude') + ',' + markerElem.getAttribute('slongitude') + '\">Google Maps</a></center></div>';
         var icon = customLabel[type] || {};
         var image = new L.Icon({
             iconUrl: './static/stops/stops.png',
@@ -726,7 +726,11 @@ foreach($array2 as $key=>$value){
 <td style="width: 5%;">At Pokestop</td>
 <td style="width: 10%;">
 <?php
+if(isset($_GET['stopid'])){
+	$result = $conn->query("SELECT * FROM stops WHERE sid=".$_GET['stopid']);
+} else {
 $result = $conn->query("SELECT * FROM stops");
+}
 $sid = $sname = $sname = "";
 echo "<select id='pokestopsearch' name='sname'>";
 while ($row = $result->fetch_assoc()) {
